@@ -59,7 +59,7 @@
       </el-form>
       <!--  底部  -->
       <div class="el-login-footer">
-        <span>Copyright © 2023-2024 全球跨境电商三中心 All rights reserved.</span>
+        <span>Copyright © 2024-2025 YXX All rights reserved.</span>
       </div>
   </div>
 </div>
