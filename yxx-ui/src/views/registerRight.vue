@@ -2,7 +2,7 @@
   <div :class="{'mobileLogin': isMobile}">
     <login-logo v-show="isMobile"></login-logo>
     <!-- login样式常驻，然后动态选择一个样式，移除另外一个 -->
-    <div :class="['login', isMobile ? 'MobileLogin' : 'noMobileLogin']">
+    <div :class="['register', isMobile ? 'MobileLogin' : 'noMobileLogin']">
       <el-form ref="registerForm" :model="registerForm" :rules="registerRules" class="register-form">
         <h2 class="title">注 册</h2>
         <el-form-item prop="username">
@@ -62,10 +62,10 @@
           </div>
         </el-form-item>
       </el-form>
-    </div>
-    <!--  底部  -->
-    <div class="el-register-footer">
-      <span>Copyright © 2024-2025 YXX All Rights Reserved.</span>
+      <!--  底部  -->
+      <div class="el-register-footer">
+        <span>Copyright © 2024-2025 YXX All Rights Reserved.</span>
+      </div>
     </div>
   </div>
 </template>
