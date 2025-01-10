@@ -1,4 +1,4 @@
-package com.yxx.common.domain;
+package com.yxx.common.core.domain;
 
 import org.springframework.util.StringUtils;
 import com.baomidou.mybatisplus.annotation.TableField;
