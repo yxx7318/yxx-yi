@@ -37,12 +37,35 @@ public class AsyncManager
 
     /**
      * 执行任务
-     * 
+     *
      * @param task 任务
      */
-    public void execute(TimerTask task)
+    public void execute(Runnable task)
     {
-        executor.schedule(task, OPERATE_DELAY_TIME, TimeUnit.MILLISECONDS);
+        execute(task, OPERATE_DELAY_TIME, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * 执行任务
+     *
+     * @param task 任务
+     * @param delayTime 延迟时间
+     */
+    public void execute(Runnable task, int delayTime)
+    {
+        executor.schedule(task, delayTime, TimeUnit.MILLISECONDS);
+    }
+
+    /**
+     * 执行任务
+     *
+     * @param task 任务
+     * @param delayTime 延迟时间
+     * @param timeUnit 时间单位
+     */
+    public void execute(Runnable task, int delayTime, TimeUnit timeUnit)
+    {
+        executor.schedule(task, delayTime, timeUnit);
     }
 
     /**
