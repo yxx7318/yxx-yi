@@ -1,11 +1,12 @@
 #!/bin/sh
 # ./ry.sh start 启动 stop 停止 restart 重启 status 状态
-AppName=yxx-admin.jar
+AppName=yxx-yxx.jar
 
 # JVM参数
 JVM_OPTS="-Dname=$AppName  -Duser.timezone=Asia/Shanghai -Xms512m -Xmx1024m -XX:MetaspaceSize=128m -XX:MaxMetaspaceSize=512m -XX:+HeapDumpOnOutOfMemoryError -XX:+PrintGCDateStamps  -XX:+PrintGCDetails -XX:NewRatio=1 -XX:SurvivorRatio=30 -XX:+UseParallelGC -XX:+UseParallelOldGC"
 APP_HOME=`pwd`
 LOG_PATH=$APP_HOME/logs/$AppName.log
+mkdir -p $APP_HOME/logs
 
 if [ "$1" = "" ];
 then
@@ -26,7 +27,7 @@ function start()
 	if [ x"$PID" != x"" ]; then
 	    echo "$AppName is running..."
 	else
-		nohup java $JVM_OPTS -jar $AppName > /dev/null 2>&1 &
+		nohup java $JVM_OPTS -jar $LOG_PATH > $AppName.log 2>&1 &
 		echo "Start $AppName success..."
 	fi
 }
