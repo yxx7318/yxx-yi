@@ -1,6 +1,5 @@
 package com.yxx.framework.manager;
 
-import java.util.TimerTask;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import com.yxx.common.utils.Threads;
