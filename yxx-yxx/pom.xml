@@ -11,7 +11,6 @@
 
     <artifactId>yxx-yxx</artifactId>
 
-
     <dependencies>
         <!-- 核心依赖-->
         <dependency>
