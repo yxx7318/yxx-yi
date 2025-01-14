@@ -13,9 +13,9 @@ import org.springframework.stereotype.Component;
  * 自定义元数据对象处理器
  */
 @Component
-public class MyMetaObjectHandler implements MetaObjectHandler {
+public class MPMetaObjectHandler implements MetaObjectHandler {
 
-    private static final Long NO_LOGON_ID = 0L;
+    private static final String NO_LOGON = "noLogin";
 
     /**
      * 插入操作，自动填充
@@ -30,8 +30,8 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
             metaObject.setValue("createBy", SecurityUtils.getUsername());
             metaObject.setValue("updateBy", SecurityUtils.getUsername());
         } else {
-            metaObject.setValue("createBy", NO_LOGON_ID);
-            metaObject.setValue("updateBy", NO_LOGON_ID);
+            metaObject.setValue("createBy", NO_LOGON);
+            metaObject.setValue("updateBy", NO_LOGON);
         }
     }
 
@@ -46,7 +46,7 @@ public class MyMetaObjectHandler implements MetaObjectHandler {
         if (isUserLoggedIn()) {
             metaObject.setValue("updateBy", SecurityUtils.getUsername());
         } else {
-            metaObject.setValue("updateBy", NO_LOGON_ID);
+            metaObject.setValue("updateBy", NO_LOGON);
         }
     }
 
