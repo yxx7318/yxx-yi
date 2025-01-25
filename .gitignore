@@ -46,4 +46,4 @@ nbdist/
 !*/build/*.html
 !*/build/*.xml
 
-./yxx/
+/yxx/
