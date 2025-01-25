@@ -36,6 +36,7 @@
         <spring-security.version>5.7.12</spring-security.version>
         <spring-framework.version>5.3.39</spring-framework.version>
 
+        <mybatis-plus.version>3.5.1</mybatis-plus.version>
         <hutool.version>5.8.0.M2</hutool.version>
         <redisson.version>3.43.0</redisson.version>
     </properties>
@@ -228,11 +229,21 @@
                 <version>${yxx.version}</version>
             </dependency>
 
+            <!-- mybatis-plus 增强CRUD -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
             <!-- hutool工具包 -->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
+                <type>pom</type>
+                <!-- 注意这里是import -->
+                <scope>import</scope>
             </dependency>
 
             <!-- redisson -->
