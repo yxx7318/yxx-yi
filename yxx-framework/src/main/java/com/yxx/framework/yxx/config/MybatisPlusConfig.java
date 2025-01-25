@@ -1,4 +1,4 @@
-package com.yxx.config;
+package com.yxx.framework.yxx.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;

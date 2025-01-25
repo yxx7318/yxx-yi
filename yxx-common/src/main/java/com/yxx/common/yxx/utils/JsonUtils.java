@@ -1,4 +1,4 @@
-package com.yxx.common.utils.json;
+package com.yxx.common.yxx.utils;
 
 import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ArrayUtil;

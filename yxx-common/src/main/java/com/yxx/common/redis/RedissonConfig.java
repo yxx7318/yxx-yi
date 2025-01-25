@@ -1,4 +1,4 @@
-package com.yxx.redis;
+package com.yxx.common.redis;
 
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;

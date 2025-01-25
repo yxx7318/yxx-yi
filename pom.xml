@@ -37,7 +37,7 @@
         <spring-framework.version>5.3.39</spring-framework.version>
 
         <hutool.version>5.8.0.M2</hutool.version>
-        <redisson.version>3.13.6</redisson.version>
+        <redisson.version>3.43.0</redisson.version>
     </properties>
 
     <!-- 依赖声明 -->

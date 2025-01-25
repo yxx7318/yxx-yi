@@ -59,6 +59,12 @@
             <artifactId>yxx-system</artifactId>
         </dependency>
 
+        <!-- Spring Session Data Redis -->
+        <dependency>
+            <groupId>org.springframework.session</groupId>
+            <artifactId>spring-session-data-redis</artifactId>
+        </dependency>
+
     </dependencies>
 
 </project>

@@ -1,4 +1,4 @@
-package com.yxx.common.utils.object;
+package com.yxx.common.yxx.utils;
 
 import cn.hutool.core.util.ObjectUtil;
 import lombok.AccessLevel;

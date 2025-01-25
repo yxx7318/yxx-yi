@@ -1,4 +1,4 @@
-package com.yxx.config;
+package com.yxx.framework.yxx.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.yxx.common.utils.DateUtils;

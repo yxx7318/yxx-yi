@@ -1,4 +1,4 @@
-package com.yxx.common.core.domain;
+package com.yxx.common.yxx.domain;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

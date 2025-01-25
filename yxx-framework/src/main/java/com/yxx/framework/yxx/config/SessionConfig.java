@@ -1,4 +1,4 @@
-package com.yxx.config;
+package com.yxx.framework.yxx.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

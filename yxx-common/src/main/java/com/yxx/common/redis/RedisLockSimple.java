@@ -1,4 +1,4 @@
-package com.yxx.redis;
+package com.yxx.common.redis;
 
 import com.yxx.common.utils.uuid.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
