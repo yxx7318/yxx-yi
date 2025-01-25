@@ -1,22 +1,47 @@
 package com.yxx.common.yxx.redis;
 
+import com.yxx.common.utils.StringUtils;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.redisson.config.Config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.beans.factory.annotation.Value;
 
 @Configuration
 public class RedissonConfig {
 
+    @Value("${spring.redis.host}")
+    private String redisHost;
+
+    @Value("${spring.redis.port}")
+    private int redisPort;
+
+    @Value("${spring.redis.database}")
+    private int redisDatabase;
+
+    // 如果有密码的话，添加以下属性
+    @Value("${spring.redis.password}")
+    private String redisPassword;
+
     @Bean
     public RedissonClient redissonClient() {
-        // 配置类
         Config config = new Config();
-        // 添加redis地址，这里添加了单点的地址，也可以使用config.useClusterServers()添加集群地址
-        config.useSingleServer().setAddress("redis://localhost:6379");
-//        config.useSingleServer().setPassword("");
-        // 创建客户端
+
+        // 构建单个Redis节点的连接地址
+        String address = String.format("redis://%s:%d", redisHost, redisPort);
+
+        // 设置单个Redis节点的配置
+        config.useSingleServer()
+                .setAddress(address)
+                .setDatabase(redisDatabase);
+
+        // 如果设置了密码，则启用密码验证
+        if (StringUtils.hasText(redisPassword)) {
+            config.useSingleServer().setPassword(redisPassword);
+        }
+
+        // 创建并返回RedissonClient实例
         return Redisson.create(config);
     }
 }
