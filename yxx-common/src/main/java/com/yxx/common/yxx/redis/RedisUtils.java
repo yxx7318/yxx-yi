@@ -1,4 +1,4 @@
-package com.yxx.common.redis;
+package com.yxx.common.yxx.redis;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;

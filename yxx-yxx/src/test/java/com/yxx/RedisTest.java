@@ -1,7 +1,7 @@
 package com.yxx;
 
-import com.yxx.common.redis.RedisIdWorker;
-import com.yxx.common.redis.RedisLockSimple;
+import com.yxx.common.yxx.redis.RedisIdWorker;
+import com.yxx.common.yxx.redis.RedisLockSimple;
 import org.junit.jupiter.api.Test;
 import org.redisson.api.RLock;
 import org.redisson.api.RedissonClient;
