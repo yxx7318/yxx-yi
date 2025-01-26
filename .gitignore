@@ -47,3 +47,4 @@ nbdist/
 !*/build/*.xml
 
 /yxx/
+.DS_Store
