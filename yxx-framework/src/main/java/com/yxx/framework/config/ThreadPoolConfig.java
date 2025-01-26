@@ -2,6 +2,7 @@ package com.yxx.framework.config;
 
 import com.yxx.common.utils.Threads;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
@@ -18,12 +19,15 @@ import java.util.concurrent.ThreadPoolExecutor;
 public class ThreadPoolConfig
 {
     // 核心线程池大小
+    @Value("${server.tomcat.threads.min-spare}")
     private int corePoolSize = 50;
 
     // 最大可创建的线程数
+    @Value("${server.tomcat.threads.max}")
     private int maxPoolSize = 200;
 
     // 队列最大长度
+    @Value("${server.tomcat.accept-count}")
     private int queueCapacity = 1000;
 
     // 线程池维护线程所允许的空闲时间
