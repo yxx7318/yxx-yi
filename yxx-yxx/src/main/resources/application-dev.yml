@@ -81,3 +81,38 @@ spring:
         max-active: 8
         # #连接池最大阻塞等待时间（使用负值表示没有限制）
         max-wait: -1ms
+
+# 服务配置
+server:
+  # 服务器的HTTP端口，默认为8080
+  port: 7318
+  servlet:
+    # 应用的访问路径
+    context-path: /
+  tomcat:
+    # tomcat的URI编码
+    uri-encoding: UTF-8
+    # 连接数满后的排队数，默认为100
+    accept-count: 100
+    threads:
+      # tomcat最大线程数，默认为200
+      max: 200
+      # Tomcat启动初始化的线程数，默认值10
+      min-spare: 20
+
+# token配置
+token:
+  # 令牌自定义标识
+  header: Authorization
+  # 令牌密钥
+  secret: abcdefghijklmnopqrstuvwxyz
+  # 令牌有效期，单位分钟
+  expireTime: 1440
+
+# 用户配置
+user:
+  password:
+    # 密码最大错误次数
+    maxRetryCount: 5
+    # 密码锁定时间，单位分钟
+    lockTime: 10

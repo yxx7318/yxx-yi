@@ -13,32 +13,6 @@ ruoyi:
   # 验证码类型 math 数字计算 char 字符验证
   captchaType: math
 
-# 开发环境配置
-server:
-  # 服务器的HTTP端口，默认为8080
-  port: 7318
-  servlet:
-    # 应用的访问路径
-    context-path: /
-  tomcat:
-    # tomcat的URI编码
-    uri-encoding: UTF-8
-    # 连接数满后的排队数，默认为100
-    accept-count: 1000
-    threads:
-      # tomcat最大线程数，默认为200
-      max: 800
-      # Tomcat启动初始化的线程数，默认值10
-      min-spare: 100
-
-# 用户配置
-user:
-  password:
-    # 密码最大错误次数
-    maxRetryCount: 5
-    # 密码锁定时间（默认10分钟）
-    lockTime: 10
-
 # Spring配置
 spring:
   # 资源信息
@@ -51,23 +25,14 @@ spring:
   servlet:
     multipart:
       # 单个文件大小
-      max-file-size: 10MB
+      max-file-size: 1024MB
       # 设置总上传的文件大小
-      max-request-size: 20MB
+      max-request-size: 4096MB
   # 服务模块
   devtools:
     restart:
       # 热部署开关
       enabled: false
-
-# token配置
-token:
-  # 令牌自定义标识
-  header: Authorization
-  # 令牌密钥
-  secret: abcdefghijklmnopqrstuvwxyz
-  # 令牌有效期（默认30分钟）
-  expireTime: 120
 
 ## MyBatis配置
 #mybatis:
