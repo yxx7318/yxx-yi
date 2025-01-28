@@ -129,20 +129,21 @@ public class VelocityUtils
      */
     public static List<String> getTemplateList(String tplCategory, String tplWebType)
     {
-        String useWebType = "vm/vue";
+        String basePath = "old/vm/";
+        String useWebType = basePath + "vue";
         if ("element-plus".equals(tplWebType))
         {
-            useWebType = "vm/vue/v3";
+            useWebType = basePath + "vue/v3";
         }
         List<String> templates = new ArrayList<String>();
-        templates.add("vm/java/domain.java.vm");
-        templates.add("vm/java/mapper.java.vm");
-        templates.add("vm/java/service.java.vm");
-        templates.add("vm/java/serviceImpl.java.vm");
-        templates.add("vm/java/controller.java.vm");
-        templates.add("vm/xml/mapper.xml.vm");
-        templates.add("vm/sql/sql.vm");
-        templates.add("vm/js/api.js.vm");
+        templates.add(basePath + "java/domain.java.vm");
+        templates.add(basePath + "java/mapper.java.vm");
+        templates.add(basePath + "java/service.java.vm");
+        templates.add(basePath + "java/serviceImpl.java.vm");
+        templates.add(basePath + "java/controller.java.vm");
+        templates.add(basePath + "xml/mapper.xml.vm");
+        templates.add(basePath + "sql/sql.vm");
+        templates.add(basePath + "js/api.js.vm");
         if (GenConstants.TPL_CRUD.equals(tplCategory))
         {
             templates.add(useWebType + "/index.vue.vm");
@@ -154,7 +155,7 @@ public class VelocityUtils
         else if (GenConstants.TPL_SUB.equals(tplCategory))
         {
             templates.add(useWebType + "/index.vue.vm");
-            templates.add("vm/java/sub-domain.java.vm");
+            templates.add(basePath + "java/sub-domain.java.vm");
         }
         return templates;
     }
