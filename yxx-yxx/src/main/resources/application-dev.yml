@@ -17,11 +17,11 @@ spring:
         username:
         password:
       # 初始连接数
-      initialSize: 2
+      initialSize: 3
       # 最小连接池数量
-      minIdle: 10
+      minIdle: 5
       # 最大连接池数量
-      maxActive: 20
+      maxActive: 10
       # 配置获取连接等待超时的时间
       maxWait: 60000
       # 配置连接超时时间
@@ -29,16 +29,24 @@ spring:
       # 配置网络超时时间
       socketTimeout: 60000
       # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
-      timeBetweenEvictionRunsMillis: 10000
+      timeBetweenEvictionRunsMillis: 30000
       # 配置一个连接在池中最小生存的时间，单位是毫秒
       minEvictableIdleTimeMillis: 300000
       # 配置一个连接在池中最大生存的时间，单位是毫秒
       maxEvictableIdleTimeMillis: 900000
       # 配置检测连接是否有效
       validationQuery: SELECT 1 FROM DUAL
+      # 连接处于空闲状态时是否检查有效性
       testWhileIdle: true
+      # 从连接池借用连接时是否先执行 validationQuery 验证
       testOnBorrow: false
+      # 归还连接到池中时是否执行 validationQuery 验证
       testOnReturn: false
+      # 连接超时设置
+      # 自动回收泄露连接
+      remove-abandoned: true
+      # 连接超过300秒未关闭则回收
+      remove-abandoned-timeout: 300
       webStatFilter:
         enabled: true
       statViewServlet:
