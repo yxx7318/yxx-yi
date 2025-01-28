@@ -12,12 +12,13 @@ let downloadLoadingInstance;
 export let isRelogin = { show: false };
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
+console.log("=============", process.env.ENV === 'development' ? -1 : 10000, "==================", process.env)
 // 创建axios实例
 const service = axios.create({
   // axios中请求配置有baseURL选项，表示请求URL公共部分
   baseURL: process.env.VUE_APP_BASE_API,
   // 超时
-  timeout: 10000
+  timeout: process.env.NODE_ENV === 'development' ? -1 : 10000
 })
 
 // request拦截器
