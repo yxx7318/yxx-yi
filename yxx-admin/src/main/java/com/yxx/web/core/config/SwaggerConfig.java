@@ -34,13 +34,17 @@ public class SwaggerConfig
     @Autowired
     private RuoYiConfig ruoyiConfig;
 
-    /** 是否开启swagger */
-    @Value("${swagger.enabled}")
-    private boolean enabled;
+    /** 是否正式环境进行关闭 */
+    @Value("${swagger.locked}")
+    private boolean locked;
 
     /** 设置请求的统一前缀 */
     @Value("${swagger.pathMapping}")
     private String pathMapping;
+
+    /** 当前激活的环境 */
+    @Value("${spring.profiles.active}")
+    private String env;
 
     /**
      * 创建API
@@ -50,7 +54,7 @@ public class SwaggerConfig
     {
         return new Docket(DocumentationType.OAS_30)
                 // 是否启用Swagger
-                .enable(enabled)
+                .enable(!locked || !"prod".equals(env))
                 // 用来创建该API的基本信息，展示在文档的页面中（自定义展示的信息）
                 .apiInfo(apiInfo())
                 // 设置哪些接口暴露给Swagger展示
