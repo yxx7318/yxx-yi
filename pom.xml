@@ -2,8 +2,8 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	
+    <modelVersion>4.0.0</modelVersion>
+
     <groupId>com.yxx</groupId>
     <artifactId>yxx</artifactId>
     <version>3.8.9</version>
@@ -11,7 +11,7 @@
     <name>yxx</name>
     <url>https://gitee.com/yxx7318/yxx-yi</url>
     <description>后台管理系统</description>
-    
+
     <properties>
         <yxx.version>3.8.9</yxx.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -22,6 +22,7 @@
         <druid.version>1.2.23</druid.version>
         <bitwalker.version>1.21</bitwalker.version>
         <swagger.version>3.0.0</swagger.version>
+        <swagger-models.version>1.6.2</swagger-models.version>
         <kaptcha.version>2.3.3</kaptcha.version>
         <pagehelper.boot.version>1.4.7</pagehelper.boot.version>
         <fastjson.version>2.0.53</fastjson.version>
@@ -143,6 +144,13 @@
                         <artifactId>swagger-models</artifactId>
                     </exclusion>
                 </exclusions>
+            </dependency>
+
+            <!-- 防止进入swagger页面报类型转换错误，排除3.0.0中的引用，手动增加1.6.2版本 -->
+            <dependency>
+                <groupId>io.swagger</groupId>
+                <artifactId>swagger-models</artifactId>
+                <version>${swagger-models.version}</version>
             </dependency>
 
             <!-- io常用工具类 -->
