@@ -7,10 +7,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.Data;
 
 /**
- * 分页查询条件对象，用于封装分页请求中的参数。
+ * 分页查询条件对象，用于封装分页请求中的参数
  */
 @Data
-public class PageQuery {
+public class PageQueryEntity {
 
     /**
      * 当前页码，默认为1

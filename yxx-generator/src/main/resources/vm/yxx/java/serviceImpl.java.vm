@@ -7,7 +7,6 @@ import com.yxx.common.utils.DateUtils;
 #break
 #end
 #end
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 #if($table.sub)
 import java.util.ArrayList;
@@ -15,6 +14,8 @@ import com.yxx.common.utils.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
 import ${packageName}.domain.${subClassName};
 #end
+import lombok.RequiredArgsConstructor;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import ${packageName}.mapper.${ClassName}Mapper;
 import ${packageName}.domain.${ClassName};
 import ${packageName}.service.I${ClassName}Service;
@@ -26,10 +27,10 @@ import ${packageName}.service.I${ClassName}Service;
  * @date ${datetime}
  */
 @Service
-public class ${ClassName}ServiceImpl implements I${ClassName}Service 
+@RequiredArgsConstructor
+public class ${ClassName}ServiceImpl extends ServiceImpl<${ClassName}Mapper, ${ClassName}> implements I${ClassName}Service
 {
-    @Autowired
-    private ${ClassName}Mapper ${className}Mapper;
+    private final ${ClassName}Mapper ${className}Mapper;
 
     /**
      * 查询${functionName}

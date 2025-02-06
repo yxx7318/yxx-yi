@@ -2,6 +2,7 @@ package com.yxx.example.controller;
 
 import java.util.List;
 
+import com.yxx.common.annotation.Anonymous;
 import com.yxx.example.domain.TestUserEntity;
 import com.yxx.example.service.TestUserService;
 import lombok.RequiredArgsConstructor;
@@ -23,12 +24,13 @@ import io.swagger.annotations.ApiOperation;
 /**
  * swagger 用户测试方法
  *
- * @author ruoyi
+ * @author yxx
  */
 @Api("用户信息管理")
 @RestController
 @RequestMapping("/test/user")
 @RequiredArgsConstructor
+@Anonymous
 public class TestController extends BaseController {
 
     private final TestUserService testUserService;
@@ -55,19 +57,19 @@ public class TestController extends BaseController {
     })
     @PostMapping("/save")
     public R<String> save(TestUserEntity user) {
-        return testUserService.save(user);
+        return testUserService.saveUser(user);
     }
 
     @ApiOperation("更新用户")
     @PutMapping("/update")
     public R<String> update(@RequestBody TestUserEntity user) {
-        return testUserService.update(user);
+        return testUserService.updateUser(user);
     }
 
     @ApiOperation("删除用户信息")
     @ApiImplicitParam(name = "userId", value = "用户ID", required = true, dataType = "int", paramType = "path", dataTypeClass = Integer.class)
     @DeleteMapping("/{userId}")
     public R<String> delete(@PathVariable Integer userId) {
-        return testUserService.delete(userId);
+        return testUserService.deleteUser(userId);
     }
 }

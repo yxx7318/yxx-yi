@@ -1,4 +1,7 @@
 package com.yxx.example.mapper;
 
-public interface TestUserMapper {
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.yxx.example.domain.TestUserEntity;
+
+public interface TestUserMapper extends BaseMapper<TestUserEntity> {
 }

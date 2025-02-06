@@ -1,5 +1,6 @@
 package com.yxx.example.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.yxx.common.core.domain.R;
 import com.yxx.common.utils.StringUtils;
 import com.yxx.example.domain.TestUserEntity;
@@ -14,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
-public class TestUserServiceImpl implements TestUserService {
+public class TestUserServiceImpl extends ServiceImpl<TestUserMapper, TestUserEntity> implements TestUserService {
 
     private final static Map<Integer, TestUserEntity> users = new LinkedHashMap<Integer, TestUserEntity>();
 
@@ -41,7 +42,7 @@ public class TestUserServiceImpl implements TestUserService {
     }
 
     @Override
-    public R<String> save(TestUserEntity user) {
+    public R<String> saveUser(TestUserEntity user) {
         if (StringUtils.isNull(user) || StringUtils.isNull(user.getUserId())) {
             return R.fail("用户ID不能为空");
         }
@@ -50,7 +51,7 @@ public class TestUserServiceImpl implements TestUserService {
     }
 
     @Override
-    public R<String> update(TestUserEntity user) {
+    public R<String> updateUser(TestUserEntity user) {
         if (StringUtils.isNull(user) || StringUtils.isNull(user.getUserId())) {
             return R.fail("用户ID不能为空");
         }
@@ -63,7 +64,7 @@ public class TestUserServiceImpl implements TestUserService {
     }
 
     @Override
-    public R<String> delete(Integer userId) {
+    public R<String> deleteUser(Integer userId) {
         if (!users.isEmpty() && users.containsKey(userId)) {
             users.remove(userId);
             return R.ok();

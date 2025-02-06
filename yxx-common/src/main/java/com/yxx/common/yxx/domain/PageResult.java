@@ -11,12 +11,12 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * 分页数据传输对象，用于封装分页查询的结果。
+ * 分页数据传输对象，用于封装分页查询的结果
  *
  * @param <T> 实际的数据类型
  */
 @Data
-public class PageDTO<T> {
+public class PageResult<T> {
 
     /**
      * 总记录数
@@ -47,8 +47,8 @@ public class PageDTO<T> {
      * @param voClass 目标视图类型的Class对象
      * @return 转换后的PageDTO对象
      */
-    public static <PO, VO> PageDTO<VO> of(Page<PO> p, Class<VO> voClass) {
-        PageDTO<VO> dto = dealWith(p);
+    public static <PO, VO> PageResult<VO> of(Page<PO> p, Class<VO> voClass) {
+        PageResult<VO> dto = dealWith(p);
 
         List<PO> records = p.getRecords();
         // 如果记录结果为空
@@ -71,8 +71,8 @@ public class PageDTO<T> {
      * @param convertor 自定义转换器，用于将原始实体转换为目标视图类型
      * @return 转换后的PageDTO对象
      */
-    public static <PO, VO> PageDTO<VO> of(Page<PO> p, Function<PO, VO> convertor) {
-        PageDTO<VO> dto = dealWith(p);
+    public static <PO, VO> PageResult<VO> of(Page<PO> p, Function<PO, VO> convertor) {
+        PageResult<VO> dto = dealWith(p);
 
         List<PO> records = p.getRecords();
         // 如果记录结果为空
@@ -94,8 +94,8 @@ public class PageDTO<T> {
      * @param p    MyBatis-Plus的Page对象
      * @return 转换后的PageDTO对象
      */
-    private static <VO, PO> PageDTO<VO> dealWith(Page<PO> p) {
-        PageDTO<VO> dto = new PageDTO<>();
+    private static <VO, PO> PageResult<VO> dealWith(Page<PO> p) {
+        PageResult<VO> dto = new PageResult<>();
         dto.setTotal(p.getTotal());
         return dto;
     }

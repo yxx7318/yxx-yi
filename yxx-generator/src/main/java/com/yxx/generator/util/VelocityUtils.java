@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.yxx.common.yxx.utils.EnvironmentUtils;
 import org.apache.velocity.VelocityContext;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
@@ -129,7 +131,7 @@ public class VelocityUtils
      */
     public static List<String> getTemplateList(String tplCategory, String tplWebType)
     {
-        String basePath = "old/vm/";
+        String basePath = "vm/" + EnvironmentUtils.getEnvValue("generator.vmType", "yxx") + "/";
         String useWebType = basePath + "vue";
         if ("element-plus".equals(tplWebType))
         {

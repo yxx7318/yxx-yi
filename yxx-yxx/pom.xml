@@ -12,12 +12,13 @@
     <artifactId>yxx-yxx</artifactId>
 
     <dependencies>
-        <!-- 核心依赖-->
+        <!-- 核心依赖 -->
         <dependency>
             <groupId>com.yxx</groupId>
             <artifactId>yxx-admin</artifactId>
         </dependency>
 
+        <!-- spring-boot-starter-test -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
