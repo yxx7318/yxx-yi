@@ -8,7 +8,8 @@ export default {
   components: { iFrame },
   data() {
     return {
-      url: process.env.VUE_APP_BASE_API + "/swagger-ui/index.html"
+      // 原swagger文档位置为/swagger-ui/index.html，这里使用knife4j增强文档位置/doc.html
+      url: process.env.VUE_APP_BASE_API + "/doc.html"
     };
   },
 };
