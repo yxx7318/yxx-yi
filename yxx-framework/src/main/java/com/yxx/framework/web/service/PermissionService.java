@@ -11,7 +11,7 @@ import com.yxx.common.utils.StringUtils;
 import com.yxx.framework.security.context.PermissionContextHolder;
 
 /**
- * RuoYi首创 自定义权限实现，ss取自SpringSecurity首字母
+ * 自定义权限实现，ss取自SpringSecurity首字母
  * 
  * @author ruoyi
  */
@@ -47,7 +47,7 @@ public class PermissionService
      */
     public boolean lacksPermi(String permission)
     {
-        return hasPermi(permission) != true;
+        return !hasPermi(permission);
     }
 
     /**
@@ -115,7 +115,7 @@ public class PermissionService
      */
     public boolean lacksRole(String role)
     {
-        return hasRole(role) != true;
+        return !hasRole(role);
     }
 
     /**
