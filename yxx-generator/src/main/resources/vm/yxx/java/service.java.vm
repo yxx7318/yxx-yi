@@ -2,7 +2,7 @@ package ${packageName}.service;
 
 import java.util.List;
 import ${packageName}.domain.${ClassName};
-import com.baomidou.mybatisplus.extension.service.IService;
+import com.yxx.common.yxx.service.IServicePlus;
 
 /**
  * ${functionName}Service接口
@@ -10,7 +10,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author ${author}
  * @date ${datetime}
  */
-public interface I${ClassName}Service extends IService<${ClassName}>
+public interface I${ClassName}Service extends IServicePlus<${ClassName}>
 {
     /**
      * 查询${functionName}

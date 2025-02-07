@@ -70,7 +70,7 @@ public interface ${ClassName}Mapper
      * @return 结果
      */
     public int delete${subClassName}By${subTableFkClassName}s(${pkColumn.javaType}[] ${pkColumn.javaField}s);
-    
+
     /**
      * 批量新增${subTable.functionName}
      * 
@@ -78,7 +78,6 @@ public interface ${ClassName}Mapper
      * @return 结果
      */
     public int batch${subClassName}(List<${subClassName}> ${subclassName}List);
-    
 
     /**
      * 通过${functionName}主键删除${subTable.functionName}信息

@@ -2,12 +2,15 @@ package com.yxx.common.core.domain;
 
 import java.io.Serializable;
 import com.yxx.common.constant.HttpStatus;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 /**
  * 响应信息主体
  *
  * @author ruoyi
  */
+@ApiModel(value = "R", description = "通用结果相应类")
 public class R<T> implements Serializable
 {
     private static final long serialVersionUID = 1L;
@@ -18,10 +21,16 @@ public class R<T> implements Serializable
     /** 失败 */
     public static final int FAIL = HttpStatus.ERROR;
 
+    /** 失败 */
+    public static final int WARN = HttpStatus.WARN;
+
+    @ApiModelProperty(value = "状态码", example = "200")
     private int code;
 
+    @ApiModelProperty(value = "消息", example = "操作成功")
     private String msg;
 
+    @ApiModelProperty("数据体")
     private T data;
 
     public static <T> R<T> ok()
@@ -60,6 +69,31 @@ public class R<T> implements Serializable
     }
 
     public static <T> R<T> fail(int code, String msg)
+    {
+        return restResult(null, code, msg);
+    }
+
+    public static <T> R<T> alert()
+    {
+        return restResult(null, WARN, "操作失败");
+    }
+
+    public static <T> R<T> alert(String msg)
+    {
+        return restResult(null, WARN, msg);
+    }
+
+    public static <T> R<T> alert(T data)
+    {
+        return restResult(data, WARN, "操作失败");
+    }
+
+    public static <T> R<T> alert(T data, String msg)
+    {
+        return restResult(data, WARN, msg);
+    }
+
+    public static <T> R<T> alert(int code, String msg)
     {
         return restResult(null, code, msg);
     }
@@ -103,12 +137,12 @@ public class R<T> implements Serializable
         this.data = data;
     }
 
-    public static <T> Boolean isError(R<T> ret)
+    public static <T> Boolean isFail(R<T> ret)
     {
-        return !isSuccess(ret);
+        return !isOk(ret);
     }
 
-    public static <T> Boolean isSuccess(R<T> ret)
+    public static <T> Boolean isOk(R<T> ret)
     {
         return R.SUCCESS == ret.getCode();
     }

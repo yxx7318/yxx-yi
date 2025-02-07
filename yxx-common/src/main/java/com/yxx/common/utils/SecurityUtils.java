@@ -3,6 +3,7 @@ package com.yxx.common.utils;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -173,6 +174,48 @@ public class SecurityUtils
     {
         return roles.stream().filter(StringUtils::hasText)
                 .anyMatch(x -> Constants.SUPER_ADMIN.equals(x) || PatternMatchUtils.simpleMatch(x, role));
+    }
+
+    /** 未登录标识字符串 */
+    private static final String NOT_LOGGED_NAME = "NotLogged";
+
+    /** 未登录ID值 */
+    private static final Long NOT_LOGGED_ID = 0L;
+
+    /**
+     * 判断用户是否已经登录
+     *
+     * @return 是否已经登录
+     */
+    public static boolean hasUserLoggedIn() {
+        Authentication authentication = getAuthentication();
+        return authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken);
+    }
+
+    /**
+     * 获取用户ID，如果未登录则为未登录ID值
+     * @return 用户ID
+     */
+    public static Long getUserIdOrNotLogged() {
+        return hasUserLoggedIn() ? getUserId() : NOT_LOGGED_ID;
+    }
+
+    /**
+     * 获取部门ID，如果未登录则为未登录ID值
+     *
+     * @return 部门ID
+     */
+    public static Long getDeptIdOrNotLogged() {
+        return hasUserLoggedIn() ? getDeptId() : NOT_LOGGED_ID;
+    }
+
+    /**
+     * 获取用户名，如果未登录则为未登录标识名称
+     *
+     * @return 用户名
+     */
+    public static String getUsernameOrNotLogged() {
+        return hasUserLoggedIn() ? getUsername() : NOT_LOGGED_NAME;
     }
 
 }

@@ -3,6 +3,9 @@ package com.yxx.common.core.controller;
 import java.beans.PropertyEditorSupport;
 import java.util.Date;
 import java.util.List;
+
+import com.yxx.common.core.domain.R;
+import com.yxx.common.utils.bean.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.WebDataBinder;
@@ -31,7 +34,7 @@ public class BaseController
     protected final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     /**
-     * 将前台传递过来的日期格式的字符串，自动转化为Date类型
+     * 将前端传递过来的日期格式的字符串，自动转化为Date类型
      */
     @InitBinder
     public void initBinder(WebDataBinder binder)
@@ -113,7 +116,7 @@ public class BaseController
     {
         return AjaxResult.success(message);
     }
-    
+
     /**
      * 返回成功消息
      */

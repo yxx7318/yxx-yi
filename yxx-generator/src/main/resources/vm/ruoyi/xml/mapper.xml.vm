@@ -57,7 +57,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 #end
         </where>
     </select>
-    
+
     <select id="select${ClassName}By${pkColumn.capJavaField}" parameterType="${pkColumn.javaType}" resultMap="#if($table.sub)${ClassName}${subClassName}Result#else${ClassName}Result#end">
 #if($table.crud || $table.tree)
         <include refid="select${ClassName}Vo"/>
@@ -118,7 +118,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </foreach>
     </delete>
 #if($table.sub)
-    
+
     <delete id="delete${subClassName}By${subTableFkClassName}s" parameterType="String">
         delete from ${subTableName} where ${subTableFkName} in 
         <foreach item="${subTableFkclassName}" collection="array" open="(" separator="," close=")">

@@ -3,6 +3,8 @@ package com.yxx.common.yxx.domain;
 import cn.hutool.core.bean.BeanUtil;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yxx.common.constant.HttpStatus;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Collections;
@@ -15,27 +17,20 @@ import java.util.stream.Collectors;
  *
  * @param <T> 实际的数据类型
  */
+@ApiModel(value = "PageResult", description = "分页结果实体类")
 @Data
 public class PageResult<T> {
 
-    /**
-     * 总记录数
-     */
+    @ApiModelProperty("总记录数")
     private Long total;
 
-    /**
-     * 当前页的数据列表
-     */
+    @ApiModelProperty("当前页的数据列表")
     private List<T> rows;
 
-    /**
-     * 消息状态码
-     */
+    @ApiModelProperty(value = "状态码", example = "200")
     private int code = HttpStatus.SUCCESS;
 
-    /**
-     * 消息内容
-     */
+    @ApiModelProperty(value = "消息", example = "操作成功")
     private String msg = "查询成功";
 
     /**

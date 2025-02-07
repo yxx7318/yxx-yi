@@ -1,5 +1,6 @@
 package com.yxx.common.yxx.domain;
 
+import io.swagger.annotations.ApiModelProperty;
 import org.springframework.util.StringUtils;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
@@ -16,24 +17,28 @@ public class PageQueryEntity {
      * 当前页码，默认为1
      */
     @TableField(exist = false)
+    @ApiModelProperty(hidden = true)
     private Integer pageNo = 1;
 
     /**
      * 每页显示的记录数，默认为10
      */
     @TableField(exist = false)
+    @ApiModelProperty(hidden = true)
     private Integer pageSize = 10;
 
     /**
      * 排序字段名称
      */
     @TableField(exist = false)
+    @ApiModelProperty(hidden = true)
     private String sortBy;
 
     /**
      * 是否按升序排序，默认为false（降序）
      */
     @TableField(exist = false)
+    @ApiModelProperty(hidden = true)
     private Boolean isAsc;
 
     /**

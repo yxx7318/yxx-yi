@@ -5,7 +5,7 @@ import ${packageName}.domain.${ClassName};
 #if($table.sub)
 import ${packageName}.domain.${subClassName};
 #end
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.yxx.common.yxx.mapper.BaseMapperPlus;
 
 /**
  * ${functionName}Mapper接口
@@ -13,7 +13,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author ${author}
  * @date ${datetime}
  */
-public interface ${ClassName}Mapper extends BaseMapper<${ClassName}>
+public interface ${ClassName}Mapper extends BaseMapperPlus<${ClassName}>
 {
     /**
      * 查询${functionName}
@@ -71,7 +71,7 @@ public interface ${ClassName}Mapper extends BaseMapper<${ClassName}>
      * @return 结果
      */
     public int delete${subClassName}By${subTableFkClassName}s(${pkColumn.javaType}[] ${pkColumn.javaField}s);
-    
+
     /**
      * 批量新增${subTable.functionName}
      * 
@@ -79,7 +79,6 @@ public interface ${ClassName}Mapper extends BaseMapper<${ClassName}>
      * @return 结果
      */
     public int batch${subClassName}(List<${subClassName}> ${subclassName}List);
-    
 
     /**
      * 通过${functionName}主键删除${subTable.functionName}信息
