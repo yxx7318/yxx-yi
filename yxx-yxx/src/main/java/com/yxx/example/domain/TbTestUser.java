@@ -1,7 +1,7 @@
 package com.yxx.example.domain;
 
 import com.yxx.common.annotation.Excel;
-import com.yxx.common.core.domain.TreeEntity;
+import com.yxx.common.core.domain.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -24,7 +24,7 @@ import lombok.Data;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("tb_test_user")
-public class TbTestUser extends TreeEntity
+public class TbTestUser extends BaseEntity
 {
 
     private static final long serialVersionUID = 1L;

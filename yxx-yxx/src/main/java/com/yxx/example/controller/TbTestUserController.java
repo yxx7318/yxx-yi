@@ -19,6 +19,7 @@ import com.yxx.example.domain.TbTestUser;
 import com.yxx.example.service.ITbTestUserService;
 import com.yxx.common.utils.poi.ExcelUtil;
 import com.yxx.common.core.domain.R;
+import com.yxx.common.yxx.domain.PageResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -43,10 +44,11 @@ public class TbTestUserController extends BaseControllerPlus
     @ApiOperation("查询代码生成测试列表")
     @PreAuthorize("@ss.hasPermi('example:testUser:list')")
     @GetMapping("/list")
-    public R<List<TbTestUser>> list(@Parameter(description = "DTO对象") TbTestUser tbTestUser)
+    public PageResult<?> list(@Parameter(description = "DTO对象") TbTestUser tbTestUser)
     {
+        startPage();
         List<TbTestUser> list = tbTestUserService.selectTbTestUserList(tbTestUser);
-        return R.ok(list);
+        return getDataTableToPR(list);
     }
 
     @ApiOperation("导出代码生成测试列表")
