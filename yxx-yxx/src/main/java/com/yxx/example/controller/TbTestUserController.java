@@ -19,17 +19,18 @@ import com.yxx.example.domain.TbTestUser;
 import com.yxx.example.service.ITbTestUserService;
 import com.yxx.common.utils.poi.ExcelUtil;
 import com.yxx.common.core.domain.R;
-import com.yxx.common.yxx.domain.PageResult;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.annotations.ApiOperation;
 
 /**
  * 代码生成测试Controller
  * 
  * @author yxx
- * @date 2025-02-07
+ * @date 2025-02-08
  */
 @Api("代码生成测试管理")
 @RestController
@@ -42,18 +43,17 @@ public class TbTestUserController extends BaseControllerPlus
     @ApiOperation("查询代码生成测试列表")
     @PreAuthorize("@ss.hasPermi('example:testUser:list')")
     @GetMapping("/list")
-    public PageResult<?> list(TbTestUser tbTestUser)
+    public R<List<TbTestUser>> list(@Parameter(description = "DTO对象") TbTestUser tbTestUser)
     {
-        startPage();
         List<TbTestUser> list = tbTestUserService.selectTbTestUserList(tbTestUser);
-        return getDataTableToPR(list);
+        return R.ok(list);
     }
 
     @ApiOperation("导出代码生成测试列表")
     @PreAuthorize("@ss.hasPermi('example:testUser:export')")
     @Log(title = "代码生成测试", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, TbTestUser tbTestUser)
+    public void export(HttpServletResponse response, @Parameter(description = "DTO对象", in = ParameterIn.QUERY) TbTestUser tbTestUser)
     {
         List<TbTestUser> list = tbTestUserService.selectTbTestUserList(tbTestUser);
         ExcelUtil<TbTestUser> util = new ExcelUtil<TbTestUser>(TbTestUser.class);
@@ -61,6 +61,9 @@ public class TbTestUserController extends BaseControllerPlus
     }
 
     @ApiOperation("获取代码生成测试详细信息")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "userId", value = "主键Id", required = true, dataType = "Long", dataTypeClass = Long.class, paramType = "path"),
+    })
     @PreAuthorize("@ss.hasPermi('example:testUser:query')")
     @GetMapping(value = "/{userId}")
     public R<TbTestUser> getInfo(@PathVariable("userId") Long userId)
@@ -69,6 +72,9 @@ public class TbTestUserController extends BaseControllerPlus
     }
 
     @ApiOperation("新增代码生成测试")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "tbTestUser", value = "DTO对象", required = true, dataType = "TbTestUser", dataTypeClass = TbTestUser.class, paramType = "body"),
+    })
     @PreAuthorize("@ss.hasPermi('example:testUser:add')")
     @Log(title = "代码生成测试", businessType = BusinessType.INSERT)
     @PostMapping
@@ -78,6 +84,9 @@ public class TbTestUserController extends BaseControllerPlus
     }
 
     @ApiOperation("修改代码生成测试")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "tbTestUser", value = "DTO对象", required = true, dataType = "TbTestUser", dataTypeClass = TbTestUser.class, paramType = "body"),
+    })
     @PreAuthorize("@ss.hasPermi('example:testUser:edit')")
     @Log(title = "代码生成测试", businessType = BusinessType.UPDATE)
     @PutMapping
@@ -88,7 +97,7 @@ public class TbTestUserController extends BaseControllerPlus
 
     @ApiOperation("删除代码生成测试")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userIds", value = "主键数组", required = true),
+            @ApiImplicitParam(name = "userIds", value = "主键数组", required = true, dataType = "Long[]", dataTypeClass = Long[].class, paramType = "path", allowMultiple = true),
     })
     @PreAuthorize("@ss.hasPermi('example:testUser:remove')")
     @Log(title = "代码生成测试", businessType = BusinessType.DELETE)

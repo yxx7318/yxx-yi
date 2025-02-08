@@ -1,8 +1,7 @@
 package com.yxx.example.domain;
 
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.yxx.common.annotation.Excel;
-import com.yxx.common.core.domain.BaseEntity;
+import com.yxx.common.core.domain.TreeEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -17,7 +16,7 @@ import lombok.Data;
  * 代码生成测试对象 tb_test_user
  * 
  * @author yxx
- * @date 2025-02-07
+ * @date 2025-02-08
  */
 @ApiModel(value = "TbTestUser", description = "代码生成测试实体")
 @NoArgsConstructor
@@ -25,7 +24,7 @@ import lombok.Data;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @TableName("tb_test_user")
-public class TbTestUser extends BaseEntity
+public class TbTestUser extends TreeEntity
 {
 
     private static final long serialVersionUID = 1L;

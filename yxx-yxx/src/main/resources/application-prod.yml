@@ -124,3 +124,18 @@ user:
     maxRetryCount: 5
     # 密码锁定时间，单位分钟
     lockTime: 10
+
+# knife4j配置
+knife4j:
+  # 是否为生成环境，为真则关闭文档
+  production: true
+  # 开启增强配置
+  enable: true
+  # 开启Swagger的Basic认证功能,默认是false
+  basic:
+    # 开启后由于使用的也是Authorization头，会和SpringSecurity冲突导致请求时JWT过滤器报错，但不影响使用
+    enable: false
+    # Basic认证用户名
+    username: yxx
+    # Basic认证密码
+    password: 123456

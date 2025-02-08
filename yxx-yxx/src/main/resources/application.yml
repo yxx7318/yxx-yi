@@ -81,19 +81,6 @@ swagger:
   # 请求前缀
   pathMapping: '/${spring.profiles.active}-api'
 
-# knife4j配置
-knife4j:
-  # 开启增强配置
-  enable: true
-  # 开启Swagger的Basic认证功能,默认是false
-  basic:
-    # 开启后由于使用的也是Authorization头，会和SpringSecurity冲突导致请求时报错，但不影响使用
-    enable: false
-    # Basic认证用户名
-    username: yxx
-    # Basic认证密码
-    password: 123456
-
 # 防止XSS攻击
 xss:
   # 过滤开关
@@ -107,3 +94,5 @@ xss:
 generator:
   # 激活的代码生成模板
   vmType: yxx
+  # 是否开启代码生成基类属性(开启后可以提高生成的代码对MP的兼容性)
+  entity: false
