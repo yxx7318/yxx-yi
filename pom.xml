@@ -223,6 +223,20 @@
                 <version>${yxx.version}</version>
             </dependency>
 
+            <!-- ruoyi汇总模块-->
+            <dependency>
+                <groupId>com.yxx</groupId>
+                <artifactId>yxx-yi</artifactId>
+                <version>${yxx.version}</version>
+            </dependency>
+
+            <!-- 实际编写业务模块-->
+            <dependency>
+                <groupId>com.yxx</groupId>
+                <artifactId>yxx-yxx</artifactId>
+                <version>${yxx.version}</version>
+            </dependency>
+
             <!-- mybatis-plus 增强CRUD -->
             <dependency>
                 <groupId>com.baomidou</groupId>
@@ -248,12 +262,7 @@
     </dependencyManagement>
 
     <modules>
-        <module>yxx-admin</module>
-        <module>yxx-framework</module>
-        <module>yxx-system</module>
-        <module>yxx-quartz</module>
-        <module>yxx-generator</module>
-        <module>yxx-common</module>
+        <module>yxx-yi</module>
         <module>yxx-yxx</module>
     </modules>
     <packaging>pom</packaging>

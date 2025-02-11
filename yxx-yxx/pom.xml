@@ -8,22 +8,23 @@
         <artifactId>yxx</artifactId>
         <version>3.8.9</version>
     </parent>
-
+    <packaging>jar</packaging>
     <artifactId>yxx-yxx</artifactId>
 
     <dependencies>
-        <!-- 核心依赖 -->
+
+        <!-- 依赖文件来源 -->
         <dependency>
             <groupId>com.yxx</groupId>
             <artifactId>yxx-admin</artifactId>
         </dependency>
 
-<!--        &lt;!&ndash; spring-boot-starter-test &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-test</artifactId>-->
-<!--            <scope>test</scope>-->
-<!--        </dependency>-->
+        <!-- spring-boot-starter-test -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
 
     </dependencies>
 

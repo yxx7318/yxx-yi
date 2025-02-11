@@ -3,36 +3,36 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>yxx</artifactId>
+        <artifactId>yxx-yi</artifactId>
         <groupId>com.yxx</groupId>
         <version>3.8.9</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>yxx-generator</artifactId>
+    <packaging>jar</packaging>
+    <artifactId>yxx-quartz</artifactId>
 
     <description>
-        generator代码生成
+        quartz定时任务
     </description>
 
     <dependencies>
 
-        <!-- velocity代码生成使用模板 -->
+        <!-- 定时任务 -->
         <dependency>
-            <groupId>org.apache.velocity</groupId>
-            <artifactId>velocity-engine-core</artifactId>
+            <groupId>org.quartz-scheduler</groupId>
+            <artifactId>quartz</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.mchange</groupId>
+                    <artifactId>c3p0</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <!-- 通用工具-->
         <dependency>
             <groupId>com.yxx</groupId>
             <artifactId>yxx-common</artifactId>
-        </dependency>
-
-        <!-- 阿里数据库连接池 -->
-        <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>druid-spring-boot-starter</artifactId>
         </dependency>
 
     </dependencies>

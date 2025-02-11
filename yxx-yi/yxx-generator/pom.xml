@@ -3,24 +3,36 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>yxx</artifactId>
+        <artifactId>yxx-yi</artifactId>
         <groupId>com.yxx</groupId>
         <version>3.8.9</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
-    <artifactId>yxx-system</artifactId>
+    <packaging>jar</packaging>
+    <artifactId>yxx-generator</artifactId>
 
     <description>
-        system系统模块
+        generator代码生成
     </description>
 
     <dependencies>
+
+        <!-- velocity代码生成使用模板 -->
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+        </dependency>
 
         <!-- 通用工具-->
         <dependency>
             <groupId>com.yxx</groupId>
             <artifactId>yxx-common</artifactId>
+        </dependency>
+
+        <!-- 阿里数据库连接池 -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
         </dependency>
 
     </dependencies>
