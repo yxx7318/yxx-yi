@@ -594,8 +594,8 @@ create table sys_job (
 ) engine=innodb auto_increment=100 comment = '定时任务调度表';
 
 insert into sys_job values(1, '系统默认（无参）', 'DEFAULT', 'ryTask.ryNoParams',        '0/10 * * * * ?', '3', '1', '1', 'admin', sysdate(), '', null, '');
-insert into sys_job values(2, '系统默认（有参）', 'DEFAULT', 'ryTask.ryParams(\'ry\')',  '0/15 * * * * ?', '3', '1', '1', 'admin', sysdate(), '', null, '');
-insert into sys_job values(3, '系统默认（多参）', 'DEFAULT', 'ryTask.ryMultipleParams(\'ry\', true, 2000L, 316.50D, 100)',  '0/20 * * * * ?', '3', '1', '1', 'admin', sysdate(), '', null, '');
+insert into sys_job values(2, '系统默认（多参）', 'DEFAULT', 'ryTask.ryMultipleParams(\'ry\', true, 2000L, 316.50D, 100)',  '0/20 * * * * ?', '3', '1', '1', 'admin', sysdate(), '', null, '');
+insert into sys_job values(3, '业务定时器', 'DEFAULT', 'com.yxx.quartz.TestTask(\'yxx\')',  '0/15 * * * * ?', '3', '1', '1', 'admin', sysdate(), '', null, '');
 
 
 -- ----------------------------
@@ -609,6 +609,7 @@ create table sys_job_log (
   invoke_target       varchar(500)   not null                   comment '调用目标字符串',
   job_message         varchar(500)                              comment '日志信息',
   status              char(1)        default '0'                comment '执行状态（0正常 1失败）',
+  success_info        varchar(2000)  default ''                 comment '成功信息',
   exception_info      varchar(2000)  default ''                 comment '异常信息',
   create_time         datetime                                  comment '创建时间',
   primary key (job_log_id)

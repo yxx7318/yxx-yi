@@ -20,23 +20,22 @@ public class JobInvokeUtil
      *
      * @param sysJob 系统任务
      */
-    public static void invokeMethod(SysJob sysJob) throws Exception
+    public static String invokeMethod(SysJob sysJob) throws Exception
     {
         String invokeTarget = sysJob.getInvokeTarget();
         String beanName = getBeanName(invokeTarget);
         String methodName = getMethodName(invokeTarget);
         List<Object[]> methodParams = getMethodParams(invokeTarget);
-
+        Object bean ;
         if (!isValidClassName(beanName))
         {
-            Object bean = SpringUtils.getBean(beanName);
-            invokeMethod(bean, methodName, methodParams);
+            bean = SpringUtils.getBean(beanName);
         }
         else
         {
-            Object bean = Class.forName(beanName).getDeclaredConstructor().newInstance();
-            invokeMethod(bean, methodName, methodParams);
+            bean = Class.forName(beanName).getDeclaredConstructor().newInstance();
         }
+        return invokeMethod(bean, methodName, methodParams);
     }
 
     /**
@@ -45,21 +44,24 @@ public class JobInvokeUtil
      * @param bean 目标对象
      * @param methodName 方法名称
      * @param methodParams 方法参数
+     * @return 方法返回结果
      */
-    private static void invokeMethod(Object bean, String methodName, List<Object[]> methodParams)
+    private static String invokeMethod(Object bean, String methodName, List<Object[]> methodParams)
             throws NoSuchMethodException, SecurityException, IllegalAccessException, IllegalArgumentException,
             InvocationTargetException
     {
+        Object result;
         if (StringUtils.isNotNull(methodParams) && methodParams.size() > 0)
         {
             Method method = bean.getClass().getMethod(methodName, getMethodParamsType(methodParams));
-            method.invoke(bean, getMethodParamsValue(methodParams));
+            result = method.invoke(bean, getMethodParamsValue(methodParams));
         }
         else
         {
             Method method = bean.getClass().getMethod(methodName);
-            method.invoke(bean);
+            result = method.invoke(bean);
         }
+        return StringUtils.convertObjToString(result);
     }
 
     /**

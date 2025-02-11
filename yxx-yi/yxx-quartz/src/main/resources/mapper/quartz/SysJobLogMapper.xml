@@ -11,15 +11,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="invokeTarget"   column="invoke_target"   />
 		<result property="jobMessage"     column="job_message"     />
 		<result property="status"         column="status"          />
+		<result property="successInfo"    column="success_info"  />
 		<result property="exceptionInfo"  column="exception_info"  />
 		<result property="createTime"     column="create_time"     />
 	</resultMap>
-	
+
 	<sql id="selectJobLogVo">
-        select job_log_id, job_name, job_group, invoke_target, job_message, status, exception_info, create_time 
+        select job_log_id, job_name, job_group, invoke_target, job_message, status, success_info, exception_info, create_time
 		from sys_job_log
     </sql>
-	
+
 	<select id="selectJobLogList" parameterType="SysJobLog" resultMap="SysJobLogResult">
 		<include refid="selectJobLogVo"/>
 		<where>
@@ -77,6 +78,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="invokeTarget != null and invokeTarget != ''">invoke_target,</if>
  			<if test="jobMessage != null and jobMessage != ''">job_message,</if>
  			<if test="status != null and status != ''">status,</if>
+ 			<if test="successInfo != null and successInfo != ''">success_info,</if>
  			<if test="exceptionInfo != null and exceptionInfo != ''">exception_info,</if>
  			create_time
  		)values(
@@ -86,6 +88,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="invokeTarget != null and invokeTarget != ''">#{invokeTarget},</if>
  			<if test="jobMessage != null and jobMessage != ''">#{jobMessage},</if>
  			<if test="status != null and status != ''">#{status},</if>
+ 			<if test="successInfo != null and successInfo != ''">#{successInfo},</if>
  			<if test="exceptionInfo != null and exceptionInfo != ''">#{exceptionInfo},</if>
  			sysdate()
  		)

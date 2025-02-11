@@ -681,4 +681,22 @@ public class StringUtils extends org.apache.commons.lang3.StringUtils
         }
         return sb.toString();
     }
+
+    /**
+     * 将对象转换为字符串
+     *
+     * @param obj 需要转换的对象
+     * @return 转换成功返回字符串，失败返回空字符串
+     */
+    public static String convertObjToString(Object obj) {
+        if (obj == null) {
+            return ""; // 如果对象为 null，直接返回空字符串
+        }
+        try {
+            return String.valueOf(obj); // 尝试将对象转换为字符串
+        } catch (Exception e) {
+            // 捕获异常，防止不可预知的错误导致程序中断
+            return ""; // 如果转换失败，返回空字符串
+        }
+    }
 }
