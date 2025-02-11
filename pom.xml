@@ -13,29 +13,16 @@
     <description>后台管理系统</description>
 
     <properties>
-        <yxx.version>3.8.9</yxx.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
-        <maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
-        <spring-boot.version>2.5.15</spring-boot.version>
-        <druid.version>1.2.23</druid.version>
-        <bitwalker.version>1.21</bitwalker.version>
-        <knife4j.version>3.0.2</knife4j.version>
-        <kaptcha.version>2.3.3</kaptcha.version>
-        <pagehelper.boot.version>1.4.7</pagehelper.boot.version>
-        <fastjson.version>2.0.53</fastjson.version>
-        <oshi.version>6.6.5</oshi.version>
-        <commons.io.version>2.13.0</commons.io.version>
-        <poi.version>4.1.2</poi.version>
-        <velocity.version>2.3</velocity.version>
-        <jwt.version>0.9.1</jwt.version>
-        <!-- override dependency version -->
-        <tomcat.version>9.0.96</tomcat.version>
-        <logback.version>1.2.13</logback.version>
-        <spring-security.version>5.7.12</spring-security.version>
-        <spring-framework.version>5.3.39</spring-framework.version>
 
+        <yxx.version>3.8.9</yxx.version>
+        <spring-boot.version>2.5.15</spring-boot.version>
+        <spring-framework.version>5.3.39</spring-framework.version>
+        <spring-security.version>5.7.12</spring-security.version>
+
+        <knife4j.version>3.0.2</knife4j.version>
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
         <hutool.version>5.8.0.M2</hutool.version>
         <redisson.version>3.43.0</redisson.version>
@@ -70,150 +57,6 @@
                 <version>${spring-boot.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
-            </dependency>
-
-            <!-- 覆盖logback的依赖配置-->
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-core</artifactId>
-                <version>${logback.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>ch.qos.logback</groupId>
-                <artifactId>logback-classic</artifactId>
-                <version>${logback.version}</version>
-            </dependency>
-
-            <!-- 覆盖tomcat的依赖配置-->
-            <dependency>
-                <groupId>org.apache.tomcat.embed</groupId>
-                <artifactId>tomcat-embed-core</artifactId>
-                <version>${tomcat.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.tomcat.embed</groupId>
-                <artifactId>tomcat-embed-el</artifactId>
-                <version>${tomcat.version}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.apache.tomcat.embed</groupId>
-                <artifactId>tomcat-embed-websocket</artifactId>
-                <version>${tomcat.version}</version>
-            </dependency>
-
-            <!-- 阿里数据库连接池 -->
-            <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>druid-spring-boot-starter</artifactId>
-                <version>${druid.version}</version>
-            </dependency>
-
-            <!-- 解析客户端操作系统、浏览器等 -->
-            <dependency>
-                <groupId>eu.bitwalker</groupId>
-                <artifactId>UserAgentUtils</artifactId>
-                <version>${bitwalker.version}</version>
-            </dependency>
-
-            <!-- pagehelper 分页插件 -->
-            <dependency>
-                <groupId>com.github.pagehelper</groupId>
-                <artifactId>pagehelper-spring-boot-starter</artifactId>
-                <version>${pagehelper.boot.version}</version>
-            </dependency>
-
-            <!-- 获取系统信息 -->
-            <dependency>
-                <groupId>com.github.oshi</groupId>
-                <artifactId>oshi-core</artifactId>
-                <version>${oshi.version}</version>
-            </dependency>
-
-            <!-- knife4j 增强swagger -->
-            <dependency>
-                <groupId>com.github.xiaoymin</groupId>
-                <artifactId>knife4j-spring-boot-starter</artifactId>
-                <version>${knife4j.version}</version>
-            </dependency>
-
-            <!-- io常用工具类 -->
-            <dependency>
-                <groupId>commons-io</groupId>
-                <artifactId>commons-io</artifactId>
-                <version>${commons.io.version}</version>
-            </dependency>
-
-            <!-- excel工具 -->
-            <dependency>
-                <groupId>org.apache.poi</groupId>
-                <artifactId>poi-ooxml</artifactId>
-                <version>${poi.version}</version>
-            </dependency>
-
-            <!-- velocity代码生成使用模板 -->
-            <dependency>
-                <groupId>org.apache.velocity</groupId>
-                <artifactId>velocity-engine-core</artifactId>
-                <version>${velocity.version}</version>
-            </dependency>
-
-            <!-- 阿里JSON解析器 -->
-            <dependency>
-                <groupId>com.alibaba.fastjson2</groupId>
-                <artifactId>fastjson2</artifactId>
-                <version>${fastjson.version}</version>
-            </dependency>
-
-            <!-- Token生成与解析-->
-            <dependency>
-                <groupId>io.jsonwebtoken</groupId>
-                <artifactId>jjwt</artifactId>
-                <version>${jwt.version}</version>
-            </dependency>
-
-            <!-- 验证码 -->
-            <dependency>
-                <groupId>pro.fessional</groupId>
-                <artifactId>kaptcha</artifactId>
-                <version>${kaptcha.version}</version>
-            </dependency>
-
-            <!-- 定时任务-->
-            <dependency>
-                <groupId>com.yxx</groupId>
-                <artifactId>yxx-quartz</artifactId>
-                <version>${yxx.version}</version>
-            </dependency>
-
-            <!-- 代码生成-->
-            <dependency>
-                <groupId>com.yxx</groupId>
-                <artifactId>yxx-generator</artifactId>
-                <version>${yxx.version}</version>
-            </dependency>
-
-            <!-- 核心模块-->
-            <dependency>
-                <groupId>com.yxx</groupId>
-                <artifactId>yxx-framework</artifactId>
-                <version>${yxx.version}</version>
-            </dependency>
-
-            <!-- 系统模块-->
-            <dependency>
-                <groupId>com.yxx</groupId>
-                <artifactId>yxx-system</artifactId>
-                <version>${yxx.version}</version>
-            </dependency>
-
-            <!-- 通用工具-->
-            <dependency>
-                <groupId>com.yxx</groupId>
-                <artifactId>yxx-common</artifactId>
-                <version>${yxx.version}</version>
             </dependency>
 
             <!-- 核心依赖-->
