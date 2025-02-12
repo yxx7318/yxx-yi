@@ -2,12 +2,14 @@ package com.yxx.framework.web.domain.server;
 
 import com.yxx.common.utils.Arith;
 
+import java.io.Serializable;
+
 /**
  * CPU相关信息
  * 
  * @author ruoyi
  */
-public class Cpu
+public class Cpu implements Serializable
 {
     /**
      * 核心数

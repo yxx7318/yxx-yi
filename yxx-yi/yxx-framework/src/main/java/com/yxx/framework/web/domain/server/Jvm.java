@@ -1,15 +1,17 @@
 package com.yxx.framework.web.domain.server;
 
-import java.lang.management.ManagementFactory;
 import com.yxx.common.utils.Arith;
 import com.yxx.common.utils.DateUtils;
+
+import java.io.Serializable;
+import java.lang.management.ManagementFactory;
 
 /**
  * JVM相关信息
  * 
  * @author ruoyi
  */
-public class Jvm
+public class Jvm implements Serializable
 {
     /**
      * 当前JVM占用的内存总数(M)

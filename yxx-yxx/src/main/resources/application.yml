@@ -34,6 +34,9 @@ spring:
     restart:
       # 热部署开关
       enabled: false
+  enabled:
+    # 数字自动转化字符串
+    numToStr: false
 
 ## MyBatis配置
 #mybatis:

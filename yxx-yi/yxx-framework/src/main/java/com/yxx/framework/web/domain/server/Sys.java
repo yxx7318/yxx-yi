@@ -1,11 +1,13 @@
 package com.yxx.framework.web.domain.server;
 
+import java.io.Serializable;
+
 /**
  * 系统相关信息
  * 
  * @author ruoyi
  */
-public class Sys
+public class Sys implements Serializable
 {
     /**
      * 服务器名称

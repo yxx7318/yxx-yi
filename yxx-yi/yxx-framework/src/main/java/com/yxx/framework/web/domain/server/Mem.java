@@ -2,12 +2,14 @@ package com.yxx.framework.web.domain.server;
 
 import com.yxx.common.utils.Arith;
 
+import java.io.Serializable;
+
 /**
  * 內存相关信息
  * 
  * @author ruoyi
  */
-public class Mem
+public class Mem implements Serializable
 {
     /**
      * 内存总量
