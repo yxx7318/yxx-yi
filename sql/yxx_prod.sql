@@ -1,7 +1,7 @@
 -- 设置变量
-SET @custom_user = 'cbec_prod';
-SET @custom_password = 'Cbec_prod12345678*&!';
-SET @custom_db = 'cbec_prod';
+SET @custom_user = 'yxx_prod';
+SET @custom_password = 'yxx_prod12345678*&!';
+SET @custom_db = 'yxx_prod';
 SET @custom_host = '%';
 
 -- 检查用户是否存在

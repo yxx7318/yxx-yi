@@ -1,6 +1,6 @@
 -- 设置变量
 SET @custom_user = 'yxx_test';
-SET @custom_password = 'yxx12345678*&!';
+SET @custom_password = 'yxx_test12345678*&!';
 SET @custom_db = 'yxx_test';
 SET @custom_host = '%';
 
