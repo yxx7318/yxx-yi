@@ -8,7 +8,7 @@ spring:
       master:
         url: jdbc:mysql://localhost:3306/yxx_test?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
         username: yxx_test
-        password: yxx12345678*&!
+        password: yxx_test12345678*&!
       # 从库数据源
       slave:
         # 从数据源开关/默认关闭
