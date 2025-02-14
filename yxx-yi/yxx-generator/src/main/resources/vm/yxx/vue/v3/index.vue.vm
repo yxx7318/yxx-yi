@@ -423,7 +423,7 @@ function getList() {
 #end
   list${BusinessName}(queryParams.value).then(response => {
     ${businessName}List.value = response.rows;
-    total.value = response.total;
+    total.value = Number(response.total);
     loading.value = false;
   });
 }

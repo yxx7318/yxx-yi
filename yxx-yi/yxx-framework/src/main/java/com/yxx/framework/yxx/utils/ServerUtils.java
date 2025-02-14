@@ -19,7 +19,7 @@ import java.util.Properties;
 
 public class ServerUtils {
 
-    private static final int OSHI_WAIT_SECOND = 1000;
+    public static final int OSHI_WAIT_SECOND = 1000;
 
     public static void copyTo(Server server) throws Exception
     {

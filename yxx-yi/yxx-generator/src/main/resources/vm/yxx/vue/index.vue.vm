@@ -449,7 +449,7 @@ export default {
 #end
       list${BusinessName}(this.queryParams).then(response => {
         this.${businessName}List = response.rows;
-        this.total = response.total;
+        this.total = Number(response.total);
         this.loading = false;
       });
     },

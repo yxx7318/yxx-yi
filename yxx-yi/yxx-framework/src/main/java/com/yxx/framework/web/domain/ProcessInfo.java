@@ -1,5 +1,7 @@
 package com.yxx.framework.web.domain;
 
+import com.yxx.common.utils.Arith;
+
 import java.io.Serializable;
 
 public class ProcessInfo implements Serializable {
@@ -59,8 +61,8 @@ public class ProcessInfo implements Serializable {
     @Override
     public String toString() {
         return String.format(
-                "PID: %d\nName: %s\nCommand Line: %s\nMemory: %s\nCPU Usage: %.1f%%\nStart Time: %s\nUser: %s\nState: %s\nListening: %s\n",
-                pid, name, commandLine, memoryUsage, cpuUsagePercent * 100, startTime, user, state, listening);
+                "PID: %d\nName: %s\nCommand Line: %s\nMemory: %s\nCPU Usage: %.2f%%\nStart Time: %s\nUser: %s\nState: %s\nListening: %s\n",
+                getPid(), getName(), getCommandLine(), getMemoryUsage(), getCpuUsagePercent(), getStartTime(), getUser(), getState(), getListening());
     }
 
     public int getPid() {
@@ -96,7 +98,7 @@ public class ProcessInfo implements Serializable {
     }
 
     public double getCpuUsagePercent() {
-        return cpuUsagePercent;
+        return Arith.round(Arith.mul(cpuUsagePercent, 100), 2);
     }
 
     public void setCpuUsagePercent(double cpuUsagePercent) {

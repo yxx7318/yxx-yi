@@ -47,6 +47,10 @@ public class SysJobLog extends BaseEntity
     @Excel(name = "异常信息")
     private String exceptionInfo;
 
+    /** 其它信息 */
+    @Excel(name = "其它信息")
+    private String otherInfo;
+
     /** 开始时间 */
     private Date startTime;
 
@@ -133,6 +137,16 @@ public class SysJobLog extends BaseEntity
         this.exceptionInfo = exceptionInfo;
     }
 
+    public String getOtherInfo()
+    {
+        return otherInfo;
+    }
+
+    public void setOtherInfo(String otherInfo)
+    {
+        this.otherInfo = otherInfo;
+    }
+
     public Date getStartTime()
     {
         return startTime;
@@ -161,7 +175,9 @@ public class SysJobLog extends BaseEntity
             .append("jobGroup", getJobGroup())
             .append("jobMessage", getJobMessage())
             .append("status", getStatus())
+            .append("successInfoInfo", getSuccessInfo())
             .append("exceptionInfo", getExceptionInfo())
+            .append("otherInfo", getOtherInfo())
             .append("startTime", getStartTime())
             .append("stopTime", getStopTime())
             .toString();

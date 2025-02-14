@@ -51,6 +51,11 @@ public class Constants
     public static final String FAIL = "1";
 
     /**
+     * 通用其它标识
+     */
+    public static final String OTHER = "2";
+
+    /**
      * 登录成功
      */
     public static final String LOGIN_SUCCESS = "Success";

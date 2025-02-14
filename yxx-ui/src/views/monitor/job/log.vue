@@ -165,10 +165,17 @@
             <el-form-item label="执行状态：">
               <div v-if="form.status == 0">正常</div>
               <div v-else-if="form.status == 1">失败</div>
+              <div v-else-if="form.status == 2">警告</div>
             </el-form-item>
           </el-col>
           <el-col :span="24">
+            <el-form-item label="成功信息：" v-if="form.status == 0">{{ form.successInfo }}</el-form-item>
+          </el-col>
+          <el-col :span="24">
             <el-form-item label="异常信息：" v-if="form.status == 1">{{ form.exceptionInfo }}</el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="警告信息：" v-if="form.status == 2">{{ form.otherInfo }}</el-form-item>
           </el-col>
         </el-row>
       </el-form>

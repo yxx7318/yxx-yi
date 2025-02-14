@@ -5,6 +5,8 @@ import oshi.SystemInfo;
 import oshi.software.os.OSProcess;
 import oshi.software.os.OperatingSystem;
 import oshi.util.FormatUtil;
+import static com.yxx.framework.yxx.utils.ServerUtils.OSHI_WAIT_SECOND;
+import oshi.util.Util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,7 +22,7 @@ public class ProcessMonitorUtils {
     /**
      * 根据应用名称查找进程
      */
-    public static List<ProcessInfo> findProcessesByAppName(String appName) {
+    public static List<ProcessInfo> findProcesses(String appName) {
         SystemInfo si = new SystemInfo();
         OperatingSystem os = si.getOperatingSystem();
         List<ProcessInfo> result = new ArrayList<>();
@@ -41,7 +43,7 @@ public class ProcessMonitorUtils {
     /**
      * 根据端口号查找进程
      */
-    public static ProcessInfo findProcessByPort(int port) {
+    public static ProcessInfo findProcess(int port) {
         int pid = findPidByPort(port);
         if (pid == -1) return null;
 
@@ -58,6 +60,7 @@ public class ProcessMonitorUtils {
         info.setName(process.getName());
         info.setCommandLine(process.getCommandLine());
         info.setMemoryUsage(FormatUtil.formatBytes(process.getResidentSetSize()));
+        Util.sleep(OSHI_WAIT_SECOND);
         info.setCpuUsagePercent(process.getProcessCpuLoadBetweenTicks(process));
         info.setStartTime(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format((new Date(process.getStartTime()))));
         info.setUser(process.getUser());
@@ -83,10 +86,10 @@ public class ProcessMonitorUtils {
     }
 
     private static int findPidByPortWindows(int port) {
-        String command = "netstat -ano | findstr :" + port;
+        String command = String.format("netstat -ano | findstr :%d | findstr /V \":%d[0-9]\"", port, port);
         Process process;
         try {
-            process = Runtime.getRuntime().exec(new String[]{"cmd.exe", "/c", command});
+            process = Runtime.getRuntime().exec(new String[]{"cmd", "/c", command});
         } catch (IOException e) {
             return -1;
         }

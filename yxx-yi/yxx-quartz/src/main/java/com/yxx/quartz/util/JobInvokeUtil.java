@@ -7,6 +7,7 @@ import java.util.List;
 import com.yxx.common.utils.StringUtils;
 import com.yxx.common.utils.spring.SpringUtils;
 import com.yxx.quartz.domain.SysJob;
+import org.quartz.JobExecutionException;
 
 /**
  * 任务执行工具
@@ -35,7 +36,19 @@ public class JobInvokeUtil
         {
             bean = Class.forName(beanName).getDeclaredConstructor().newInstance();
         }
-        return invokeMethod(bean, methodName, methodParams);
+        String result;
+        try {
+            result = invokeMethod(bean, methodName, methodParams);
+        } catch (InvocationTargetException e) {
+            // 获取原始的异常
+            Throwable targetException = e.getTargetException();
+            // 如果是自定义的任务异常，则进行异常二次抛出方便日志的写入
+            if (targetException instanceof JobExecutionException) {
+                throw new JobExecutionException(targetException.getMessage());
+            }
+            throw new Exception(e);
+        }
+        return result;
     }
 
     /**

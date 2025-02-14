@@ -41,6 +41,11 @@ public abstract class AbstractQuartzJob implements Job
             String successInfo = doExecute(context, sysJob);
             after(context, sysJob, successInfo, null);
         }
+        catch (JobExecutionException e)
+        {
+            log.warn("任务执行警告  - ：", e);
+            after(context, sysJob, null, e);
+        }
         catch (Exception e)
         {
             log.error("任务执行异常  - ：", e);
@@ -80,13 +85,18 @@ public abstract class AbstractQuartzJob implements Job
         sysJobLog.setStopTime(new Date());
         long runMs = sysJobLog.getStopTime().getTime() - sysJobLog.getStartTime().getTime();
         sysJobLog.setJobMessage(sysJobLog.getJobName() + " 总共耗时：" + runMs + "毫秒");
-        if (e != null)
+        if (e instanceof JobExecutionException)
+        {
+            sysJobLog.setStatus(Constants.OTHER);
+            String otherMsg = StringUtils.substring(e.getMessage(), 0, 2000);
+            sysJobLog.setOtherInfo(otherMsg);
+        }
+        else if (e != null)
         {
             sysJobLog.setStatus(Constants.FAIL);
             String errorMsg = StringUtils.substring(ExceptionUtil.getExceptionMessage(e), 0, 2000);
             sysJobLog.setExceptionInfo(errorMsg);
         }
-        else
         {
             sysJobLog.setStatus(Constants.SUCCESS);
             String successMsg = StringUtils.substring(successInfo, 0, 2000);
