@@ -2,12 +2,12 @@
     <div :class="{'has-logo':showLogo}" :style="{ backgroundColor: settings.sideTheme === 'theme-dark' ? variables.menuBackground : variables.menuLightBackground }">
         <logo v-if="showLogo" :collapse="isCollapse" />
         <el-scrollbar :class="settings.sideTheme" wrap-class="scrollbar-wrapper">
+            <!-- :unique-opened="true"代表只保持一个子菜单的展开 -->
             <el-menu
                 :default-active="activeMenu"
                 :collapse="isCollapse"
                 :background-color="settings.sideTheme === 'theme-dark' ? variables.menuBackground : variables.menuLightBackground"
                 :text-color="settings.sideTheme === 'theme-dark' ? variables.menuColor : variables.menuLightColor"
-                :unique-opened="true"
                 :active-text-color="settings.theme"
                 :collapse-transition="false"
                 mode="vertical"
