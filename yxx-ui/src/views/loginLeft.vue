@@ -18,7 +18,7 @@
     </el-row>
   </div>
 </template>
-  
+
 <script>
 import loginLogo from './loginLogo.vue';
 export default {
@@ -33,6 +33,6 @@ export default {
   }
 }
 </script>
-  
+
 <style>
 </style>

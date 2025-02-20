@@ -61,7 +61,7 @@
       <div class="el-login-footer">
         <span>Copyright © 2024-2025 YXX All rights reserved.</span>
       </div>
-  </div>
+    </div>
 </div>
 </template>
 

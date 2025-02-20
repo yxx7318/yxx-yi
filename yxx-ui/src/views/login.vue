@@ -1,6 +1,6 @@
 <template>
   <div style="height: 100vh">
-    <el-row >
+    <el-row>
       <el-col :span="isMobile ? 0 : 12" v-show="!isMobile">
         <login-left></login-left>
       </el-col>
