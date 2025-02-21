@@ -48,7 +48,7 @@ public class ${ClassName}Controller extends BaseControllerPlus
     @PreAuthorize("@ss.hasPermi('${permissionPrefix}:list')")
     @GetMapping("/list")
 #if($table.crud || $table.sub)
-    public PageResult<?> list(@Parameter(description = "DTO对象") ${ClassName} ${className})
+    public PageResult<?> list(@Parameter(description = "DTO对象", in = ParameterIn.QUERY) ${ClassName} ${className})
     {
         startPage();
         List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
