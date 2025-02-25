@@ -38,15 +38,6 @@ spring:
     # 数字自动转化字符串
     numToStr: false
 
-## MyBatis配置
-#mybatis:
-#  # 搜索指定包别名
-#  typeAliasesPackage: com.yxx.**.domain
-#  # 配置mapper的扫描，找到所有的mapper.xml映射文件
-#  mapperLocations: classpath*:mapper/**/*Mapper.xml
-#  # 加载全局的配置文件
-#  configLocation: classpath:mybatis/mybatis-config.xml
-
 # MyBatis Plus配置
 mybatis-plus:
   configuration:
@@ -54,8 +45,6 @@ mybatis-plus:
     use-generated-keys: true
     default-executor-type: SIMPLE
     log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
-    # 如果需要，可以开启驼峰命名法转换字段
-#    map-underscore-to-camel-case: true
     # 配置全局枚举处理器
     default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
   global-config:
@@ -68,8 +57,6 @@ mybatis-plus:
   typeAliasesPackage: com.yxx.**.domain
   # 配置mapper的扫描，找到所有的mapper.xml映射文件
   mapperLocations: classpath*:mapper/**/*Mapper.xml
-  # 加载全局的配置文件
-#  configLocation: classpath:mybatis/mybatis-config.xml
 
 # PageHelper分页插件
 pagehelper:
