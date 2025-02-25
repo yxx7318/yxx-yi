@@ -78,7 +78,7 @@ spring:
     # 数据库索引
     database: 13
     # 密码
-    password: yxx@12345678&redis
+    password: yxx@redis
     # 连接超时时间
     timeout: 10s
     lettuce:
