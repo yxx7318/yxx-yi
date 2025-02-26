@@ -1,4 +1,4 @@
-package com.yxx.framework.yxx.utils;
+package com.yxx.framework.web.utils;
 
 import com.yxx.common.utils.Arith;
 import com.yxx.common.utils.ip.IpUtils;
@@ -21,7 +21,7 @@ public class ServerUtils {
 
     public static final int OSHI_WAIT_SECOND = 1000;
 
-    public static void copyTo(Server server)
+    public static void copyTo(Server server) throws Exception
     {
         SystemInfo si = new SystemInfo();
         HardwareAbstractionLayer hal = si.getHardware();
@@ -89,7 +89,7 @@ public class ServerUtils {
     /**
      * 设置Java虚拟机
      */
-    private static void setJvmInfo(Jvm jvm)
+    private static void setJvmInfo(Jvm jvm) throws UnknownHostException
     {
         Properties props = System.getProperties();
         jvm.setTotal(Runtime.getRuntime().totalMemory());

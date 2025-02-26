@@ -1,6 +1,7 @@
 package com.yxx.framework.web.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import com.yxx.framework.web.domain.server.Cpu;
@@ -11,8 +12,6 @@ import com.yxx.framework.web.domain.server.SysFile;
 
 /**
  * 服务器相关信息
- *
- * @author ruoyi
  */
 public class Server implements Serializable
 {
@@ -43,6 +42,11 @@ public class Server implements Serializable
      * 磁盘相关信息
      */
     private List<SysFile> sysFiles = new LinkedList<SysFile>();
+
+    /**
+     * 应用进程运行信息
+     */
+    private List<ProcessInfo> processInfoList = new ArrayList<>();
 
     public Cpu getCpu()
     {
@@ -92,5 +96,13 @@ public class Server implements Serializable
     public void setSysFiles(List<SysFile> sysFiles)
     {
         this.sysFiles = sysFiles;
+    }
+
+    public List<ProcessInfo> getProcessInfoList() {
+        return processInfoList;
+    }
+
+    public void setProcessInfoList(List<ProcessInfo> processInfoList) {
+        this.processInfoList = processInfoList;
     }
 }

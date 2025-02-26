@@ -85,3 +85,8 @@ generator:
   vmType: yxx
   # 是否开启代码生成基类属性(开启后可以提高生成的代码对MP的兼容性)
   entity: false
+
+# 监听服务
+server:
+  ports: [ 3306, 3308, 444, 80, 443 ]
+  appNames: [ "mysql", "nginx", "java", "php-fpm", "python" ]

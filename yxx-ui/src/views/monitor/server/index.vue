@@ -171,6 +171,44 @@
           </div>
         </el-card>
       </el-col>
+
+      <el-col :span="24" class="card-box">
+        <el-card>
+          <div slot="header">
+            <span><i class="el-icon-data-line"></i> 应用状态</span>
+          </div>
+          <div class="el-table el-table--enable-row-hover el-table--medium">
+            <table cellspacing="0" style="width: 100%;">
+              <thead>
+              <tr>
+                <th class="el-table__cell el-table__cell is-leaf"><div class="cell">进程ID</div></th>
+                <th class="el-table__cell is-leaf"><div class="cell">进程名称</div></th>
+                <th class="el-table__cell is-leaf"><div class="cell">用户名称</div></th>
+                <th class="el-table__cell is-leaf"><div class="cell">内存使用</div></th>
+                <th class="el-table__cell is-leaf"><div class="cell">CPU使用</div></th>
+                <th class="el-table__cell is-leaf"><div class="cell">启动时间</div></th>
+                <th class="el-table__cell is-leaf"><div class="cell">进程状态</div></th>
+                <th class="el-table__cell is-leaf"><div class="cell">命令参数</div></th>
+                <th class="el-table__cell is-leaf"><div class="cell">进程监听</div></th>
+              </tr>
+              </thead>
+              <tbody v-if="server.processInfoList">
+              <tr v-for="(process, index) in server.processInfoList" :key="index">
+                <td class="el-table__cell is-leaf"><div class="cell">{{ process.pid }}</div></td>
+                <td class="el-table__cell is-leaf"><div class="cell">{{ process.name }}</div></td>
+                <td class="el-table__cell is-leaf"><div class="cell">{{ process.user }}</div></td>
+                <td class="el-table__cell is-leaf"><div class="cell">{{ process.memoryUsage }}</div></td>
+                <td class="el-table__cell is-leaf"><div class="cell" :class="{'text-danger': process.cpuUsagePercent > 80}">{{ process.cpuUsagePercent }}%</div></td>
+                <td class="el-table__cell is-leaf"><div class="cell">{{ process.startTime }}</div></td>
+                <td class="el-table__cell is-leaf"><div class="cell" :class="{'text-danger': process.state !== 'RUNNING' && process.state !== 'SLEEPING' }">{{ process.state }}</div></td>
+                <td class="el-table__cell is-leaf"><div class="cell" style="white-space: pre;width: 210px;">{{ process.commandLine }}</div></td>
+                <td class="el-table__cell is-leaf"><div class="cell" style="white-space: pre;width: 210px;">{{ process.listening }}</div></td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </el-card>
+      </el-col>
     </el-row>
   </div>
 </template>
