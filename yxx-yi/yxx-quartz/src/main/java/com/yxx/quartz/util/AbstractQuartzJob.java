@@ -87,20 +87,21 @@ public abstract class AbstractQuartzJob implements Job
         sysJobLog.setJobMessage(sysJobLog.getJobName() + " 总共耗时：" + runMs + "毫秒");
         if (e instanceof JobExecutionException)
         {
-            sysJobLog.setStatus(Constants.OTHER);
-            String otherMsg = StringUtils.substring(e.getMessage(), 0, 2000);
-            sysJobLog.setOtherInfo(otherMsg);
+            sysJobLog.setStatus(Constants.WARN);
+            String warnMsg = StringUtils.substring(e.getMessage(), 0, 2000);
+            sysJobLog.setJobInfo(warnMsg);
         }
         else if (e != null)
         {
             sysJobLog.setStatus(Constants.FAIL);
             String errorMsg = StringUtils.substring(ExceptionUtil.getExceptionMessage(e), 0, 2000);
-            sysJobLog.setExceptionInfo(errorMsg);
+            sysJobLog.setJobInfo(errorMsg);
         }
+        else
         {
             sysJobLog.setStatus(Constants.SUCCESS);
             String successMsg = StringUtils.substring(successInfo, 0, 2000);
-            sysJobLog.setSuccessInfo(successMsg);
+            sysJobLog.setJobInfo(successMsg);
         }
 
         // 写入数据库当中

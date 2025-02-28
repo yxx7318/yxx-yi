@@ -4,6 +4,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
+
+import com.yxx.common.utils.ExceptionUtil;
 import com.yxx.common.utils.StringUtils;
 import com.yxx.common.utils.spring.SpringUtils;
 import com.yxx.quartz.domain.SysJob;
@@ -44,7 +46,7 @@ public class JobInvokeUtil
             Throwable targetException = e.getTargetException();
             // 如果是自定义的任务异常，则进行异常二次抛出方便日志的写入
             if (targetException instanceof JobExecutionException) {
-                throw new JobExecutionException(targetException.getMessage());
+                throw new JobExecutionException(ExceptionUtil.getRootErrorMessage(e));
             }
             throw new Exception(e);
         }

@@ -35,21 +35,13 @@ public class SysJobLog extends BaseEntity
     @Excel(name = "日志信息")
     private String jobMessage;
 
-    /** 执行状态（0正常 1失败） */
-    @Excel(name = "执行状态", readConverterExp = "0=正常,1=失败")
+    /** 执行状态（0正常 1失败 2警告） */
+    @Excel(name = "执行状态", readConverterExp = "0=正常,1=失败,2=警告")
     private String status;
 
-    /** 成功信息 */
-    @Excel(name = "成功信息")
-    private String successInfo;
-
-    /** 异常信息 */
-    @Excel(name = "异常信息")
-    private String exceptionInfo;
-
     /** 其它信息 */
-    @Excel(name = "其它信息")
-    private String otherInfo;
+    @Excel(name = "结果信息")
+    private String jobInfo;
 
     /** 开始时间 */
     private Date startTime;
@@ -117,34 +109,14 @@ public class SysJobLog extends BaseEntity
         this.status = status;
     }
 
-    public String getSuccessInfo()
+    public String getJobInfo()
     {
-        return successInfo;
+        return jobInfo;
     }
 
-    public void setSuccessInfo(String successInfo)
+    public void setJobInfo(String jobInfo)
     {
-        this.successInfo = successInfo;
-    }
-
-    public String getExceptionInfo()
-    {
-        return exceptionInfo;
-    }
-
-    public void setExceptionInfo(String exceptionInfo)
-    {
-        this.exceptionInfo = exceptionInfo;
-    }
-
-    public String getOtherInfo()
-    {
-        return otherInfo;
-    }
-
-    public void setOtherInfo(String otherInfo)
-    {
-        this.otherInfo = otherInfo;
+        this.jobInfo = jobInfo;
     }
 
     public Date getStartTime()
@@ -175,9 +147,7 @@ public class SysJobLog extends BaseEntity
             .append("jobGroup", getJobGroup())
             .append("jobMessage", getJobMessage())
             .append("status", getStatus())
-            .append("successInfoInfo", getSuccessInfo())
-            .append("exceptionInfo", getExceptionInfo())
-            .append("otherInfo", getOtherInfo())
+            .append("jobInfo", getJobInfo())
             .append("startTime", getStartTime())
             .append("stopTime", getStopTime())
             .toString();

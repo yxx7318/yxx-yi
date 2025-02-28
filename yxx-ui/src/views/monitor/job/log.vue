@@ -40,6 +40,15 @@
           />
         </el-select>
       </el-form-item>
+      <el-form-item label="结果信息" prop="jobInfo">
+        <el-input
+          v-model="queryParams.jobInfo"
+          placeholder="请输入结果信息"
+          clearable
+          style="width: 240px"
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
       <el-form-item label="执行时间">
         <el-date-picker
           v-model="dateRange"
@@ -169,13 +178,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="成功信息：" v-if="form.status == 0">{{ form.successInfo }}</el-form-item>
-          </el-col>
-          <el-col :span="24">
-            <el-form-item label="异常信息：" v-if="form.status == 1">{{ form.exceptionInfo }}</el-form-item>
-          </el-col>
-          <el-col :span="24">
-            <el-form-item label="警告信息：" v-if="form.status == 2">{{ form.otherInfo }}</el-form-item>
+            <el-form-item label="结果信息：">{{ form.jobInfo }}</el-form-item>
           </el-col>
         </el-row>
       </el-form>
@@ -219,7 +222,8 @@ export default {
         pageSize: 10,
         jobName: undefined,
         jobGroup: undefined,
-        status: undefined
+        status: undefined,
+        jobInfo: undefined,
       }
     };
   },

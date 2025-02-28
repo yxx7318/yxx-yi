@@ -51,9 +51,9 @@ public class Constants
     public static final String FAIL = "1";
 
     /**
-     * 通用其它标识
+     * 通用警告标识
      */
-    public static final String OTHER = "2";
+    public static final String WARN = "2";
 
     /**
      * 登录成功
