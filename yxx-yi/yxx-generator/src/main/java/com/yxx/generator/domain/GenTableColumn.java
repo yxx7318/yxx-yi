@@ -6,7 +6,7 @@ import com.yxx.common.utils.StringUtils;
 
 /**
  * 代码生成业务字段表 gen_table_column
- * 
+ *
  * @author ruoyi
  */
 public class GenTableColumn extends BaseEntity
@@ -344,23 +344,35 @@ public class GenTableColumn extends BaseEntity
 
     public static boolean isUsableColumn(String javaField)
     {
-        // isSuperColumn()中的名单用于避免生成多余Domain属性，若某些属性在生成页面时需要用到不能忽略，则放在此处白名单
+        // isSuperColumn()中的名单用于避免生成多余Domain属性，若某些属性在生成页面时需要用到，不能忽略，则放在此处白名单
         return StringUtils.equalsAnyIgnoreCase(javaField, "parentId", "orderNum", "remark");
     }
 
     public String readConverterExp()
     {
-        String remarks = StringUtils.substringBetween(this.columnComment, "（", "）");
-        StringBuffer sb = new StringBuffer();
+        // 存在'（'字符才会触发此方法，兼容使用'，'的情况
+        String remarks = StringUtils.substringBetween(this.columnComment, "（", "）").replace("，", ",");
+        StringBuilder sb = new StringBuilder();
         if (StringUtils.isNotEmpty(remarks))
         {
             for (String value : remarks.split(" "))
             {
                 if (StringUtils.isNotEmpty(value))
                 {
-                    Object startStr = value.subSequence(0, 1);
+                    // 获取键
+                    String startStr = value.substring(0, 1);
+                    // 获取值
                     String endStr = value.substring(1);
-                    sb.append("").append(startStr).append("=").append(endStr).append(",");
+                    // 兼容大于'个位数'的情况
+                    for (int i = value.length(); i > 1; i--) {
+                        String key = value.substring(0, i);
+                        if (StringUtils.isNumeric(key)) {
+                            startStr = key;
+                            endStr = value.substring(i);
+                            break;
+                        }
+                    }
+                    sb.append(startStr).append("=").append(endStr).append(",");
                 }
             }
             return sb.deleteCharAt(sb.length() - 1).toString();

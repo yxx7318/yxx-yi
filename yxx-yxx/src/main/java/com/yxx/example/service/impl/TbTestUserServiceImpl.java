@@ -10,10 +10,10 @@ import com.yxx.example.domain.TbTestUser;
 import com.yxx.example.service.ITbTestUserService;
 
 /**
- * 代码生成测试Service业务层处理
+ * 测试用户Service业务层处理
  * 
  * @author yxx
- * @date 2025-02-08
+ * @date 2025-03-01
  */
 @Service
 @RequiredArgsConstructor
@@ -22,10 +22,10 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
     private final TbTestUserMapper tbTestUserMapper;
 
     /**
-     * 查询代码生成测试
+     * 查询测试用户
      * 
-     * @param userId 代码生成测试主键
-     * @return 代码生成测试
+     * @param userId 测试用户主键
+     * @return 测试用户
      */
     @Override
     public TbTestUser selectTbTestUserByUserId(Long userId)
@@ -34,10 +34,10 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
     }
 
     /**
-     * 查询代码生成测试列表
+     * 查询测试用户列表
      * 
-     * @param tbTestUser 代码生成测试
-     * @return 代码生成测试
+     * @param tbTestUser 测试用户
+     * @return 测试用户
      */
     @Override
     public List<TbTestUser> selectTbTestUserList(TbTestUser tbTestUser)
@@ -46,37 +46,37 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
     }
 
     /**
-     * 新增代码生成测试
+     * 新增测试用户
      * 
-     * @param tbTestUser 代码生成测试
+     * @param tbTestUser 测试用户
      * @return 结果
      */
     @Override
     public int insertTbTestUser(TbTestUser tbTestUser)
     {
-        tbTestUser.setCreateTime(DateUtils.getNowDate());
         tbTestUser.setCreateBy(getUserNameOrNotLogged());
+        tbTestUser.setCreateTime(DateUtils.getNowDate());
         return tbTestUserMapper.insertTbTestUser(tbTestUser);
     }
 
     /**
-     * 修改代码生成测试
+     * 修改测试用户
      * 
-     * @param tbTestUser 代码生成测试
+     * @param tbTestUser 测试用户
      * @return 结果
      */
     @Override
     public int updateTbTestUser(TbTestUser tbTestUser)
     {
-        tbTestUser.setUpdateTime(DateUtils.getNowDate());
         tbTestUser.setUpdateBy(getUserNameOrNotLogged());
+        tbTestUser.setUpdateTime(DateUtils.getNowDate());
         return tbTestUserMapper.updateTbTestUser(tbTestUser);
     }
 
     /**
-     * 批量删除代码生成测试
+     * 批量删除测试用户
      * 
-     * @param userIds 需要删除的代码生成测试主键
+     * @param userIds 需要删除的测试用户主键
      * @return 结果
      */
     @Override
@@ -86,9 +86,9 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
     }
 
     /**
-     * 删除代码生成测试信息
+     * 删除测试用户信息
      * 
-     * @param userId 代码生成测试主键
+     * @param userId 测试用户主键
      * @return 结果
      */
     @Override

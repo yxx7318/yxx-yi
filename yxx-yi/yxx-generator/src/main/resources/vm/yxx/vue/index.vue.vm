@@ -110,6 +110,15 @@
           v-hasPermi="['${moduleName}:${businessName}:export']"
         >导出</el-button>
       </el-col>
+      <el-col :span="1.5">
+        <el-button
+          type="info"
+          plain
+          icon="el-icon-upload2"
+          size="mini"
+          @click="upload.open = true"
+          v-hasPermi="['temu:goods:import']">导入</el-button>
+      </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
@@ -349,6 +358,15 @@
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
+
+    <!-- 导入${functionName}对话框 -->
+    <excel-upload
+      :title="upload.title"
+      :uploadUrl="upload.url"
+      :open="upload.open"
+      @uploadClose="upload.open = false"
+      @handleFileSuccess="getList">
+    </excel-upload>
   </div>
 </template>
 
@@ -395,6 +413,15 @@ export default {
       daterange${AttrName}: [],
 #end
 #end
+      // 商品导入参数
+      upload: {
+        // 是否显示弹出层
+        open: false,
+        // 弹出层标题
+        title: "${functionName}导入",
+        // 上传的地址
+        url: "/${moduleName}/${businessName}/importData"
+      },
       // 查询参数
       queryParams: {
         pageNum: 1,

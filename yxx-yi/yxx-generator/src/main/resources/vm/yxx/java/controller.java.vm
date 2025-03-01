@@ -2,6 +2,8 @@ package ${packageName}.controller;
 
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -69,8 +71,28 @@ public class ${ClassName}Controller extends BaseControllerPlus
     public void export(HttpServletResponse response, @Parameter(description = "DTO对象", in = ParameterIn.QUERY) ${ClassName} ${className})
     {
         List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
-        ExcelUtil<${ClassName}> util = new ExcelUtil<${ClassName}>(${ClassName}.class);
+        ExcelUtil<${ClassName}> util = new ExcelUtil<>(${ClassName}.class);
         util.exportExcel(response, list, "${functionName}数据");
+    }
+
+    @ApiOperation("导入${functionName}模板")
+    @PreAuthorize("@ss.hasPermi('${permissionPrefix}:import')")
+    @PostMapping("/importTemplate")
+    public void importTemplate(HttpServletResponse response)
+    {
+        ExcelUtil<${ClassName}> util = new ExcelUtil<>(${ClassName}.class);
+        util.importTemplateExcel(response, "导入${functionName}模板数据");
+    }
+
+    @ApiOperation("导入${functionName}列表")
+    @PreAuthorize("@ss.hasPermi('${permissionPrefix}:import')")
+    @Log(title = "${functionName}", businessType = BusinessType.IMPORT)
+    @PostMapping("/importData")
+    public R<Boolean> importData(MultipartFile file) throws IOException
+    {
+        ExcelUtil<${ClassName}> util = new ExcelUtil<>(${ClassName}.class);
+        List<${ClassName}> list = util.importExcel(file.getInputStream());
+        return R.ok(${className}Service.saveBatch(list), "成功导入 " + list.size() + " 条记录");
     }
 
     @ApiOperation("获取${functionName}详细信息")

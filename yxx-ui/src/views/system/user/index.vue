@@ -179,13 +179,14 @@
       </div>
     </el-dialog>
 
+    <!-- 用户导入对话框 -->
     <excel-upload
       :title="upload.title"
       :uploadUrl="upload.url"
       :open="upload.open"
       :uploadParams="upload.uploadParams"
       @uploadClose="upload.open = false"
-      @handleFileSuccess="getList()">
+      @handleFileSuccess="getList">
       <el-checkbox v-model="upload.uploadParams.updateSupport" />是否更新已经存在的用户数据
     </excel-upload>
   </div>

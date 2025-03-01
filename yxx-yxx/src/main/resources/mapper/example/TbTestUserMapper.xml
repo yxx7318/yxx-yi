@@ -5,55 +5,55 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.yxx.example.mapper.TbTestUserMapper">
     
     <resultMap type="TbTestUser" id="TbTestUserResult">
-        <result property="userId"    column="userId"    />
-        <result property="username"    column="username"    />
+        <result property="userId"    column="user_id"    />
+        <result property="userName"    column="user_name"    />
         <result property="password"    column="password"    />
-        <result property="mobile"    column="mobile"    />
-        <result property="createTime"    column="create_time"    />
+        <result property="status"    column="status"    />
         <result property="createBy"    column="create_by"    />
-        <result property="updateTime"    column="update_time"    />
+        <result property="createTime"    column="create_time"    />
         <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
         <result property="remark"    column="remark"    />
     </resultMap>
 
     <sql id="selectTbTestUserVo">
-        select userId, username, password, mobile, create_time, create_by, update_time, update_by, remark from tb_test_user
+        select user_id, user_name, password, status, create_by, create_time, update_by, update_time, remark from tb_test_user
     </sql>
 
     <select id="selectTbTestUserList" parameterType="TbTestUser" resultMap="TbTestUserResult">
         <include refid="selectTbTestUserVo"/>
         <where>  
-            <if test="username != null  and username != ''"> and username like concat('%', #{username}, '%')</if>
+            <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
             <if test="password != null  and password != ''"> and password = #{password}</if>
-            <if test="mobile != null  and mobile != ''"> and mobile = #{mobile}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
         </where>
     </select>
 
     <select id="selectTbTestUserByUserId" parameterType="Long" resultMap="TbTestUserResult">
         <include refid="selectTbTestUserVo"/>
-        where userId = #{userId}
+        where user_id = #{userId}
     </select>
 
     <insert id="insertTbTestUser" parameterType="TbTestUser" useGeneratedKeys="true" keyProperty="userId">
         insert into tb_test_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="username != null and username != ''">username,</if>
-            <if test="password != null and password != ''">password,</if>
-            <if test="mobile != null">mobile,</if>
-            <if test="createTime != null">create_time,</if>
+            <if test="userName != null and userName != ''">user_name,</if>
+            <if test="password != null">password,</if>
+            <if test="status != null">status,</if>
             <if test="createBy != null">create_by,</if>
-            <if test="updateTime != null">update_time,</if>
+            <if test="createTime != null">create_time,</if>
             <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
             <if test="remark != null">remark,</if>
          </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="username != null and username != ''">#{username},</if>
-            <if test="password != null and password != ''">#{password},</if>
-            <if test="mobile != null">#{mobile},</if>
-            <if test="createTime != null">#{createTime},</if>
+            <if test="userName != null and userName != ''">#{userName},</if>
+            <if test="password != null">#{password},</if>
+            <if test="status != null">#{status},</if>
             <if test="createBy != null">#{createBy},</if>
-            <if test="updateTime != null">#{updateTime},</if>
+            <if test="createTime != null">#{createTime},</if>
             <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
             <if test="remark != null">#{remark},</if>
          </trim>
     </insert>
@@ -61,24 +61,24 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateTbTestUser" parameterType="TbTestUser">
         update tb_test_user
         <trim prefix="SET" suffixOverrides=",">
-            <if test="username != null and username != ''">username = #{username},</if>
-            <if test="password != null and password != ''">password = #{password},</if>
-            <if test="mobile != null">mobile = #{mobile},</if>
-            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="userName != null and userName != ''">user_name = #{userName},</if>
+            <if test="password != null">password = #{password},</if>
+            <if test="status != null">status = #{status},</if>
             <if test="createBy != null">create_by = #{createBy},</if>
-            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
             <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="remark != null">remark = #{remark},</if>
         </trim>
-        where userId = #{userId}
+        where user_id = #{userId}
     </update>
 
     <delete id="deleteTbTestUserByUserId" parameterType="Long">
-        delete from tb_test_user where userId = #{userId}
+        delete from tb_test_user where user_id = #{userId}
     </delete>
 
     <delete id="deleteTbTestUserByUserIds" parameterType="String">
-        delete from tb_test_user where userId in 
+        delete from tb_test_user where user_id in 
         <foreach item="userId" collection="array" open="(" separator="," close=")">
             #{userId}
         </foreach>
