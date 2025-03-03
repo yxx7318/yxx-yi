@@ -1,5 +1,6 @@
 package com.yxx.common.yxx.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.util.StringUtils;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -18,13 +19,15 @@ public class PageQueryEntity {
      */
     @TableField(exist = false)
     @ApiModelProperty(hidden = true)
-    private Integer pageNo = 1;
+    @JsonIgnore
+    private Integer pageNum = 1;
 
     /**
      * 每页显示的记录数，默认为10
      */
     @TableField(exist = false)
     @ApiModelProperty(hidden = true)
+    @JsonIgnore
     private Integer pageSize = 10;
 
     /**
@@ -32,6 +35,7 @@ public class PageQueryEntity {
      */
     @TableField(exist = false)
     @ApiModelProperty(hidden = true)
+    @JsonIgnore
     private String sortBy;
 
     /**
@@ -39,6 +43,7 @@ public class PageQueryEntity {
      */
     @TableField(exist = false)
     @ApiModelProperty(hidden = true)
+    @JsonIgnore
     private Boolean isAsc;
 
     /**
@@ -49,7 +54,7 @@ public class PageQueryEntity {
      * @return 转换后的Page对象
      */
     public <T> Page<T> toMpPage(OrderItem... items) {
-        Page<T> page = new Page<>(pageNo, pageSize);
+        Page<T> page = new Page<>(pageNum, pageSize);
 
         // 如果排序字段值不为空
         if (!StringUtils.isEmpty(sortBy)) {

@@ -54,7 +54,7 @@ public class ${ClassName}Controller extends BaseControllerPlus
     {
         startPage();
         List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
-        return getDataTableToPR(list);
+        return getDataTableToPR(list, ${className});
     }
 #elseif($table.tree)
     public R<List<${ClassName}>> list(@Parameter(description = "DTO对象") ${ClassName} ${className})

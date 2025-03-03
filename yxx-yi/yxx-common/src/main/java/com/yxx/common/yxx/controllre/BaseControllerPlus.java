@@ -4,6 +4,7 @@ import com.yxx.common.core.controller.BaseController;
 import com.yxx.common.core.domain.R;
 import com.yxx.common.core.page.TableDataInfo;
 import com.yxx.common.utils.bean.BeanUtils;
+import com.yxx.common.yxx.domain.PageQueryEntity;
 import com.yxx.common.yxx.domain.PageResult;
 
 import java.util.List;
@@ -18,6 +19,17 @@ public class BaseControllerPlus extends BaseController {
         PageResult<?> result = new PageResult<>();
         TableDataInfo rspData = getDataTable(list);
         BeanUtils.copyProperties(rspData, result);
+        return result;
+    }
+
+    /**
+     * 响应请求分页数据，转换为R结果对象
+     */
+    protected <T extends PageQueryEntity> PageResult<?> getDataTableToPR(List<?> list, T t)
+    {
+        PageResult<?> result = getDataTableToPR(list);
+        result.setPageNum(t.getPageNum());
+        result.setPageSize(t.getPageSize());
         return result;
     }
 
