@@ -117,7 +117,8 @@
           icon="el-icon-upload2"
           size="mini"
           @click="upload.open = true"
-          v-hasPermi="['temu:goods:import']">导入</el-button>
+          v-hasPermi="['temu:goods:import']"
+        >导入</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
