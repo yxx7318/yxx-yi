@@ -50,7 +50,7 @@ public class TbTestUserController extends BaseControllerPlus
     {
         startPage();
         List<TbTestUser> list = tbTestUserService.selectTbTestUserList(tbTestUser);
-        return getDataTableToPR(list);
+        return getDataTableToPR(list, tbTestUser);
     }
 
     @ApiOperation("导出测试用户列表")
