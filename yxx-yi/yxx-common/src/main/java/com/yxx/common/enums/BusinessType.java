@@ -2,58 +2,74 @@ package com.yxx.common.enums;
 
 /**
  * 业务操作类型
- * 
+ *
  * @author ruoyi
  */
-public enum BusinessType
-{
+public enum BusinessType {
     /**
      * 其它
      */
-    OTHER,
+    OTHER(0, "其它"),
 
     /**
      * 新增
      */
-    INSERT,
+    INSERT(1, "新增"),
 
     /**
      * 修改
      */
-    UPDATE,
+    UPDATE(2, "修改"),
 
     /**
      * 删除
      */
-    DELETE,
+    DELETE(3, "删除"),
 
     /**
      * 授权
      */
-    GRANT,
+    GRANT(4, "授权"),
 
     /**
      * 导出
      */
-    EXPORT,
+    EXPORT(5, "导出"),
 
     /**
      * 导入
      */
-    IMPORT,
+    IMPORT(6, "导入"),
 
     /**
      * 强退
      */
-    FORCE,
+    FORCE(7, "强退"),
 
     /**
      * 生成代码
      */
-    GENCODE,
-    
+    GENCODE(8, "生成代码"),
+
     /**
      * 清空数据
      */
-    CLEAN,
+    CLEAN(9, "清空数据");
+
+    private final int code;
+
+    private final String describe;
+
+    BusinessType(int code, String describe) {
+        this.code = code;
+        this.describe = describe;
+    }
+
+    public int getCode() {
+        return code;
+    }
+
+    public String getDescribe() {
+        return describe;
+    }
 }

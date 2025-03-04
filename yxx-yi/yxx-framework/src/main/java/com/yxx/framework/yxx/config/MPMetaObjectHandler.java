@@ -42,10 +42,10 @@ public class MPMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void updateFill(MetaObject metaObject) {
         if (metaObject.hasSetter("updateTime")) {
-            this.strictInsertFill(metaObject, "updateTime", DateUtils::getNowDate, Date.class);
+            this.strictUpdateFill(metaObject, "updateTime", DateUtils::getNowDate, Date.class);
         }
         if (metaObject.hasSetter("updateBy")) {
-            this.strictInsertFill(metaObject, "updateBy", SecurityUtils::getUsernameOrNotLogged, String.class);
+            this.strictUpdateFill(metaObject, "updateBy", SecurityUtils::getUsernameOrNotLogged, String.class);
         }
     }
 }
