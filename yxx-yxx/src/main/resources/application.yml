@@ -9,7 +9,7 @@ ruoyi:
   # 默认为当前项目路径下
   profile: ./yxx/uploadPath
   # 获取ip地址开关
-  addressEnabled: false
+  addressEnabled: true
   # 验证码类型 math 数字计算 char 字符验证
   captchaType: math
 
