@@ -40,7 +40,7 @@ public class BaseEntity extends PageQueryEntity implements Serializable
     private Date createTime;
 
     /** 更新者 */
-    @TableField(value = "create_by", fill = FieldFill.UPDATE)
+    @TableField(value = "update_by", fill = FieldFill.UPDATE)
     @ApiModelProperty(value = "更新者", hidden = true)
     private String updateBy;
 
