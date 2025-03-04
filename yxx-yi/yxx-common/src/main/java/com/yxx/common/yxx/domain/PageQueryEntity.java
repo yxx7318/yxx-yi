@@ -36,15 +36,27 @@ public class PageQueryEntity {
     @TableField(exist = false)
     @ApiModelProperty(hidden = true)
     @JsonIgnore
-    private String sortBy;
+    private String orderByColumn;
 
     /**
-     * 是否按升序排序，默认为false（降序）
+     * 排序的方向desc或者asc
      */
     @TableField(exist = false)
     @ApiModelProperty(hidden = true)
     @JsonIgnore
-    private Boolean isAsc;
+    private String isAsc;
+
+    public void setIsAsc(String isAsc) {
+        if (!StringUtils.isEmpty(isAsc)) {
+            // 兼容前端排序类型
+            if ("ascending".equals(isAsc)) {
+                isAsc = "asc";
+            } else if ("descending".equals(isAsc)) {
+                isAsc = "desc";
+            }
+            this.isAsc = isAsc;
+        }
+    }
 
     /**
      * 将当前分页查询条件转换为MyBatis-Plus的Page对象，并根据提供的排序项进行排序
@@ -57,8 +69,8 @@ public class PageQueryEntity {
         Page<T> page = new Page<>(pageNum, pageSize);
 
         // 如果排序字段值不为空
-        if (!StringUtils.isEmpty(sortBy)) {
-            page.addOrder(new OrderItem(sortBy, isAsc));
+        if (!StringUtils.isEmpty(orderByColumn)) {
+            page.addOrder(new OrderItem(orderByColumn, "isAsc".equals(isAsc)));
         } else if (items != null && items.length > 0) {
             page.addOrder(items);
         }
@@ -84,7 +96,7 @@ public class PageQueryEntity {
      * @return 转换后的Page对象
      */
     public <T> Page<T> toMpPageDefaultSortByCreateTime() {
-        return toMpPage(new OrderItem("create_time", false));
+        return toMpPage(new OrderItem("create_time" , false));
     }
 
     /**
@@ -94,6 +106,6 @@ public class PageQueryEntity {
      * @return 转换后的Page对象
      */
     public <T> Page<T> toMpPageDefaultSortByUpdateTime() {
-        return toMpPage(new OrderItem("update_time", false));
+        return toMpPage(new OrderItem("update_time" , false));
     }
 }
