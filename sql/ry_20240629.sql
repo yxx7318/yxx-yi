@@ -524,7 +524,7 @@ insert into sys_dict_data values(26, 8,  '生成代码', '8',       'sys_oper_ty
 insert into sys_dict_data values(27, 9,  '清空数据', '9',       'sys_oper_type',       '',   'danger',  'N', '0', 'admin', sysdate(), '', null, '清空操作');
 insert into sys_dict_data values(28, 1,  '成功',     '0',       'sys_common_status',   '',   'primary', 'N', '0', 'admin', sysdate(), '', null, '正常状态');
 insert into sys_dict_data values(29, 2,  '失败',     '1',       'sys_common_status',   '',   'danger',  'N', '0', 'admin', sysdate(), '', null, '停用状态');
-insert into sys_dict_data values(30, 3,  '其它',     '2',       'sys_common_status',   '',   'warning', 'N', '0', 'admin', sysdate(), '', null, '其它状态');
+insert into sys_dict_data values(30, 3,  '警告',     '2',       'sys_common_status',   '',   'warning', 'N', '0', 'admin', sysdate(), '', null, '警告状态');
 
 
 -- ----------------------------
