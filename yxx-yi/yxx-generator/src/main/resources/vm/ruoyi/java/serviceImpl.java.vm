@@ -108,7 +108,7 @@ public class ${ClassName}ServiceImpl implements I${ClassName}Service
     /**
      * 批量删除${functionName}
      * 
-     * @param ${pkColumn.javaField}s 需要删除的${functionName}主键
+     * @param ${pkColumn.javaField}s 需要删除的${functionName}主键集合
      * @return 结果
      */
 #if($table.sub)

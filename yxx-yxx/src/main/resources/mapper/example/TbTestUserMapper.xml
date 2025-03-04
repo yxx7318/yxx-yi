@@ -77,9 +77,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         delete from tb_test_user where user_id = #{userId}
     </delete>
 
-    <delete id="deleteTbTestUserByUserIds" parameterType="String">
+    <delete id="deleteTbTestUserByUserIds" parameterType="List">
         delete from tb_test_user where user_id in 
-        <foreach item="userId" collection="array" open="(" separator="," close=")">
+        <foreach item="userId" collection="list" open="(" separator="," close=")">
             #{userId}
         </foreach>
     </delete>

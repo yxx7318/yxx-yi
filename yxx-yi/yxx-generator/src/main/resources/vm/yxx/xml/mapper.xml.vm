@@ -111,17 +111,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         delete from ${tableName} where ${pkColumn.columnName} = #{${pkColumn.javaField}}
     </delete>
 
-    <delete id="delete${ClassName}By${pkColumn.capJavaField}s" parameterType="String">
+    <delete id="delete${ClassName}By${pkColumn.capJavaField}s" parameterType="List">
         delete from ${tableName} where ${pkColumn.columnName} in 
-        <foreach item="${pkColumn.javaField}" collection="array" open="(" separator="," close=")">
+        <foreach item="${pkColumn.javaField}" collection="list" open="(" separator="," close=")">
             #{${pkColumn.javaField}}
         </foreach>
     </delete>
 #if($table.sub)
 
-    <delete id="delete${subClassName}By${subTableFkClassName}s" parameterType="String">
+    <delete id="delete${subClassName}By${subTableFkClassName}s" parameterType="List">
         delete from ${subTableName} where ${subTableFkName} in 
-        <foreach item="${subTableFkclassName}" collection="array" open="(" separator="," close=")">
+        <foreach item="${subTableFkclassName}" collection="list" open="(" separator="," close=")">
             #{${subTableFkclassName}}
         </foreach>
     </delete>

@@ -19,7 +19,7 @@ import lombok.*;
 
 /**
  * ${functionName}对象 ${tableName}
- * 
+ *
  * @author ${author}
  * @date ${datetime}
  */
@@ -35,8 +35,7 @@ import lombok.*;
 @Builder
 @Data
 @TableName(value = "${tableName}", autoResultMap = true)
-public class ${ClassName} extends ${Entity}
-{
+public class ${ClassName} extends ${Entity} {
 
     private static final long serialVersionUID = 1L;
 

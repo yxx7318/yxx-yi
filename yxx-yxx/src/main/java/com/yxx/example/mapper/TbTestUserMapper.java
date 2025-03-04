@@ -8,10 +8,9 @@ import com.yxx.common.yxx.mapper.BaseMapperPlus;
  * 测试用户Mapper接口
  * 
  * @author yxx
- * @date 2025-03-01
+ * @date 2025-03-04
  */
-public interface TbTestUserMapper extends BaseMapperPlus<TbTestUser>
-{
+public interface TbTestUserMapper extends BaseMapperPlus<TbTestUser> {
     /**
      * 查询测试用户
      * 
@@ -58,5 +57,5 @@ public interface TbTestUserMapper extends BaseMapperPlus<TbTestUser>
      * @param userIds 需要删除的数据主键集合
      * @return 结果
      */
-    public int deleteTbTestUserByUserIds(Long[] userIds);
+    public int deleteTbTestUserByUserIds(List<Long> userIds);
 }

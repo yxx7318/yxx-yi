@@ -28,8 +28,8 @@ import ${packageName}.service.I${ClassName}Service;
  */
 @Service
 @RequiredArgsConstructor
-public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper, ${ClassName}> implements I${ClassName}Service
-{
+public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper, ${ClassName}> implements I${ClassName}Service {
+
     private final ${ClassName}Mapper ${className}Mapper;
 
     /**
@@ -115,14 +115,14 @@ public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper,
     /**
      * 批量删除${functionName}
      * 
-     * @param ${pkColumn.javaField}s 需要删除的${functionName}主键
+     * @param ${pkColumn.javaField}s 需要删除的${functionName}主键集合
      * @return 结果
      */
 #if($table.sub)
     @Transactional
 #end
     @Override
-    public int delete${ClassName}By${pkColumn.capJavaField}s(${pkColumn.javaType}[] ${pkColumn.javaField}s)
+    public int delete${ClassName}By${pkColumn.capJavaField}s(List<${pkColumn.javaType}> ${pkColumn.javaField}s)
     {
 #if($table.sub)
         ${className}Mapper.delete${subClassName}By${subTableFkClassName}s(${pkColumn.javaField}s);

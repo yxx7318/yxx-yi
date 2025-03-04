@@ -33,14 +33,14 @@ import io.swagger.annotations.ApiOperation;
  * 测试用户Controller
  * 
  * @author yxx
- * @date 2025-03-01
+ * @date 2025-03-04
  */
 @Api("测试用户管理")
 @RestController
 @RequestMapping("/example/user")
 @RequiredArgsConstructor
-public class TbTestUserController extends BaseControllerPlus
-{
+public class TbTestUserController extends BaseControllerPlus {
+
     private final ITbTestUserService tbTestUserService;
 
     @ApiOperation("查询测试用户列表")
@@ -51,37 +51,6 @@ public class TbTestUserController extends BaseControllerPlus
         startPage();
         List<TbTestUser> list = tbTestUserService.selectTbTestUserList(tbTestUser);
         return getDataTableToPR(list, tbTestUser);
-    }
-
-    @ApiOperation("导出测试用户列表")
-    @PreAuthorize("@ss.hasPermi('example:user:export')")
-    @Log(title = "测试用户", businessType = BusinessType.EXPORT)
-    @PostMapping("/export")
-    public void export(HttpServletResponse response, @Parameter(description = "DTO对象", in = ParameterIn.QUERY) TbTestUser tbTestUser)
-    {
-        List<TbTestUser> list = tbTestUserService.selectTbTestUserList(tbTestUser);
-        ExcelUtil<TbTestUser> util = new ExcelUtil<>(TbTestUser.class);
-        util.exportExcel(response, list, "测试用户数据");
-    }
-
-    @ApiOperation("导入测试用户模板")
-    @PreAuthorize("@ss.hasPermi('example:user:import')")
-    @PostMapping("/importTemplate")
-    public void importTemplate(HttpServletResponse response)
-    {
-        ExcelUtil<TbTestUser> util = new ExcelUtil<>(TbTestUser.class);
-        util.importTemplateExcel(response, "导入测试用户模板数据");
-    }
-
-    @ApiOperation("导入测试用户列表")
-    @PreAuthorize("@ss.hasPermi('example:user:import')")
-    @Log(title = "测试用户", businessType = BusinessType.IMPORT)
-    @PostMapping("/importData")
-    public R<Boolean> importData(MultipartFile file) throws IOException
-    {
-        ExcelUtil<TbTestUser> util = new ExcelUtil<>(TbTestUser.class);
-        List<TbTestUser> list = util.importExcel(file.getInputStream());
-        return R.ok(tbTestUserService.saveBatch(list), "成功导入 " + list.size() + " 条记录");
     }
 
     @ApiOperation("获取测试用户详细信息")
@@ -114,20 +83,51 @@ public class TbTestUserController extends BaseControllerPlus
     @PreAuthorize("@ss.hasPermi('example:user:edit')")
     @Log(title = "测试用户", businessType = BusinessType.UPDATE)
     @PutMapping
-    public R<String> edit(@RequestBody TbTestUser tbTestUser)
+    public R<String> update(@RequestBody TbTestUser tbTestUser)
     {
         return toResult(tbTestUserService.updateTbTestUser(tbTestUser));
     }
 
     @ApiOperation("删除测试用户")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "userIds", value = "主键数组", required = true, dataType = "Long[]", dataTypeClass = Long[].class, paramType = "path", allowMultiple = true),
+            @ApiImplicitParam(name = "userIds", value = "主键集合", required = true, dataType = "List<Long>", dataTypeClass = List.class, paramType = "path", allowMultiple = true),
     })
     @PreAuthorize("@ss.hasPermi('example:user:remove')")
     @Log(title = "测试用户", businessType = BusinessType.DELETE)
     @DeleteMapping("/{userIds}")
-    public R<String> remove(@PathVariable Long[] userIds)
+    public R<String> delete(@PathVariable List<Long> userIds)
     {
         return toResult(tbTestUserService.deleteTbTestUserByUserIds(userIds));
+    }
+
+    @ApiOperation("导出测试用户列表")
+    @PreAuthorize("@ss.hasPermi('example:user:export')")
+    @Log(title = "测试用户", businessType = BusinessType.EXPORT)
+    @PostMapping("/export")
+    public void export(HttpServletResponse response, @Parameter(description = "DTO对象", in = ParameterIn.QUERY) TbTestUser tbTestUser)
+    {
+        List<TbTestUser> list = tbTestUserService.selectTbTestUserList(tbTestUser);
+        ExcelUtil<TbTestUser> util = new ExcelUtil<>(TbTestUser.class);
+        util.exportExcel(response, list, "测试用户数据");
+    }
+
+    @ApiOperation("导入测试用户模板")
+    @PreAuthorize("@ss.hasPermi('example:user:import')")
+    @PostMapping("/importTemplate")
+    public void importTemplate(HttpServletResponse response)
+    {
+        ExcelUtil<TbTestUser> util = new ExcelUtil<>(TbTestUser.class);
+        util.importTemplateExcel(response, "导入测试用户模板数据");
+    }
+
+    @ApiOperation("导入测试用户列表")
+    @PreAuthorize("@ss.hasPermi('example:user:import')")
+    @Log(title = "测试用户", businessType = BusinessType.IMPORT)
+    @PostMapping("/importData")
+    public R<Boolean> importData(MultipartFile file) throws IOException
+    {
+        ExcelUtil<TbTestUser> util = new ExcelUtil<>(TbTestUser.class);
+        List<TbTestUser> list = util.importExcel(file.getInputStream());
+        return R.ok(tbTestUserService.saveBatch(list), "成功导入 " + list.size() + " 条记录");
     }
 }

@@ -8,10 +8,9 @@ import com.yxx.common.yxx.service.IServicePlus;
  * 测试用户Service接口
  * 
  * @author yxx
- * @date 2025-03-01
+ * @date 2025-03-04
  */
-public interface ITbTestUserService extends IServicePlus<TbTestUser>
-{
+public interface ITbTestUserService extends IServicePlus<TbTestUser> {
     /**
      * 查询测试用户
      * 
@@ -50,7 +49,7 @@ public interface ITbTestUserService extends IServicePlus<TbTestUser>
      * @param userIds 需要删除的测试用户主键集合
      * @return 结果
      */
-    public int deleteTbTestUserByUserIds(Long[] userIds);
+    public int deleteTbTestUserByUserIds(List<Long> userIds);
 
     /**
      * 删除测试用户信息

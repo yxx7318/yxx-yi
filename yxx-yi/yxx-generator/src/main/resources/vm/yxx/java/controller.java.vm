@@ -42,8 +42,8 @@ import io.swagger.annotations.ApiOperation;
 @RestController
 @RequestMapping("/${moduleName}/${businessName}")
 @RequiredArgsConstructor
-public class ${ClassName}Controller extends BaseControllerPlus
-{
+public class ${ClassName}Controller extends BaseControllerPlus {
+
     private final I${ClassName}Service ${className}Service;
 
     @ApiOperation("查询${functionName}列表")
@@ -101,12 +101,12 @@ public class ${ClassName}Controller extends BaseControllerPlus
 
     @ApiOperation("删除${functionName}")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "${pkColumn.javaField}s", value = "主键数组", required = true, dataType = "${pkColumn.javaType}[]", dataTypeClass = ${pkColumn.javaType}[].class, paramType = "path", allowMultiple = true),
+            @ApiImplicitParam(name = "${pkColumn.javaField}s", value = "主键集合", required = true, dataType = "List<${pkColumn.javaType}>", dataTypeClass = List.class, paramType = "path", allowMultiple = true),
     })
     @PreAuthorize("@ss.hasPermi('${permissionPrefix}:remove')")
     @Log(title = "${functionName}", businessType = BusinessType.DELETE)
     @DeleteMapping("/{${pkColumn.javaField}s}")
-    public R<String> delete(@PathVariable ${pkColumn.javaType}[] ${pkColumn.javaField}s)
+    public R<String> delete(@PathVariable List<${pkColumn.javaType}> ${pkColumn.javaField}s)
     {
         return toResult(${className}Service.delete${ClassName}By${pkColumn.capJavaField}s(${pkColumn.javaField}s));
     }

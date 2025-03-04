@@ -13,12 +13,12 @@ import com.yxx.example.service.ITbTestUserService;
  * 测试用户Service业务层处理
  * 
  * @author yxx
- * @date 2025-03-01
+ * @date 2025-03-04
  */
 @Service
 @RequiredArgsConstructor
-public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbTestUser> implements ITbTestUserService
-{
+public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbTestUser> implements ITbTestUserService {
+
     private final TbTestUserMapper tbTestUserMapper;
 
     /**
@@ -76,11 +76,11 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
     /**
      * 批量删除测试用户
      * 
-     * @param userIds 需要删除的测试用户主键
+     * @param userIds 需要删除的测试用户主键集合
      * @return 结果
      */
     @Override
-    public int deleteTbTestUserByUserIds(Long[] userIds)
+    public int deleteTbTestUserByUserIds(List<Long> userIds)
     {
         return tbTestUserMapper.deleteTbTestUserByUserIds(userIds);
     }

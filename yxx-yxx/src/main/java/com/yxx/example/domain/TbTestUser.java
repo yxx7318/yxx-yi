@@ -12,9 +12,9 @@ import lombok.*;
 
 /**
  * 测试用户对象 tb_test_user
- * 
+ *
  * @author yxx
- * @date 2025-03-01
+ * @date 2025-03-04
  */
 @ApiModel(value = "TbTestUser", description = "测试用户实体")
 @NoArgsConstructor
@@ -23,8 +23,7 @@ import lombok.*;
 @Builder
 @Data
 @TableName(value = "tb_test_user", autoResultMap = true)
-public class TbTestUser extends BaseEntity
-{
+public class TbTestUser extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
