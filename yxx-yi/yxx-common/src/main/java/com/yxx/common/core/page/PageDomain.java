@@ -1,6 +1,7 @@
 package com.yxx.common.core.page;
 
 import com.yxx.common.utils.StringUtils;
+import com.yxx.common.yxx.utils.PageDomainUtils;
 
 /**
  * 分页数据
@@ -70,19 +71,7 @@ public class PageDomain
 
     public void setIsAsc(String isAsc)
     {
-        if (StringUtils.isNotEmpty(isAsc))
-        {
-            // 兼容前端排序类型
-            if ("ascending".equals(isAsc))
-            {
-                isAsc = "asc";
-            }
-            else if ("descending".equals(isAsc))
-            {
-                isAsc = "desc";
-            }
-            this.isAsc = isAsc;
-        }
+        this.isAsc = PageDomainUtils.getIsAscValue(isAsc);
     }
 
     public Boolean getReasonable()

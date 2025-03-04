@@ -1,6 +1,7 @@
 package com.yxx.common.yxx.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.yxx.common.yxx.utils.PageDomainUtils;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.util.StringUtils;
 import com.baomidou.mybatisplus.annotation.TableField;
@@ -44,18 +45,10 @@ public class PageQueryEntity {
     @TableField(exist = false)
     @ApiModelProperty(hidden = true)
     @JsonIgnore
-    private String isAsc;
+    private String isAsc = "asc";
 
     public void setIsAsc(String isAsc) {
-        if (!StringUtils.isEmpty(isAsc)) {
-            // 兼容前端排序类型
-            if ("ascending".equals(isAsc)) {
-                isAsc = "asc";
-            } else if ("descending".equals(isAsc)) {
-                isAsc = "desc";
-            }
-            this.isAsc = isAsc;
-        }
+        this.isAsc = PageDomainUtils.getIsAscValue(isAsc);
     }
 
     /**
