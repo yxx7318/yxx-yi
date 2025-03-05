@@ -1,13 +1,16 @@
 package com.yxx.common.yxx.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollUtil;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageInfo;
 import com.yxx.common.core.domain.BaseEntity;
 import com.yxx.common.yxx.domain.PageResult;
 import com.yxx.common.yxx.mapper.BaseMapperPlus;
 import com.yxx.common.yxx.service.IServicePlus;
+import com.yxx.common.yxx.utils.ObjectUtils;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -31,19 +34,69 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseEntity> 
         return result;
     }
 
+    /**
+     * 获取转化后的Vo结果
+     */
+    @Override
+    public <VO> VO getVo(T t, Class<VO> voClass) {
+        if (ObjectUtils.isEmpty(t)) {
+            return null;
+        }
+        return BeanUtil.copyProperties(t, voClass);
+    }
+
+    /**
+     * 获取转化后的Vo结果
+     */
+    @Override
+    public <VO> VO getVo(T t, Function<T, VO> convertor) {
+        if (ObjectUtils.isEmpty(t)) {
+            return null;
+        }
+        return convertor.apply(t);
+    }
+
+    /**
+     * 获取转化后的VoList结果
+     */
+    @Override
+    public <VO> List<VO> getVoList(List<T> list, Class<VO> voClass) {
+        if (CollUtil.isEmpty(list)) {
+            return Collections.emptyList();
+        }
+        return BeanUtil.copyToList(list, voClass);
+    }
+
+    /**
+     * 获取转化后的VoList结果
+     */
+    @Override
+    public <VO> List<VO> getVoList(List<T> list, Function<T, VO> convertor) {
+        if (CollUtil.isEmpty(list)) {
+            return Collections.emptyList();
+        }
+        return list.stream().map(convertor).collect(Collectors.toList());
+    }
+
+    /**
+     * 获取到Vo对象分页结果
+     */
     @Override
     public <VO> PageResult<VO> getPageResult(List<T> list, Class<VO> voClass) {
         PageResult<VO> result = getBasePageResult(list);
         // 复制到VO中
-        result.setRows(BeanUtil.copyToList(list, voClass));
+        result.setRows(getVoList(list, voClass));
         return result;
     }
 
+    /**
+     * 获取到Vo对象分页结果
+     */
     @Override
     public <VO> PageResult<VO> getPageResult(List<T> list, Function<T, VO> convertor) {
         PageResult<VO> result = getBasePageResult(list);
         // 使用转换器自定义Vo的处理
-        result.setRows(list.stream().map(convertor).collect(Collectors.toList()));
+        result.setRows(getVoList(list, convertor));
         return result;
     }
 }
