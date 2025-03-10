@@ -35,7 +35,7 @@ import io.swagger.annotations.ApiOperation;
  * @author yxx
  * @date 2025-03-04
  */
-@Api("测试用户管理")
+@Api(tags = "测试用户管理")
 @RestController
 @RequestMapping("/example/user")
 @RequiredArgsConstructor
