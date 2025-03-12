@@ -2,8 +2,6 @@ package com.yxx.common.yxx.utils;
 
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.map.MapUtil;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 import java.util.*;
 import java.util.function.BiFunction;
@@ -14,7 +12,6 @@ import java.util.stream.Collectors;
 /**
  * stream 流工具类
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class StreamUtils {
 
     /**

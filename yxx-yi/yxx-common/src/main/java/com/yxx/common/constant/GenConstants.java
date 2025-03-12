@@ -4,7 +4,7 @@ import com.yxx.common.yxx.utils.EnvironmentUtils;
 
 /**
  * 代码生成通用常量
- * 
+ *
  * @author ruoyi
  */
 public class GenConstants
@@ -58,10 +58,10 @@ public class GenConstants
             "update_time", "remark" };
 
     /** Entity基类字段 */
-    public static final String[] BASE_ENTITY = EnvironmentUtils.getEnvValue("generator.entity", Boolean.class) ?  new String[]{} : new String[]{"createBy", "createTime", "updateBy", "updateTime", "remark"};
+    public static final String[] BASE_ENTITY = EnvironmentUtils.getEnvValue("generator.entity", boolean.class) ?  new String[]{} : new String[]{"createBy", "createTime", "updateBy", "updateTime", "remark"};
 
     /** Tree基类字段 */
-    public static final String[] TREE_ENTITY = EnvironmentUtils.getEnvValue("generator.entity", Boolean.class) ? new String[]{} : new String[]{ "parentName", "parentId", "orderNum", "ancestors", "children" };
+    public static final String[] TREE_ENTITY = EnvironmentUtils.getEnvValue("generator.entity", boolean.class) ? new String[]{} : new String[]{ "parentName", "parentId", "orderNum", "ancestors", "children" };
 
     /** 文本框 */
     public static final String HTML_INPUT = "input";
