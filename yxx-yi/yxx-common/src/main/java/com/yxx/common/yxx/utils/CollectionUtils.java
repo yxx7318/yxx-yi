@@ -237,7 +237,7 @@ public class CollectionUtils {
      * 将集合中的每个元素通过func转换成流，然后将这些流合并成一个列表。
      * 该方法适合于需要将每个元素映射到多个目标元素的情况。它会过滤掉所有的null值。
      * <p>
-     * // 使用convertListByFlatMap方法从订单中提取所有商品ID
+     * // 使用convertListByFlatMap方法从订单中映射的getProductIds合并后提取出所有商品ID
      * convertListByFlatMap(orders, Order::getProductIds, productIds -> productIds.stream());
      *
      * @param from 原始集合
@@ -415,8 +415,27 @@ public class CollectionUtils {
     }
 
     /**
+     * 将集合中的每个元素通过keyFunc生成键值对，并返回一个Map。
+     * 该方法会将每个元素映射为其键值，值为元素本身。允许用户自定义转换逻辑和冲突处理方式。
+     *
+     * @param from      原始集合
+     * @param keyFunc   键生成函数，用于从T类型元素生成K类型的键
+     * @param valueFunc 值生成函数，用于从T类型元素生成V类型的值
+     * @param <T>       集合元素类型
+     * @param <K>       键的类型
+     * @param <V>       值的类型
+     * @return 转换后的Map，默认情况下使用(v1, v2) -> v1作为冲突处理策略
+     */
+    public static <T, K, V> Map<K, V> convertMap(Collection<T> from, Function<T, K> keyFunc, Function<T, V> valueFunc) {
+        if (CollUtil.isEmpty(from)) {
+            return new HashMap<>();
+        }
+        return convertMap(from, keyFunc, valueFunc, (v1, v2) -> v1);
+    }
+
+    /**
      * 将集合中的每个元素通过keyFunc生成键值，并使用valueFunc生成对应的值，然后返回一个Map。
-     * 可以指定Map的具体实现类通过supplier提供。
+     * 可以指定Map的具体实现类通过supplier提供，默认策略为保留第一个出现的值（v1），而忽略后续出现的值（v2）。
      *
      * @param from      原始集合
      * @param keyFunc   键生成函数，用于从T类型元素生成K类型的键
@@ -427,11 +446,60 @@ public class CollectionUtils {
      * @param <V>       值的类型
      * @return 转换后的Map
      */
-    public static <T, K, V> Map<K, V> convertMap(Collection<T> from, Function<T, K> keyFunc, Function<T, V> valueFunc, Supplier<? extends Map<K, V>> supplier) {
+    public static <T, K, V> Map<K, V> convertMapDiscard(Collection<T> from, Function<T, K> keyFunc, Function<T, V> valueFunc, Supplier<? extends Map<K, V>> supplier) {
         if (CollUtil.isEmpty(from)) {
             return supplier.get();
         }
         return convertMap(from, keyFunc, valueFunc, (v1, v2) -> v1, supplier);
+    }
+
+    /**
+     * 将集合中的每个元素通过keyFunc生成键值，并使用valueFunc生成对应的值，然后返回一个Map。
+     * 默认返回HashMap，默认合并策略为合并为列表。
+     *
+     * @param from      原始集合
+     * @param keyFunc   键生成函数，用于从T类型元素生成K类型的键
+     * @param valueFunc 值生成函数，用于从T类型元素生成V类型的值
+     * @param <T>       集合元素类型
+     * @param <K>       键的类型
+     * @param <V>       值的类型
+     * @return 转换后的Map
+     */
+
+    public static <T, K, V> Map<K, Collection<V>> convertMapMerge(Collection<T> from, Function<T, K> keyFunc, Function<T, Collection<V>> valueFunc) {
+        return convertMap(from, keyFunc, valueFunc, CollUtil::union, HashMap::new);
+    }
+
+    /**
+     * 将集合中的每个元素通过keyFunc生成键值，并使用valueFunc生成对应的值，然后返回一个Map。
+     * 可以指定Map的具体实现类通过supplier提供，默认合并策略为合并为列表。
+     * <p>
+     * // 定义键生成函数：使用年龄作为键
+     * Function<Person, Integer> keyFunc = Person::getAge;
+     * <p>
+     * // 定义值生成函数：使用名字作为初始值
+     * Function<Person, List<String>> valueFunc = person -> new ArrayList<>(Collections.singletonList(person.getName()));
+     * <p>
+     * // 定义Map的具体实现类供应商（这里使用HashMap）
+     * Supplier<HashMap<Integer, List<String>>> supplier = HashMap::new;
+     * <p>
+     * // 调用convertMap方法
+     * Map<Integer, List<String>> ageToNamesMap = convertMap(people, keyFunc, valueFunc, supplier);
+     *
+     * @param from      原始集合
+     * @param keyFunc   键生成函数，用于从T类型元素生成K类型的键
+     * @param valueFunc 值生成函数，用于从T类型元素生成V类型的值
+     * @param supplier  提供Map的具体实现类的工厂
+     * @param <T>       集合元素类型
+     * @param <K>       键的类型
+     * @param <V>       值的类型
+     * @return 转换后的Map
+     */
+    public static <T, K, V> Map<K, Collection<V>> convertMapMerge(Collection<T> from, Function<T, K> keyFunc, Function<T, Collection<V>> valueFunc, Supplier<? extends Map<K, Collection<V>>> supplier) {
+        if (CollUtil.isEmpty(from)) {
+            return supplier.get();
+        }
+        return convertMap(from, keyFunc, valueFunc, CollUtil::union, supplier);
     }
 
     /**
@@ -457,6 +525,21 @@ public class CollectionUtils {
     /**
      * 将集合中的每个元素通过keyFunc生成键值，并使用valueFunc生成对应的值，
      * 使用mergeFunction处理键冲突，同时可以指定Map的具体实现类通过supplier提供。
+     * <p>
+     * // 定义键生成函数：使用年龄作为键
+     * Function<Person, Integer> keyFunc = Person::getAge;
+     * <p>
+     * // 定义值生成函数：使用名字作为初始值
+     * Function<Person, String> valueFunc = Person::getName;
+     * <p>
+     * // 定义键冲突解决函数：保留后续的，丢弃前面的
+     * BinaryOperator<String> mergeFunction = (v1, v2) -> v2;
+     * <p>
+     * // 定义Map的具体实现类供应商（这里使用HashMap）
+     * Supplier<HashMap<Integer, String>> supplier = HashMap::new;
+     * <p>
+     * // 调用convertMap方法
+     * Map<Integer, String> ageToNamesMap = convertMap(people, keyFunc, valueFunc, mergeFunction, supplier);
      *
      * @param from          原始集合
      * @param keyFunc       键生成函数，用于从T类型元素生成K类型的键
@@ -473,25 +556,6 @@ public class CollectionUtils {
             return supplier.get();
         }
         return from.stream().collect(Collectors.toMap(keyFunc, valueFunc, mergeFunction, supplier));
-    }
-
-    /**
-     * 将集合中的每个元素通过keyFunc生成键值对，并返回一个Map。
-     * 该方法会将每个元素映射为其键值，值为元素本身。允许用户自定义转换逻辑和冲突处理方式。
-     *
-     * @param from      原始集合
-     * @param keyFunc   键生成函数，用于从T类型元素生成K类型的键
-     * @param valueFunc 值生成函数，用于从T类型元素生成V类型的值
-     * @param <T>       集合元素类型
-     * @param <K>       键的类型
-     * @param <V>       值的类型
-     * @return 转换后的Map，默认情况下使用(v1, v2) -> v1作为冲突处理策略
-     */
-    public static <T, K, V> Map<K, V> convertMap(Collection<T> from, Function<T, K> keyFunc, Function<T, V> valueFunc) {
-        if (CollUtil.isEmpty(from)) {
-            return new HashMap<>();
-        }
-        return convertMap(from, keyFunc, valueFunc, (v1, v2) -> v1);
     }
 
     /**
@@ -515,6 +579,15 @@ public class CollectionUtils {
      * 将集合中的每个元素通过keyFunc生成键，并使用valueFunc生成对应的值，
      * 最终形成一个Map<K, List<V>>，即每个键关联着一个由特定值组成的列表。
      * 这种方法允许对原始集合中的元素进行转换后再分组。
+     * <p>
+     * // 定义键生成函数：使用年龄作为键
+     * Function<Person, Integer> keyFunc = Person::getAge;
+     * <p>
+     * // 定义值生成函数：使用名字作为值
+     * Function<Person, String> valueFunc = Person::getName;
+     * <p>
+     * // 调用convertMultiMap方法
+     * Map<Integer, List<String>> ageToNamesMap = convertMultiMap(people, keyFunc, valueFunc);
      *
      * @param from      原始集合
      * @param keyFunc   键生成函数，用于从T类型元素生成K类型的键
@@ -615,5 +688,36 @@ public class CollectionUtils {
             }
         }
         return asList(createList, updateList, deleteList);
+    }
+
+    /**
+     * 对于给定的列表和多个条件，统计每个条件对应的满足条件的对象数量。
+     * <p>
+     * // 定义多个条件
+     * Predicate<Person> nameLongerThan4 = person -> person.getName().length() > 4;
+     * Predicate<Person> ageGreaterThan30 = person -> person.getAge() > 30;
+     * <p>
+     * // 应用方法
+     * List<Long> results = countForEachCondition(people, nameLongerThan4, ageGreaterThan30);
+     *
+     * @param list       要检查的列表
+     * @param conditions 用于判断对象是否满足条件的谓词数组
+     * @param <T>        列表元素类型
+     * @return 每个条件对应的满足条件的对象数量组成的列表，不包含任何null值
+     */
+    @SafeVarargs
+    public static <T> List<Long> countForEachCondition(List<T> list, Predicate<T>... conditions) {
+        if (CollUtil.isEmpty(list)) {
+            return Collections.emptyList();
+        }
+        List<Long> counts = new ArrayList<>();
+        for (Predicate<T> condition : conditions) {
+            long count = 0;
+            if (!ObjectUtils.isEmpty(condition)) {
+                count = list.stream().filter(Objects::nonNull).filter(condition).count();
+            }
+            counts.add(count);
+        }
+        return counts;
     }
 }
