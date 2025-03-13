@@ -12,6 +12,9 @@ import java.util.stream.Stream;
 
 import static java.util.Arrays.asList;
 
+/**
+ * 集合工具类
+ */
 public class CollectionUtils {
 
     public static <T> T getFirst(List<T> from) {
