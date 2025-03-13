@@ -72,6 +72,7 @@
             <artifactId>fastjson2</artifactId>
         </dependency>
 
+        <!-- JSON对各种数据类型的额外支持 -->
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
