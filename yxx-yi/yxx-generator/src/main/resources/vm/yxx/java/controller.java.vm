@@ -38,7 +38,7 @@ import io.swagger.annotations.ApiOperation;
  * @author ${author}
  * @date ${datetime}
  */
-@Api("${functionName}管理")
+@Api(tags = "${functionName}管理")
 @RestController
 @RequestMapping("/${moduleName}/${businessName}")
 @RequiredArgsConstructor
