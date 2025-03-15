@@ -3,7 +3,9 @@ package com.yxx.framework.datasource;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.fastjson2.JSON;
 import com.yxx.common.constant.DataSourceConst;
+import com.yxx.common.utils.bean.BeanUtils;
 import com.yxx.common.utils.spring.SpringUtils;
+import com.yxx.framework.config.properties.DruidProperties;
 import com.yxx.system.domain.SysResources;
 import com.yxx.system.service.ISysResourcesService;
 import lombok.extern.slf4j.Slf4j;
@@ -78,29 +80,23 @@ public class DataSourceCachePool {
      */
         private static DruidDataSource getJdbcDataSource( SysResources dbSource) {
         DruidDataSource dataSource = new DruidDataSource();
+        DruidProperties druidProperties= SpringUtils.getBean("druidProperties");
 
         String driverClassName = dbSource.getDriverClassname();
         String url = dbSource.getUrl();
         String dbUser = dbSource.getUsername();
         String dbPassword = dbSource.getPassword();
+
         dataSource.setDriverClassName(driverClassName);
         dataSource.setUrl(url);
-        //dataSource.setValidationQuery("SELECT 1 FROM DUAL");
-        dataSource.setTestWhileIdle(true);
-        dataSource.setTestOnBorrow(false);
-        dataSource.setTestOnReturn(false);
-        dataSource.setBreakAfterAcquireFailure(true);
-        dataSource.setConnectionErrorRetryAttempts(0);
         dataSource.setUsername(dbUser);
-        dataSource.setMaxWait(60000);
         dataSource.setPassword(dbPassword);
 
+
         log.info("******************************************");
-        log.info("*                                        *");
         log.info("*====【"+dbSource.getCode()+"】=====Druid连接池已启用 ====*");
-        log.info("*                                        *");
         log.info("******************************************");
-        return dataSource;
+        return druidProperties.dataSource(dataSource);
     }
 
     /**
