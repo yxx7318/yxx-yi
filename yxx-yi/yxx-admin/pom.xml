@@ -47,6 +47,11 @@
             <groupId>com.yxx</groupId>
             <artifactId>yxx-generator</artifactId>
         </dependency>
+        <!-- 租户业务-->
+        <dependency>
+            <groupId>com.yxx</groupId>
+            <artifactId>yxx-TenantA</artifactId>
+        </dependency>
 
     </dependencies>
 

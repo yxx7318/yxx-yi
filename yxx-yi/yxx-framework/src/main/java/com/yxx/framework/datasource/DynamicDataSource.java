@@ -2,6 +2,8 @@ package com.yxx.framework.datasource;
 
 import java.util.Map;
 import javax.sql.DataSource;
+
+import com.yxx.common.utils.spring.SpringUtils;
 import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 
 /**
@@ -11,10 +13,14 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
  */
 public class DynamicDataSource extends AbstractRoutingDataSource
 {
-    public DynamicDataSource(DataSource defaultTargetDataSource, Map<Object, Object> targetDataSources)
+
+    public DynamicDataSource(DataSource defaultTargetDataSource)
     {
+        //设置默认数据源
         super.setDefaultTargetDataSource(defaultTargetDataSource);
-        super.setTargetDataSources(targetDataSources);
+        //设置可切换的数据源
+        super.setTargetDataSources(DataSourceCachePool.dbSources);
+        //使得数据源设置生效
         super.afterPropertiesSet();
     }
 

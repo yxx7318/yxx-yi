@@ -1,6 +1,11 @@
 package com.yxx.framework.aspectj;
 
 import java.util.Objects;
+
+import com.yxx.common.utils.spring.SpringUtils;
+import com.yxx.framework.datasource.DataSourceCachePool;
+import com.yxx.framework.datasource.DynamicDataSource;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -23,6 +28,7 @@ import com.yxx.framework.datasource.DynamicDataSourceContextHolder;
 @Aspect
 @Order(1)
 @Component
+@Slf4j
 public class DataSourceAspect
 {
     protected Logger logger = LoggerFactory.getLogger(getClass());
@@ -41,7 +47,22 @@ public class DataSourceAspect
 
         if (StringUtils.isNotNull(dataSource))
         {
-            DynamicDataSourceContextHolder.setDataSourceType(dataSource.value().name());
+
+            String key=dataSource.value();
+
+            //加载数据源
+            boolean flag=  DataSourceCachePool.loadDynamicDataSource(key);
+
+            if(!flag)throw new Exception("数据源加载失败:"+key);
+
+
+            //切换数据源
+            DynamicDataSourceContextHolder.switchDataSource(key);
+
+            DynamicDataSource dynamicDataSource =  SpringUtils.getBean("dynamicDataSource");
+            //使得修改后的targetDataSources生效
+            dynamicDataSource.afterPropertiesSet();
+
         }
 
         try

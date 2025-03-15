@@ -177,6 +177,13 @@
                 <artifactId>yxx-common</artifactId>
                 <version>${yxx.version}</version>
             </dependency>
+
+            <!--租户业务-->
+            <dependency>
+                <groupId>com.yxx</groupId>
+                <artifactId>yxx-TenantA</artifactId>
+                <version>${yxx.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <modules>
@@ -186,6 +193,7 @@
         <module>yxx-generator</module>
         <module>yxx-quartz</module>
         <module>yxx-system</module>
+        <module>yxx-TenantA</module>
     </modules>
 
 </project>

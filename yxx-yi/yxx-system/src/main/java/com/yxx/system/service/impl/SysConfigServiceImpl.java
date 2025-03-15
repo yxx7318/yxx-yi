@@ -10,7 +10,7 @@ import com.yxx.common.constant.CacheConstants;
 import com.yxx.common.constant.UserConstants;
 import com.yxx.common.core.redis.RedisCache;
 import com.yxx.common.core.text.Convert;
-import com.yxx.common.enums.DataSourceType;
+import com.yxx.common.constant.DataSourceConst;
 import com.yxx.common.exception.ServiceException;
 import com.yxx.common.utils.StringUtils;
 import com.yxx.system.domain.SysConfig;
@@ -47,7 +47,7 @@ public class SysConfigServiceImpl implements ISysConfigService
      * @return 参数配置信息
      */
     @Override
-    @DataSource(DataSourceType.MASTER)
+    @DataSource(DataSourceConst.MASTER)
     public SysConfig selectConfigById(Long configId)
     {
         SysConfig config = new SysConfig();

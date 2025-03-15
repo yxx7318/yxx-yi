@@ -1,7 +1,6 @@
 package com.yxx.framework.config;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -9,6 +8,8 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.sql.DataSource;
+
+import com.yxx.framework.datasource.DataSourceCachePool;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -19,7 +20,7 @@ import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.alibaba.druid.spring.boot.autoconfigure.properties.DruidStatProperties;
 import com.alibaba.druid.util.Utils;
-import com.yxx.common.enums.DataSourceType;
+import com.yxx.common.constant.DataSourceConst;
 import com.yxx.common.utils.spring.SpringUtils;
 import com.yxx.framework.config.properties.DruidProperties;
 import com.yxx.framework.datasource.DynamicDataSource;
@@ -53,10 +54,12 @@ public class DruidConfig
     @Primary
     public DynamicDataSource dataSource(DataSource masterDataSource)
     {
-        Map<Object, Object> targetDataSources = new HashMap<>();
-        targetDataSources.put(DataSourceType.MASTER.name(), masterDataSource);
-        setDataSource(targetDataSources, DataSourceType.SLAVE.name(), "slaveDataSource");
-        return new DynamicDataSource(masterDataSource, targetDataSources);
+        //主库
+        DataSourceCachePool.dbSources.put(DataSourceConst.MASTER, masterDataSource);
+        //从库
+        setDataSource(DataSourceCachePool.dbSources, DataSourceConst.SLAVE, "slaveDataSource");
+
+        return new DynamicDataSource(masterDataSource);
     }
     
     /**
