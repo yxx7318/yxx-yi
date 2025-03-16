@@ -11,7 +11,7 @@
  Target Server Version : 80300 (8.3.0)
  File Encoding         : 65001
 
- Date: 15/03/2025 20:29:17
+ Date: 16/03/2025 15:28:49
 */
 
 SET NAMES utf8mb4;
@@ -310,7 +310,7 @@ CREATE TABLE `sys_job_log`  (
   `job_info` varchar(2000) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT '' COMMENT '结果信息',
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`job_log_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '定时任务调度日志表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '定时任务调度日志表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_job_log
@@ -333,7 +333,7 @@ CREATE TABLE `sys_logininfor`  (
   PRIMARY KEY (`info_id`) USING BTREE,
   INDEX `idx_sys_logininfor_s`(`status` ASC) USING BTREE,
   INDEX `idx_sys_logininfor_lt`(`login_time` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 119 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 126 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '系统访问记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_logininfor
@@ -357,6 +357,13 @@ INSERT INTO `sys_logininfor` VALUES (115, 'admin', '127.0.0.1', '内网IP', 'Chr
 INSERT INTO `sys_logininfor` VALUES (116, 'admin', '127.0.0.1', '内网IP', 'Chrome 13', 'Windows 10', '0', '登录成功', '2025-03-15 08:54:35');
 INSERT INTO `sys_logininfor` VALUES (117, 'admin', '127.0.0.1', '内网IP', 'Chrome 13', 'Windows 10', '0', '退出成功', '2025-03-15 10:05:19');
 INSERT INTO `sys_logininfor` VALUES (118, 'admin', '127.0.0.1', '内网IP', 'Chrome 13', 'Windows 10', '0', '登录成功', '2025-03-15 10:05:24');
+INSERT INTO `sys_logininfor` VALUES (119, 'admin', '127.0.0.1', '内网IP', 'Chrome 13', 'Windows 10', '0', '登录成功', '2025-03-16 07:47:57');
+INSERT INTO `sys_logininfor` VALUES (120, 'admin', '127.0.0.1', '内网IP', 'Chrome 13', 'Windows 10', '0', '退出成功', '2025-03-16 08:22:21');
+INSERT INTO `sys_logininfor` VALUES (121, 'admin', '127.0.0.1', '内网IP', 'Chrome 13', 'Windows 10', '0', '登录成功', '2025-03-16 08:22:26');
+INSERT INTO `sys_logininfor` VALUES (122, 'admin', '127.0.0.1', '内网IP', 'Chrome 13', 'Windows 10', '0', '退出成功', '2025-03-16 08:45:39');
+INSERT INTO `sys_logininfor` VALUES (123, 'admin', '127.0.0.1', '内网IP', 'Chrome 13', 'Windows 10', '0', '登录成功', '2025-03-16 08:45:44');
+INSERT INTO `sys_logininfor` VALUES (124, 'admin', '127.0.0.1', '内网IP', 'Chrome 13', 'Windows 10', '0', '退出成功', '2025-03-16 12:32:49');
+INSERT INTO `sys_logininfor` VALUES (125, 'admin', '127.0.0.1', '内网IP', 'Chrome 13', 'Windows 10', '0', '登录成功', '2025-03-16 12:32:54');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -540,7 +547,7 @@ CREATE TABLE `sys_oper_log`  (
   INDEX `idx_sys_oper_log_bt`(`business_type` ASC) USING BTREE,
   INDEX `idx_sys_oper_log_s`(`status` ASC) USING BTREE,
   INDEX `idx_sys_oper_log_ot`(`oper_time` ASC) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 143 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '操作日志记录' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 144 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '操作日志记录' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of sys_oper_log
@@ -588,6 +595,7 @@ INSERT INTO `sys_oper_log` VALUES (139, '菜单管理', 2, 'com.yxx.web.controll
 INSERT INTO `sys_oper_log` VALUES (140, '代码生成', 2, 'com.yxx.generator.controller.GenController.editSave()', 'PUT', 1, 'admin', '研发部门', '/tool/gen', '127.0.0.1', '内网IP', '{\"businessName\":\"business\",\"className\":\"Business\",\"columns\":[{\"capJavaField\":\"BusinessId\",\"columnComment\":\"业务id\",\"columnId\":42,\"columnName\":\"business_id\",\"columnType\":\"int\",\"createBy\":\"admin\",\"createTime\":\"2025-03-15 11:01:35\",\"dictType\":\"\",\"edit\":false,\"htmlType\":\"input\",\"increment\":true,\"insert\":true,\"isIncrement\":\"1\",\"isInsert\":\"1\",\"isPk\":\"1\",\"isRequired\":\"0\",\"javaField\":\"businessId\",\"javaType\":\"Long\",\"list\":false,\"params\":{},\"pk\":true,\"query\":false,\"queryType\":\"EQ\",\"required\":false,\"sort\":1,\"superColumn\":false,\"tableId\":5,\"updateBy\":\"\",\"usableColumn\":false},{\"capJavaField\":\"Detail\",\"columnComment\":\"详情\",\"columnId\":43,\"columnName\":\"detail\",\"columnType\":\"varchar(255)\",\"createBy\":\"admin\",\"createTime\":\"2025-03-15 11:01:35\",\"dictType\":\"\",\"edit\":true,\"htmlType\":\"input\",\"increment\":false,\"insert\":true,\"isEdit\":\"1\",\"isIncrement\":\"0\",\"isInsert\":\"1\",\"isList\":\"1\",\"isPk\":\"0\",\"isQuery\":\"1\",\"isRequired\":\"0\",\"javaField\":\"detail\",\"javaType\":\"String\",\"list\":true,\"params\":{},\"pk\":false,\"query\":true,\"queryType\":\"EQ\",\"required\":false,\"sort\":2,\"superColumn\":false,\"tableId\":5,\"updateBy\":\"\",\"usableColumn\":false}],\"crud\":true,\"functionAuthor\":\"yxx\",\"functionName\":\"xxx业务\",\"genPath\":\"/\",\"genType\":\"0\",\"moduleName\":\"tenantA\",\"options\":\"{\\\"parentMenuId\\\":2007}\",\"packageName\":\"com.yxx.tenantA\",\"params\":{\"parentMenuId\":2007},\"parentMenuId\":2007,\"sub\":false,\"tableComment\":\"业务表\",\"tableId\":5,\"tableName\":\"business\",\"tplCategory\":\"crud\",\"tplWebType\":\"element-ui\",\"tree\":false}', '{\"msg\":\"操作成功\",\"code\":200}', 0, NULL, '2025-03-15 11:07:44', 254);
 INSERT INTO `sys_oper_log` VALUES (141, '代码生成', 8, 'com.yxx.generator.controller.GenController.batchGenCode()', 'GET', 1, 'admin', '研发部门', '/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{\"tables\":\"business\"}', NULL, 0, NULL, '2025-03-15 11:08:12', 69);
 INSERT INTO `sys_oper_log` VALUES (142, 'xxx业务', 1, 'com.yxx.web.controller.tenantA.BusinessController.add()', 'POST', 1, 'admin', '研发部门', '/tenantA/business', '127.0.0.1', '内网IP', '{\"businessId\":2,\"createBy\":\"admin\",\"createTime\":\"2025-03-15 20:02:52\",\"detail\":\"test\",\"params\":{}}', '{\"code\":200,\"msg\":\"操作成功\"}', 0, NULL, '2025-03-15 20:02:51', 63);
+INSERT INTO `sys_oper_log` VALUES (143, '数据源', 2, 'com.yxx.web.controller.system.SysResourcesController.update()', 'PUT', 1, 'admin', '研发部门', '/system/resources', '127.0.0.1', '内网IP', '{\"code\":\"TenantA\",\"delFlag\":\"0\",\"driverClassname\":\"com.mysql.cj.jdbc.Driver\",\"params\":{},\"resourceId\":1,\"resourceName\":\"租户A\",\"status\":\"0\",\"updateBy\":\"admin\",\"updateTime\":\"2025-03-16 08:46:30\",\"url\":\"jdbc:mysql://127.0.0.1:3306/TenantA?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8\",\"username\":\"root\"}', '{\"code\":200,\"msg\":\"操作成功\"}', 0, NULL, '2025-03-16 08:46:29', 70);
 
 -- ----------------------------
 -- Table structure for sys_post
@@ -640,7 +648,7 @@ CREATE TABLE `sys_resources`  (
 -- ----------------------------
 -- Records of sys_resources
 -- ----------------------------
-INSERT INTO `sys_resources` VALUES (1, '租户A', 'TenantA', 'com.mysql.cj.jdbc.Driver', 'jdbc:mysql://8.134.237.56:3306/TenantA?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8', 'root', 'Aa07378562985', '0', '0', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO `sys_resources` VALUES (1, '租户A', 'TenantA', 'com.mysql.cj.jdbc.Driver', 'jdbc:mysql://localhost:3306/TenantA?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8', 'root', '123456', '0', '0', NULL, NULL, 'admin', '2025-03-16 08:46:31', NULL);
 
 -- ----------------------------
 -- Table structure for sys_role
@@ -787,33 +795,6 @@ INSERT INTO `sys_role_menu` VALUES (2, 1059);
 INSERT INTO `sys_role_menu` VALUES (2, 1060);
 
 -- ----------------------------
--- Table structure for sys_tenant
--- ----------------------------
-DROP TABLE IF EXISTS `sys_tenant`;
-CREATE TABLE `sys_tenant`  (
-  `resource_id` int NOT NULL AUTO_INCREMENT COMMENT '数据源id',
-  `resource_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL COMMENT '数据源名称',
-  `code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '编码',
-  `driver_class_name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '数据源驱动',
-  `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '数据源地址',
-  `username` varchar(25) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '数据源用户名',
-  `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '数据源密码',
-  `status` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '数据源状态',
-  `del_flag` char(1) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '删除标识',
-  `create_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '创建人',
-  `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
-  `update_by` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '更新人',
-  `update_time` datetime NULL DEFAULT NULL COMMENT '更新时间',
-  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NULL DEFAULT NULL COMMENT '备注',
-  PRIMARY KEY (`resource_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_0900_ai_ci COMMENT = '租户表' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of sys_tenant
--- ----------------------------
-INSERT INTO `sys_tenant` VALUES (1, '租户A', 'TenantA', 'com.mysql.cj.jdbc.Driver', 'jdbc:mysql://127.0.0.1:3306/TenantA?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8', 'root', '123456', '0', '0', NULL, NULL, NULL, NULL, NULL);
-
--- ----------------------------
 -- Table structure for sys_user
 -- ----------------------------
 DROP TABLE IF EXISTS `sys_user`;
@@ -843,7 +824,7 @@ CREATE TABLE `sys_user`  (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2025-03-15 10:05:25', 'admin', '2025-03-08 15:27:34', '', '2025-03-15 10:05:24', '管理员');
+INSERT INTO `sys_user` VALUES (1, 103, 'admin', '若依', '00', 'ry@163.com', '15888888888', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2025-03-16 12:32:56', 'admin', '2025-03-08 15:27:34', '', '2025-03-16 12:32:54', '管理员');
 INSERT INTO `sys_user` VALUES (2, 105, 'yxx', '若依', '00', 'ry@qq.com', '15666666666', '1', '', '$2a$10$7JB720yubVSZvUI0rEqK/.VqGOZTH.ulu33dHOiBE8ByOhJIrdAu2', '0', '0', '127.0.0.1', '2025-03-08 15:27:34', 'admin', '2025-03-08 15:27:34', '', NULL, '测试员');
 
 -- ----------------------------

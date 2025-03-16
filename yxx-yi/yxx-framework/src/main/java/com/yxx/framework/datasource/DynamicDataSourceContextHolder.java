@@ -25,11 +25,16 @@ public class DynamicDataSourceContextHolder
     /**
      * 切换数据源
      */
-    public static void switchDataSource(String dsType)
-    {
-        log.info("切换到{}数据源", dsType);
-        CONTEXT_HOLDER.get().push(dsType);
-        //CONTEXT_HOLDER.set(dsType);
+    public static void cutDataSource(String dbKey) throws Exception {
+        DynamicDataSourceCachePool dynamicDataSource =  SpringUtils.getBean(DynamicDataSourceCachePool.class);
+        boolean flag=  DynamicDataSourceCachePool.loadDynamicDataSourceByKey(dbKey);
+        if(!flag)throw new Exception("数据源加载失败:"+dbKey);
+        log.info("切换到{}数据源", dbKey);
+
+        CONTEXT_HOLDER.get().push(dbKey);
+
+        //使得修改后的targetDataSources生效
+        dynamicDataSource.afterPropertiesSet();
 
     }
 
@@ -43,9 +48,9 @@ public class DynamicDataSourceContextHolder
     }
 
     /**
-     * 清空数据源变量
+     *还原默认数据源 在执行方法之后
      */
-    public static void clearDataSourceType()
+    public static void BackDefaultDataSource()
     {
        // CONTEXT_HOLDER.remove();
         Deque<String> deque = CONTEXT_HOLDER.get();

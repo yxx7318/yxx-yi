@@ -17,9 +17,4 @@ public class DataSourceConst
      */
     public static final String SLAVE="SLAVE";
 
-
-    /**
-     * 缓存常量
-     */
-    public static final String SYSRESOURCES="SYSRESOURCES";
 }

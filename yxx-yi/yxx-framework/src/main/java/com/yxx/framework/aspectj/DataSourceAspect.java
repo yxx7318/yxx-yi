@@ -3,8 +3,7 @@ package com.yxx.framework.aspectj;
 import java.util.Objects;
 
 import com.yxx.common.utils.spring.SpringUtils;
-import com.yxx.framework.datasource.DataSourceCachePool;
-import com.yxx.framework.datasource.DynamicDataSource;
+import com.yxx.framework.datasource.DynamicDataSourceCachePool;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -50,19 +49,8 @@ public class DataSourceAspect
 
             String key=dataSource.value();
 
-            //加载数据源
-            boolean flag=  DataSourceCachePool.loadDynamicDataSource(key);
-
-            if(!flag)throw new Exception("数据源加载失败:"+key);
-
-
             //切换数据源
-            DynamicDataSourceContextHolder.switchDataSource(key);
-
-            DynamicDataSource dynamicDataSource =  SpringUtils.getBean("dynamicDataSource");
-            //使得修改后的targetDataSources生效
-            dynamicDataSource.afterPropertiesSet();
-
+            DynamicDataSourceContextHolder.cutDataSource(key);
         }
 
         try
@@ -71,8 +59,8 @@ public class DataSourceAspect
         }
         finally
         {
-            // 销毁数据源 在执行方法之后
-            DynamicDataSourceContextHolder.clearDataSourceType();
+            // 还原数据源 在执行方法之后
+            DynamicDataSourceContextHolder.BackDefaultDataSource();
         }
     }
 

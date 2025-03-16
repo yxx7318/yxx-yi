@@ -9,7 +9,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.sql.DataSource;
 
-import com.yxx.framework.datasource.DataSourceCachePool;
+import com.yxx.framework.datasource.DynamicDataSourceCachePool;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -23,7 +23,6 @@ import com.alibaba.druid.util.Utils;
 import com.yxx.common.constant.DataSourceConst;
 import com.yxx.common.utils.spring.SpringUtils;
 import com.yxx.framework.config.properties.DruidProperties;
-import com.yxx.framework.datasource.DynamicDataSource;
 
 /**
  * druid 配置多数据源
@@ -47,34 +46,28 @@ public class DruidConfig
     public DataSource slaveDataSource(DruidProperties druidProperties)
     {
         DruidDataSource dataSource = DruidDataSourceBuilder.create().build();
+        //设置数据源
+        setDataSource(DataSourceConst.SLAVE, dataSource);
+
         return druidProperties.dataSource(dataSource);
     }
 
-    @Bean(name = "dynamicDataSource")
-    @Primary
-    public DynamicDataSource dataSource(DataSource masterDataSource)
-    {
-        //主库
-        DataSourceCachePool.dbSources.put(DataSourceConst.MASTER, masterDataSource);
-        //从库
-        setDataSource(DataSourceCachePool.dbSources, DataSourceConst.SLAVE, "slaveDataSource");
 
-        return new DynamicDataSource(masterDataSource);
-    }
-    
     /**
      * 设置数据源
-     * 
-     * @param targetDataSources 备选数据源集合
-     * @param sourceName 数据源名称
-     * @param beanName bean名称
+     * @param dbKey 数据源key
+     * @param dataSource 数据源对象
      */
-    public void setDataSource(Map<Object, Object> targetDataSources, String sourceName, String beanName)
+    public void setDataSource( String dbKey, DataSource dataSource)
     {
         try
         {
-            DataSource dataSource = SpringUtils.getBean(beanName);
-            targetDataSources.put(sourceName, dataSource);
+            //拿到缓存池
+            DynamicDataSourceCachePool pool = SpringUtils.getBean("dynamicDataSourceCachePool");
+            //插入数据源
+            DynamicDataSourceCachePool.loadDynamicDataSourceByObject(dbKey,dataSource);
+            //使配置生效
+            pool.afterPropertiesSet();
         }
         catch (Exception e)
         {
