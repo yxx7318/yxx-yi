@@ -8,18 +8,20 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.annotations.ApiModelProperty;
 import io.swagger.annotations.ApiModel;
+import lombok.experimental.Accessors;
 import lombok.*;
 
 /**
  * 测试用户对象 tb_test_user
  *
  * @author yxx
- * @date 2025-03-04
+ * @date 2025-03-18
  */
 @ApiModel(value = "TbTestUser", description = "测试用户实体")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@Accessors(chain = true)
 @Builder
 @Data
 @TableName(value = "tb_test_user", autoResultMap = true)

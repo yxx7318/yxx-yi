@@ -11,7 +11,7 @@ import org.springframework.core.env.Environment;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class EnvironmentUtils {
 
-    private static final Environment environment = SpringUtils.getBean(Environment.class);
+    private static final Environment ENVIRONMENT = SpringUtils.getBean(Environment.class);
 
     /**
      * 获取配置文件中的属性值
@@ -20,7 +20,7 @@ public class EnvironmentUtils {
      * @return 值
      */
     public static String getEnvValue(String key) {
-        return environment.getProperty(key);
+        return ENVIRONMENT.getProperty(key);
     }
 
     /**
@@ -31,7 +31,7 @@ public class EnvironmentUtils {
      * @return 值
      */
     public static String getEnvValue(String key, String defaultValue) {
-        return environment.getProperty(key, defaultValue);
+        return ENVIRONMENT.getProperty(key, defaultValue);
     }
 
     /**
@@ -42,7 +42,7 @@ public class EnvironmentUtils {
      * @return 值
      */
     public static <T> T getEnvValue(String key, Class<T> targetType) {
-        return environment.getProperty(key, targetType);
+        return ENVIRONMENT.getProperty(key, targetType);
     }
 
     /**
@@ -54,7 +54,7 @@ public class EnvironmentUtils {
      * @return 值
      */
     public static <T> T getEnvValue(String key, Class<T> targetType, T defaultValue) {
-        return environment.getProperty(key, targetType, defaultValue);
+        return ENVIRONMENT.getProperty(key, targetType, defaultValue);
     }
 
 }
