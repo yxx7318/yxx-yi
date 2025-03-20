@@ -36,6 +36,16 @@ public class SysResourcesServiceImpl extends ServiceImplPlus<SysResourcesMapper,
     }
 
     /**
+     * 根据id查一组数据
+     * @param resourceIds ids
+     * @return
+     */
+    @Override
+    public List<SysResources> selectSysResourcesByResourceIds(List<Long> resourceIds) {
+        return sysResourcesMapper.selectBatchIds(resourceIds);
+    }
+
+    /**
      * 查询数据源列表
      * 
      * @param sysResources 数据源

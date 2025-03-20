@@ -20,6 +20,13 @@ public interface ISysResourcesService extends IServicePlus<SysResources> {
     public SysResources selectSysResourcesByResourceId(Long resourceId);
 
     /**
+     * 根据id查一组数据
+     * @param resourceIds ids
+     * @return
+     */
+    public List<SysResources> selectSysResourcesByResourceIds(List<Long> resourceIds);
+
+    /**
      * 查询数据源列表
      * 
      * @param sysResources 数据源
