@@ -14,6 +14,7 @@ import org.springframework.jdbc.datasource.lookup.AbstractRoutingDataSource;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
+import java.sql.Connection;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -56,11 +57,6 @@ public class DynamicDataSourceCachePool extends AbstractRoutingDataSource {
     protected Object determineCurrentLookupKey() {
         return DynamicDataSourceContextHolder.getDataSourceType();
     }
-
-
-
-
-
 
     /**
      * 根据对象和key添加数据源
@@ -146,6 +142,39 @@ public class DynamicDataSourceCachePool extends AbstractRoutingDataSource {
 
     }
 
+    /**
+     *  设置默认数据源,用于主从故障切换
+     */
+    public static boolean setDefaultDataSource(String dbKey){
+        if(dbKey.equals(DataSourceConst.MASTER)||dbKey.equals(DataSourceConst.SLAVE)){
+            //如果要切换的数据源不能用
+            if(!DynamicDataSourceCachePool.isDatabaseAlive(dbKey)) return false;
+
+            DynamicDataSourceCachePool pool = SpringUtils.getBean(DynamicDataSourceCachePool.class);
+
+            pool.setDefaultTargetDataSource(targetDataSources.get(dbKey));
+            //使得数据源设置生效
+            pool.afterPropertiesSet();
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 判断数据源是否存活可用
+     * @param dbKey 编码
+     * @return
+     */
+    public static boolean isDatabaseAlive(String dbKey){
+        DataSource dataSource= (DataSource) targetDataSources.get(dbKey);
+        try {
+            Connection connection = dataSource.getConnection();
+            connection.createStatement().execute("SELECT 1 FROM DUAL");
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
 
     /**
      * 生成数据源【最底层方法，不要随便调用】
