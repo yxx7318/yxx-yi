@@ -32,6 +32,9 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 
+import org.springframework.validation.annotation.Validated;
+
+
 /**
  * ${functionName}Controller
  * 
@@ -76,7 +79,7 @@ public class ${ClassName}Controller extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('${permissionPrefix}:add')")
     @Log(title = "${functionName}", businessType = BusinessType.INSERT)
     @PostMapping
-    public R<String> add(@RequestBody ${ClassName} ${className})
+    public R<String> add(@RequestBody @Validated ${ClassName} ${className})
     {
         return toResult(${className}Service.insert${ClassName}(${className}));
     }
@@ -85,7 +88,7 @@ public class ${ClassName}Controller extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('${permissionPrefix}:edit')")
     @Log(title = "${functionName}", businessType = BusinessType.UPDATE)
     @PutMapping
-    public R<String> update(@Parameter(description = "DTO对象") @RequestBody ${ClassName} ${className})
+    public R<String> update(@Parameter(description = "DTO对象") @RequestBody @Validated ${ClassName} ${className})
     {
         return toResult(${className}Service.update${ClassName}(${className}));
     }

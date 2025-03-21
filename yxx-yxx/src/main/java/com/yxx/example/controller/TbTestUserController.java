@@ -29,6 +29,9 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 
+import org.springframework.validation.annotation.Validated;
+
+
 /**
  * 测试用户Controller
  * 
@@ -65,7 +68,7 @@ public class TbTestUserController extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('example:user:add')")
     @Log(title = "测试用户", businessType = BusinessType.INSERT)
     @PostMapping
-    public R<String> add(@RequestBody TbTestUser tbTestUser)
+    public R<String> add(@RequestBody @Validated TbTestUser tbTestUser)
     {
         return toResult(tbTestUserService.insertTbTestUser(tbTestUser));
     }
@@ -74,7 +77,7 @@ public class TbTestUserController extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('example:user:edit')")
     @Log(title = "测试用户", businessType = BusinessType.UPDATE)
     @PutMapping
-    public R<String> update(@Parameter(description = "DTO对象") @RequestBody TbTestUser tbTestUser)
+    public R<String> update(@Parameter(description = "DTO对象") @RequestBody @Validated TbTestUser tbTestUser)
     {
         return toResult(tbTestUserService.updateTbTestUser(tbTestUser));
     }

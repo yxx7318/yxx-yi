@@ -73,7 +73,8 @@
           icon="el-icon-upload2"
           size="mini"
           @click="upload.open = true"
-          v-hasPermi="['temu:goods:import']">导入</el-button>
+          v-hasPermi="['temu:goods:import']"
+        >导入</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
@@ -144,7 +145,7 @@
 </template>
 
 <script>
-import { listUser, getUser, delUser, addUser, updateUser } from "@/api/example/user";
+import { listUser, getUser, addUser, updateUser, delUser } from "@/api/example/user";
 
 export default {
   name: "User",

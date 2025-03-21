@@ -17,6 +17,14 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.experimental.Accessors;
 import lombok.*;
 
+#set($foundRequired = false)
+#foreach ($column in $columns)
+#if ($column.required && !$foundRequired)
+import javax.validation.constraints.NotNull;
+#set($foundRequired = true)
+#end
+#end
+
 /**
  * ${functionName}对象 ${tableName}
  *
@@ -46,6 +54,10 @@ public class ${ClassName} extends ${Entity} {
 #if(!$table.isSuperColumn($column.javaField))
 ## 添加swagger
     @Schema(description = "$column.columnComment")
+## 添加校验
+#if($column.required)
+    @NotNull(message = "$column.columnComment不能为空")
+#end
 ## 添加Mp
 #if($column.javaField.toLowerCase().indexOf("id") != -1 && $index == 0)
     @TableId(value = "$column.columnName", type = IdType.AUTO)

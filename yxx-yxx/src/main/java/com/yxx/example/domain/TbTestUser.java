@@ -10,6 +10,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.experimental.Accessors;
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
+
 /**
  * 测试用户对象 tb_test_user
  *
@@ -33,6 +35,7 @@ public class TbTestUser extends BaseEntity {
     private Long userId;
 
     @Schema(description = "用户账号")
+    @NotNull(message = "用户账号不能为空")
     @TableField("user_name")
     @Excel(name = "用户账号")
     private String userName;
