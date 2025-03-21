@@ -17,11 +17,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.experimental.Accessors;
 import lombok.*;
 
-#set($foundRequired = false)
 #foreach ($column in $columns)
-#if ($column.required && !$foundRequired)
+#if ($column.required)
 import javax.validation.constraints.NotNull;
-#set($foundRequired = true)
+#break
 #end
 #end
 

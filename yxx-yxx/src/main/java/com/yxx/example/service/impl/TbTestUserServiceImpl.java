@@ -2,6 +2,7 @@ package com.yxx.example.service.impl;
 
 import java.util.List;
 import com.yxx.common.utils.DateUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import com.yxx.common.yxx.service.impl.ServiceImplPlus;
@@ -15,6 +16,7 @@ import com.yxx.example.service.ITbTestUserService;
  * @author yxx
  * @date 2025-03-21
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbTestUser> implements ITbTestUserService {

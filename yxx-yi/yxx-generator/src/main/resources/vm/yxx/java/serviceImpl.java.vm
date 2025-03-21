@@ -7,6 +7,7 @@ import com.yxx.common.utils.DateUtils;
 #break
 #end
 #end
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 #if($table.sub)
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ import ${packageName}.service.I${ClassName}Service;
  * @author ${author}
  * @date ${datetime}
  */
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper, ${ClassName}> implements I${ClassName}Service {
