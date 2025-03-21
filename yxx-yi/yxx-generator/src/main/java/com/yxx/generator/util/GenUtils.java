@@ -54,7 +54,12 @@ public class GenUtils
         else if (arraysContains(GenConstants.COLUMNTYPE_TIME, dataType))
         {
             column.setJavaType(GenConstants.TYPE_DATE);
-            column.setHtmlType(GenConstants.HTML_DATETIME);
+            // 针对日期和时间进行二次判断
+            if (GenConstants.COLUMNTYPE_TIME[2].equals(dataType)) {
+                column.setHtmlType(GenConstants.HTML_DATE);
+            } else {
+                column.setHtmlType(GenConstants.HTML_DATETIME);
+            }
         }
         else if (arraysContains(GenConstants.COLUMNTYPE_NUMBER, dataType))
         {

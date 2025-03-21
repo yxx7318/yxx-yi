@@ -17,6 +17,14 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
+      <el-form-item label="注册时间" prop="registerTime">
+        <el-date-picker clearable
+          v-model="queryParams.registerTime"
+          type="datetime"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          placeholder="请选择注册时间">
+        </el-date-picker>
+      </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
@@ -84,6 +92,7 @@
       <el-table-column label="用户ID" align="center" prop="userId" />
       <el-table-column label="用户账号" align="center" prop="userName" />
       <el-table-column label="密码" align="center" prop="password" />
+      <el-table-column label="注册时间" align="center" prop="registerTime" />
       <el-table-column label="帐号状态" align="center" prop="status" />
       <el-table-column label="备注" align="center" prop="remark" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
@@ -122,6 +131,14 @@
         </el-form-item>
         <el-form-item label="密码" prop="password">
           <el-input v-model="form.password" placeholder="请输入密码" />
+        </el-form-item>
+        <el-form-item label="注册时间" prop="registerTime">
+          <el-date-picker clearable
+            v-model="form.registerTime"
+            type="datetime"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            placeholder="请选择注册时间">
+          </el-date-picker>
         </el-form-item>
         <el-form-item label="备注" prop="remark">
           <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
@@ -184,6 +201,7 @@ export default {
         pageSize: 10,
         userName: null,
         password: null,
+        registerTime: null,
         status: null,
       },
       // 表单参数
@@ -220,6 +238,7 @@ export default {
         userId: null,
         userName: null,
         password: null,
+        registerTime: null,
         status: null,
         createBy: null,
         createTime: null,

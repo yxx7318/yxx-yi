@@ -1,5 +1,7 @@
 package com.yxx.example.domain;
 
+import java.util.Date;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yxx.common.annotation.Excel;
 import com.yxx.common.core.domain.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -16,7 +18,7 @@ import javax.validation.constraints.NotNull;
  * 测试用户对象 tb_test_user
  *
  * @author yxx
- * @date 2025-03-21
+ * @date 2025-03-22
  */
 @Schema(description = "测试用户实体")
 @NoArgsConstructor
@@ -44,6 +46,12 @@ public class TbTestUser extends BaseEntity {
     @TableField("password")
     @Excel(name = "密码")
     private String password;
+
+    @Schema(description = "注册时间")
+    @TableField("register_time")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "注册时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
+    private Date registerTime;
 
     @Schema(description = "帐号状态（0正常 1停用）")
     @TableField("status")
