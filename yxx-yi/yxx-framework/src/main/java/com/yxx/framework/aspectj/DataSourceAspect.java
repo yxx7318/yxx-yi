@@ -2,8 +2,6 @@ package com.yxx.framework.aspectj;
 
 import java.util.Objects;
 
-import com.yxx.common.utils.spring.SpringUtils;
-import com.yxx.framework.datasource.DynamicDataSourceCachePool;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;

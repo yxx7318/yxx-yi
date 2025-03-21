@@ -3,9 +3,8 @@ package com.yxx.web.controller.system;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Objects;
 
-import com.yxx.framework.datasource.DynamicDataSourceCachePool;
+import com.yxx.framework.datasource.DynamicDataSource;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -89,7 +88,7 @@ public class SysResourcesController extends BaseControllerPlus {
     public R<String> update(@RequestBody SysResources sysResources) throws Exception {
         SysResources oldResources = sysResourcesService.selectSysResourcesByResourceId(sysResources.getResourceId());
         //清除旧数据源缓存
-        DynamicDataSourceCachePool.removeDynamicCache(oldResources.getCode());
+        DynamicDataSource.removeDynamicCache(oldResources.getCode());
 
         return toResult(sysResourcesService.updateSysResources(sysResources));
     }
@@ -106,7 +105,7 @@ public class SysResourcesController extends BaseControllerPlus {
 
         //删除数据源缓存
         for (SysResources sysResource : sysResources) {
-            DynamicDataSourceCachePool.removeDynamicCache(sysResource.getCode());
+            DynamicDataSource.removeDynamicCache(sysResource.getCode());
         }
 
         return toResult(sysResourcesService.deleteSysResourcesByResourceIds(resourceIds));

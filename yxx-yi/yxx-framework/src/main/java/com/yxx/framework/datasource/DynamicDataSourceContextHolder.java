@@ -27,8 +27,8 @@ public class DynamicDataSourceContextHolder
      * 切换数据源
      */
     public static void cutDataSource(String dbKey) throws Exception {
-        DynamicDataSourceCachePool dynamicDataSource =  SpringUtils.getBean(DynamicDataSourceCachePool.class);
-        boolean flag=  DynamicDataSourceCachePool.loadDynamicDataSourceByKey(dbKey);
+        DynamicDataSource dynamicDataSource =  SpringUtils.getBean(DynamicDataSource.class);
+        boolean flag=  DynamicDataSource.loadDynamicDataSourceByKey(dbKey);
         if(!flag)throw new Exception("数据源加载失败:"+dbKey);
         log.info("切换到{}数据源", dbKey);
 

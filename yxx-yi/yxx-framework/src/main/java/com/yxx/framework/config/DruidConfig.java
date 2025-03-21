@@ -1,7 +1,6 @@
 package com.yxx.framework.config;
 
 import java.io.IOException;
-import java.util.Map;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -9,13 +8,12 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.sql.DataSource;
 
-import com.yxx.framework.datasource.DynamicDataSourceCachePool;
+
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.alibaba.druid.spring.boot.autoconfigure.properties.DruidStatProperties;
@@ -46,33 +44,11 @@ public class DruidConfig
     public DataSource slaveDataSource(DruidProperties druidProperties)
     {
         DruidDataSource dataSource = DruidDataSourceBuilder.create().build();
-        //设置数据源
-        setDataSource(DataSourceConst.SLAVE, dataSource);
 
         return druidProperties.dataSource(dataSource);
     }
 
 
-    /**
-     * 设置数据源
-     * @param dbKey 数据源key
-     * @param dataSource 数据源对象
-     */
-    public void setDataSource( String dbKey, DataSource dataSource)
-    {
-        try
-        {
-            //拿到缓存池
-            DynamicDataSourceCachePool pool = SpringUtils.getBean("dynamicDataSourceCachePool");
-            //插入数据源
-            DynamicDataSourceCachePool.loadDynamicDataSourceByObject(dbKey,dataSource);
-            //使配置生效
-            pool.afterPropertiesSet();
-        }
-        catch (Exception e)
-        {
-        }
-    }
 
     /**
      * 去除监控页面底部的广告
