@@ -13,8 +13,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
-import io.swagger.annotations.ApiModelProperty;
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.experimental.Accessors;
 import lombok.*;
 
@@ -29,7 +28,7 @@ import lombok.*;
 #elseif($table.tree)
 #set($Entity="TreeEntity")
 #end
-@ApiModel(value = "${ClassName}", description = "${functionName}实体")
+@Schema(description = "${functionName}实体")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -46,7 +45,7 @@ public class ${ClassName} extends ${Entity} {
 #foreach ($column in $columns)
 #if(!$table.isSuperColumn($column.javaField))
 ## 添加swagger
-    @ApiModelProperty("$column.columnComment")
+    @Schema(description = "$column.columnComment")
 ## 添加Mp
 #if($column.javaField.toLowerCase().indexOf("id") != -1 && $index == 0)
     @TableId(value = "$column.columnName", type = IdType.AUTO)

@@ -23,17 +23,17 @@ import com.yxx.common.utils.poi.ExcelUtil;
 import com.yxx.common.core.domain.R;
 import com.yxx.common.yxx.domain.PageResult;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
-import io.swagger.annotations.ApiOperation;
 
 /**
  * 测试用户Controller
  * 
  * @author yxx
- * @date 2025-03-18
+ * @date 2025-03-21
  */
 @Api(tags = "测试用户管理")
 @RestController
@@ -54,20 +54,14 @@ public class TbTestUserController extends BaseControllerPlus {
     }
 
     @ApiOperation("获取测试用户详细信息")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "主键Id", required = true, dataType = "Long", dataTypeClass = Long.class, paramType = "path"),
-    })
     @PreAuthorize("@ss.hasPermi('example:user:query')")
     @GetMapping(value = "/{userId}")
-    public R<TbTestUser> getInfo(@PathVariable("userId") Long userId)
+    public R<TbTestUser> getInfo(@Parameter(description = "主键Id", required = true, in = ParameterIn.QUERY) @PathVariable("userId") Long userId)
     {
         return R.ok(tbTestUserService.selectTbTestUserByUserId(userId));
     }
 
     @ApiOperation("新增测试用户")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "tbTestUser", value = "DTO对象", required = true, dataType = "TbTestUser", dataTypeClass = TbTestUser.class, paramType = "body"),
-    })
     @PreAuthorize("@ss.hasPermi('example:user:add')")
     @Log(title = "测试用户", businessType = BusinessType.INSERT)
     @PostMapping
@@ -77,13 +71,10 @@ public class TbTestUserController extends BaseControllerPlus {
     }
 
     @ApiOperation("修改测试用户")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "tbTestUser", value = "DTO对象", required = true, dataType = "TbTestUser", dataTypeClass = TbTestUser.class, paramType = "body"),
-    })
     @PreAuthorize("@ss.hasPermi('example:user:edit')")
     @Log(title = "测试用户", businessType = BusinessType.UPDATE)
     @PutMapping
-    public R<String> update(@RequestBody TbTestUser tbTestUser)
+    public R<String> update(@Parameter(description = "DTO对象") @RequestBody TbTestUser tbTestUser)
     {
         return toResult(tbTestUserService.updateTbTestUser(tbTestUser));
     }

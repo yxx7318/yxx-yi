@@ -8,7 +8,7 @@ import com.yxx.common.yxx.service.IServicePlus;
  * 测试用户Service接口
  * 
  * @author yxx
- * @date 2025-03-18
+ * @date 2025-03-21
  */
 public interface ITbTestUserService extends IServicePlus<TbTestUser> {
     /**
