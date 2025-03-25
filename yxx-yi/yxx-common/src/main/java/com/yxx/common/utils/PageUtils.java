@@ -1,6 +1,5 @@
 package com.yxx.common.utils;
 
-import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.yxx.common.core.page.PageDomain;
 import com.yxx.common.core.page.TableSupport;
@@ -27,10 +26,7 @@ public class PageUtils extends PageHelper
         Integer pageSize = pageDomain.getPageSize();
         String orderBy = SqlUtil.escapeOrderBySql(pageDomain.getOrderBy());
         Boolean reasonable = pageDomain.getReasonable();
-        // 自动进行资源释放
-        try (Page<Object> page = PageHelper.startPage(pageNum, pageSize, orderBy)) {
-            page.setReasonable(reasonable);
-        }
+        PageHelper.startPage(pageNum, pageSize, orderBy).setReasonable(reasonable);
     }
 
     /**
