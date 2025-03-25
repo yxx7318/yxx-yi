@@ -3,7 +3,7 @@ package com.yxx.example.domain;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yxx.common.annotation.Excel;
-import com.yxx.common.core.domain.BaseEntity;
+import com.yxx.common.yxx.domain.PageQueryEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -28,7 +28,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @Data
 @TableName(value = "tb_test_user", autoResultMap = true)
-public class TbTestUser extends BaseEntity {
+public class TbTestUser extends PageQueryEntity {
 
     private static final long serialVersionUID = 1L;
 
