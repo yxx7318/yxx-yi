@@ -1,19 +1,26 @@
 package com.yxx.common.yxx.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.yxx.common.core.domain.BaseEntity;
 import com.yxx.common.yxx.utils.PageDomainUtils;
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.EqualsAndHashCode;
 import org.springframework.util.StringUtils;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.Data;
 
+import java.io.Serializable;
+
 /**
  * 分页查询条件对象，用于封装分页请求中的参数
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class PageQueryEntity {
+public class PageQueryEntity extends BaseEntity implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /**
      * 当前页码，默认为1
