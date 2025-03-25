@@ -25,6 +25,9 @@ public class PageDomain
     /** 分页参数合理化 */
     private Boolean reasonable = true;
 
+    /** 是否查询全部 */
+    private Boolean allData = false;
+
     public String getOrderBy()
     {
         if (StringUtils.isEmpty(orderByColumn))
@@ -86,5 +89,15 @@ public class PageDomain
     public void setReasonable(Boolean reasonable)
     {
         this.reasonable = reasonable;
+    }
+
+    public Boolean getAllData()
+    {
+        return allData;
+    }
+
+    public void setAllData(Boolean allData)
+    {
+        this.allData = allData;
     }
 }

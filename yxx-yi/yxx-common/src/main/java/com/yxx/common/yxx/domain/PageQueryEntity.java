@@ -2,7 +2,7 @@ package com.yxx.common.yxx.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yxx.common.yxx.utils.PageDomainUtils;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.util.StringUtils;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.core.metadata.OrderItem;
@@ -19,7 +19,7 @@ public class PageQueryEntity {
      * 当前页码，默认为1
      */
     @TableField(exist = false)
-    @ApiModelProperty(hidden = true)
+    @Schema(description = "当前页码，默认为1")
     @JsonIgnore
     private Integer pageNum = 1;
 
@@ -27,7 +27,7 @@ public class PageQueryEntity {
      * 每页显示的记录数，默认为10
      */
     @TableField(exist = false)
-    @ApiModelProperty(hidden = true)
+    @Schema(description = "每页显示的记录数，默认为10")
     @JsonIgnore
     private Integer pageSize = 10;
 
@@ -35,7 +35,7 @@ public class PageQueryEntity {
      * 排序字段名称
      */
     @TableField(exist = false)
-    @ApiModelProperty(hidden = true)
+    @Schema(description = "排序字段名称")
     @JsonIgnore
     private String orderByColumn;
 
@@ -43,9 +43,29 @@ public class PageQueryEntity {
      * 排序的方向desc或者asc
      */
     @TableField(exist = false)
-    @ApiModelProperty(hidden = true)
+    @Schema(description = "排序的方向desc或者asc")
     @JsonIgnore
     private String isAsc = "asc";
+
+    @TableField(exist = false)
+    @Schema(description = "是否获取全量数据，默认为false，当为true时，忽略pageNum和pageSize")
+    @JsonIgnore
+    private Boolean allData = false;
+
+    public void setAllData(Boolean allData) {
+        // 兼容PageHelper分页插件
+        this.pageSize = 0;
+        this.allData = allData;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        // 兼容PageHelper分页插件
+        if (this.getAllData()) {
+            this.pageSize = 0;
+        } else {
+            this.pageSize = pageSize;
+        }
+    }
 
     public void setIsAsc(String isAsc) {
         this.isAsc = PageDomainUtils.getIsAscValue(isAsc);

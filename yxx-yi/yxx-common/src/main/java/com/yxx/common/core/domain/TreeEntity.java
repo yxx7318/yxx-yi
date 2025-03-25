@@ -1,7 +1,7 @@
 package com.yxx.common.core.domain;
 
 import com.baomidou.mybatisplus.annotation.TableField;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,27 +17,27 @@ public class TreeEntity extends BaseEntity
 
     /** 父菜单名称 */
     @TableField(exist = false)
-    @ApiModelProperty(hidden = true)
+    @Schema(hidden = true)
     private String parentName;
 
     /** 父菜单ID */
     @TableField(exist = false)
-    @ApiModelProperty(hidden = true)
+    @Schema(hidden = true)
     private Long parentId;
 
     /** 显示顺序 */
     @TableField(exist = false)
-    @ApiModelProperty(hidden = true)
+    @Schema(hidden = true)
     private Integer orderNum;
 
     /** 祖级列表 */
     @TableField(exist = false)
-    @ApiModelProperty(hidden = true)
+    @Schema(hidden = true)
     private String ancestors;
 
     /** 子部门 */
     @TableField(exist = false)
-    @ApiModelProperty(hidden = true)
+    @Schema(hidden = true)
     private List<?> children = new ArrayList<>();
 
     public String getParentName()

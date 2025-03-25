@@ -26,7 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>  
             <if test="userName != null  and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
             <if test="password != null  and password != ''"> and password = #{password}</if>
-            <if test="registerTime != null "> and register_time = #{registerTime}</if>
+            <if test="params.beginRegisterTime != null and params.beginRegisterTime != '' and params.endRegisterTime != null and params.endRegisterTime != ''"> and register_time between #{params.beginRegisterTime} and #{params.endRegisterTime}</if>
             <if test="status != null  and status != ''"> and status = #{status}</if>
         </where>
     </select>

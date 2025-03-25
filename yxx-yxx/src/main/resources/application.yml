@@ -60,8 +60,12 @@ mybatis-plus:
 # PageHelper分页插件
 pagehelper:
   helperDialect: mysql
+  # 是否支持通过Mapper方法参数传递分页参数(为true会直接通过PageQueryEntity的pageNum和pageSize完成分页)
   supportMethodsArguments: true
+  # 自定义分页参数名称
   params: count=countSql
+  # 当 pageSize=0 时，是否查询所有数据
+  pageSizeZero: true
 
 # Swagger配置
 swagger:

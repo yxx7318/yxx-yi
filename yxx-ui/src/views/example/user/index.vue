@@ -17,13 +17,16 @@
           @keyup.enter.native="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="注册时间" prop="registerTime">
-        <el-date-picker clearable
-          v-model="queryParams.registerTime"
-          type="datetime"
+      <el-form-item label="注册时间">
+        <el-date-picker
+          v-model="datetimerangeRegisterTime"
+          style="width: 340px"
           value-format="yyyy-MM-dd HH:mm:ss"
-          placeholder="请选择注册时间">
-        </el-date-picker>
+          type="datetimerange"
+          range-separator="-"
+          start-placeholder="开始时间"
+          end-placeholder="结束时间"
+        ></el-date-picker>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
@@ -114,7 +117,7 @@
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"
@@ -186,6 +189,8 @@ export default {
       title: "",
       // 是否显示弹出层
       open: false,
+      // 备注时间范围
+      datetimerangeRegisterTime: [],
       // 商品导入参数
       upload: {
         // 是否显示弹出层
@@ -221,6 +226,11 @@ export default {
     /** 查询测试用户列表 */
     getList() {
       this.loading = true;
+      this.queryParams.params = {};
+      if (null != this.datetimerangeRegisterTime && '' != this.datetimerangeRegisterTime) {
+        this.queryParams.params["beginRegisterTime"] = this.datetimerangeRegisterTime[0];
+        this.queryParams.params["endRegisterTime"] = this.datetimerangeRegisterTime[1];
+      }
       listUser(this.queryParams).then(response => {
         this.userList = response.rows;
         this.total = Number(response.total);
@@ -255,6 +265,7 @@ export default {
     },
     /** 重置按钮操作 */
     resetQuery() {
+      this.datetimerangeRegisterTime = [];
       this.resetForm("queryForm");
       this.handleQuery();
     },

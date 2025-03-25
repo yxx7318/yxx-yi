@@ -2,15 +2,14 @@ package com.yxx.common.core.domain;
 
 import java.io.Serializable;
 import com.yxx.common.constant.HttpStatus;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * 响应信息主体
  *
- * @author ruoyi
+ * @author yxx
  */
-@ApiModel(value = "R", description = "通用结果相应类")
+@Schema(description = "通用结果相应类")
 public class R<T> implements Serializable
 {
     private static final long serialVersionUID = 1L;
@@ -24,13 +23,13 @@ public class R<T> implements Serializable
     /** 失败 */
     public static final int WARN = HttpStatus.WARN;
 
-    @ApiModelProperty(value = "状态码", example = "200")
+    @Schema(description = "状态码", example = "200")
     private int code;
 
-    @ApiModelProperty(value = "消息", example = "操作成功")
+    @Schema(description = "消息", example = "操作成功")
     private String msg;
 
-    @ApiModelProperty("数据体")
+    @Schema(description = "数据体")
     private T data;
 
     public static <T> R<T> ok()

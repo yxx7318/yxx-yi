@@ -36,6 +36,11 @@ public class TableSupport
     public static final String REASONABLE = "reasonable";
 
     /**
+     * 查询所有结果
+     */
+    public static final String ALL_DATA = "allData";
+
+    /**
      * 封装分页对象
      */
     public static PageDomain getPageDomain()
@@ -46,6 +51,7 @@ public class TableSupport
         pageDomain.setOrderByColumn(ServletUtils.getParameter(ORDER_BY_COLUMN));
         pageDomain.setIsAsc(ServletUtils.getParameter(IS_ASC));
         pageDomain.setReasonable(ServletUtils.getParameterToBool(REASONABLE));
+        pageDomain.setAllData(Convert.toBool(ServletUtils.getParameter(ALL_DATA), Boolean.FALSE));
         return pageDomain;
     }
 

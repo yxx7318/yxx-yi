@@ -1,8 +1,7 @@
 package com.yxx.common.yxx.domain;
 
 import com.yxx.common.constant.HttpStatus;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import java.util.List;
 
@@ -11,25 +10,28 @@ import java.util.List;
  *
  * @param <T> 实际的数据类型
  */
-@ApiModel(value = "PageResult", description = "分页结果实体类")
+@Schema(description = "分页结果实体类")
 @Data
 public class PageResult<T> {
 
-    @ApiModelProperty("总记录数")
+    @Schema(description = "总记录数")
     private Long total;
 
-    @ApiModelProperty("当前页的数据列表")
+    @Schema(description = "当前页的数据列表")
     private List<T> rows;
 
-    @ApiModelProperty(value = "状态码", example = "200")
+    @Schema(description = "状态码", example = "200")
     private Integer code = HttpStatus.SUCCESS;
 
-    @ApiModelProperty(value = "消息", example = "操作成功")
+    @Schema(description = "消息", example = "操作成功")
     private String msg = "查询成功";
 
-    @ApiModelProperty(value = "页码", example = "1")
+    @Schema(description = "页码", example = "1")
     private Integer pageNum = 1;
 
-    @ApiModelProperty(value = "页大小", example = "10")
+    @Schema(description = "页大小", example = "10")
     private Integer pageSize = 10;
+
+    @Schema(description = "是否查询全部", example = "false")
+    private Boolean allData;
 }

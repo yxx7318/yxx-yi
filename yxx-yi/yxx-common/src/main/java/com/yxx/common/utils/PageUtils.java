@@ -1,5 +1,6 @@
 package com.yxx.common.utils;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.yxx.common.core.page.PageDomain;
 import com.yxx.common.core.page.TableSupport;
@@ -18,11 +19,18 @@ public class PageUtils extends PageHelper
     public static void startPage()
     {
         PageDomain pageDomain = TableSupport.buildPageRequest();
+        // 如果查询所有则不分页
+        if (pageDomain.getAllData()) {
+            return;
+        }
         Integer pageNum = pageDomain.getPageNum();
         Integer pageSize = pageDomain.getPageSize();
         String orderBy = SqlUtil.escapeOrderBySql(pageDomain.getOrderBy());
         Boolean reasonable = pageDomain.getReasonable();
-        PageHelper.startPage(pageNum, pageSize, orderBy).setReasonable(reasonable);
+        // 自动进行资源释放
+        try (Page<Object> page = PageHelper.startPage(pageNum, pageSize, orderBy)) {
+            page.setReasonable(reasonable);
+        }
     }
 
     /**

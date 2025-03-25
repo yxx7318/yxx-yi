@@ -71,7 +71,7 @@
       <el-form-item label="${comment}">
         <el-date-picker
           v-model="datetimerange${AttrName}"
-          style="width: 240px"
+          style="width: 340px"
           value-format="yyyy-MM-dd HH:mm:ss"
           type="datetimerange"
           range-separator="-"

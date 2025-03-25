@@ -29,7 +29,12 @@ public class BaseControllerPlus extends BaseController {
     {
         PageResult<?> result = getDataTableToPR(list);
         result.setPageNum(t.getPageNum());
-        result.setPageSize(t.getPageSize());
+        // 如果是所有数据，则以list长度作为页面长度
+        if (t.getAllData()) {
+            result.setPageSize(list.size());
+        } else {
+            result.setPageSize(t.getPageSize());
+        }
         return result;
     }
 
