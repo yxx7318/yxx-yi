@@ -90,7 +90,10 @@ public class ${ClassName} extends ${Entity} {
 #end
 ## 主子表的额外属性
 #if($table.sub)
-    /** $table.subTable.functionName信息 */
+    /**
+    * $table.subTable.functionName信息
+    */
+    @TableField(exist = false)
     private List<${subClassName}> ${subclassName}List;
 
 #end
