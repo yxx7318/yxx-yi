@@ -299,8 +299,8 @@ export default {
     },
     /** 设置关联外键 */
     setSubTableColumns(value) {
-      for (var item in this.tables) {
-        const name = this.tables[item].tableName;
+      for (let item in this.tables) {
+        let name = this.tables[item].tableName;
         if (value === name) {
           this.subColumns = this.tables[item].columns;
           break;

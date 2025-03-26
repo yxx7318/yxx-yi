@@ -3,6 +3,7 @@ package com.yxx.example.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,9 +35,9 @@ import org.springframework.validation.annotation.Validated;
 
 /**
  * 测试用户Controller
- * 
+ *
  * @author yxx
- * @date 2025-03-24
+ * @date 2025-03-26
  */
 @Api(tags = "测试用户管理")
 @RestController
@@ -49,18 +50,14 @@ public class TbTestUserController extends BaseControllerPlus {
     @ApiOperation("查询测试用户列表")
     @PreAuthorize("@ss.hasPermi('example:user:list')")
     @GetMapping("/list")
-    public PageResult<?> list(@Parameter(description = "DTO对象", in = ParameterIn.QUERY) TbTestUser tbTestUser)
-    {
-        startPage();
-        List<TbTestUser> list = tbTestUserService.selectTbTestUserList(tbTestUser);
-        return getDataTableToPR(list, tbTestUser);
+    public PageResult<?> list(@Parameter(description = "DTO对象", in = ParameterIn.QUERY) TbTestUser tbTestUser) {
+        return tbTestUserService.selectTbTestUserPage(tbTestUser);
     }
 
     @ApiOperation("获取测试用户详细信息")
     @PreAuthorize("@ss.hasPermi('example:user:query')")
     @GetMapping(value = "/{userId}")
-    public R<TbTestUser> getInfo(@Parameter(description = "主键Id", required = true, in = ParameterIn.QUERY) @PathVariable("userId") Long userId)
-    {
+    public R<TbTestUser> getInfo(@Parameter(description = "主键Id", required = true, in = ParameterIn.QUERY) @PathVariable("userId") Long userId) {
         return R.ok(tbTestUserService.selectTbTestUserByUserId(userId));
     }
 
@@ -68,8 +65,7 @@ public class TbTestUserController extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('example:user:add')")
     @Log(title = "测试用户", businessType = BusinessType.INSERT)
     @PostMapping
-    public R<String> add(@RequestBody @Validated TbTestUser tbTestUser)
-    {
+    public R<String> add(@RequestBody @Validated TbTestUser tbTestUser) {
         return toResult(tbTestUserService.insertTbTestUser(tbTestUser));
     }
 
@@ -77,8 +73,7 @@ public class TbTestUserController extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('example:user:edit')")
     @Log(title = "测试用户", businessType = BusinessType.UPDATE)
     @PutMapping
-    public R<String> update(@Parameter(description = "DTO对象") @RequestBody @Validated TbTestUser tbTestUser)
-    {
+    public R<String> update(@Parameter(description = "DTO对象") @RequestBody @Validated TbTestUser tbTestUser) {
         return toResult(tbTestUserService.updateTbTestUser(tbTestUser));
     }
 
@@ -89,8 +84,7 @@ public class TbTestUserController extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('example:user:remove')")
     @Log(title = "测试用户", businessType = BusinessType.DELETE)
     @DeleteMapping("/{userIds}")
-    public R<String> delete(@PathVariable List<Long> userIds)
-    {
+    public R<String> delete(@PathVariable List<Long> userIds) {
         return toResult(tbTestUserService.deleteTbTestUserByUserIds(userIds));
     }
 
@@ -98,8 +92,7 @@ public class TbTestUserController extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('example:user:export')")
     @Log(title = "测试用户", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, @Parameter(description = "DTO对象", in = ParameterIn.QUERY) TbTestUser tbTestUser)
-    {
+    public void export(HttpServletResponse response, @Parameter(description = "DTO对象", in = ParameterIn.QUERY) TbTestUser tbTestUser) {
         List<TbTestUser> list = tbTestUserService.selectTbTestUserList(tbTestUser);
         ExcelUtil<TbTestUser> util = new ExcelUtil<>(TbTestUser.class);
         util.exportExcel(response, list, "测试用户数据");
@@ -108,8 +101,7 @@ public class TbTestUserController extends BaseControllerPlus {
     @ApiOperation("导入测试用户模板")
     @PreAuthorize("@ss.hasPermi('example:user:import')")
     @PostMapping("/importTemplate")
-    public void importTemplate(HttpServletResponse response)
-    {
+    public void importTemplate(HttpServletResponse response) {
         ExcelUtil<TbTestUser> util = new ExcelUtil<>(TbTestUser.class);
         util.importTemplateExcel(response, "导入测试用户模板数据");
     }
@@ -118,8 +110,7 @@ public class TbTestUserController extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('example:user:import')")
     @Log(title = "测试用户", businessType = BusinessType.IMPORT)
     @PostMapping("/importData")
-    public R<Boolean> importData(MultipartFile file) throws IOException
-    {
+    public R<Boolean> importData(MultipartFile file) throws IOException {
         ExcelUtil<TbTestUser> util = new ExcelUtil<>(TbTestUser.class);
         List<TbTestUser> list = util.importExcel(file.getInputStream());
         return R.ok(tbTestUserService.saveBatch(list), "成功导入 " + list.size() + " 条记录");

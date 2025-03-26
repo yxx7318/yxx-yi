@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.yxx.common.yxx.domain.PageQueryEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
@@ -17,7 +18,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
  * 
  * @author ruoyi
  */
-public class BaseEntity implements Serializable
+public class BaseEntity extends PageQueryEntity implements Serializable
 {
     private static final long serialVersionUID = 1L;
 

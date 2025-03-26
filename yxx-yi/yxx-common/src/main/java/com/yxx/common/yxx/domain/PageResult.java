@@ -27,10 +27,10 @@ public class PageResult<T> {
     private String msg = "查询成功";
 
     @Schema(description = "页码", example = "1")
-    private Integer pageNum = 1;
+    private Integer pageNum;
 
     @Schema(description = "页大小", example = "10")
-    private Integer pageSize = 10;
+    private Integer pageSize;
 
     @Schema(description = "是否查询全部", example = "false")
     private Boolean allData;

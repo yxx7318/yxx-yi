@@ -3,7 +3,7 @@ package com.yxx.example.domain;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yxx.common.annotation.Excel;
-import com.yxx.common.yxx.domain.PageQueryEntity;
+import com.yxx.common.core.domain.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
  * 测试用户对象 tb_test_user
  *
  * @author yxx
- * @date 2025-03-24
+ * @date 2025-03-26
  */
 @Schema(description = "测试用户实体")
 @NoArgsConstructor
@@ -28,7 +28,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @Data
 @TableName(value = "tb_test_user", autoResultMap = true)
-public class TbTestUser extends PageQueryEntity {
+public class TbTestUser extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 

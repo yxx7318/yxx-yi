@@ -35,8 +35,7 @@ import javax.validation.constraints.NotNull;
 @Builder
 @Data
 @TableName(value = "${tableName}", autoResultMap = true)
-public class ${subClassName} extends BaseEntity
-{
+public class ${subClassName} extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 

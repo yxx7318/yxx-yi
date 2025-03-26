@@ -10,11 +10,10 @@ public class PageDomainUtils {
     public static String getIsAscValue(String isAsc) {
         if (StringUtils.isNotEmpty(isAsc)) {
             if ("ascending".equals(isAsc)) {
-                isAsc = "asc";
+                return "asc";
             } else if ("descending".equals(isAsc)) {
-                isAsc = "desc";
+                return "desc";
             }
-            return isAsc;
         }
         return "asc";
     }

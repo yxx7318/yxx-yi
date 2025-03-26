@@ -7,6 +7,7 @@ create table `tb_test_user` (
   user_name         varchar(30)     not null                   comment '用户账号',
   password          varchar(100)    default ''                 comment '密码',
   status            char(1)         default '0'                comment '帐号状态（0正常 1停用）',
+  register_time 	datetime                                   comment '注册时间',
   create_by         varchar(64)     default ''                 comment '创建者',
   create_time 	    datetime                                   comment '创建时间',
   update_by         varchar(64)     default ''                 comment '更新者',
