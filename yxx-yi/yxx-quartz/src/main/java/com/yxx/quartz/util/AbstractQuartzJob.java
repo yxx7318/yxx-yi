@@ -31,7 +31,7 @@ public abstract class AbstractQuartzJob implements Job
     private static ThreadLocal<Date> threadLocal = new ThreadLocal<>();
 
     @Override
-    public void execute(JobExecutionContext context) throws JobExecutionException
+    public void execute(JobExecutionContext context)
     {
         SysJob sysJob = new SysJob();
         BeanUtils.copyBeanProp(sysJob, context.getMergedJobDataMap().get(ScheduleConstants.TASK_PROPERTIES));
