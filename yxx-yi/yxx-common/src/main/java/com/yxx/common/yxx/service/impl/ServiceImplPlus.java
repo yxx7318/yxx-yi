@@ -12,6 +12,7 @@ import com.yxx.common.yxx.mapper.BaseMapperPlus;
 import com.yxx.common.yxx.service.IServicePlus;
 import com.yxx.common.yxx.utils.MpPageUtils;
 import com.yxx.common.yxx.utils.ObjectUtils;
+import com.yxx.common.yxx.utils.SingletonFactory;
 
 import java.util.Collections;
 import java.util.List;
@@ -26,6 +27,15 @@ import java.util.stream.Collectors;
  * @author yxx
  */
 public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseEntity> extends ServiceImpl<M, T> implements IServicePlus<T> {
+
+    /**
+     * 获取自注入spring管理的bean
+     */
+    @Override
+    public IServicePlus<T> getSelfBean() {
+        return SingletonFactory.getSingleton(this.getClass());
+    }
+
     /**
      * 获取转化后的Vo结果
      */

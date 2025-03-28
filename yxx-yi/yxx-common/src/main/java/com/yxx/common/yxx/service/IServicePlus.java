@@ -78,6 +78,11 @@ public interface IServicePlus<T extends BaseEntity> extends IService<T> {
     }
 
     /**
+     * 获取自注入spring管理的bean
+     */
+    public IServicePlus<T> getSelfBean();
+
+    /**
      * 获取转化后的Vo结果
      */
     public <VO> VO getVo(T t, Class<VO> voClass);
