@@ -7,7 +7,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalTimeSerializer;
-import com.yxx.common.yxx.utils.JsonUtils;
+import com.yxx.common.yxx.utils.JacksonUtils;
 import com.yxx.framework.yxx.config.databind.NumberSerializer;
 import com.yxx.framework.yxx.config.databind.TimestampLocalDateTimeDeserializer;
 import com.yxx.framework.yxx.config.databind.TimestampLocalDateTimeSerializer;
@@ -24,7 +24,7 @@ public class JacksonAutoConfiguration {
 
     @Bean
     @SuppressWarnings("InstantiationOfUtilityClass")
-    public JsonUtils jsonUtils(List<ObjectMapper> objectMappers) {
+    public JacksonUtils jacksonUtils(List<ObjectMapper> objectMappers) {
         // 创建 SimpleModule 对象
         SimpleModule simpleModule = new SimpleModule();
         simpleModule
@@ -41,8 +41,8 @@ public class JacksonAutoConfiguration {
         // 注册到 objectMapper
         objectMappers.forEach(objectMapper -> objectMapper.registerModule(simpleModule));
 
-        // 设置 objectMapper 到 JsonUtils
-        JsonUtils.init(CollUtil.getFirst(objectMappers));
-        return new JsonUtils();
+        // 设置 objectMapper 到 JacksonUtils
+        JacksonUtils.init(CollUtil.getFirst(objectMappers));
+        return new JacksonUtils();
     }
 }

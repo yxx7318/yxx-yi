@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import com.yxx.common.yxx.utils.JsonUtils;
+import com.alibaba.fastjson2.JSON;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.velocity.Template;
@@ -117,7 +117,7 @@ public class GenTableServiceImpl implements IGenTableService {
     @Override
     @Transactional
     public void updateGenTable(GenTable genTable) {
-        String options = JsonUtils.toJsonString(genTable.getParams());
+        String options = JSON.toJSONString(genTable.getParams());
         genTable.setOptions(options);
         int row = genTableMapper.updateGenTable(genTable);
         if (row > 0) {
@@ -367,8 +367,8 @@ public class GenTableServiceImpl implements IGenTableService {
     @Override
     public void validateEdit(GenTable genTable) {
         if (GenConstants.TPL_TREE.equals(genTable.getTplCategory())) {
-            String options = JsonUtils.toJsonString(genTable.getParams());
-            JSONObject paramsObj = JsonUtils.parseObject(options);
+            String options = JSON.toJSONString(genTable.getParams());
+            JSONObject paramsObj = JSON.parseObject(options);
             if (StringUtils.isEmpty(paramsObj.getString(GenConstants.TREE_CODE))) {
                 throw new ServiceException("树编码字段不能为空");
             } else if (StringUtils.isEmpty(paramsObj.getString(GenConstants.TREE_PARENT_CODE))) {
@@ -431,7 +431,7 @@ public class GenTableServiceImpl implements IGenTableService {
      * @param genTable 设置后的生成对象
      */
     public void setTableFromOptions(GenTable genTable) {
-        JSONObject paramsObj = JsonUtils.parseObject(genTable.getOptions());
+        JSONObject paramsObj = JSON.parseObject(genTable.getOptions());
         if (StringUtils.isNotNull(paramsObj)) {
             String treeCode = paramsObj.getString(GenConstants.TREE_CODE);
             String treeParentCode = paramsObj.getString(GenConstants.TREE_PARENT_CODE);

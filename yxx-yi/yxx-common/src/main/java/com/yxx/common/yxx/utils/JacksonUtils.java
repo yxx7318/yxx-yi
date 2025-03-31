@@ -4,8 +4,6 @@ import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONUtil;
-import com.alibaba.fastjson2.JSON;
-import com.alibaba.fastjson2.JSONObject;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -24,7 +22,7 @@ import java.util.List;
 /**
  * JSON 工具类
  */
-public class JsonUtils {
+public class JacksonUtils {
 
     private static ObjectMapper OBJECT_MAPPER = SpringUtils.getBean(ObjectMapper.class);
 
@@ -44,7 +42,7 @@ public class JsonUtils {
     }
 
     public static void init(ObjectMapper objectMapper) {
-        JsonUtils.OBJECT_MAPPER = objectMapper;
+        JacksonUtils.OBJECT_MAPPER = objectMapper;
     }
 
     /**
@@ -63,10 +61,6 @@ public class JsonUtils {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public static JSONObject parseObject(String text) {
-        return JSON.parseObject(text);
     }
 
     /**
