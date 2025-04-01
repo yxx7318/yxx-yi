@@ -3,6 +3,7 @@ package com.yxx.framework.web.exception;
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -18,6 +19,7 @@ import com.yxx.common.exception.DemoModeException;
 import com.yxx.common.exception.ServiceException;
 import com.yxx.common.utils.StringUtils;
 import com.yxx.common.utils.html.EscapeUtil;
+import org.springframework.web.servlet.NoHandlerFoundException;
 
 /**
  * 全局异常处理器
@@ -132,6 +134,16 @@ public class GlobalExceptionHandler
         log.error(e.getMessage(), e);
         String message = e.getBindingResult().getFieldError().getDefaultMessage();
         return AjaxResult.error(message);
+    }
+
+    /**
+     * 404异常
+     */
+    @ExceptionHandler(NoHandlerFoundException.class)
+    public ResponseEntity<AjaxResult> handleNoHandlerFoundException(NoHandlerFoundException ex)
+    {
+        return ResponseEntity.status(404)
+                .body(AjaxResult.error(404, "路径不存在"));
     }
 
     /**

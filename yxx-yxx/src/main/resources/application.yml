@@ -21,6 +21,13 @@ spring:
     basename: i18n/messages
   profiles:
     active: '@profiles.active@'
+  mvc:
+    # 当没有匹配的控制器方法时，抛出 NoHandlerFoundException
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      # 关闭静态资源自动映射，所有静态资源请求（如 /css/style.css）都会经过 DispatcherServlet
+      add-mappings: false
   # 文件上传
   servlet:
     multipart:
