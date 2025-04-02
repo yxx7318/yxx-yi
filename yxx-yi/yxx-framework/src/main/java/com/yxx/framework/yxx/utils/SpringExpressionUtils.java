@@ -92,7 +92,7 @@ public class SpringExpressionUtils {
      * 从 Bean 工厂，解析 EL 表达式的结果
      *
      * @param expressionString EL 表达式
-     * @return 执行界面
+     * @return 执行结果
      */
     public static Object parseExpression(String expressionString) {
         if (StrUtil.isBlank(expressionString)) {
