@@ -1,5 +1,5 @@
 -- ----------------------------
--- 分布式定时任务表，生成表之前需要取消类 com.yxx.quartz.config.ScheduleConfig 的注释
+-- 分布式定时任务表，生成表之前需要取消类 com.yxx.quartz.config.ScheduleClusterConfig 的注释
 -- ----------------------------
 
 DROP TABLE IF EXISTS QRTZ_FIRED_TRIGGERS;

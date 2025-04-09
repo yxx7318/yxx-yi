@@ -10,3 +10,7 @@ gen:
   tablePrefix: tb_
   # 是否允许生成文件覆盖到本地（自定义路径），默认不允许
   allowOverwrite: false
+  # 激活的代码生成模板
+  vmType: yxx
+  # 是否开启代码生成基类属性(开启后可以提高生成的代码对MP的兼容性)
+  entitySwitch: false

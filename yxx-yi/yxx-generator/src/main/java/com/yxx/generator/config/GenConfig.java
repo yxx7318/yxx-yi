@@ -28,6 +28,12 @@ public class GenConfig
     /** 是否允许生成文件覆盖到本地（自定义路径） */
     public static boolean allowOverwrite;
 
+    /** 激活的代码生成模板 */
+    public static String vmType;
+
+    /** 否开启代码生成基类属性(开启后可以提高生成的代码对MP的兼容性) */
+    public static boolean entitySwitch;
+
     public static String getAuthor()
     {
         return author;
@@ -81,5 +87,27 @@ public class GenConfig
     public void setAllowOverwrite(boolean allowOverwrite)
     {
         GenConfig.allowOverwrite = allowOverwrite;
+    }
+
+    public static String getVmType()
+    {
+        return vmType;
+    }
+
+    @Value("${vmType}")
+    public void setVmType(String vmType)
+    {
+        GenConfig.vmType = vmType;
+    }
+
+    public static boolean isEntitySwitch()
+    {
+        return entitySwitch;
+    }
+
+    @Value("${entitySwitch}")
+    public void setEntitySwitch(boolean entitySwitch)
+    {
+        GenConfig.entitySwitch = entitySwitch;
     }
 }
