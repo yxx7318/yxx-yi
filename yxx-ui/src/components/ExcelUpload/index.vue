@@ -21,7 +21,7 @@
 
 <script>
 import {getToken} from "@/utils/auth";
-import {tansParams} from "@/utils/ruoyi";
+import {tansParams} from "@/utils/yxx";
 
 export default {
   name: "ExcelUpload",
