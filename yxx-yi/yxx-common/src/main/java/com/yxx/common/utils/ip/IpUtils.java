@@ -8,8 +8,6 @@ import com.yxx.common.utils.StringUtils;
 
 /**
  * 获取IP方法
- * 
- * @author ruoyi
  */
 public class IpUtils
 {

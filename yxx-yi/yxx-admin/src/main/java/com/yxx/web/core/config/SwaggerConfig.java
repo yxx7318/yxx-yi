@@ -2,11 +2,13 @@ package com.yxx.web.core.config;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.yxx.common.utils.spring.SpringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import com.yxx.common.config.RuoYiConfig;
+import com.yxx.common.config.YxxConfig;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -22,17 +24,17 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spi.service.contexts.SecurityContext;
 import springfox.documentation.spring.web.plugins.Docket;
 
+import javax.annotation.PostConstruct;
+
 /**
  * Swagger2的接口配置
- * 
- * @author ruoyi
  */
 @Configuration
 public class SwaggerConfig
 {
     /** 系统基础配置 */
     @Autowired
-    private RuoYiConfig ruoyiConfig;
+    private YxxConfig yxxConfig;
 
     /** 是否正式环境进行关闭 */
     @Value("${swagger.locked}")
@@ -45,6 +47,11 @@ public class SwaggerConfig
     /** 当前激活的环境 */
     @Value("${spring.profiles.active}")
     private String env;
+
+    @PostConstruct
+    public void i() {
+        SpringUtils.getActiveProfile();
+    }
 
     /**
      * 创建API
@@ -121,9 +128,9 @@ public class SwaggerConfig
                 // 描述
                 .description("描述：用于管理集团旗下公司的人员信息,具体包括XXX,XXX模块...")
                 // 作者信息
-                .contact(new Contact(ruoyiConfig.getName(), null, null))
+                .contact(new Contact(yxxConfig.getName(), null, null))
                 // 版本
-                .version("版本号:" + ruoyiConfig.getVersion())
+                .version("版本号:" + yxxConfig.getVersion())
                 .build();
     }
 }

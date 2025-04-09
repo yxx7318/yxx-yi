@@ -1,12 +1,10 @@
 package com.yxx.common.core.page;
 
 import com.yxx.common.utils.StringUtils;
-import com.yxx.common.yxx.utils.PageDomainUtils;
+import com.yxx.common.core.utils.PageDomainUtils;
 
 /**
  * 分页数据
- * 
- * @author ruoyi
  */
 public class PageDomain
 {

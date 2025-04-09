@@ -15,8 +15,6 @@ import com.yxx.system.service.ISysRoleService;
 
 /**
  * 用户权限处理
- * 
- * @author ruoyi
  */
 @Component
 public class SysPermissionService

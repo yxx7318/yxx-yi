@@ -10,8 +10,6 @@ import com.yxx.generator.domain.GenTableColumn;
 
 /**
  * 代码生成器 工具类
- * 
- * @author ruoyi
  */
 public class GenUtils
 {

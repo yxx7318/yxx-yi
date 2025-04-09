@@ -19,8 +19,6 @@ import com.yxx.framework.security.context.PermissionContextHolder;
 
 /**
  * 数据过滤处理
- *
- * @author ruoyi
  */
 @Aspect
 @Component

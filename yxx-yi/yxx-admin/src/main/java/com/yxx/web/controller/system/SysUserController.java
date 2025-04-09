@@ -34,8 +34,6 @@ import com.yxx.system.service.ISysUserService;
 
 /**
  * 用户信息
- * 
- * @author ruoyi
  */
 @RestController
 @RequestMapping("/system/user")

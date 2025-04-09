@@ -4,8 +4,6 @@ import java.io.Serializable;
 
 /**
  * 系统相关信息
- * 
- * @author ruoyi
  */
 public class Sys implements Serializable
 {

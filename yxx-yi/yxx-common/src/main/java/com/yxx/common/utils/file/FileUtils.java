@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.ArrayUtils;
-import com.yxx.common.config.RuoYiConfig;
+import com.yxx.common.config.YxxConfig;
 import com.yxx.common.utils.DateUtils;
 import com.yxx.common.utils.StringUtils;
 import com.yxx.common.utils.uuid.IdUtils;
@@ -21,8 +21,6 @@ import org.apache.commons.io.FilenameUtils;
 
 /**
  * 文件处理工具类
- * 
- * @author ruoyi
  */
 public class FileUtils
 {
@@ -73,7 +71,7 @@ public class FileUtils
      */
     public static String writeImportBytes(byte[] data) throws IOException
     {
-        return writeBytes(data, RuoYiConfig.getImportPath());
+        return writeBytes(data, YxxConfig.getImportPath());
     }
 
     /**
@@ -256,7 +254,7 @@ public class FileUtils
     }
 
     /**
-     * 获取文件名称 /profile/upload/2022/04/16/ruoyi.png -- ruoyi.png
+     * 获取文件名称 /profile/upload/2022/04/16/yxx.png -- yxx.png
      * 
      * @param fileName 路径名称
      * @return 没有文件路径的名称
@@ -274,7 +272,7 @@ public class FileUtils
     }
 
     /**
-     * 获取不带后缀文件名称 /profile/upload/2022/04/16/ruoyi.png -- ruoyi
+     * 获取不带后缀文件名称 /profile/upload/2022/04/16/yxx.png -- yxx
      * 
      * @param fileName 路径名称
      * @return 没有文件路径和后缀的名称

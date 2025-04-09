@@ -3,11 +3,11 @@ package com.yxx.example.service.impl;
 import java.util.List;
 
 import com.yxx.common.utils.DateUtils;
-import com.yxx.common.yxx.domain.PageResult;
+import com.yxx.common.core.domain.PageResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
-import com.yxx.common.yxx.service.impl.ServiceImplPlus;
+import com.yxx.common.core.service.impl.ServiceImplPlus;
 import com.yxx.example.mapper.TbTestUserMapper;
 import com.yxx.example.domain.TbTestUser;
 import com.yxx.example.service.ITbTestUserService;

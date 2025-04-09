@@ -1,11 +1,9 @@
 package com.yxx.common.constant;
 
-import com.yxx.common.yxx.utils.EnvironmentUtils;
+import com.yxx.common.core.utils.EnvironmentUtils;
 
 /**
  * 代码生成通用常量
- *
- * @author ruoyi
  */
 public class GenConstants
 {

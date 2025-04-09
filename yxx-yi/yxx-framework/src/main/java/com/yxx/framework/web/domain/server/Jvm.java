@@ -8,8 +8,6 @@ import java.lang.management.ManagementFactory;
 
 /**
  * JVM相关信息
- * 
- * @author ruoyi
  */
 public class Jvm implements Serializable
 {

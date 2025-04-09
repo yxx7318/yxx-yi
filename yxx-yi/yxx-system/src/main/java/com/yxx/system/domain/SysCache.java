@@ -4,8 +4,6 @@ import com.yxx.common.utils.StringUtils;
 
 /**
  * 缓存信息
- * 
- * @author ruoyi
  */
 public class SysCache
 {

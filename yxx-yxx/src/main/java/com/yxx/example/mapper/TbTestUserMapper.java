@@ -3,7 +3,7 @@ package com.yxx.example.mapper;
 import java.util.List;
 
 import com.yxx.example.domain.TbTestUser;
-import com.yxx.common.yxx.mapper.BaseMapperPlus;
+import com.yxx.common.core.mapper.BaseMapperPlus;
 
 /**
  * 测试用户Mapper接口

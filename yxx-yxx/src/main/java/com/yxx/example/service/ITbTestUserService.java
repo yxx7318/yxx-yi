@@ -2,9 +2,9 @@ package com.yxx.example.service;
 
 import java.util.List;
 
-import com.yxx.common.yxx.domain.PageResult;
+import com.yxx.common.core.domain.PageResult;
 import com.yxx.example.domain.TbTestUser;
-import com.yxx.common.yxx.service.IServicePlus;
+import com.yxx.common.core.service.IServicePlus;
 
 /**
  * 测试用户Service接口

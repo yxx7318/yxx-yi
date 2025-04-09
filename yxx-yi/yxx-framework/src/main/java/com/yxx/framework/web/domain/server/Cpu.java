@@ -6,8 +6,6 @@ import java.io.Serializable;
 
 /**
  * CPU相关信息
- * 
- * @author ruoyi
  */
 public class Cpu implements Serializable
 {

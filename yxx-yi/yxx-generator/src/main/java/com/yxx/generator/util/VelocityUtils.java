@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.yxx.common.yxx.utils.EnvironmentUtils;
+import com.yxx.common.core.utils.EnvironmentUtils;
 import org.apache.velocity.VelocityContext;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
@@ -17,8 +17,6 @@ import com.yxx.generator.domain.GenTableColumn;
 
 /**
  * 模板处理工具类
- * 
- * @author ruoyi
  */
 public class VelocityUtils
 {

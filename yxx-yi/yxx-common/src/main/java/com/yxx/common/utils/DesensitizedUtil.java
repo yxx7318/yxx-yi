@@ -2,8 +2,6 @@ package com.yxx.common.utils;
 
 /**
  * 脱敏工具类
- *
- * @author ruoyi
  */
 public class DesensitizedUtil
 {

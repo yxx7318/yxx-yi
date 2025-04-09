@@ -6,8 +6,6 @@ import com.yxx.generator.domain.GenTable;
 
 /**
  * 业务 服务层
- * 
- * @author ruoyi
  */
 public interface IGenTableService
 {

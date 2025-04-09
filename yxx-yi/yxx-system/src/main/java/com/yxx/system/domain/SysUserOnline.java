@@ -2,8 +2,6 @@ package com.yxx.system.domain;
 
 /**
  * 当前在线会话
- * 
- * @author ruoyi
  */
 public class SysUserOnline
 {

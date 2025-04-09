@@ -74,7 +74,7 @@ import com.yxx.common.annotation.Excel;
 import com.yxx.common.annotation.Excel.ColumnType;
 import com.yxx.common.annotation.Excel.Type;
 import com.yxx.common.annotation.Excels;
-import com.yxx.common.config.RuoYiConfig;
+import com.yxx.common.config.YxxConfig;
 import com.yxx.common.core.domain.AjaxResult;
 import com.yxx.common.core.text.Convert;
 import com.yxx.common.exception.UtilException;
@@ -88,8 +88,6 @@ import com.yxx.common.utils.reflect.ReflectUtils;
 
 /**
  * Excel相关处理
- * 
- * @author ruoyi
  */
 public class ExcelUtil<T>
 {
@@ -1459,7 +1457,7 @@ public class ExcelUtil<T>
      */
     public String getAbsoluteFile(String filename)
     {
-        String downloadPath = RuoYiConfig.getDownloadPath() + filename;
+        String downloadPath = YxxConfig.getDownloadPath() + filename;
         File desc = new File(downloadPath);
         if (!desc.getParentFile().exists())
         {

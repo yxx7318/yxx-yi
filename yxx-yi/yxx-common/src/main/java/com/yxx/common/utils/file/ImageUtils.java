@@ -9,14 +9,12 @@ import java.util.Arrays;
 import org.apache.poi.util.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.yxx.common.config.RuoYiConfig;
+import com.yxx.common.config.YxxConfig;
 import com.yxx.common.constant.Constants;
 import com.yxx.common.utils.StringUtils;
 
 /**
  * 图片处理工具类
- *
- * @author ruoyi
  */
 public class ImageUtils
 {
@@ -79,7 +77,7 @@ public class ImageUtils
             else
             {
                 // 本机地址
-                String localPath = RuoYiConfig.getProfile();
+                String localPath = YxxConfig.getProfile();
                 String downloadPath = localPath + StringUtils.substringAfter(url, Constants.RESOURCE_PREFIX);
                 in = new FileInputStream(downloadPath);
             }

@@ -8,7 +8,7 @@ import com.yxx.common.utils.DateUtils;
 #break
 #end
 #end
-import com.yxx.common.yxx.domain.PageResult;
+import com.yxx.common.core.domain.PageResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 #if($table.sub)
@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ${packageName}.domain.${subClassName};
 #end
 import lombok.RequiredArgsConstructor;
-import com.yxx.common.yxx.service.impl.ServiceImplPlus;
+import com.yxx.common.core.service.impl.ServiceImplPlus;
 import ${packageName}.mapper.${ClassName}Mapper;
 import ${packageName}.domain.${ClassName};
 import ${packageName}.service.I${ClassName}Service;

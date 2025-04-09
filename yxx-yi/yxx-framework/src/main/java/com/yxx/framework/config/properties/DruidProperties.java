@@ -6,8 +6,6 @@ import com.alibaba.druid.pool.DruidDataSource;
 
 /**
  * druid 配置属性
- * 
- * @author ruoyi
  */
 @Configuration
 public class DruidProperties

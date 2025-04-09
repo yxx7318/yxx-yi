@@ -2,8 +2,6 @@ package com.yxx.common.exception.file;
 
 /**
  * 文件名称超长限制异常类
- * 
- * @author ruoyi
  */
 public class FileNameLengthLimitExceededException extends FileException
 {

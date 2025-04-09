@@ -13,8 +13,6 @@ import org.quartz.JobExecutionException;
 
 /**
  * 任务执行工具
- *
- * @author ruoyi
  */
 public class JobInvokeUtil
 {

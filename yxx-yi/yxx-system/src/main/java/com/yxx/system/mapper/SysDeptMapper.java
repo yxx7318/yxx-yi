@@ -6,8 +6,6 @@ import com.yxx.common.core.domain.entity.SysDept;
 
 /**
  * 部门管理 数据层
- * 
- * @author ruoyi
  */
 public interface SysDeptMapper
 {

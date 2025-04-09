@@ -1,11 +1,11 @@
 package com.yxx.web.controller.monitor;
 
 import com.yxx.common.core.domain.R;
-import com.yxx.common.yxx.utils.SerializationUtils;
+import com.yxx.common.core.utils.SerializationUtils;
 import com.yxx.framework.web.domain.ServerDto;
 import com.yxx.framework.web.service.ServerService;
 import com.yxx.framework.web.utils.ProcessInfoUtils;
-import com.yxx.framework.yxx.utils.ServerUtils;
+import com.yxx.framework.utils.ServerUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;

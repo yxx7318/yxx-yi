@@ -10,13 +10,10 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.yxx.common.yxx.domain.PageQueryEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 /**
  * Entity基类
- * 
- * @author ruoyi
  */
 public class BaseEntity extends PageQueryEntity implements Serializable
 {

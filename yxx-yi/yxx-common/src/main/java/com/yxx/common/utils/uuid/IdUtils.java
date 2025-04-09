@@ -2,8 +2,6 @@ package com.yxx.common.utils.uuid;
 
 /**
  * ID生成器工具类
- * 
- * @author ruoyi
  */
 public class IdUtils
 {

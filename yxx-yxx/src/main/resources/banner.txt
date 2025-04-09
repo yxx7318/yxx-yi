@@ -1,4 +1,4 @@
-Application Version: ${ruoyi.version}
+Application Version: ${yxx.version}
 Spring Boot Version: ${spring-boot.version}
 Profile Active : ${spring.profiles.active}
 ////////////////////////////////////////////////////////////////////

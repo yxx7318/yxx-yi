@@ -5,8 +5,6 @@ import com.yxx.common.utils.DesensitizedUtil;
 
 /**
  * 脱敏类型
- *
- * @author ruoyi
  */
 public enum DesensitizedType
 {
