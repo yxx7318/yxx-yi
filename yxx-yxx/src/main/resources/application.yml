@@ -26,7 +26,8 @@ spring:
     throw-exception-if-no-handler-found: true
   web:
     resources:
-      # 关闭静态资源自动映射，所有静态资源请求（如 /css/style.css）都会经过 DispatcherServlet
+      # 不自动注册默认的静态资源路径，所有静态资源请求（如/css/style.css）都会经过 DispatcherServlet
+      # 会影响swagger，需要手动配置资源处理器，如果没有添加静态资源会直接抛出异常，如果映射但没有匹配到到也会报404页面异常
       add-mappings: false
   # 文件上传
   servlet:

@@ -1,5 +1,6 @@
 package com.yxx.common.core.utils;
 
+import com.yxx.common.enums.EnvironmentType;
 import com.yxx.common.utils.spring.SpringUtils;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
@@ -55,6 +56,43 @@ public class EnvironmentUtils {
      */
     public static <T> T getEnvValue(String key, Class<T> targetType, T defaultValue) {
         return ENVIRONMENT.getProperty(key, targetType, defaultValue);
+    }
+
+    /**
+     * 匹配环境，匹配成功返回true
+     *
+     * @param type 环境枚举
+     * @return 是否存在匹配
+     */
+    private static boolean matchesEnvironment(EnvironmentType type) {
+        String[] activeProfiles = SpringUtils.getActiveProfiles();
+        for (String profile : activeProfiles) {
+            if (type.getType().equals(profile)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 判断当前是否为dev环境
+     */
+    public static boolean isDevActive() {
+        return matchesEnvironment(EnvironmentType.DEV);
+    }
+
+    /**
+     * 判断当前是否为test环境
+     */
+    public static boolean isTestActive() {
+        return matchesEnvironment(EnvironmentType.TEST);
+    }
+
+    /**
+     * 判断当前是否为prod环境
+     */
+    public static boolean isProdActive() {
+        return matchesEnvironment(EnvironmentType.PROD);
     }
 
 }

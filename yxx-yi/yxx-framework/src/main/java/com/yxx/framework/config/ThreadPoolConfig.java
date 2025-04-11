@@ -1,6 +1,7 @@
 package com.yxx.framework.config;
 
 import com.yxx.common.utils.Threads;
+import com.yxx.framework.manager.ThreadPoolExecutorMDCWrapper;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -40,7 +41,7 @@ public class ThreadPoolConfig
     @Bean(name = "threadPoolTaskExecutor")
     public ThreadPoolTaskExecutor threadPoolTaskExecutor()
     {
-        ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
+        ThreadPoolExecutorMDCWrapper executor = new ThreadPoolExecutorMDCWrapper();
         executor.setMaxPoolSize(maxPoolSize);
         executor.setCorePoolSize(corePoolSize);
         executor.setQueueCapacity(queueCapacity);

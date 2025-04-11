@@ -24,9 +24,9 @@ import com.yxx.common.utils.poi.ExcelUtil;
 import com.yxx.common.core.domain.R;
 import com.yxx.common.core.domain.PageResult;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
 
@@ -39,7 +39,7 @@ import org.springframework.validation.annotation.Validated;
  * @author yxx
  * @date 2025-03-26
  */
-@Api(tags = "测试用户管理")
+@Api(tags = "测试用户管理(TbTestUserController)")
 @RestController
 @RequestMapping("/example/user")
 @RequiredArgsConstructor
@@ -47,21 +47,21 @@ public class TbTestUserController extends BaseControllerPlus {
 
     private final ITbTestUserService tbTestUserService;
 
-    @ApiOperation("查询测试用户列表")
+    @Operation(summary = "查询测试用户列表")
     @PreAuthorize("@ss.hasPermi('example:user:list')")
     @GetMapping("/list")
     public PageResult<?> list(@Parameter(description = "DTO对象", in = ParameterIn.QUERY) TbTestUser tbTestUser) {
         return tbTestUserService.selectTbTestUserPage(tbTestUser);
     }
 
-    @ApiOperation("获取测试用户详细信息")
+    @Operation(summary = "获取测试用户详细信息")
     @PreAuthorize("@ss.hasPermi('example:user:query')")
     @GetMapping(value = "/{userId}")
     public R<TbTestUser> getInfo(@Parameter(description = "主键Id", required = true, in = ParameterIn.QUERY) @PathVariable("userId") Long userId) {
         return R.ok(tbTestUserService.selectTbTestUserByUserId(userId));
     }
 
-    @ApiOperation("新增测试用户")
+    @Operation(summary = "新增测试用户")
     @PreAuthorize("@ss.hasPermi('example:user:add')")
     @Log(title = "测试用户", businessType = BusinessType.INSERT)
     @PostMapping
@@ -69,7 +69,7 @@ public class TbTestUserController extends BaseControllerPlus {
         return toResult(tbTestUserService.insertTbTestUser(tbTestUser));
     }
 
-    @ApiOperation("修改测试用户")
+    @Operation(summary = "修改测试用户")
     @PreAuthorize("@ss.hasPermi('example:user:edit')")
     @Log(title = "测试用户", businessType = BusinessType.UPDATE)
     @PutMapping
@@ -77,7 +77,7 @@ public class TbTestUserController extends BaseControllerPlus {
         return toResult(tbTestUserService.updateTbTestUser(tbTestUser));
     }
 
-    @ApiOperation("删除测试用户")
+    @Operation(summary = "删除测试用户")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "userIds", value = "主键集合", required = true, dataType = "List<Long>", dataTypeClass = List.class, paramType = "path", allowMultiple = true),
     })
@@ -88,7 +88,7 @@ public class TbTestUserController extends BaseControllerPlus {
         return toResult(tbTestUserService.deleteTbTestUserByUserIds(userIds));
     }
 
-    @ApiOperation("导出测试用户列表")
+    @Operation(summary = "导出测试用户列表")
     @PreAuthorize("@ss.hasPermi('example:user:export')")
     @Log(title = "测试用户", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
@@ -98,7 +98,7 @@ public class TbTestUserController extends BaseControllerPlus {
         util.exportExcel(response, list, "测试用户数据");
     }
 
-    @ApiOperation("导入测试用户模板")
+    @Operation(summary = "导入测试用户模板")
     @PreAuthorize("@ss.hasPermi('example:user:import')")
     @PostMapping("/importTemplate")
     public void importTemplate(HttpServletResponse response) {
@@ -106,7 +106,7 @@ public class TbTestUserController extends BaseControllerPlus {
         util.importTemplateExcel(response, "导入测试用户模板数据");
     }
 
-    @ApiOperation("导入测试用户列表")
+    @Operation(summary = "导入测试用户列表")
     @PreAuthorize("@ss.hasPermi('example:user:import')")
     @Log(title = "测试用户", businessType = BusinessType.IMPORT)
     @PostMapping("/importData")

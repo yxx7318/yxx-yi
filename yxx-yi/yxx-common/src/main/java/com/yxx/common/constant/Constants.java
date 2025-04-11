@@ -173,4 +173,9 @@ public class Constants
      */
     public static final String[] JOB_ERROR_STR = { "java.net.URL", "javax.naming.InitialContext", "org.yaml.snakeyaml",
             "org.springframework", "org.apache", "com.yxx.common.utils.file", "com.yxx.common.config", "com.yxx.generator" };
+
+    /**
+     * trackId 需要与日志配置中的 %X{traceId} 一致
+     */
+    public static final String TRACE_ID = "traceId";
 }
