@@ -1,23 +1,30 @@
 package com.yxx.framework.config;
 
+import com.yxx.common.utils.ExceptionUtil;
 import com.yxx.common.utils.Threads;
+import com.yxx.common.utils.spring.SpringUtils;
 import com.yxx.framework.manager.ThreadPoolExecutorMDCWrapper;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.aop.interceptor.AsyncUncaughtExceptionHandler;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.AsyncConfigurer;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
-import java.util.concurrent.ThreadPoolExecutor;
+
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.concurrent.*;
 
 /**
  * 线程池配置
  **/
 @Configuration
 @EnableAsync // 启用异步支持
-public class ThreadPoolConfig
+public class ThreadPoolConfig implements AsyncConfigurer
 {
     // 核心线程池大小
     @Value("${server.tomcat.threads.min-spare}")
@@ -51,6 +58,27 @@ public class ThreadPoolConfig
         executor.setThreadNamePrefix("thread-pool-task-");
         executor.initialize();
         return executor;
+    }
+
+    /**
+     * 指定Async注解使用的线程池
+     */
+    @Override
+    public Executor getAsyncExecutor() {
+        return SpringUtils.getBean("threadPoolTaskExecutor");
+    }
+
+    private static final Logger logger = LoggerFactory.getLogger("sys-async");
+
+    /**
+     * 异步线程池抛出异常时的处理逻辑
+     */
+    @Override
+    public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
+        return (Throwable ex, Method method, Object... params)-> {
+            // 异步方法异常处理
+            logger.error(String.format("class#method#params: %s#%s#%s\nCaused: %s", method.getDeclaringClass().getName(), method.getName(), Arrays.toString(params), ExceptionUtil.getExceptionMessage(ex)));
+        };
     }
 
     /**
