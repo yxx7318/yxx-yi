@@ -1,14 +1,15 @@
 package com.yxx.framework.web.service;
 
-import java.util.Set;
-import org.springframework.stereotype.Service;
-import org.springframework.util.CollectionUtils;
 import com.yxx.common.constant.Constants;
 import com.yxx.common.core.domain.entity.SysRole;
 import com.yxx.common.core.domain.model.LoginUser;
 import com.yxx.common.utils.SecurityUtils;
 import com.yxx.common.utils.StringUtils;
 import com.yxx.framework.security.context.PermissionContextHolder;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import java.util.Set;
 
 /**
  * 自定义权限实现，ss取自SpringSecurity首字母
@@ -51,7 +52,7 @@ public class PermissionService
     /**
      * 验证用户是否具有以下任意一个权限
      *
-     * @param permissions 以 PERMISSION_DELIMETER 为分隔符的权限列表
+     * @param permissions 以 PERMISSION_DELIMETER(',') 为分隔符的权限列表
      * @return 用户是否具有以下任意一个权限
      */
     public boolean hasAnyPermi(String permissions)
