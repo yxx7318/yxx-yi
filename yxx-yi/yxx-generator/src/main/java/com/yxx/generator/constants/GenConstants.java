@@ -1,6 +1,6 @@
-package com.yxx.common.constant;
+package com.yxx.generator.constants;
 
-import com.yxx.common.core.utils.EnvironmentUtils;
+import com.yxx.generator.config.GenConfig;
 
 /**
  * 代码生成通用常量
@@ -56,10 +56,12 @@ public class GenConstants
             "update_time", "remark" };
 
     /** Entity基类字段 */
-    public static final String[] BASE_ENTITY = EnvironmentUtils.getEnvValue("generator.entity", boolean.class) ?  new String[]{} : new String[]{"createBy", "createTime", "updateBy", "updateTime", "remark"};
+    public static final String[] BASE_ENTITY = GenConfig.isEntitySwitch()
+            ? new String[]{} : new String[]{"createBy", "createTime", "updateBy", "updateTime", "remark"};
 
     /** Tree基类字段 */
-    public static final String[] TREE_ENTITY = EnvironmentUtils.getEnvValue("generator.entity", boolean.class) ? new String[]{} : new String[]{ "parentName", "parentId", "orderNum", "ancestors", "children" };
+    public static final String[] TREE_ENTITY = GenConfig.isEntitySwitch()
+            ? new String[]{} : new String[]{ "parentName", "parentId", "orderNum", "ancestors", "children" };
 
     /** 文本框 */
     public static final String HTML_INPUT = "input";

@@ -1,12 +1,13 @@
 package com.yxx.generator.util;
 
-import java.util.Arrays;
-import org.apache.commons.lang3.RegExUtils;
-import com.yxx.common.constant.GenConstants;
 import com.yxx.common.utils.StringUtils;
 import com.yxx.generator.config.GenConfig;
+import com.yxx.generator.constants.GenConstants;
 import com.yxx.generator.domain.GenTable;
 import com.yxx.generator.domain.GenTableColumn;
+import org.apache.commons.lang3.RegExUtils;
+
+import java.util.Arrays;
 
 /**
  * 代码生成器 工具类

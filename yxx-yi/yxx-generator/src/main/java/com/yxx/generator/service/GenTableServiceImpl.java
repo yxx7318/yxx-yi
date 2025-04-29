@@ -1,5 +1,30 @@
 package com.yxx.generator.service;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
+import com.yxx.common.constant.Constants;
+import com.yxx.common.core.text.CharsetKit;
+import com.yxx.common.exception.ServiceException;
+import com.yxx.common.utils.StringUtils;
+import com.yxx.generator.constants.GenConstants;
+import com.yxx.generator.domain.GenTable;
+import com.yxx.generator.domain.GenTableColumn;
+import com.yxx.generator.mapper.GenTableColumnMapper;
+import com.yxx.generator.mapper.GenTableMapper;
+import com.yxx.generator.util.GenUtils;
+import com.yxx.generator.util.VelocityInitializer;
+import com.yxx.generator.util.VelocityUtils;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.velocity.Template;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
@@ -11,31 +36,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
-
-import com.alibaba.fastjson2.JSON;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.IOUtils;
-import org.apache.velocity.Template;
-import org.apache.velocity.VelocityContext;
-import org.apache.velocity.app.Velocity;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import com.alibaba.fastjson2.JSONObject;
-import com.yxx.common.constant.Constants;
-import com.yxx.common.constant.GenConstants;
-import com.yxx.common.core.text.CharsetKit;
-import com.yxx.common.exception.ServiceException;
-import com.yxx.common.utils.StringUtils;
-import com.yxx.generator.domain.GenTable;
-import com.yxx.generator.domain.GenTableColumn;
-import com.yxx.generator.mapper.GenTableColumnMapper;
-import com.yxx.generator.mapper.GenTableMapper;
-import com.yxx.generator.util.GenUtils;
-import com.yxx.generator.util.VelocityInitializer;
-import com.yxx.generator.util.VelocityUtils;
 
 /**
  * 业务 服务层实现

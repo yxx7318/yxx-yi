@@ -32,8 +32,9 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseEntity> 
      * 获取自注入spring管理的bean
      */
     @Override
+    @SuppressWarnings("unchecked")
     public IServicePlus<T> getSelfBean() {
-        return SingletonFactory.getSingleton(this.getClass());
+        return (IServicePlus<T>) SingletonFactory.getSingleton(this.getClass());
     }
 
     /**

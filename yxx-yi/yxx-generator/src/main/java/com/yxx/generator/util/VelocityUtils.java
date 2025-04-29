@@ -9,7 +9,7 @@ import com.yxx.generator.config.GenConfig;
 import org.apache.velocity.VelocityContext;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import com.yxx.common.constant.GenConstants;
+import com.yxx.generator.constants.GenConstants;
 import com.yxx.common.utils.DateUtils;
 import com.yxx.common.utils.StringUtils;
 import com.yxx.generator.domain.GenTable;

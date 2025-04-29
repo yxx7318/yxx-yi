@@ -9,7 +9,7 @@ import com.yxx.common.core.mapper.BaseMapperPlus;
  * 测试用户Mapper接口
  *
  * @author yxx
- * @date 2025-03-26
+ * @date 2025-04-29
  */
 public interface TbTestUserMapper extends BaseMapperPlus<TbTestUser> {
     /**
