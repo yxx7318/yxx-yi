@@ -17,7 +17,7 @@ const service = axios.create({
   // axios中请求配置有baseURL选项，表示请求URL公共部分
   baseURL: import.meta.env.VITE_APP_BASE_API,
   // 超时
-  timeout: 10000
+  timeout: import.meta.env.VITE_APP_ENV === 'development' ? -1 : 10000
 })
 
 // request拦截器
@@ -110,7 +110,7 @@ service.interceptors.response.use(res => {
   error => {
     console.log('err' + error)
     let { message } = error
-    if (message == "Network Error") {
+    if (message === "Network Error") {
       message = "后端接口连接异常"
     } else if (message.includes("timeout")) {
       message = "系统接口请求超时"
