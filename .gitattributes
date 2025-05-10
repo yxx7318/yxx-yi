@@ -1,0 +1,2 @@
+# 强制 Git 在检入和检出时将 .bat 文件的换行符转换为 CRLF 格式
+*.bat text eol=crlf
