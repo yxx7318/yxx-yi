@@ -7,6 +7,7 @@ import org.quartz.JobKey;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.yxx.common.constant.ScheduleConstants;
@@ -21,6 +22,7 @@ import com.yxx.quartz.util.ScheduleUtils;
  * 定时任务调度信息 服务层
  */
 @Service
+@Lazy(false)
 public class SysJobServiceImpl implements ISysJobService
 {
     @Autowired

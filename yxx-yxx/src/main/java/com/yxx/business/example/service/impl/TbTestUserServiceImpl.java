@@ -1,4 +1,4 @@
-package com.yxx.example.service.impl;
+package com.yxx.business.example.service.impl;
 
 import java.util.List;
 
@@ -8,15 +8,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import com.yxx.common.core.service.impl.ServiceImplPlus;
-import com.yxx.example.mapper.TbTestUserMapper;
-import com.yxx.example.domain.TbTestUser;
-import com.yxx.example.service.ITbTestUserService;
+import com.yxx.business.example.mapper.TbTestUserMapper;
+import com.yxx.business.example.domain.TbTestUser;
+import com.yxx.business.example.service.ITbTestUserService;
 
 /**
  * 测试用户Service业务层处理
  *
  * @author yxx
- * @date 2025-04-29
+ * @date 2025-05-13
  */
 @Slf4j
 @Service

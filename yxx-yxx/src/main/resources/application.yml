@@ -11,7 +11,7 @@ yxx:
   # 获取ip地址开关
   addressEnabled: true
   # 验证码类型 math 数字计算 char 字符验证
-  captchaType: math
+  captchaType: char
 
 # Spring配置
 spring:
@@ -74,13 +74,6 @@ pagehelper:
   params: count=countSql
   # 当 pageSize=0 时，是否查询所有数据
   pageSizeZero: true
-
-# Swagger配置
-swagger:
-  # 默认开启swagger，是否正式环境关闭swagger
-  locked: true
-  # 请求前缀
-  pathMapping: '/${spring.profiles.active}-api'
 
 # 防止XSS攻击
 xss:

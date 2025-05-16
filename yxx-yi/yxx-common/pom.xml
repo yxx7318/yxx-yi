@@ -133,10 +133,18 @@
             <artifactId>javax.servlet-api</artifactId>
         </dependency>
 
-        <!-- knife4j 增强swagger -->
+        <!-- 继任Springfox，支持Springboot3 -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-ui</artifactId>
+            <version>1.7.0</version>
+        </dependency>
+
+        <!-- knife4j增强swagger界面 -->
         <dependency>
             <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-spring-boot-starter</artifactId>
+            <artifactId>knife4j-openapi3-spring-boot-starter</artifactId>
+            <version>4.3.0</version>
         </dependency>
 
         <!-- mybatis-plus 增强CRUD -->

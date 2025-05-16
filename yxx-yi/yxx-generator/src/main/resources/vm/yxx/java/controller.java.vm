@@ -26,7 +26,7 @@ import com.yxx.common.core.domain.R;
 import com.yxx.common.core.domain.PageResult;
 #elseif($table.tree)
 #end
-import io.swagger.annotations.Api;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
@@ -40,7 +40,7 @@ import org.springframework.validation.annotation.Validated;
  * @author ${author}
  * @date ${datetime}
  */
-@Api(tags = "${functionName}管理-${ClassName})")
+@Tag(name = "${functionName}管理-${ClassName})")
 @RestController
 @RequestMapping("/${moduleName}/${businessName}")
 @RequiredArgsConstructor

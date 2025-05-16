@@ -2,6 +2,7 @@ package com.yxx.generator.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "gen")
 @PropertySource(value = { "classpath:generator.yml" })
+@Lazy(value = false)
 public class GenConfig
 {
     /** 作者 */

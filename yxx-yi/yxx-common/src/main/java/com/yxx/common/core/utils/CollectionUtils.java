@@ -3,7 +3,7 @@ package com.yxx.common.core.utils;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ArrayUtil;
-import com.google.common.collect.ImmutableMap;
+//import com.google.common.collect.ImmutableMap;
 
 import java.util.*;
 import java.util.function.*;
@@ -640,18 +640,18 @@ public class CollectionUtils {
      * @param <K>     键的类型
      * @return 转换后的不可变Map，其中每个键关联着原始元素
      */
-    public static <T, K> Map<K, T> convertImmutableMap(Collection<T> from, Function<T, K> keyFunc) {
-        // 如果输入集合为空，则直接返回空的不可变Map
-        if (CollUtil.isEmpty(from)) {
-            return Collections.emptyMap();
-        }
-        // 使用Guava的ImmutableMap.Builder来构建不可变Map
-        ImmutableMap.Builder<K, T> builder = ImmutableMap.builder();
-        // 遍历输入集合中的每一个元素，应用键生成函数并将其添加到builder中
-        from.forEach(item -> builder.put(keyFunc.apply(item), item));
-        // 构建并返回不可变Map
-        return builder.build();
-    }
+//    public static <T, K> Map<K, T> convertImmutableMap(Collection<T> from, Function<T, K> keyFunc) {
+//        // 如果输入集合为空，则直接返回空的不可变Map
+//        if (CollUtil.isEmpty(from)) {
+//            return Collections.emptyMap();
+//        }
+//        // 使用Guava的ImmutableMap.Builder来构建不可变Map
+//        ImmutableMap.Builder<K, T> builder = ImmutableMap.builder();
+//        // 遍历输入集合中的每一个元素，应用键生成函数并将其添加到builder中
+//        from.forEach(item -> builder.put(keyFunc.apply(item), item));
+//        // 构建并返回不可变Map
+//        return builder.build();
+//    }
 
     /**
      * 对比老、新两个列表，找出新增、修改、删除的数据

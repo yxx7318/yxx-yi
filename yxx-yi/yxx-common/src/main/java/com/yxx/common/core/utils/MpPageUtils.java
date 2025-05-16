@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.yxx.common.core.domain.BaseEntity;
 import com.yxx.common.core.domain.PageResult;
 import com.yxx.common.utils.PageUtils;
-import org.springframework.util.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Collections;
 import java.util.List;
