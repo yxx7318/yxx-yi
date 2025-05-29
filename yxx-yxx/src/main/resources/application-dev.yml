@@ -1,8 +1,8 @@
-# 数据源配置
 spring:
-  # 全局懒加载
-  main:
-    lazy-initialization: true
+#  main:
+#    # 全局懒加载
+#    lazy-initialization: true
+  # 数据源配置
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.cj.jdbc.Driver

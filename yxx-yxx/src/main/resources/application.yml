@@ -15,12 +15,13 @@ yxx:
 
 # Spring配置
 spring:
+  # 配置文件
+  profiles:
+    active: '@profiles.active@'
   # 资源信息
   messages:
     # 国际化资源文件路径
     basename: i18n/messages
-  profiles:
-    active: '@profiles.active@'
   mvc:
     # 当没有匹配的控制器方法时，抛出 NoHandlerFoundException
     throw-exception-if-no-handler-found: true
