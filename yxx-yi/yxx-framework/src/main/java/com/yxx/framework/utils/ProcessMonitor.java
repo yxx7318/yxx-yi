@@ -16,10 +16,10 @@ import java.io.InputStreamReader;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.yxx.framework.web.utils.ServerUtils.OSHI_WAIT_SECOND;
-
 
 public class ProcessMonitor {
+
+    public static final int OSHI_WAIT_SECOND = 1000;
 
     private final String osName = System.getProperty("os.name").toLowerCase();
 

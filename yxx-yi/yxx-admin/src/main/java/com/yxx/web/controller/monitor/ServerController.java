@@ -24,7 +24,7 @@ public class ServerController
     private final ServerService serverService;
 
     @PreAuthorize("@ss.hasPermi('monitor:server:list')")
-    @GetMapping()
+    @GetMapping
     public R<Server> getInfo(ServerDto serverDto) throws Exception
     {
         if (serverDto.getServerId() == null) {
