@@ -1,6 +1,7 @@
 package com.yxx;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -14,10 +15,11 @@ import org.springframework.util.ClassUtils;
  *
  * @author yxx
  */
-@Slf4j
-//@Configuration
+@Configuration
 @ConditionalOnProperty(name = "spring.profiles.active", havingValue = "dev")
 public class YxxYiLazyLoadConfig {
+
+    private static final Logger log = LoggerFactory.getLogger(YxxYiLazyLoadConfig.class);
 
     // 目标包名
     private static final String TARGET_PACKAGE = "com.yxx.business";

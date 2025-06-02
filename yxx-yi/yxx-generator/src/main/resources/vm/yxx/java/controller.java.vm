@@ -62,10 +62,10 @@ public class ${ClassName}Controller extends BaseControllerPlus {
     }
 #end
 
-    @Operation(summary = "查询--${functionName}单个详细")
+    @Operation(summary = "查询--${functionName}单个")
     @PreAuthorize("@ss.hasPermi('${permissionPrefix}:query')")
     @GetMapping(value = "/{${pkColumn.javaField}}")
-    public R<${ClassName}> getInfo(@Parameter(description = "主键Id", required = true, in = ParameterIn.QUERY)
+    public R<${ClassName}> getInfo(@Parameter(description = "主键Id", required = true, in = ParameterIn.PATH)
                                        @PathVariable ${pkColumn.javaType} ${pkColumn.javaField}) {
         return R.ok(${className}Service.select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaField}));
     }
@@ -92,7 +92,7 @@ public class ${ClassName}Controller extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('${permissionPrefix}:remove')")
     @Log(title = "${functionName}", businessType = BusinessType.DELETE)
     @DeleteMapping("/{${pkColumn.javaField}s}")
-    public R<String> delete(@Parameter(description = "主键集合", required = true, in = ParameterIn.QUERY)
+    public R<String> delete(@Parameter(description = "主键集合", required = true, in = ParameterIn.PATH)
                                 @PathVariable List<${pkColumn.javaType}> ${pkColumn.javaField}s) {
         return toResult(${className}Service.delete${ClassName}By${pkColumn.capJavaField}s(${pkColumn.javaField}s));
     }

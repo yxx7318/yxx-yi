@@ -52,10 +52,10 @@ public class TbTestUserController extends BaseControllerPlus {
         return tbTestUserService.selectTbTestUserPage(tbTestUser);
     }
 
-    @Operation(summary = "查询--测试用户单个详细")
+    @Operation(summary = "查询--测试用户单个")
     @PreAuthorize("@ss.hasPermi('business:user:query')")
     @GetMapping(value = "/{userId}")
-    public R<TbTestUser> getInfo(@Parameter(description = "主键Id", required = true, in = ParameterIn.QUERY)
+    public R<TbTestUser> getInfo(@Parameter(description = "主键Id", required = true, in = ParameterIn.PATH)
                                        @PathVariable Long userId) {
         return R.ok(tbTestUserService.selectTbTestUserByUserId(userId));
     }
@@ -82,7 +82,7 @@ public class TbTestUserController extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('business:user:remove')")
     @Log(title = "测试用户", businessType = BusinessType.DELETE)
     @DeleteMapping("/{userIds}")
-    public R<String> delete(@Parameter(description = "主键集合", required = true, in = ParameterIn.QUERY)
+    public R<String> delete(@Parameter(description = "主键集合", required = true, in = ParameterIn.PATH)
                                 @PathVariable List<Long> userIds) {
         return toResult(tbTestUserService.deleteTbTestUserByUserIds(userIds));
     }

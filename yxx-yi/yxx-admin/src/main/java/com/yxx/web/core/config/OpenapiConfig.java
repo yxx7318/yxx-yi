@@ -54,6 +54,9 @@ public class OpenapiConfig {
         List<Server> servers = new ArrayList<>();
         // 表示服务器地址或者URL模板列表，多个服务地址随时切换（只不过是有多台IP有当前的服务API）
         servers.add(new Server().url("/"));
+        servers.add(new Server().url("/dev-api/"));
+        servers.add(new Server().url("/test-api/"));
+        servers.add(new Server().url("/prod-api/"));
         servers.add(new Server().url("https://dev.domain.com/dev-api/").description("开发环境"));
         servers.add(new Server().url("https://test.domain.com/test-api/").description("测试环境"));
         servers.add(new Server().url("https://prod.domain.com/test-api/").description("正式环境"));
