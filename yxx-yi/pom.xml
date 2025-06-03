@@ -94,6 +94,13 @@
                 <version>${oshi.version}</version>
             </dependency>
 
+            <!-- 继任Springfox，支持Springboot3 -->
+            <dependency>
+                <groupId>org.springdoc</groupId>
+                <artifactId>springdoc-openapi-ui</artifactId>
+                <version>${springdoc.version}</version>
+            </dependency>
+
             <!-- knife4j 增强swagger -->
             <dependency>
                 <groupId>com.github.xiaoymin</groupId>

@@ -22,7 +22,8 @@
         <spring-framework.version>5.3.39</spring-framework.version>
         <spring-security.version>5.7.12</spring-security.version>
 
-        <knife4j.version>4.0.0</knife4j.version>
+        <springdoc.version>1.7.0</springdoc.version>
+        <knife4j.version>4.3.0</knife4j.version>
         <mybatis-plus.version>3.5.1</mybatis-plus.version>
         <hutool.version>5.8.0.M2</hutool.version>
         <redisson.version>3.43.0</redisson.version>
