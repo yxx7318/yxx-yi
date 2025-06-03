@@ -29,8 +29,6 @@ import { ref, computed } from 'vue'
 import { getToken } from "@/utils/auth"
 import { tansParams } from "@/utils/yxx"
 
-const { proxy } = getCurrentInstance()
-
 // 定义props
 const props = defineProps({
   // 父组件传递的标题

@@ -48,7 +48,7 @@
                 <el-button type="danger" plain icon="Delete" :disabled="multiple" @click="handleDelete" v-hasPermi="['system:user:remove']">删除</el-button>
               </el-col>
               <el-col :span="1.5">
-                <el-button type="info" plain icon="Upload" @click="handleImport" v-hasPermi="['system:user:import']">导入</el-button>
+                <el-button type="info" plain icon="Upload" @click="upload.open = true" v-hasPermi="['system:user:import']">导入</el-button>
               </el-col>
               <el-col :span="1.5">
                 <el-button type="warning" plain icon="Download" @click="handleExport" v-hasPermi="['system:user:export']">导出</el-button>
@@ -411,11 +411,6 @@ function handleSelectionChange(selection) {
   ids.value = selection.map(item => item.userId)
   single.value = selection.length != 1
   multiple.value = !selection.length
-}
-
-/** 导入按钮操作 */
-function handleImport() {
-  upload.open = true
 }
 
 /** 重置操作表单 */

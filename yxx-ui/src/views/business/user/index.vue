@@ -165,7 +165,7 @@
 </template>
 
 <script>
-import { listUser, getUser, addUser, updateUser, delUser } from "@/api/business/user";
+import { listUser, getUser, addUser, updateUser, delUser } from "@/api/business/user"
 
 export default {
   name: "User",
@@ -217,30 +217,30 @@ export default {
           { required: true, message: "用户账号不能为空", trigger: "blur" }
         ],
       }
-    };
+    }
   },
   created() {
-    this.getList();
+    this.getList()
   },
   methods: {
     /** 查询测试用户列表 */
     getList() {
-      this.loading = true;
-      this.queryParams.params = {};
+      this.loading = true
+      this.queryParams.params = {}
       if (null != this.datetimerangeRegisterTime && '' != this.datetimerangeRegisterTime) {
-        this.queryParams.params["beginRegisterTime"] = this.datetimerangeRegisterTime[0];
-        this.queryParams.params["endRegisterTime"] = this.datetimerangeRegisterTime[1];
+        this.queryParams.params["beginRegisterTime"] = this.datetimerangeRegisterTime[0]
+        this.queryParams.params["endRegisterTime"] = this.datetimerangeRegisterTime[1]
       }
       listUser(this.queryParams).then(response => {
-        this.userList = response.rows;
-        this.total = Number(response.total);
-        this.loading = false;
-      });
+        this.userList = response.rows
+        this.total = Number(response.total)
+        this.loading = false
+      })
     },
     // 取消按钮
     cancel() {
-      this.open = false;
-      this.reset();
+      this.open = false
+      this.reset()
     },
     // 表单重置
     reset() {
@@ -255,19 +255,19 @@ export default {
         updateBy: null,
         updateTime: null,
         remark: null
-      };
-      this.resetForm("form");
+      }
+      this.resetForm("form")
     },
     /** 搜索按钮操作 */
     handleQuery() {
-      this.queryParams.pageNum = 1;
-      this.getList();
+      this.queryParams.pageNum = 1
+      this.getList()
     },
     /** 重置按钮操作 */
     resetQuery() {
-      this.datetimerangeRegisterTime = [];
-      this.resetForm("queryForm");
-      this.handleQuery();
+      this.datetimerangeRegisterTime = []
+      this.resetForm("queryForm")
+      this.handleQuery()
     },
     // 多选框选中数据
     handleSelectionChange(selection) {
@@ -277,19 +277,19 @@ export default {
     },
     /** 新增按钮操作 */
     handleAdd() {
-      this.reset();
-      this.open = true;
-      this.title = "添加测试用户";
+      this.reset()
+      this.open = true
+      this.title = "添加测试用户"
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
-      this.reset();
+      this.reset()
       const userId = row.userId || this.ids
       getUser(userId).then(response => {
-        this.form = response.data;
-        this.open = true;
-        this.title = "修改测试用户";
-      });
+        this.form = response.data
+        this.open = true
+        this.title = "修改测试用户"
+      })
     },
     /** 提交按钮 */
     submitForm() {
@@ -297,29 +297,29 @@ export default {
         if (valid) {
           if (this.form.userId != null) {
             updateUser(this.form).then(response => {
-              this.$modal.msgSuccess("修改成功");
-              this.open = false;
-              this.getList();
-            });
+              this.$modal.msgSuccess("修改成功")
+              this.open = false
+              this.getList()
+            })
           } else {
             addUser(this.form).then(response => {
-              this.$modal.msgSuccess("新增成功");
-              this.open = false;
-              this.getList();
-            });
+              this.$modal.msgSuccess("新增成功")
+              this.open = false
+              this.getList()
+            })
           }
         }
-      });
+      })
     },
     /** 删除按钮操作 */
     handleDelete(row) {
-      const userIds = row.userId || this.ids;
+      const userIds = row.userId || this.ids
       this.$modal.confirm('是否确认删除测试用户编号为"' + userIds + '"的数据项？').then(function() {
-        return delUser(userIds);
+        return delUser(userIds)
       }).then(() => {
-        this.getList();
-        this.$modal.msgSuccess("删除成功");
-      }).catch(() => {});
+        this.getList()
+        this.$modal.msgSuccess("删除成功")
+      }).catch(() => {})
     },
     /** 导出按钮操作 */
     handleExport() {
@@ -328,5 +328,5 @@ export default {
       }, `user_${this.parseTime(new Date())}.xlsx`)
     }
   }
-};
+}
 </script>
