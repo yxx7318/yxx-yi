@@ -65,7 +65,9 @@ public class ProcessMonitor {
         List<ProcessInfo> result = new ArrayList<>();
         collection.forEach((item) -> {
             ProcessInfo info = findProcess(item);
-            if (!ObjectUtils.isEmpty(info)) result.add(info);
+            if (!ObjectUtils.isEmpty(info)) {
+                result.add(info);
+            }
         });
         return result.stream().filter((item) -> !childPidSet.contains(item.getPid())).collect(Collectors.toList());
     }
@@ -81,7 +83,9 @@ public class ProcessMonitor {
             if ((name != null && name.contains(appName)) ||
                     (commandLine != null && commandLine.contains(appName))) {
                 ProcessInfo info = createProcessInfo(process);
-                if (!ObjectUtils.isEmpty(info)) result.add(info);
+                if (!ObjectUtils.isEmpty(info)) {
+                    result.add(info);
+                }
             }
         }
         return result.stream().filter((item) -> !childPidSet.contains(item.getPid())).collect(Collectors.toList());
@@ -92,7 +96,9 @@ public class ProcessMonitor {
      */
     public ProcessInfo findProcess(int port) {
         int pid = findPidByPort(port);
-        if (pid == -1) return null;
+        if (pid == -1) {
+            return null;
+        }
         return createProcessInfo(prevProcessesMap.get(pid));
     }
 

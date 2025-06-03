@@ -302,7 +302,7 @@ public class IpUtils
         String[] s1 = ipWildCard.split("\\.");
         String[] s2 = ip.split("\\.");
         boolean isMatchedSeg = true;
-        for (int i = 0; i < s1.length && !s1[i].equals("*"); i++)
+        for (int i = 0; i < s1.length && !"*".equals(s1[i]); i++)
         {
             if (!s1[i].equals(s2[i]))
             {
