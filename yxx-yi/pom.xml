@@ -22,6 +22,9 @@
         <pagehelper.boot.version>1.4.7</pagehelper.boot.version>
         <fastjson.version>2.0.53</fastjson.version>
         <oshi.version>6.6.5</oshi.version>
+        <springdoc.version>1.7.0</springdoc.version>
+        <!-- 接口文档 -->
+        <knife4j.version>4.5.0</knife4j.version>
         <commons.io.version>2.13.0</commons.io.version>
         <poi.version>4.1.2</poi.version>
         <velocity.version>2.3</velocity.version>

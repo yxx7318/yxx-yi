@@ -48,7 +48,7 @@ public class TbTestUserController extends BaseControllerPlus {
     @Operation(summary = "查询--测试用户列表")
     @PreAuthorize("@ss.hasPermi('business:user:list')")
     @GetMapping("/list")
-    public PageResult<?> list(@Parameter(description = "DTO对象", in = ParameterIn.QUERY) TbTestUser tbTestUser) {
+    public PageResult<TbTestUser> list(@Parameter(description = "DTO对象", in = ParameterIn.QUERY) TbTestUser tbTestUser) {
         return tbTestUserService.selectTbTestUserPage(tbTestUser);
     }
 

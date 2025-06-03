@@ -52,7 +52,7 @@ public class ${ClassName}Controller extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('${permissionPrefix}:list')")
     @GetMapping("/list")
 #if($table.crud || $table.sub)
-    public PageResult<?> list(@Parameter(description = "DTO对象", in = ParameterIn.QUERY) ${ClassName} ${className}) {
+    public PageResult<${ClassName}> list(@Parameter(description = "DTO对象", in = ParameterIn.QUERY) ${ClassName} ${className}) {
         return ${className}Service.select${ClassName}Page(${className});
     }
 #elseif($table.tree)
