@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
  * 测试用户对象 tb_test_user
  *
  * @author yxx
- * @date 2025-05-13
+ * @date 2025-06-03
  */
 @Schema(description = "测试用户实体")
 @NoArgsConstructor

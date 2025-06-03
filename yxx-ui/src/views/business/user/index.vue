@@ -42,7 +42,7 @@
           icon="el-icon-plus"
           size="mini"
           @click="handleAdd"
-          v-hasPermi="['example:user:add']"
+          v-hasPermi="['business:user:add']"
         >新增</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -53,7 +53,7 @@
           size="mini"
           :disabled="single"
           @click="handleUpdate"
-          v-hasPermi="['example:user:edit']"
+          v-hasPermi="['business:user:edit']"
         >修改</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -64,18 +64,8 @@
           size="mini"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['example:user:remove']"
+          v-hasPermi="['business:user:remove']"
         >删除</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="warning"
-          plain
-          icon="el-icon-download"
-          size="mini"
-          @click="handleExport"
-          v-hasPermi="['example:user:export']"
-        >导出</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -86,6 +76,16 @@
           @click="upload.open = true"
           v-hasPermi="['temu:goods:import']"
         >导入</el-button>
+      </el-col>
+      <el-col :span="1.5">
+        <el-button
+          type="warning"
+          plain
+          icon="el-icon-download"
+          size="mini"
+          @click="handleExport"
+          v-hasPermi="['business:user:export']"
+        >导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
@@ -105,19 +105,19 @@
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['example:user:edit']"
+            v-hasPermi="['business:user:edit']"
           >修改</el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['example:user:remove']"
+            v-hasPermi="['business:user:remove']"
           >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"
@@ -165,7 +165,7 @@
 </template>
 
 <script>
-import { listUser, getUser, addUser, updateUser, delUser } from "@/api/example/user";
+import { listUser, getUser, addUser, updateUser, delUser } from "@/api/business/user";
 
 export default {
   name: "User",
@@ -198,7 +198,7 @@ export default {
         // 弹出层标题
         title: "测试用户导入",
         // 上传的地址
-        url: "/example/user/importData"
+        url: "/business/user/importData"
       },
       // 查询参数
       queryParams: {
@@ -323,9 +323,9 @@ export default {
     },
     /** 导出按钮操作 */
     handleExport() {
-      this.download('example/user/export', {
+      this.download('business/user/export', {
         ...this.queryParams
-      }, `user_${new Date().getTime()}.xlsx`)
+      }, `user_${this.parseTime(new Date())}.xlsx`)
     }
   }
 };

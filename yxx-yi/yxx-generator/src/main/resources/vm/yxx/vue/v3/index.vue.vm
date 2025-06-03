@@ -583,7 +583,7 @@ function handle${subClassName}SelectionChange(selection) {
 function handleExport() {
   proxy.download('${moduleName}/${businessName}/export', {
     ...queryParams.value
-  }, `${businessName}_#[[${new Date().getTime()}]]#.xlsx`)
+  }, `${businessName}_#[[${proxy.parseTime(new Date())}]]#.xlsx`)
 }
 
 getList();

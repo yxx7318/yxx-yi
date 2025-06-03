@@ -19,26 +19,26 @@ create table `tb_test_user` (
 
 -- 菜单 SQL
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time, update_by, update_time, remark)
-values('测试用户', '3', '1', 'user', 'example/user/index', 1, 0, 'C', '0', '0', 'example:user:list', '#', 'admin', sysdate(), '', null, '测试用户菜单');
+values('测试用户', '3', '1', 'user', 'business/user/index', 1, 0, 'C', '0', '0', 'business:user:list', '#', 'admin', sysdate(), '', null, '测试用户菜单');
 
 -- 按钮父菜单ID
 SELECT @parentId := LAST_INSERT_ID();
 
 -- 按钮 SQL
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time, update_by, update_time, remark)
-values('测试用户查询', @parentId, '1',  '#', '', 1, 1, 'F', '0', '0', 'example:user:query',        '#', 'admin', sysdate(), '', null, '');
+values('测试用户查询', @parentId, '1',  '#', '', 1, 1, 'F', '0', '0', 'business:user:query',        '#', 'admin', sysdate(), '', null, '');
 
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time, update_by, update_time, remark)
-values('测试用户新增', @parentId, '2',  '#', '', 1, 1, 'F', '0', '0', 'example:user:add',          '#', 'admin', sysdate(), '', null, '');
+values('测试用户新增', @parentId, '2',  '#', '', 1, 1, 'F', '0', '0', 'business:user:add',          '#', 'admin', sysdate(), '', null, '');
 
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time, update_by, update_time, remark)
-values('测试用户修改', @parentId, '3',  '#', '', 1, 1, 'F', '0', '0', 'example:user:edit',         '#', 'admin', sysdate(), '', null, '');
+values('测试用户修改', @parentId, '3',  '#', '', 1, 1, 'F', '0', '0', 'business:user:edit',         '#', 'admin', sysdate(), '', null, '');
 
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time, update_by, update_time, remark)
-values('测试用户删除', @parentId, '4',  '#', '', 1, 1, 'F', '0', '0', 'example:user:remove',       '#', 'admin', sysdate(), '', null, '');
+values('测试用户删除', @parentId, '4',  '#', '', 1, 1, 'F', '0', '0', 'business:user:remove',       '#', 'admin', sysdate(), '', null, '');
 
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time, update_by, update_time, remark)
-values('测试用户导出', @parentId, '5',  '#', '', 1, 1, 'F', '0', '0', 'example:user:export',       '#', 'admin', sysdate(), '', null, '');
+values('测试用户导出', @parentId, '5',  '#', '', 1, 1, 'F', '0', '0', 'business:user:export',       '#', 'admin', sysdate(), '', null, '');
 
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time, update_by, update_time, remark)
-values('测试用户导入', @parentId, '5',  '#', '', 1, 1, 'F', '0', '0', 'example:user:import',       '#', 'admin', sysdate(), '', null, '');
+values('测试用户导入', @parentId, '6',  '#', '', 1, 1, 'F', '0', '0', 'business:user:import',       '#', 'admin', sysdate(), '', null, '');

@@ -25,8 +25,7 @@ import com.yxx.common.core.domain.R;
 import com.yxx.common.core.domain.PageResult;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.enums.ParameterIn;
+import org.springdoc.api.annotations.ParameterObject;
 
 import org.springframework.validation.annotation.Validated;
 
@@ -35,7 +34,7 @@ import org.springframework.validation.annotation.Validated;
  * 测试用户Controller
  *
  * @author yxx
- * @date 2025-05-13
+ * @date 2025-06-03
  */
 @Tag(name = "测试用户管理-TbTestUser)")
 @RestController
@@ -48,15 +47,14 @@ public class TbTestUserController extends BaseControllerPlus {
     @Operation(summary = "查询--测试用户列表")
     @PreAuthorize("@ss.hasPermi('business:user:list')")
     @GetMapping("/list")
-    public PageResult<TbTestUser> list(@Parameter(description = "DTO对象", in = ParameterIn.QUERY) TbTestUser tbTestUser) {
+    public PageResult<TbTestUser> list(@ParameterObject TbTestUser tbTestUser) {
         return tbTestUserService.selectTbTestUserPage(tbTestUser);
     }
 
     @Operation(summary = "查询--测试用户单个")
     @PreAuthorize("@ss.hasPermi('business:user:query')")
     @GetMapping(value = "/{userId}")
-    public R<TbTestUser> getInfo(@Parameter(description = "主键Id", required = true, in = ParameterIn.PATH)
-                                       @PathVariable Long userId) {
+    public R<TbTestUser> getInfo(@PathVariable Long userId) {
         return R.ok(tbTestUserService.selectTbTestUserByUserId(userId));
     }
 
@@ -64,8 +62,7 @@ public class TbTestUserController extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('business:user:add')")
     @Log(title = "测试用户", businessType = BusinessType.INSERT)
     @PostMapping
-    public R<String> add(@Parameter(description = "DTO对象", required = true, in = ParameterIn.QUERY)
-                             @RequestBody @Validated TbTestUser tbTestUser) {
+    public R<String> add(@RequestBody @Validated TbTestUser tbTestUser) {
         return toResult(tbTestUserService.insertTbTestUser(tbTestUser));
     }
 
@@ -73,8 +70,7 @@ public class TbTestUserController extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('business:user:edit')")
     @Log(title = "测试用户", businessType = BusinessType.UPDATE)
     @PutMapping
-    public R<String> update(@Parameter(description = "DTO对象")
-                                @RequestBody @Validated TbTestUser tbTestUser) {
+    public R<String> update(@RequestBody @Validated TbTestUser tbTestUser) {
         return toResult(tbTestUserService.updateTbTestUser(tbTestUser));
     }
 
@@ -82,8 +78,7 @@ public class TbTestUserController extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('business:user:remove')")
     @Log(title = "测试用户", businessType = BusinessType.DELETE)
     @DeleteMapping("/{userIds}")
-    public R<String> delete(@Parameter(description = "主键集合", required = true, in = ParameterIn.PATH)
-                                @PathVariable List<Long> userIds) {
+    public R<String> delete(@PathVariable List<Long> userIds) {
         return toResult(tbTestUserService.deleteTbTestUserByUserIds(userIds));
     }
 
@@ -91,8 +86,7 @@ public class TbTestUserController extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('business:user:export')")
     @Log(title = "测试用户", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response,
-                       @Parameter(description = "DTO对象", in = ParameterIn.QUERY) TbTestUser tbTestUser) {
+    public void export(HttpServletResponse response, @ParameterObject TbTestUser tbTestUser) {
         List<TbTestUser> list = tbTestUserService.selectTbTestUserList(tbTestUser);
         ExcelUtil<TbTestUser> util = new ExcelUtil<>(TbTestUser.class);
         util.exportExcel(response, list, "测试用户数据");
@@ -110,8 +104,7 @@ public class TbTestUserController extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('business:user:import')")
     @Log(title = "测试用户", businessType = BusinessType.IMPORT)
     @PostMapping("/importData")
-    public R<Boolean> importData(@Parameter(description = "导出模板的二进制xlsx文件", required = true)
-                                     MultipartFile file) throws IOException {
+    public R<Boolean> importData(MultipartFile file) throws IOException {
         ExcelUtil<TbTestUser> util = new ExcelUtil<>(TbTestUser.class);
         List<TbTestUser> list = util.importExcel(file.getInputStream());
         return R.ok(tbTestUserService.saveBatch(list), "成功导入 " + list.size() + " 条记录");

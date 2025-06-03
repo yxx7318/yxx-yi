@@ -20,8 +20,8 @@
 </template>
 
 <script>
-import {getToken} from "@/utils/auth";
-import {tansParams} from "@/utils/yxx";
+import { getToken } from "@/utils/auth"
+import { tansParams } from "@/utils/yxx"
 
 export default {
   name: "ExcelUpload",
@@ -67,54 +67,54 @@ export default {
     return {
       // 是否禁用上传
       isUploading: false
-    };
+    }
   },
   computed: {
     // 最终上传文件的请求地址
     action() {
-      return this.baseUrl + this.uploadUrl + (this.uploadParams ? `?${tansParams(this.uploadParams)}` : "");
+      return this.baseUrl + this.uploadUrl + (this.uploadParams ? `?${tansParams(this.uploadParams)}` : "")
     },
     // 模板文件的请求地址
     fullTemplateUrl() {
       if (this.templateUrl.indexOf("/") !== -1) {
-        return this.templateUrl;
+        return this.templateUrl
       }
-      let suffix = this.uploadUrl.split("/").slice(-1)[0];
-      return this.uploadUrl.replace(suffix, this.templateUrl);
+      let suffix = this.uploadUrl.split("/").slice(-1)[0]
+      return this.uploadUrl.replace(suffix, this.templateUrl)
     },
     // 模板文件的名称
     templateName() {
-      return `${this.uploadUrl.split("/").join("_")}_${new Date().getTime()}.xlsx`;
+      return `${this.uploadUrl.split("/").join("_")}_${this.parseTime(new Date())}.xlsx`
     }
   },
   methods: {
     /** 下载模板操作 */
     importTemplate() {
       this.download(this.fullTemplateUrl, {
-      }, this.templateName);
+      }, this.templateName)
     },
     // 文件上传中处理
     handleFileUploadProgress(event, file, fileList) {
-      this.$modal.loading("正在上传文件中，请稍候！");
-      this.isUploading = true;
+      this.$modal.loading("正在上传文件中，请稍候！")
+      this.isUploading = true
     },
     // 文件上传成功处理
     handleFileSuccess(response, file, fileList) {
-      this.$modal.closeLoading();
-      this.uploadClose();
-      this.isUploading = false;
-      this.$refs.upload.clearFiles();
+      this.$modal.closeLoading()
+      this.uploadClose()
+      this.isUploading = false
+      this.$refs.upload.clearFiles()
       this.$alert("<div style='overflow: auto;overflow-x: hidden;max-height: 70vh;padding: 10px 20px 0;'>" + response.msg + "</div>", "导入结果", { dangerouslyUseHTMLString: true });
-      this.$emit("handleFileSuccess", response);
+      this.$emit("handleFileSuccess", response)
     },
     // 提交上传文件
     submitFileForm() {
-      this.$refs.upload.submit();
+      this.$refs.upload.submit()
     },
     // 通知父组件关闭窗口
     uploadClose() {
       this.$emit('uploadClose')
     }
   }
-};
+}
 </script>

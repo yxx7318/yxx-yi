@@ -3,7 +3,7 @@ import request from '@/utils/request'
 // 查询测试用户列表
 export function listUser(query) {
   return request({
-    url: '/example/user/list',
+    url: '/business/user/list',
     method: 'get',
     params: query
   })
@@ -12,7 +12,7 @@ export function listUser(query) {
 // 查询测试用户详细
 export function getUser(userId) {
   return request({
-    url: '/example/user/' + userId,
+    url: '/business/user/' + userId,
     method: 'get'
   })
 }
@@ -20,7 +20,7 @@ export function getUser(userId) {
 // 新增测试用户
 export function addUser(data) {
   return request({
-    url: '/example/user',
+    url: '/business/user',
     method: 'post',
     data: data
   })
@@ -29,7 +29,7 @@ export function addUser(data) {
 // 修改测试用户
 export function updateUser(data) {
   return request({
-    url: '/example/user',
+    url: '/business/user',
     method: 'put',
     data: data
   })
@@ -38,7 +38,7 @@ export function updateUser(data) {
 // 删除测试用户
 export function delUser(userId) {
   return request({
-    url: '/example/user/' + userId,
+    url: '/business/user/' + userId,
     method: 'delete'
   })
 }

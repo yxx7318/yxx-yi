@@ -123,6 +123,16 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
+            type="info"
+            plain
+            icon="el-icon-upload2"
+            size="mini"
+            @click="upload.open = true"
+            v-hasPermi="['temu:goods:import']"
+        >导入</el-button>
+      </el-col>
+      <el-col :span="1.5">
+        <el-button
           type="warning"
           plain
           icon="el-icon-download"
@@ -130,16 +140,6 @@
           @click="handleExport"
           v-hasPermi="['${permissionPrefix}:export']"
         >导出</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="info"
-          plain
-          icon="el-icon-upload2"
-          size="mini"
-          @click="upload.open = true"
-          v-hasPermi="['temu:goods:import']"
-        >导入</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
@@ -687,7 +687,7 @@ export default {
     handleExport() {
       this.download('${moduleName}/${businessName}/export', {
         ...this.queryParams
-      }, `${businessName}_#[[${new Date().getTime()}]]#.xlsx`)
+      }, `${businessName}_#[[${this.parseTime(new Date())}]]#.xlsx`)
     }
   }
 };

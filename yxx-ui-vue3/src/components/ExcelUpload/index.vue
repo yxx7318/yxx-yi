@@ -24,10 +24,12 @@
   </el-dialog>
 </template>
 
-<script setup>
-import { ref, computed, getCurrentInstance } from 'vue'
-import { getToken } from "@/utils/auth";
-import { tansParams } from "@/utils/yxx";
+<script setup name="ExcelUpload">
+import { ref, computed } from 'vue'
+import { getToken } from "@/utils/auth"
+import { tansParams } from "@/utils/yxx"
+
+const { proxy } = getCurrentInstance()
 
 // 定义props
 const props = defineProps({
@@ -75,7 +77,7 @@ const fullTemplateUrl = computed(() => {
   let suffix = props.uploadUrl.split("/").slice(-1)[0]
   return props.uploadUrl.replace(suffix, props.templateUrl)
 })
-const templateName = computed(() => `${props.uploadUrl.split("/").join("_")}_${new Date().getTime()}.xlsx`)
+const templateName = computed(() => `${props.uploadUrl.split("/").join("_")}_${proxy.parseTime(new Date())}.xlsx`)
 
 // 方法定义
 /** 下载模板操作 */
@@ -85,7 +87,7 @@ function importTemplate() {
 
 // 文件上传中处理
 function handleFileUploadProgress(event, file, fileList) {
-  proxy.$modal.loading("正在上传文件中，请稍候！");
+  proxy.$modal.loading("正在上传文件中，请稍候！")
   isUploading.value = true
 }
 
