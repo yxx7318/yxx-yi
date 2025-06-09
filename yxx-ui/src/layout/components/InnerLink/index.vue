@@ -27,7 +27,7 @@ export default {
     };
   },
   mounted() {
-    var _this = this;
+    let _this = this;
     const iframeId = ("#" + this.iframeId).replace(/\//g, "\\/");
     const iframe = document.querySelector(iframeId);
     // iframe页面loading控制

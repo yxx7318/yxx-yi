@@ -226,7 +226,7 @@ function handleUnlock() {
 function handleExport() {
   proxy.download("monitor/logininfor/export", {
     ...queryParams.value,
-  }, `logininfor_${new Date().getTime()}.xlsx`)
+  }, `logininfor_export_${proxy.parseTime(new Date())}.xlsx`)
 }
 
 getList()

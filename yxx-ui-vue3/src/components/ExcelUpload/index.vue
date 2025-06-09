@@ -37,7 +37,7 @@ const props = defineProps({
   open: { type: Boolean, default: false, required: true },
   // 模板文件地址
   templateUrl: { type: String, default: "importTemplate" },
-  // 上传接口地址（可由父组件动态传递）
+  // 上传接口地址（由父组件动态传递）
   uploadUrl: { type: String, required: true },
   // 上传其它参数
   uploadParams: { type: Object, default: null },
@@ -55,12 +55,12 @@ const { proxy } = getCurrentInstance()
 
 // 控制dialog显示状态(props.open只读)
 const dialogVisible = ref(props.open)
-
+// 当父组件更新 props.open 时，同步更新子组件的 dialogVisible
 watch(
   () => props.open, (newVal) => {dialogVisible.value = newVal},
   { immediate: true }
 )
-
+// 子组件内部修改 dialogVisible 时，通知父组件更新 props.open
 watch(dialogVisible, (newVal) => {
   emit('update:open', newVal)
 })

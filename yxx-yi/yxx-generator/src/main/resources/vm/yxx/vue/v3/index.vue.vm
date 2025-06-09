@@ -37,7 +37,7 @@
           <el-option label="请选择字典生成" value="" />
         </el-select>
       </el-form-item>
-#elseif($column.htmlType == "datetime" && $column.queryType != "BETWEEN")
+#elseif($column.htmlType == "date" && $column.queryType != "BETWEEN")
       <el-form-item label="${comment}" prop="${column.javaField}">
         <el-date-picker clearable
           v-model="queryParams.${column.javaField}"
@@ -46,12 +46,32 @@
           placeholder="请选择${comment}">
         </el-date-picker>
       </el-form-item>
-#elseif($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
-      <el-form-item label="${comment}" style="width: 308px">
+#elseif($column.htmlType == "date" && $column.queryType == "BETWEEN")
+      <el-form-item label="${comment}">
         <el-date-picker
           v-model="daterange${AttrName}"
           value-format="YYYY-MM-DD"
           type="daterange"
+          range-separator="-"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+        ></el-date-picker>
+      </el-form-item>
+#elseif($column.htmlType == "datetime" && $column.queryType != "BETWEEN")
+      <el-form-item label="${comment}" prop="${column.javaField}">
+        <el-date-picker clearable
+          v-model="queryParams.${column.javaField}"
+          type="datetime"
+          value-format="YYYY-MM-DD HH:mm:ss"
+          placeholder="请选择${comment}">
+        </el-date-picker>
+      </el-form-item>
+#elseif($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
+      <el-form-item label="${comment}">
+        <el-date-picker
+          v-model="datetimerange${AttrName}"
+          value-format="YYYY-MM-DD HH:mm:ss"
+          type="datetimerange"
           range-separator="-"
           start-placeholder="开始日期"
           end-placeholder="结束日期"
@@ -98,11 +118,11 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="warning"
-            plain
-            icon="Upload"
-            @click="handleImport"
-            v-hasPermi="['${permissionPrefix}:import']"
+          type="info"
+          plain
+          icon="Upload"
+          @click="upload.open = true"
+          v-hasPermi="['${permissionPrefix}:import']"
         >导入</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -129,12 +149,14 @@
 #end
 #if($column.pk)
       <el-table-column label="${comment}" align="center" prop="${javaField}" />
-#elseif($column.list && $column.htmlType == "datetime")
+#elseif($column.list && $column.htmlType == "date")
       <el-table-column label="${comment}" align="center" prop="${javaField}" width="180">
         <template #default="scope">
           <span>{{ parseTime(scope.row.${javaField}, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
+#elseif($column.list && $column.htmlType == "datetime")
+      <el-table-column label="${comment}" align="center" prop="${javaField}" />
 #elseif($column.list && $column.htmlType == "imageUpload")
       <el-table-column label="${comment}" align="center" prop="${javaField}" width="100">
         <template #default="scope">
@@ -259,12 +281,21 @@
             <el-radio label="1">请选择字典生成</el-radio>
           </el-radio-group>
         </el-form-item>
-#elseif($column.htmlType == "datetime")
+#elseif($column.htmlType == "date")
         <el-form-item label="${comment}" prop="${field}">
           <el-date-picker clearable
             v-model="form.${field}"
             type="date"
             value-format="YYYY-MM-DD"
+            placeholder="请选择${comment}">
+          </el-date-picker>
+        </el-form-item>
+#elseif($column.htmlType == "datetime")
+        <el-form-item label="${comment}" prop="${field}">
+          <el-date-picker clearable
+            v-model="form.${field}"
+            type="datetime"
+            value-format="YYYY-MM-DD HH:mm:ss"
             placeholder="请选择${comment}">
           </el-date-picker>
         </el-form-item>
@@ -304,14 +335,17 @@
               <el-input v-model="scope.row.$javaField" placeholder="请输入$comment" />
             </template>
           </el-table-column>
+#elseif($column.list && $column.htmlType == "date")
+          <el-table-column label="$comment" prop="${javaField}" width="240">
+            <template #default="scope">
+              <el-date-picker clearable v-model="scope.row.$javaField" type="date" value-format="YYYY-MM-DD" placeholder="请选择$comment">
+              </el-date-picker>
+            </template>
+          </el-table-column>
 #elseif($column.list && $column.htmlType == "datetime")
           <el-table-column label="$comment" prop="${javaField}" width="240">
             <template #default="scope">
-              <el-date-picker clearable
-                v-model="scope.row.$javaField"
-                type="date"
-                value-format="YYYY-MM-DD"
-                placeholder="请选择$comment">
+              <el-date-picker clearable v-model="scope.row.$javaField" type="datetime" value-format="YYYY-MM-DD HH:mm:ss" placeholder="请选择$comment">
               </el-date-picker>
             </template>
           </el-table-column>
@@ -348,6 +382,15 @@
         </div>
       </template>
     </el-dialog>
+
+    <!-- 导入${functionName}对话框 -->
+    <excel-upload
+      :title="upload.title"
+      :uploadUrl="upload.url"
+      :open="upload.open"
+      @uploadClose="upload.open = false"
+      @handleFileSuccess="getList">
+    </excel-upload>
   </div>
 </template>
 
@@ -376,11 +419,27 @@ const multiple = ref(true)
 const total = ref(0)
 const title = ref("")
 #foreach ($column in $columns)
-#if($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
+#if($column.htmlType == "date" && $column.queryType == "BETWEEN")
 #set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+// $comment日期范围
 const daterange${AttrName} = ref([])
 #end
+#if($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
+#set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+// $comment时间范围
+const datetimerange${AttrName} = ref([])
 #end
+#end
+
+// 导入Excel参数
+const upload = ref({
+  // 是否显示弹出层
+  open: false,
+    // 弹出层标题
+    title: "${functionName}导入",
+    // 上传的地址
+    url: "/${moduleName}/${businessName}/importData"
+})
 
 const data = reactive({
   form: {},
@@ -416,17 +475,24 @@ const { queryParams, form, rules } = toRefs(data)
 function getList() {
   loading.value = true
 #foreach ($column in $columns)
-#if($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
+#if($column.queryType == "BETWEEN" && ($column.htmlType == "date" || $column.htmlType == "datetime"))
   queryParams.value.params = {}
 #break
 #end
 #end
 #foreach ($column in $columns)
-#if($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
+#if($column.htmlType == "date" && $column.queryType == "BETWEEN")
 #set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
   if (null != daterange${AttrName} && '' != daterange${AttrName}) {
     queryParams.value.params["begin${AttrName}"] = daterange${AttrName}.value[0]
     queryParams.value.params["end${AttrName}"] = daterange${AttrName}.value[1]
+  }
+#end
+#if($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
+#set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+  if (null != datetimerange${AttrName} && '' != datetimerange${AttrName}) {
+    queryParams.value.params["begin${AttrName}"] = datetimerange${AttrName}.value[0]
+    queryParams.value.params["end${AttrName}"] = datetimerange${AttrName}.value[1]
   }
 #end
 #end
@@ -469,9 +535,13 @@ function handleQuery() {
 /** 重置按钮操作 */
 function resetQuery() {
 #foreach ($column in $columns)
-#if($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
+#if($column.htmlType == "date" && $column.queryType == "BETWEEN")
 #set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
   daterange${AttrName}.value = []
+#end
+#if($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
+#set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+  datetimerange${AttrName}.value = []
 #end
 #end
   proxy.resetForm("queryRef")
@@ -592,7 +662,7 @@ function handle${subClassName}SelectionChange(selection) {
 function handleExport() {
   proxy.download('${moduleName}/${businessName}/export', {
     ...queryParams.value
-  }, `${businessName}_#[[${proxy.parseTime(new Date())}]]#.xlsx`)
+  }, `${businessName}_export_#[[${proxy.parseTime(new Date())}]]#.xlsx`)
 }
 
 getList()

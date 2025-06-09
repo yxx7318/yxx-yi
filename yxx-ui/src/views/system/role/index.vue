@@ -598,7 +598,7 @@ export default {
     handleExport() {
       this.download('system/role/export', {
         ...this.queryParams
-      }, `role_${new Date().getTime()}.xlsx`)
+      }, `role_export_${this.parseTime(new Date())}.xlsx`)
     }
   }
 };

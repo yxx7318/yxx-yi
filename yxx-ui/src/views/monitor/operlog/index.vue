@@ -315,7 +315,7 @@ export default {
     handleExport() {
       this.download('monitor/operlog/export', {
         ...this.queryParams
-      }, `operlog_${new Date().getTime()}.xlsx`)
+      }, `operlog_export_${this.parseTime(new Date())}.xlsx`)
     }
   }
 };

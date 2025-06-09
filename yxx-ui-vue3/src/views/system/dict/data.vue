@@ -354,7 +354,7 @@ function handleDelete(row) {
 function handleExport() {
   proxy.download("system/dict/data/export", {
     ...queryParams.value
-  }, `dict_data_${new Date().getTime()}.xlsx`)
+  }, `dict_data_export_${proxy.parseTime(new Date())}.xlsx`)
 }
 
 getTypes(route.params && route.params.dictId)

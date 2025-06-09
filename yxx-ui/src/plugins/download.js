@@ -10,7 +10,7 @@ let downloadLoadingInstance;
 
 export default {
   name(name, isDelete = true) {
-    var url = baseURL + "/common/download?fileName=" + encodeURIComponent(name) + "&delete=" + isDelete
+    let url = baseURL + "/common/download?fileName=" + encodeURIComponent(name) + "&delete=" + isDelete
     axios({
       method: 'get',
       url: url,
@@ -27,7 +27,7 @@ export default {
     })
   },
   resource(resource) {
-    var url = baseURL + "/common/download/resource?resource=" + encodeURIComponent(resource);
+    let url = baseURL + "/common/download/resource?resource=" + encodeURIComponent(resource);
     axios({
       method: 'get',
       url: url,
@@ -44,11 +44,11 @@ export default {
     })
   },
   zip(url, name) {
-    var url = baseURL + url
+    let targetUrl = baseURL + url
     downloadLoadingInstance = Loading.service({ text: "正在下载数据，请稍候", spinner: "el-icon-loading", background: "rgba(0, 0, 0, 0.7)", })
     axios({
       method: 'get',
-      url: url,
+      url: targetUrl,
       responseType: 'blob',
       headers: { 'Authorization': 'Bearer ' + getToken() }
     }).then((res) => {

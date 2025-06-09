@@ -308,7 +308,7 @@ function handleDelete(row) {
 function handleExport() {
   proxy.download("system/dict/type/export", {
     ...queryParams.value
-  }, `dict_${new Date().getTime()}.xlsx`)
+  }, `dict_export_${proxy.parseTime(new Date())}.xlsx`)
 }
 
 /** 刷新缓存按钮操作 */

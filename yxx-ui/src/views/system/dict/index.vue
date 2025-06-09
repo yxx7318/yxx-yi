@@ -333,7 +333,7 @@ export default {
     handleExport() {
       this.download('system/dict/type/export', {
         ...this.queryParams
-      }, `type_${new Date().getTime()}.xlsx`)
+      }, `type_export_${this.parseTime(new Date())}.xlsx`)
     },
     /** 刷新缓存按钮操作 */
     handleRefreshCache() {

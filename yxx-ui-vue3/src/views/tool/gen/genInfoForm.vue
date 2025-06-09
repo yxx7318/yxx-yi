@@ -273,7 +273,7 @@ function tplSelectChange(value) {
 }
 
 function setSubTableColumns(value) {
-  for (var item in props.tables) {
+  for (let item in props.tables) {
     const name = props.tables[item].tableName
     if (value === name) {
       subColumns.value = props.tables[item].columns

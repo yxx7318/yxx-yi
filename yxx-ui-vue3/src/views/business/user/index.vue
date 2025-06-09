@@ -17,11 +17,11 @@
           @keyup.enter="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="注册时间" style="width: 308px">
+      <el-form-item label="注册时间">
         <el-date-picker
-          v-model="daterangeRegisterTime"
-          value-format="YYYY-MM-DD"
-          type="daterange"
+          v-model="datetimerangeRegisterTime"
+          value-format="YYYY-MM-DD HH:mm:ss"
+          type="datetimerange"
           range-separator="-"
           start-placeholder="开始日期"
           end-placeholder="结束日期"
@@ -65,6 +65,15 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
+          type="info"
+          plain
+          icon="Upload"
+          @click="upload.open = true"
+          v-hasPermi="['business:user:import']"
+        >导入</el-button>
+      </el-col>
+      <el-col :span="1.5">
+        <el-button
           type="warning"
           plain
           icon="Download"
@@ -80,11 +89,7 @@
       <el-table-column label="用户ID" align="center" prop="userId" />
       <el-table-column label="用户账号" align="center" prop="userName" />
       <el-table-column label="密码" align="center" prop="password" />
-      <el-table-column label="注册时间" align="center" prop="registerTime" width="180">
-        <template #default="scope">
-          <span>{{ parseTime(scope.row.registerTime, '{y}-{m}-{d}') }}</span>
-        </template>
-      </el-table-column>
+      <el-table-column label="注册时间" align="center" prop="registerTime" />
       <el-table-column label="帐号状态" align="center" prop="status" />
       <el-table-column label="备注" align="center" prop="remark" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
@@ -115,8 +120,8 @@
         <el-form-item label="注册时间" prop="registerTime">
           <el-date-picker clearable
             v-model="form.registerTime"
-            type="date"
-            value-format="YYYY-MM-DD"
+            type="datetime"
+            value-format="YYYY-MM-DD HH:mm:ss"
             placeholder="请选择注册时间">
           </el-date-picker>
         </el-form-item>
@@ -131,24 +136,44 @@
         </div>
       </template>
     </el-dialog>
+
+    <!-- 导入测试用户对话框 -->
+    <excel-upload
+      :title="upload.title"
+      :uploadUrl="upload.url"
+      :open="upload.open"
+      @uploadClose="upload.open = false"
+      @handleFileSuccess="getList">
+    </excel-upload>
   </div>
 </template>
 
 <script setup name="User">
-import { listUser, getUser, delUser, addUser, updateUser } from "@/api/business/user";
+import { listUser, getUser, delUser, addUser, updateUser } from "@/api/business/user"
 
-const { proxy } = getCurrentInstance();
+const { proxy } = getCurrentInstance()
 
-const userList = ref([]);
-const open = ref(false);
-const loading = ref(true);
-const showSearch = ref(true);
-const ids = ref([]);
-const single = ref(true);
-const multiple = ref(true);
-const total = ref(0);
-const title = ref("");
-const daterangeRegisterTime = ref([]);
+const userList = ref([])
+const open = ref(false)
+const loading = ref(true)
+const showSearch = ref(true)
+const ids = ref([])
+const single = ref(true)
+const multiple = ref(true)
+const total = ref(0)
+const title = ref("")
+// 备注时间范围
+const datetimerangeRegisterTime = ref([])
+
+// 导入Excel参数
+const upload = ref({
+  // 是否显示弹出层
+  open: false,
+    // 弹出层标题
+    title: "测试用户导入",
+    // 上传的地址
+    url: "/business/user/importData"
+})
 
 const data = reactive({
   form: {},
@@ -165,29 +190,29 @@ const data = reactive({
       { required: true, message: "用户账号不能为空", trigger: "blur" }
     ],
   }
-});
+})
 
-const { queryParams, form, rules } = toRefs(data);
+const { queryParams, form, rules } = toRefs(data)
 
 /** 查询测试用户列表 */
 function getList() {
-  loading.value = true;
-  queryParams.value.params = {};
-  if (null != daterangeRegisterTime && '' != daterangeRegisterTime) {
-    queryParams.value.params["beginRegisterTime"] = daterangeRegisterTime.value[0];
-    queryParams.value.params["endRegisterTime"] = daterangeRegisterTime.value[1];
+  loading.value = true
+  queryParams.value.params = {}
+  if (null != datetimerangeRegisterTime && '' != datetimerangeRegisterTime) {
+    queryParams.value.params["beginRegisterTime"] = datetimerangeRegisterTime.value[0]
+    queryParams.value.params["endRegisterTime"] = datetimerangeRegisterTime.value[1]
   }
   listUser(queryParams.value).then(response => {
-    userList.value = response.rows;
-    total.value = Number(response.total);
-    loading.value = false;
-  });
+    userList.value = response.rows
+    total.value = Number(response.total)
+    loading.value = false
+  })
 }
 
 // 取消按钮
 function cancel() {
-  open.value = false;
-  reset();
+  open.value = false
+  reset()
 }
 
 // 表单重置
@@ -203,46 +228,46 @@ function reset() {
     updateBy: null,
     updateTime: null,
     remark: null
-  };
-  proxy.resetForm("userRef");
+  }
+  proxy.resetForm("userRef")
 }
 
 /** 搜索按钮操作 */
 function handleQuery() {
-  queryParams.value.pageNum = 1;
-  getList();
+  queryParams.value.pageNum = 1
+  getList()
 }
 
 /** 重置按钮操作 */
 function resetQuery() {
-  daterangeRegisterTime.value = [];
-  proxy.resetForm("queryRef");
-  handleQuery();
+  datetimerangeRegisterTime.value = []
+  proxy.resetForm("queryRef")
+  handleQuery()
 }
 
 // 多选框选中数据
 function handleSelectionChange(selection) {
-  ids.value = selection.map(item => item.userId);
-  single.value = selection.length != 1;
-  multiple.value = !selection.length;
+  ids.value = selection.map(item => item.userId)
+  single.value = selection.length != 1
+  multiple.value = !selection.length
 }
 
 /** 新增按钮操作 */
 function handleAdd() {
-  reset();
-  open.value = true;
-  title.value = "添加测试用户";
+  reset()
+  open.value = true
+  title.value = "添加测试用户"
 }
 
 /** 修改按钮操作 */
 function handleUpdate(row) {
-  reset();
+  reset()
   const _userId = row.userId || ids.value
   getUser(_userId).then(response => {
-    form.value = response.data;
-    open.value = true;
-    title.value = "修改测试用户";
-  });
+    form.value = response.data
+    open.value = true
+    title.value = "修改测试用户"
+  })
 }
 
 /** 提交按钮 */
@@ -251,38 +276,38 @@ function submitForm() {
     if (valid) {
       if (form.value.userId != null) {
         updateUser(form.value).then(response => {
-          proxy.$modal.msgSuccess("修改成功");
-          open.value = false;
-          getList();
-        });
+          proxy.$modal.msgSuccess("修改成功")
+          open.value = false
+          getList()
+        })
       } else {
         addUser(form.value).then(response => {
-          proxy.$modal.msgSuccess("新增成功");
-          open.value = false;
-          getList();
-        });
+          proxy.$modal.msgSuccess("新增成功")
+          open.value = false
+          getList()
+        })
       }
     }
-  });
+  })
 }
 
 /** 删除按钮操作 */
 function handleDelete(row) {
-  const _userIds = row.userId || ids.value;
+  const _userIds = row.userId || ids.value
   proxy.$modal.confirm('是否确认删除测试用户编号为"' + _userIds + '"的数据项？').then(function() {
-    return delUser(_userIds);
+    return delUser(_userIds)
   }).then(() => {
-    getList();
-    proxy.$modal.msgSuccess("删除成功");
-  }).catch(() => {});
+    getList()
+    proxy.$modal.msgSuccess("删除成功")
+  }).catch(() => {})
 }
 
 /** 导出按钮操作 */
 function handleExport() {
   proxy.download('business/user/export', {
     ...queryParams.value
-  }, `user_${proxy.parseTime(new Date())}.xlsx`)
+  }, `user_export_${proxy.parseTime(new Date())}.xlsx`)
 }
 
-getList();
+getList()
 </script>

@@ -325,7 +325,7 @@ export default {
     handleExport() {
       this.download('business/user/export', {
         ...this.queryParams
-      }, `user_${this.parseTime(new Date())}.xlsx`)
+      }, `user_export_${this.parseTime(new Date())}.xlsx`)
     }
   }
 }

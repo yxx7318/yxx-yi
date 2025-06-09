@@ -265,7 +265,7 @@ function handleClean() {
 function handleExport() {
   proxy.download("monitor/jobLog/export", {
     ...queryParams.value,
-  }, `job_log_${new Date().getTime()}.xlsx`)
+  }, `job_log_export_${proxy.parseTime(new Date())}.xlsx`)
 }
 
 (() => {

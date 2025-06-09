@@ -123,12 +123,12 @@
       </el-col>
       <el-col :span="1.5">
         <el-button
-            type="info"
-            plain
-            icon="el-icon-upload2"
-            size="mini"
-            @click="upload.open = true"
-            v-hasPermi="['temu:goods:import']"
+          type="info"
+          plain
+          icon="el-icon-upload2"
+          size="mini"
+          @click="upload.open = true"
+          v-hasPermi="['temu:goods:import']"
         >导入</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -457,7 +457,7 @@ export default {
       datetimerange${AttrName}: [],
 #end
 #end
-      // 商品导入参数
+      // 导入Excel参数
       upload: {
         // 是否显示弹出层
         open: false,
@@ -504,7 +504,7 @@ export default {
     getList() {
       this.loading = true
 #foreach ($column in $columns)
-#if($column.htmlType == "date" && $column.queryType == "BETWEEN")
+#if($column.queryType == "BETWEEN" && ($column.htmlType == "date" || $column.htmlType == "datetime"))
       this.queryParams.params = {}
 #break
 #end
@@ -516,12 +516,6 @@ export default {
         this.queryParams.params["begin${AttrName}"] = this.daterange${AttrName}[0]
         this.queryParams.params["end${AttrName}"] = this.daterange${AttrName}[1]
       }
-#end
-#end
-#foreach ($column in $columns)
-#if($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
-      this.queryParams.params = {}
-#break
 #end
 #end
 #foreach ($column in $columns)
@@ -572,8 +566,6 @@ export default {
 #set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
       this.daterange${AttrName} = []
 #end
-#end
-#foreach ($column in $columns)
 #if($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
 #set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
       this.datetimerange${AttrName} = []
@@ -687,7 +679,7 @@ export default {
     handleExport() {
       this.download('${moduleName}/${businessName}/export', {
         ...this.queryParams
-      }, `${businessName}_#[[${this.parseTime(new Date())}]]#.xlsx`)
+      }, `${businessName}_export_#[[${this.parseTime(new Date())}]]#.xlsx`)
     }
   }
 }

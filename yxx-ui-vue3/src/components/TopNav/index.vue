@@ -141,7 +141,7 @@ function handleSelect(key, keyPath) {
 }
 
 function activeRoutes(key) {
-  let routes = []
+  const routes = []
   if (childrenMenus.value && childrenMenus.value.length > 0) {
     childrenMenus.value.map((item) => {
       if (key == item.parentPath || (key == "index" && "" == item.path)) {
