@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageHelper;
 import com.yxx.common.core.domain.BaseEntity;
+import com.yxx.common.core.domain.PageQueryEntity;
 import com.yxx.common.core.domain.model.LoginUser;
 import com.yxx.common.core.page.PageDomain;
 import com.yxx.common.core.page.TableSupport;
@@ -114,19 +115,19 @@ public interface IServicePlus<T extends BaseEntity> extends IService<T> {
     /**
      * 获取MP通用分页结果
      *
-     * @param t 实体对象
+     * @param dto 条件对象
      * @return 分页结果
      */
-    public Page<T> getMpPage(T t);
+    public <DTO extends PageQueryEntity> Page<T> getMpPage(DTO dto);
 
     /**
      * 获取MP通用分页结果
      *
-     * @param t       实体对象
+     * @param dto     条件对象
      * @param wrapper 查询条件
      * @return 分页结果
      */
-    public Page<T> getMpPage(T t, Wrapper<T> wrapper);
+    public <DTO extends PageQueryEntity> Page<T> getMpPage(DTO dto, Wrapper<T> wrapper);
 
     /**
      * 获取转化后的VoList结果
@@ -136,7 +137,7 @@ public interface IServicePlus<T extends BaseEntity> extends IService<T> {
      * @param <VO>    VO对象
      * @return VoList
      */
-    public <VO> List<VO> getVoList(List<T> list, Class<VO> voClass);
+    public <VO> List<VO> convertVoList(List<T> list, Class<VO> voClass);
 
     /**
      * 获取转化后的VoList结果
@@ -146,7 +147,7 @@ public interface IServicePlus<T extends BaseEntity> extends IService<T> {
      * @param <VO>      VO对象
      * @return VoList
      */
-    public <VO> List<VO> getVoList(List<T> list, Function<T, VO> convertor);
+    public <VO> List<VO> convertVoList(List<T> list, Function<T, VO> convertor);
 
     /**
      * 获取到MyBatis基本分页结果，不包含行结果
@@ -155,14 +156,6 @@ public interface IServicePlus<T extends BaseEntity> extends IService<T> {
      * @return PageResult<VO>分页结果
      */
     public <VO> PageResult<VO> getMyBatisBasePageResult(List<T> list);
-
-    /**
-     * 获取MyBatis分页结果
-     *
-     * @param list    mybatis分页查询结果
-     * @return PageResult<VO>分页结果
-     */
-    public PageResult<T> getMyBatisPageResult(List<T> list);
 
     /**
      * 获取到MyBatis分页结果并转化为Vo对象分页结果
@@ -242,51 +235,51 @@ public interface IServicePlus<T extends BaseEntity> extends IService<T> {
     /**
      * 根据对象获取分页结果
      *
-     * @param t    查询条件对象，用于构建查询条件
+     * @param dto  分页对象
      * @param <VO> VO对象类型
      * @return 包含VO对象的分页结果 PageResult<VO>
      */
-    public <VO> PageResult<VO> getMpPageResult(T t);
+    public <DTO extends PageQueryEntity, VO> PageResult<VO> getMpPageResult(DTO dto);
 
     /**
      * 根据对象获取分页结果并转化目标VO类获取分页结果
      *
-     * @param t       查询条件对象，用于构建查询条件
+     * @param dto     分页对象
      * @param voClass 目标VO类的Class对象，用于将查询结果转换为目标VO类型
      * @param <VO>    VO对象类型
      * @return 包含VO对象的分页结果 PageResult<VO>
      */
-    public <VO> PageResult<VO> getMpPageResult(T t, Class<VO> voClass);
+    public <DTO extends PageQueryEntity, VO> PageResult<VO> getMpPageResult(DTO dto, Class<VO> voClass);
 
     /**
      * 根据对象获取分页结果并转化目标VO类获取分页结果
      *
-     * @param t         实体类
+     * @param dto       分页对象
      * @param convertor 自定义转换方法，用于将查询结果转换为目标VO类型
      * @param <VO>      VO对象类型
      * @return 包含VO对象的分页结果 PageResult<VO>
      */
-    public <VO> PageResult<VO> getMpPageResult(T t, Function<T, VO> convertor);
+    public <DTO extends PageQueryEntity, VO> PageResult<VO> getMpPageResult(DTO dto, Function<T, VO> convertor);
 
     /**
      * 根据对象和条件获取分页结果并转化目标VO类获取分页结果
      *
-     * @param t       实体类
+     * @param dto     分页对象
      * @param wrapper 查询条件
      * @param voClass 目标VO类的Class对象，用于将查询结果转换为目标VO类型
      * @param <VO>    VO对象类型
      * @return 包含VO对象的分页结果 PageResult<VO>
      */
-    public <VO> PageResult<VO> getMpPageResult(T t, Wrapper<T> wrapper, Class<VO> voClass);
+    public <DTO extends PageQueryEntity, VO> PageResult<VO> getMpPageResult(DTO dto, Wrapper<T> wrapper, Class<VO> voClass);
 
     /**
      * 根据对象和条件获取分页结果并转化目标VO类获取分页结果
      *
-     * @param t         实体类
+     * @param dto       分页对象
      * @param wrapper   查询条件
      * @param convertor 自定义转换方法，用于将查询结果转换为目标VO类型
      * @param <VO>      VO对象类型
      * @return 包含VO对象的分页结果 PageResult<VO>
      */
-    public <VO> PageResult<VO> getMpPageResult(T t, Wrapper<T> wrapper, Function<T, VO> convertor);
+    public <DTO extends PageQueryEntity, VO> PageResult<VO> getMpPageResult(DTO dto, Wrapper<T> wrapper, Function<T, VO> convertor);
 }

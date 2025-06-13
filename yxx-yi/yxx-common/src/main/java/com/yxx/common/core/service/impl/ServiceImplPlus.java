@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageInfo;
 import com.yxx.common.core.domain.BaseEntity;
+import com.yxx.common.core.domain.PageQueryEntity;
 import com.yxx.common.core.service.IServicePlus;
 import com.yxx.common.core.domain.PageResult;
 import com.yxx.common.core.mapper.BaseMapperPlus;
@@ -79,23 +80,23 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseEntity> 
      * 获取MP通用分页结果
      */
     @Override
-    public Page<T> getMpPage(T t) {
-        return this.getMpPage(t, null);
+    public <DTO extends PageQueryEntity> Page<T> getMpPage(DTO dto) {
+        return this.getMpPage(dto, null);
     }
 
     /**
      * 获取MP分页结果
      */
     @Override
-    public Page<T> getMpPage(T t, Wrapper<T> wrapper) {
-        return MpPageUtils.getSelectPage(t, this.baseMapper, wrapper);
+    public <DTO extends PageQueryEntity> Page<T> getMpPage(DTO dto, Wrapper<T> wrapper) {
+        return MpPageUtils.getSelectPage(dto, this.baseMapper, wrapper);
     }
 
     /**
      * 获取转化后的VoList结果
      */
     @Override
-    public <VO> List<VO> getVoList(List<T> list, Class<VO> voClass) {
+    public <VO> List<VO> convertVoList(List<T> list, Class<VO> voClass) {
         if (CollUtil.isEmpty(list)) {
             return Collections.emptyList();
         }
@@ -106,7 +107,7 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseEntity> 
      * 获取转化后的VoList结果
      */
     @Override
-    public <VO> List<VO> getVoList(List<T> list, Function<T, VO> convertor) {
+    public <VO> List<VO> convertVoList(List<T> list, Function<T, VO> convertor) {
         if (CollUtil.isEmpty(list)) {
             return Collections.emptyList();
         }
@@ -126,23 +127,13 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseEntity> 
     }
 
     /**
-     * 获取MyBatis分页结果
-     */
-    @Override
-    public PageResult<T> getMyBatisPageResult(List<T> list) {
-        PageResult<T> result = getMyBatisBasePageResult(list);
-        result.setRows(list);
-        return result;
-    }
-
-    /**
      * 获取到MyBatis分页结果并转化为Vo对象分页结果
      */
     @Override
     public <VO> PageResult<VO> getMyBatisPageResult(List<T> list, Class<VO> voClass) {
         PageResult<VO> result = getMyBatisBasePageResult(list);
         // 复制到VO中
-        result.setRows(getVoList(list, voClass));
+        result.setRows(convertVoList(list, voClass));
         return result;
     }
 
@@ -153,7 +144,7 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseEntity> 
     public <VO> PageResult<VO> getMyBatisPageResult(List<T> list, Function<T, VO> convertor) {
         PageResult<VO> result = getMyBatisBasePageResult(list);
         // 使用转换器自定义Vo的处理
-        result.setRows(getVoList(list, convertor));
+        result.setRows(convertVoList(list, convertor));
         return result;
     }
 
@@ -203,32 +194,32 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseEntity> 
      * 根据对象获取分页结果
      */
     @Override
-    public <VO> PageResult<VO> getMpPageResult(T t) {
-        return MpPageUtils.dealWith(this.getMpPage(t));
+    public <DTO extends PageQueryEntity, VO> PageResult<VO> getMpPageResult(DTO dto) {
+        return MpPageUtils.dealWith(this.getMpPage(dto));
     }
 
     /**
      * 根据对象获取分页结果并转化目标VO类获取分页结果
      */
     @Override
-    public <VO> PageResult<VO> getMpPageResult(T t, Class<VO> voClass) {
-        return getMpPageResult(t, null, voClass);
+    public <DTO extends PageQueryEntity, VO> PageResult<VO> getMpPageResult(DTO dto, Class<VO> voClass) {
+        return getMpPageResult(dto, null, voClass);
     }
 
     /**
      * 根据对象获取分页结果并转化目标VO类获取分页结果
      */
     @Override
-    public <VO> PageResult<VO> getMpPageResult(T t, Function<T, VO> convertor) {
-        return getMpPageResult(t, null, convertor);
+    public <DTO extends PageQueryEntity, VO> PageResult<VO> getMpPageResult(DTO dto, Function<T, VO> convertor) {
+        return getMpPageResult(dto, null, convertor);
     }
 
     /**
      * 根据对象和条件获取分页结果并转化目标VO类获取分页结果
      */
     @Override
-    public <VO> PageResult<VO> getMpPageResult(T t, Wrapper<T> wrapper, Class<VO> voClass) {
-        Page<T> page = this.getMpPage(t, wrapper);
+    public <DTO extends PageQueryEntity, VO> PageResult<VO> getMpPageResult(DTO dto, Wrapper<T> wrapper, Class<VO> voClass){
+        Page<T> page = this.getMpPage(dto, wrapper);
         return MpPageUtils.of(page, voClass);
     }
 
@@ -236,8 +227,8 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseEntity> 
      * 根据对象和条件获取分页结果并转化目标VO类获取分页结果
      */
     @Override
-    public <VO> PageResult<VO> getMpPageResult(T t, Wrapper<T> wrapper, Function<T, VO> convertor) {
-        Page<T> page = this.getMpPage(t, wrapper);
+    public <DTO extends PageQueryEntity, VO> PageResult<VO> getMpPageResult(DTO dto, Wrapper<T> wrapper, Function<T, VO> convertor) {
+        Page<T> page = this.getMpPage(dto, wrapper);
         return MpPageUtils.of(page, convertor);
     }
 

@@ -137,6 +137,9 @@ public class VelocityUtils
         }
         List<String> templates = new ArrayList<String>();
         templates.add(basePath + "java/domain.java.vm");
+        templates.add(basePath + "java/domain-dto.java.vm");
+        templates.add(basePath + "java/domain-vo.java.vm");
+        templates.add(basePath + "java/domain-edit.java.vm");
         templates.add(basePath + "java/mapper.java.vm");
         templates.add(basePath + "java/service.java.vm");
         templates.add(basePath + "java/serviceImpl.java.vm");
@@ -183,6 +186,18 @@ public class VelocityUtils
         if (template.contains("domain.java.vm"))
         {
             fileName = StringUtils.format("{}/domain/{}.java", javaPath, className);
+        }
+        if (template.contains("domain-dto.java.vm"))
+        {
+            fileName = StringUtils.format("{}/domain/{}.java", javaPath, className + "Dto");
+        }
+        if (template.contains("domain-vo.java.vm"))
+        {
+            fileName = StringUtils.format("{}/domain/{}.java", javaPath, className + "Vo");
+        }
+        if (template.contains("domain-edit.java.vm"))
+        {
+            fileName = StringUtils.format("{}/domain/{}.java", javaPath, className + "EditDto");
         }
         if (template.contains("sub-domain.java.vm") && StringUtils.equals(GenConstants.TPL_SUB, genTable.getTplCategory()))
         {

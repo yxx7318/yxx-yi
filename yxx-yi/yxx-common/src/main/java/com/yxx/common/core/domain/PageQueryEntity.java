@@ -12,7 +12,8 @@ import java.io.Serializable;
  * 分页查询条件对象，用于封装分页请求中的参数
  */
 @Data
-public class PageQueryEntity implements Serializable {
+public class PageQueryEntity implements Serializable
+{
 
     private static final long serialVersionUID = 1L;
 
