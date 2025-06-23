@@ -206,9 +206,6 @@ export function tansParams(params) {
       }
     }
   }
-  if (result.endsWith("&")) {
-    result = result.slice(0, -1)
-  }
   return result
 }
 
