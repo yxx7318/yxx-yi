@@ -1,0 +1,56 @@
+package ${packageName}.domain;
+
+#foreach ($import in $importList)
+import ${import};
+#end
+#if($table.crud || $table.sub)
+import com.yxx.common.core.domain.BaseEditDtoEntity;
+#elseif($table.tree)
+import com.yxx.common.core.domain.TreeEntity;
+#end
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.experimental.Accessors;
+import lombok.*;
+
+#foreach ($column in $columns)
+#if ($column.required)
+import javax.validation.constraints.NotNull;
+#break
+#end
+#end
+
+/**
+ * ${functionName}修改Dto对象 ${tableName}
+ *
+ * @author ${author}
+ * @date ${datetime}
+ */
+#if($table.crud || $table.sub)
+#set($Entity="BaseEditDtoEntity")
+#elseif($table.tree)
+#set($Entity="TreeEntity")
+#end
+@Schema(description = "${functionName}编辑实体")
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(callSuper = true)
+@Accessors(chain = true)
+@Builder
+@Data
+public class ${ClassName} extends ${Entity} {
+
+    private static final long serialVersionUID = 1L;
+
+#foreach ($column in $columns)
+#if(!$table.isSuperColumn($column.javaField))
+## 添加swagger
+    @Schema(description = "$column.columnComment")
+## 添加校验
+#if($column.required)
+    @NotNull(message = "$column.columnComment不能为空")
+#end
+    private $column.javaType $column.javaField;
+
+#end
+#end
+}
