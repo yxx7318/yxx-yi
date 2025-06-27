@@ -8,7 +8,6 @@ import java.nio.charset.Charset;
 import java.text.NumberFormat;
 import java.util.Set;
 import com.yxx.common.utils.StringUtils;
-import org.apache.commons.lang3.ArrayUtils;
 
 /**
  * 类型转换器

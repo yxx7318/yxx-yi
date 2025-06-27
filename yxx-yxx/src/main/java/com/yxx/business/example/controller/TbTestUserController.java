@@ -19,6 +19,9 @@ import com.yxx.common.annotation.Log;
 import com.yxx.common.core.controller.BaseControllerPlus;
 import com.yxx.common.enums.BusinessType;
 import com.yxx.business.example.domain.TbTestUser;
+import com.yxx.business.example.domain.TbTestUserQueryDto;
+import com.yxx.business.example.domain.TbTestUserEditDto;
+import com.yxx.business.example.domain.TbTestUserVo;
 import com.yxx.business.example.service.ITbTestUserService;
 import com.yxx.common.utils.poi.ExcelUtil;
 import com.yxx.common.core.domain.R;
@@ -47,14 +50,14 @@ public class TbTestUserController extends BaseControllerPlus {
     @Operation(summary = "查询--测试用户列表")
     @PreAuthorize("@ss.hasPermi('business:user:list')")
     @GetMapping("/list")
-    public PageResult<TbTestUser> list(@ParameterObject TbTestUser tbTestUser) {
-        return tbTestUserService.selectTbTestUserPage(tbTestUser);
+    public PageResult<TbTestUserVo> list(@ParameterObject TbTestUserQueryDto tbTestUser) {
+        return tbTestUserService.selectTbTestUserVoPage(tbTestUser);
     }
 
     @Operation(summary = "查询--测试用户单个")
     @PreAuthorize("@ss.hasPermi('business:user:query')")
-    @GetMapping(value = "/{userId}")
-    public R<TbTestUser> getInfo(@PathVariable Long userId) {
+    @GetMapping("/{userId}")
+    public R<TbTestUserVo> getInfo(@PathVariable Long userId) {
         return R.ok(tbTestUserService.selectTbTestUserByUserId(userId));
     }
 
@@ -62,16 +65,16 @@ public class TbTestUserController extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('business:user:add')")
     @Log(title = "测试用户", businessType = BusinessType.INSERT)
     @PostMapping
-    public R<String> add(@RequestBody @Validated TbTestUser tbTestUser) {
+    public R<String> add(@RequestBody @Validated TbTestUserEditDto tbTestUser) {
         return toResult(tbTestUserService.insertTbTestUser(tbTestUser));
     }
 
     @Operation(summary = "修改--测试用户")
     @PreAuthorize("@ss.hasPermi('business:user:edit')")
     @Log(title = "测试用户", businessType = BusinessType.UPDATE)
-    @PutMapping
-    public R<String> update(@RequestBody @Validated TbTestUser tbTestUser) {
-        return toResult(tbTestUserService.updateTbTestUser(tbTestUser));
+    @PutMapping("/{userId}")
+    public R<String> update(@PathVariable Long userId, @RequestBody @Validated TbTestUserEditDto tbTestUser) {
+        return toResult(tbTestUserService.updateTbTestUser(userId, tbTestUser));
     }
 
     @Operation(summary = "删除--测试用户")
@@ -86,7 +89,7 @@ public class TbTestUserController extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('business:user:export')")
     @Log(title = "测试用户", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, @ParameterObject TbTestUser tbTestUser) {
+    public void export(HttpServletResponse response, @ParameterObject TbTestUserQueryDto tbTestUser) {
         List<TbTestUser> list = tbTestUserService.selectTbTestUserList(tbTestUser);
         ExcelUtil<TbTestUser> util = new ExcelUtil<>(TbTestUser.class);
         util.exportExcel(response, list, "测试用户数据");

@@ -10,6 +10,9 @@ import lombok.RequiredArgsConstructor;
 import com.yxx.common.core.service.impl.ServiceImplPlus;
 import com.yxx.business.example.mapper.TbTestUserMapper;
 import com.yxx.business.example.domain.TbTestUser;
+import com.yxx.business.example.domain.TbTestUserQueryDto;
+import com.yxx.business.example.domain.TbTestUserEditDto;
+import com.yxx.business.example.domain.TbTestUserVo;
 import com.yxx.business.example.service.ITbTestUserService;
 
 /**
@@ -28,26 +31,37 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
     /**
      * 查询测试用户分页结果
      *
-     * @param tbTestUser 测试用户
+     * @param tbTestUserQueryDto 测试用户查询实体
      * @return 测试用户
      */
     @Override
-    public PageResult<TbTestUser> selectTbTestUserPage(TbTestUser tbTestUser) {
+    public PageResult<TbTestUserVo> selectTbTestUserVoPage(TbTestUserQueryDto tbTestUserQueryDto) {
         startPage();
-        PageResult<TbTestUser> page = getMyBatisPageResult(tbTestUserMapper.selectTbTestUserList(tbTestUser));
+        PageResult<TbTestUserVo> page = getMyBatisPageResult(selectTbTestUserList(tbTestUserQueryDto), TbTestUserVo.class);
         clearPage();
         return page;
     }
 
     /**
-     * 查询测试用户列表
+     * 查询测试用户Vo列表
      *
-     * @param tbTestUser 测试用户
+     * @param tbTestUserQueryDto 测试用户查询实体
      * @return 测试用户
      */
     @Override
-    public List<TbTestUser> selectTbTestUserList(TbTestUser tbTestUser) {
-        return tbTestUserMapper.selectTbTestUserList(tbTestUser);
+    public List<TbTestUserVo> selectTbTestUserVoList(TbTestUserQueryDto tbTestUserQueryDto) {
+        return convertVoList(selectTbTestUserList(tbTestUserQueryDto), TbTestUserVo.class);
+    }
+
+    /**
+     * 查询测试用户列表
+     *
+     * @param tbTestUserQueryDto 测试用户查询实体
+     * @return 测试用户
+     */
+    @Override
+    public List<TbTestUser> selectTbTestUserList(TbTestUserQueryDto tbTestUserQueryDto) {
+        return tbTestUserMapper.selectTbTestUserList(tbTestUserQueryDto);
     }
 
     /**
@@ -57,34 +71,34 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
      * @return 测试用户
      */
     @Override
-    public TbTestUser selectTbTestUserByUserId(Long userId) {
-        return tbTestUserMapper.selectTbTestUserByUserId(userId);
+    public TbTestUserVo selectTbTestUserByUserId(Long userId) {
+        return super.convertBean(tbTestUserMapper.selectTbTestUserByUserId(userId), TbTestUserVo.class);
     }
 
     /**
      * 新增测试用户
      *
-     * @param tbTestUser 测试用户
+     * @param tbTestUserEditDto 测试用户编辑实体
      * @return 结果
      */
     @Override
-    public int insertTbTestUser(TbTestUser tbTestUser) {
-        tbTestUser.setCreateBy(getUserNameOrNotLogged());
-        tbTestUser.setCreateTime(DateUtils.getNowDate());
-        return tbTestUserMapper.insertTbTestUser(tbTestUser);
+    public int insertTbTestUser(TbTestUserEditDto tbTestUserEditDto) {
+        tbTestUserEditDto.setCreateBy(getUserNameOrNotLogged());
+        tbTestUserEditDto.setCreateTime(DateUtils.getNowDate());
+        return tbTestUserMapper.insertTbTestUser(super.convertT(tbTestUserEditDto));
     }
 
     /**
      * 修改测试用户
      *
-     * @param tbTestUser 测试用户
+     * @param tbTestUserEditDto 测试用户编辑实体
      * @return 结果
      */
     @Override
-    public int updateTbTestUser(TbTestUser tbTestUser) {
-        tbTestUser.setUpdateBy(getUserNameOrNotLogged());
-        tbTestUser.setUpdateTime(DateUtils.getNowDate());
-        return tbTestUserMapper.updateTbTestUser(tbTestUser);
+    public int updateTbTestUser(Long userId, TbTestUserEditDto tbTestUserEditDto) {
+        tbTestUserEditDto.setUpdateBy(getUserNameOrNotLogged());
+        tbTestUserEditDto.setUpdateTime(DateUtils.getNowDate());
+        return tbTestUserMapper.updateTbTestUser(super.convertT(tbTestUserEditDto).setUserId(userId));
     }
 
     /**

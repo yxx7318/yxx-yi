@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.PageInfo;
-import com.yxx.common.core.domain.BaseEntity;
+import com.yxx.common.core.domain.BaseColumnEntity;
 import com.yxx.common.core.domain.PageQueryEntity;
 import com.yxx.common.core.service.IServicePlus;
 import com.yxx.common.core.domain.PageResult;
@@ -27,7 +27,7 @@ import java.util.stream.Collectors;
  * @param <T> 数据库实体类
  * @author yxx
  */
-public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseEntity> extends ServiceImpl<M, T> implements IServicePlus<T> {
+public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseColumnEntity> extends ServiceImpl<M, T> implements IServicePlus<T> {
 
     /**
      * 获取自注入spring管理的bean
@@ -39,10 +39,10 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseEntity> 
     }
 
     /**
-     * 获取转化后的Vo结果
+     * 获取转化后的Po结果
      */
     @Override
-    public <VO> VO getVo(T t, Class<VO> voClass) {
+    public <PO> PO convertBean(T t, Class<PO> voClass) {
         if (ObjectUtils.isEmpty(t)) {
             return null;
         }
@@ -50,14 +50,19 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseEntity> 
     }
 
     /**
-     * 获取转化后的Vo结果
+     * 获取转化后的Po结果
      */
     @Override
-    public <VO> VO getVo(T t, Function<T, VO> convertor) {
+    public <PO> PO convertBean(T t, Function<T, PO> convertor) {
         if (ObjectUtils.isEmpty(t)) {
             return null;
         }
         return convertor.apply(t);
+    }
+
+    @Override
+    public <PO> T convertT(PO po) {
+        return BeanUtil.copyProperties(po, super.getEntityClass());
     }
 
     /**

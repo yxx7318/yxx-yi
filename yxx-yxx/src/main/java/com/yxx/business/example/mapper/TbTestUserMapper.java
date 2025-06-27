@@ -3,6 +3,7 @@ package com.yxx.business.example.mapper;
 import java.util.List;
 
 import com.yxx.business.example.domain.TbTestUser;
+import com.yxx.business.example.domain.TbTestUserQueryDto;
 import com.yxx.common.core.mapper.BaseMapperPlus;
 
 /**
@@ -15,10 +16,10 @@ public interface TbTestUserMapper extends BaseMapperPlus<TbTestUser> {
     /**
      * 查询测试用户列表
      *
-     * @param tbTestUser 测试用户
+     * @param tbTestUserQueryDto 测试用户
      * @return 测试用户集合
      */
-    public List<TbTestUser> selectTbTestUserList(TbTestUser tbTestUser);
+    public List<TbTestUser> selectTbTestUserList(TbTestUserQueryDto tbTestUserQueryDto);
 
     /**
      * 查询测试用户

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageHelper;
+import com.yxx.common.core.domain.BaseColumnEntity;
 import com.yxx.common.core.domain.BaseEntity;
 import com.yxx.common.core.domain.PageQueryEntity;
 import com.yxx.common.core.domain.model.LoginUser;
@@ -17,6 +18,7 @@ import com.yxx.common.core.domain.PageResult;
 
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * MyBatisPlus二次增强接口
@@ -24,7 +26,7 @@ import java.util.function.Function;
  * @param <T> 数据库实体类
  * @author yxx
  */
-public interface IServicePlus<T extends BaseEntity> extends IService<T> {
+public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
     /**
      * 设置请求分页数据
      */
@@ -84,14 +86,19 @@ public interface IServicePlus<T extends BaseEntity> extends IService<T> {
     public IServicePlus<T> getSelfBean();
 
     /**
-     * 获取转化后的Vo结果
+     * 获取转化后的Po结果
      */
-    public <VO> VO getVo(T t, Class<VO> voClass);
+    public <PO> PO convertBean(T t, Class<PO> voClass);
 
     /**
-     * 获取转化后的Vo结果
+     * 获取转化后的Po结果
      */
-    public <VO> VO getVo(T t, Function<T, VO> convertor);
+    public <PO> PO convertBean(T t, Function<T, PO> convertor);
+
+    /**
+     * 获取转化后的T结果
+     */
+    public <PO> T convertT(PO po);
 
     /**
      * 获取MP通用分页结果
