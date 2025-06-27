@@ -2,7 +2,7 @@
   <i-frame :src="url" />
 </template>
 <script>
-import iFrame from "@/components/iFrame/index";
+import iFrame from "@/components/iFrame/index"
 export default {
   name: "Knife",
   components: { iFrame },
@@ -11,5 +11,5 @@ export default {
       url: process.env.VUE_APP_BASE_API + "/doc.html"
     };
   },
-};
+}
 </script>

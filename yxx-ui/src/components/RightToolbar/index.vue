@@ -12,9 +12,14 @@
         <el-dropdown trigger="click" :hide-on-click="false" style="padding-left: 12px" v-if="showColumnsType == 'checkbox'">
           <el-button size="mini" circle icon="el-icon-menu" />
           <el-dropdown-menu slot="dropdown">
+            <!-- 全选/反选 按钮 -->
+            <el-dropdown-item>
+              <el-checkbox :indeterminate="isIndeterminate" v-model="isChecked" @change="toggleCheckAll"> 列展示 </el-checkbox>
+            </el-dropdown-item>
+            <div class="check-line"></div>
             <template v-for="item in columns">
               <el-dropdown-item :key="item.key">
-                <el-checkbox :checked="item.visible" @change="checkboxChange($event, item.label)" :label="item.label" />
+                <el-checkbox v-model="item.visible" @change="checkboxChange($event, item.label)" :label="item.label" />
               </el-dropdown-item>
             </template>
           </el-dropdown-menu>
@@ -41,50 +46,59 @@ export default {
       // 弹出层标题
       title: "显示/隐藏",
       // 是否显示弹出层
-      open: false,
-    };
+      open: false
+    }
   },
   props: {
     /* 是否显示检索条件 */
     showSearch: {
       type: Boolean,
-      default: true,
+      default: true
     },
     /* 显隐列信息 */
     columns: {
-      type: Array,
+      type: Array
     },
     /* 是否显示检索图标 */
     search: {
       type: Boolean,
-      default: true,
+      default: true
     },
     /* 显隐列类型（transfer穿梭框、checkbox复选框） */
     showColumnsType: {
       type: String,
-      default: "checkbox",
+      default: "checkbox"
     },
     /* 右外边距 */
     gutter: {
       type: Number,
-      default: 10,
+      default: 10
     },
   },
   computed: {
     style() {
-      const ret = {};
+      const ret = {}
       if (this.gutter) {
-        ret.marginRight = `${this.gutter / 2}px`;
+        ret.marginRight = `${this.gutter / 2}px`
       }
-      return ret;
+      return ret
+    },
+    isChecked: {
+      get() {
+        return this.columns.every((col) => col.visible)
+      },
+      set() {}
+    },
+    isIndeterminate() {
+      return this.columns.some((col) => col.visible) && !this.isChecked
     }
   },
   created() {
-    if (this.showColumnsType == 'transfer') {
+    if (this.showColumnsType === 'transfer') {
       // 显隐列初始默认隐藏列
       for (let item in this.columns) {
         if (this.columns[item].visible === false) {
-          this.value.push(parseInt(item));
+          this.value.push(parseInt(item))
         }
       }
     }
@@ -92,29 +106,34 @@ export default {
   methods: {
     // 搜索
     toggleSearch() {
-      this.$emit("update:showSearch", !this.showSearch);
+      this.$emit("update:showSearch", !this.showSearch)
     },
     // 刷新
     refresh() {
-      this.$emit("queryTable");
+      this.$emit("queryTable")
     },
     // 右侧列表元素变化
     dataChange(data) {
       for (let item in this.columns) {
-        const key = this.columns[item].key;
-        this.columns[item].visible = !data.includes(key);
+        const key = this.columns[item].key
+        this.columns[item].visible = !data.includes(key)
       }
     },
     // 打开显隐列dialog
     showColumn() {
-      this.open = true;
+      this.open = true
     },
-    // 勾选
+    // 单勾选
     checkboxChange(event, label) {
-      this.columns.filter(item => item.label == label)[0].visible = event;
+      this.columns.filter(item => item.label == label)[0].visible = event
+    },
+    // 切换全选/反选
+    toggleCheckAll() {
+      const newValue = !this.isChecked
+      this.columns.forEach((col) => (col.visible = newValue))
     }
   },
-};
+}
 </script>
 <style lang="scss" scoped>
 ::v-deep .el-transfer__button {
@@ -125,5 +144,11 @@ export default {
 }
 ::v-deep .el-transfer__button:first-child {
   margin-bottom: 10px;
+}
+.check-line {
+  width: 90%;
+  height: 1px;
+  background-color: #ccc;
+  margin: 3px auto;
 }
 </style>

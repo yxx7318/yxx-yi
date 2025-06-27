@@ -12,8 +12,8 @@
 </template>
 
 <script>
-import loginLeft from './loginLeft.vue';
-import registerRight from './registerRight.vue';
+import loginLeft from './loginLeft.vue'
+import registerRight from './registerRight.vue'
 
 export default {
   name: 'Register',
@@ -22,18 +22,18 @@ export default {
   data() {
     return {
       isMobile: false
-    };
+    }
   },
   mounted() {
-    this.checkScreenSize();
-    window.addEventListener('resize', this.checkScreenSize);
+    this.checkScreenSize()
+    window.addEventListener('resize', this.checkScreenSize)
   },
   beforeDestroy() {
-    window.removeEventListener('resize', this.checkScreenSize);
+    window.removeEventListener('resize', this.checkScreenSize)
   },
   methods: {
     checkScreenSize() {
-      this.isMobile = window.innerWidth < 768; // 768px通常是平板和手机屏幕的分界线
+      this.isMobile = window.innerWidth < 768 // 768px通常是平板和手机屏幕的分界线
     }
   }
 }

@@ -5,6 +5,7 @@
       :action="uploadFileUrl"
       :before-upload="handleBeforeUpload"
       :file-list="fileList"
+      :data="data"
       :limit="limit"
       :on-error="handleUploadError"
       :on-exceed="handleExceed"
@@ -47,6 +48,15 @@ export default {
   props: {
     // 值
     value: [String, Object, Array],
+    // 上传接口地址
+    action: {
+      type: String,
+      default: "/common/upload"
+    },
+    // 上传携带的参数
+    data: {
+      type: Object
+    },
     // 数量限制
     limit: {
       type: Number,
@@ -73,7 +83,7 @@ export default {
       number: 0,
       uploadList: [],
       baseUrl: process.env.VUE_APP_BASE_API,
-      uploadFileUrl: process.env.VUE_APP_BASE_API + "/common/upload", // 上传文件服务器地址
+      uploadFileUrl: process.env.VUE_APP_BASE_API + this.action, // 上传文件服务器地址
       headers: {
         Authorization: "Bearer " + getToken(),
       },

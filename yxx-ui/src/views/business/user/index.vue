@@ -96,7 +96,7 @@
       <el-table-column label="用户账号" align="center" prop="userName" />
       <el-table-column label="密码" align="center" prop="password" />
       <el-table-column label="注册时间" align="center" prop="registerTime" />
-      <el-table-column label="帐号状态" align="center" prop="status" />
+      <el-table-column label="账号状态" align="center" prop="status" />
       <el-table-column label="备注" align="center" prop="remark" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">

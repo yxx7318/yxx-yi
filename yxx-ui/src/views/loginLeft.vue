@@ -20,14 +20,14 @@
 </template>
 
 <script>
-import loginLogo from './loginLogo.vue';
+import loginLogo from './loginLogo.vue'
 export default {
   name: 'LoginLeft',
   // 注册组件
   components: {loginLogo},
   data() {
     return {
-    };
+    }
   },
   methods: {
   }
