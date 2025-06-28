@@ -22,6 +22,7 @@ const useSettingsStore = defineStore(
       tagsIcon: storageSetting.tagsIcon === undefined ? tagsIcon : storageSetting.tagsIcon,
       fixedHeader: storageSetting.fixedHeader === undefined ? fixedHeader : storageSetting.fixedHeader,
       sidebarLogo: storageSetting.sidebarLogo === undefined ? sidebarLogo : storageSetting.sidebarLogo,
+      dynamicTitle: showSettings.dynamicTitle === undefined ? dynamicTitle : showSettings.dynamicTitle,
       footerVisible: storageSetting.footerVisible === undefined ? footerVisible : storageSetting.footerVisible,
       footerContent: footerContent,
       isDark: isDark.value
