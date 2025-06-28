@@ -9,7 +9,7 @@ export default {
     return {
       // 版本号
       version: "3.8.9"
-    };
+    }
   },
   methods: {
   }

@@ -1,5 +1,5 @@
 <template>
-  <el-drawer size="280px" :visible="visible" :with-header="false" :append-to-body="true" :show-close="false">
+  <el-drawer size="280px" :visible="showSettings" :with-header="false" :append-to-body="true" :before-close="closeSetting">
     <div class="drawer-container">
       <div>
         <div class="setting-drawer-content">
@@ -9,7 +9,7 @@
           <div class="setting-drawer-block-checbox">
             <div class="setting-drawer-block-checbox-item" @click="handleTheme('theme-dark')">
               <img src="@/assets/images/dark.svg" alt="dark">
-              <div v-if="sideTheme === 'theme-dark'" class="setting-drawer-block-checbox-selectIcon" style="display: block">
+              <div v-if="sideTheme === 'theme-dark'" class="setting-drawer-block-checbox-selectIcon" style="display: block;">
                 <i aria-label="图标: check" class="anticon anticon-check">
                   <svg viewBox="64 64 896 896" data-icon="check" width="1em" height="1em" :fill="theme" aria-hidden="true" focusable="false" class="">
                     <path d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"/>
@@ -19,7 +19,7 @@
             </div>
             <div class="setting-drawer-block-checbox-item" @click="handleTheme('theme-light')">
               <img src="@/assets/images/light.svg" alt="light">
-              <div v-if="sideTheme === 'theme-light'" class="setting-drawer-block-checbox-selectIcon" style="display: block">
+              <div v-if="sideTheme === 'theme-light'" class="setting-drawer-block-checbox-selectIcon" style="display: block;">
                 <i aria-label="图标: check" class="anticon anticon-check">
                   <svg viewBox="64 64 896 896" data-icon="check" width="1em" height="1em" :fill="theme" aria-hidden="true" focusable="false" class="">
                     <path d="M912 190h-69.9c-9.8 0-19.1 4.5-25.1 12.2L404.7 724.5 207 474a32 32 0 0 0-25.1-12.2H112c-6.7 0-10.4 7.7-6.3 12.9l273.9 347c12.8 16.2 37.4 16.2 50.3 0l488.4-618.9c4.1-5.1.4-12.8-6.3-12.8z"/>
@@ -78,18 +78,15 @@ import ThemePicker from '@/components/ThemePicker'
 
 export default {
   components: { ThemePicker },
+  expose: ['openSetting'],
   data() {
     return {
       theme: this.$store.state.settings.theme,
-      sideTheme: this.$store.state.settings.sideTheme
+      sideTheme: this.$store.state.settings.sideTheme,
+      showSettings: false
     }
   },
   computed: {
-    visible: {
-      get() {
-        return this.$store.state.settings.showSettings
-      }
-    },
     fixedHeader: {
       get() {
         return this.$store.state.settings.fixedHeader
@@ -165,6 +162,12 @@ export default {
       })
       this.sideTheme = val
     },
+    openSetting() {
+      this.showSettings = true
+    },
+    closeSetting(){
+      this.showSettings = false
+    },
     saveSetting() {
       this.$modal.loading("正在保存到本地，请稍候...")
       this.$cache.local.set(
@@ -191,70 +194,70 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .setting-drawer-content {
-    .setting-drawer-title {
-      margin-bottom: 12px;
-      color: rgba(0, 0, 0, .85);
-      font-size: 14px;
-      line-height: 22px;
-      font-weight: bold;
-    }
+.setting-drawer-content {
+  .setting-drawer-title {
+    margin-bottom: 12px;
+    color: rgba(0, 0, 0, .85);
+    font-size: 14px;
+    line-height: 22px;
+    font-weight: bold;
+  }
 
-    .setting-drawer-block-checbox {
-      display: flex;
-      justify-content: flex-start;
-      align-items: center;
-      margin-top: 10px;
-      margin-bottom: 20px;
+  .setting-drawer-block-checbox {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-top: 10px;
+    margin-bottom: 20px;
 
-      .setting-drawer-block-checbox-item {
-        position: relative;
-        margin-right: 16px;
-        border-radius: 2px;
-        cursor: pointer;
+    .setting-drawer-block-checbox-item {
+      position: relative;
+      margin-right: 16px;
+      border-radius: 2px;
+      cursor: pointer;
 
-        img {
-          width: 48px;
-          height: 48px;
-        }
+      img {
+        width: 48px;
+        height: 48px;
+      }
 
-        .setting-drawer-block-checbox-selectIcon {
-          position: absolute;
-          top: 0;
-          right: 0;
-          width: 100%;
-          height: 100%;
-          padding-top: 15px;
-          padding-left: 24px;
-          color: #1890ff;
-          font-weight: 700;
-          font-size: 14px;
-        }
+      .setting-drawer-block-checbox-selectIcon {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        padding-top: 15px;
+        padding-left: 24px;
+        color: #1890ff;
+        font-weight: 700;
+        font-size: 14px;
       }
     }
   }
+}
 
-  .drawer-container {
-    padding: 20px;
+.drawer-container {
+  padding: 20px;
+  font-size: 14px;
+  line-height: 1.5;
+  word-wrap: break-word;
+
+  .drawer-title {
+    margin-bottom: 12px;
+    color: rgba(0, 0, 0, .85);
     font-size: 14px;
-    line-height: 1.5;
-    word-wrap: break-word;
-
-    .drawer-title {
-      margin-bottom: 12px;
-      color: rgba(0, 0, 0, .85);
-      font-size: 14px;
-      line-height: 22px;
-    }
-
-    .drawer-item {
-      color: rgba(0, 0, 0, .65);
-      font-size: 14px;
-      padding: 12px 0;
-    }
-
-    .drawer-switch {
-      float: right
-    }
+    line-height: 22px;
   }
+
+  .drawer-item {
+    color: rgba(0, 0, 0, .65);
+    font-size: 14px;
+    padding: 12px 0;
+  }
+
+  .drawer-switch {
+    float: right
+  }
+}
 </style>

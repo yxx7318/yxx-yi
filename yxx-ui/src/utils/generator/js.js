@@ -76,8 +76,8 @@ function buildAttributes(el, dataList, ruleList, optionsList, methodList, propsL
 }
 
 function mixinMethod(type) {
-  const list = []; const
-    minxins = {
+  const list = []
+  const minxins = {
       file: confGlobal.formBtns ? {
         submitForm: `submitForm() {
         this.$refs['${confGlobal.formRef}'].validate(valid => {
