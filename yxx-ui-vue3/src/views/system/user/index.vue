@@ -487,6 +487,11 @@ function submitForm() {
   })
 }
 
-getDeptTree()
-getList()
+onMounted(() => {
+  getDeptTree()
+  getList()
+  proxy.getConfigKey("sys.user.initPassword").then(response => {
+    initPassword.value = response.msg
+  })
+})
 </script>

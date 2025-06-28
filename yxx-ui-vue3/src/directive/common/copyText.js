@@ -1,7 +1,6 @@
 /**
 * v-copyText 复制文本内容
 */
-
 export default {
   beforeMount(el, { value, arg }) {
     if (arg === "callback") {

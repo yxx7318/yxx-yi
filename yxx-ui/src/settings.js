@@ -22,7 +22,7 @@ module.exports = {
   /**
    * 显示页签图标
    */
-  tagsIcon: false,
+  tagsIcon: true,
 
   /**
    * 是否固定头部
@@ -42,7 +42,7 @@ module.exports = {
   /**
    * 是否显示底部版权
    */
-  footerVisible: false,
+  footerVisible: true,
 
   /**
    * 底部版权文本内容

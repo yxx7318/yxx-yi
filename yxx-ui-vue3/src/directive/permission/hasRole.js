@@ -1,7 +1,6 @@
  /**
  * v-hasRole 角色权限处理
  */
- 
 import useUserStore from '@/store/modules/user'
 
 export default {
