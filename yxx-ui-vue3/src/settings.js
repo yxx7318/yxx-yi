@@ -38,15 +38,15 @@ export default {
   /**
    * 是否显示动态标题
    */
-  dynamicTitle: false,
+  dynamicTitle: true,
 
   /**
    * 是否显示底部版权
    */
-  footerVisible: false,
+  footerVisible: true,
 
   /**
    * 底部版权文本内容
    */
-  footerContent: 'Copyright © 2018-2025 RuoYi. All Rights Reserved.'
+  footerContent: 'Copyright © 2024-2025 YXX All rights reserved.'
 }
