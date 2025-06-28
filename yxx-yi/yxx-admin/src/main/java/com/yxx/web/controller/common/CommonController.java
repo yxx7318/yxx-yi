@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import com.yxx.common.config.YxxConfig;
-import com.yxx.common.constant.Constants;
 import com.yxx.common.core.domain.AjaxResult;
 import com.yxx.common.utils.StringUtils;
 import com.yxx.common.utils.file.FileUploadUtils;
@@ -146,7 +145,7 @@ public class CommonController
             // 本地资源路径
             String localPath = YxxConfig.getProfile();
             // 数据库资源地址
-            String downloadPath = localPath + StringUtils.substringAfter(resource, Constants.RESOURCE_PREFIX);
+            String downloadPath = localPath + FileUtils.stripPrefix(resource);
             // 下载名称
             String downloadName = StringUtils.substringAfterLast(downloadPath, "/");
             response.setContentType(MediaType.APPLICATION_OCTET_STREAM_VALUE);

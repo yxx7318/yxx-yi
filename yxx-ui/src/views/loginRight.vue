@@ -59,7 +59,7 @@
       </el-form>
       <!--  底部  -->
       <div class="el-login-footer">
-        <span>Copyright © 2024-2025 YXX All rights reserved.</span>
+        <span>{{ footerContent }}</span>
       </div>
     </div>
 </div>
@@ -70,11 +70,13 @@ import { getCodeImg } from "@/api/login"
 import Cookies from "js-cookie"
 import { encrypt, decrypt } from '@/utils/jsencrypt'
 import loginLogo from './loginLogo.vue'
+import { footerContent } from '@/settings'
+
 
 export default {
   name: "LoginRight",
   // 注册组件
-  components: {loginLogo},
+  components: { loginLogo },
   props: {
     isMobile: Boolean,
   },
@@ -102,7 +104,8 @@ export default {
       captchaEnabled: true,
       // 注册开关
       register: false,
-      redirect: undefined
+      redirect: undefined,
+      footerContent: footerContent
     }
   },
   watch: {
