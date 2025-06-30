@@ -201,8 +201,18 @@
                 <td class="el-table__cell is-leaf"><div class="cell" :class="{'text-danger': process.cpuUsagePercent > 80}">{{ process.cpuUsagePercent }}%</div></td>
                 <td class="el-table__cell is-leaf"><div class="cell">{{ process.startTime }}</div></td>
                 <td class="el-table__cell is-leaf"><div class="cell" :class="{'text-danger': process.state !== 'RUNNING' && process.state !== 'SLEEPING' }">{{ process.state }}</div></td>
-                <td class="el-table__cell is-leaf"><div class="cell" style="white-space: pre;width: 210px;">{{ process.commandLine }}</div></td>
-                <td class="el-table__cell is-leaf"><div class="cell" style="white-space: pre;width: 210px;">{{ process.listening }}</div></td>
+                <td class="el-table__cell is-leaf">
+                  <el-tooltip placement="top">
+                    <div slot="content" style="white-space: pre-line;">{{ process.commandLine }}</div>
+                    <div class="cell" style="white-space: pre;width: 210px;">{{ process.commandLine }}</div>
+                  </el-tooltip>
+                </td>
+                <td class="el-table__cell is-leaf">
+                  <el-tooltip placement="top">
+                    <div slot="content" style="white-space: pre-line;">{{ process.listening }}</div>
+                    <div class="cell" style="white-space: pre;width: 210px;">{{ process.listening }}</div>
+                  </el-tooltip>
+                </td>
               </tr>
               </tbody>
             </table>
