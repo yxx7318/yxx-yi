@@ -91,5 +91,5 @@ xss:
 
 # 监听服务
 server:
-  ports: [ 3306, 3308, 444, 80, 443 ]
-  appNames: [ "mysql", "nginx", "java", "php-fpm", "python" ]
+  ports: [ 3306, 3308, 444, 80, 443, 6379 ]
+  appNames: [ "mysql", "nginx", "java", "php-fpm", "python", "node", "redis" ]
