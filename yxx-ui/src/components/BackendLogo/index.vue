@@ -5,7 +5,7 @@
       <el-col>
         <!-- 中心背景图 -->
         <div style="display: flex; justify-content: center;">
-          <img src="../assets/svg/login-box-bg.svg" alt style="width: 360px; height: 360px;" />
+          <img src="../../assets/svg/login-box-bg.svg" alt style="width: 360px; height: 360px;" />
         </div>
       </el-col>
     </el-row>
@@ -20,11 +20,11 @@
 </template>
 
 <script>
-import loginLogo from './loginLogo.vue'
+import Index from '@/components/Logo/index.vue'
 export default {
   name: 'LoginLeft',
   // 注册组件
-  components: {loginLogo},
+  components: {loginLogo: Index},
   data() {
     return {
     }
