@@ -59,7 +59,7 @@ export function getCodeImg() {
   })
 }
 
-// 获取注册
+// 获取注册开关
 export function registerEnabled() {
   return request({
     url: '/register',
