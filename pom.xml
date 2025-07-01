@@ -18,6 +18,7 @@
         <java.version>1.8</java.version>
 
         <yxx.version>3.8.9</yxx.version>
+        <maven-compiler-plugin.version>3.1</maven-compiler-plugin.version>
         <spring-boot.version>2.5.15</spring-boot.version>
         <spring-framework.version>5.3.39</spring-framework.version>
         <spring-security.version>5.7.12</spring-security.version>
@@ -114,7 +115,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
