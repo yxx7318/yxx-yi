@@ -34,9 +34,10 @@ public class CaptchaController
 
     @Autowired
     private RedisCache redisCache;
-    
+
     @Autowired
     private ISysConfigService configService;
+
     /**
      * 生成验证码
      */

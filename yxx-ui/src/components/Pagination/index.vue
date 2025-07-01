@@ -17,6 +17,7 @@
 
 <script>
 import { scrollTo } from '@/utils/scroll-to'
+import { mobileFlag } from "@/utils/yxx"
 
 export default {
   name: 'Pagination',
@@ -42,7 +43,7 @@ export default {
     // 移动端页码按钮的数量端默认值5
     pagerCount: {
       type: Number,
-      default: document.body.clientWidth < 992 ? 5 : 7
+      default: mobileFlag() ? 5 : 7
     },
     layout: {
       type: String,

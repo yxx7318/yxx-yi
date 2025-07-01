@@ -95,6 +95,22 @@ public class SysConfigServiceImpl implements ISysConfigService
     }
 
     /**
+     * 获取注册开关
+     *
+     * @return true开启，false关闭
+     */
+    @Override
+    public boolean selectRegisterEnabled()
+    {
+        String captchaEnabled = selectConfigByKey("sys.account.registerUser");
+        if (StringUtils.isEmpty(captchaEnabled))
+        {
+            return false;
+        }
+        return Convert.toBool(captchaEnabled);
+    }
+
+    /**
      * 查询参数配置列表
      * 
      * @param config 参数配置信息

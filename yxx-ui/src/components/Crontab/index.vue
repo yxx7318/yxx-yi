@@ -414,7 +414,7 @@ export default {
 .popup-result table span {
   display: block;
   width: 100%;
-  font-family: arial;
+  font-family: Arial;
   line-height: 30px;
   height: 30px;
   white-space: nowrap;

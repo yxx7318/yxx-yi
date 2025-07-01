@@ -2,12 +2,12 @@
   <div style="height: 100vh">
     <el-row>
       <el-col :span="isMobile ? 0 : 12" v-show="!isMobile">
-        <login-left></login-left>
+        <system-background></system-background>
       </el-col>
       <el-col :span="isMobile ? 24 : 12">
-        <div :class="{'mobileLogin': isMobile}">
-          <login-logo v-show="isMobile"></login-logo>
-          <div :class="['register', isMobile ? 'MobileLogin' : 'noMobileLogin']">
+        <div>
+          <logo v-show="isMobile"></logo>
+          <div :class="['register', isMobile ? 'mobileLogin' : 'noMobileLogin']">
             <el-form ref="registerForm" :model="registerForm" :rules="registerRules" class="register-form">
               <h2 class="title">注 册</h2>
               <el-form-item prop="username">
@@ -78,16 +78,14 @@
 </template>
 
 <script>
-import BackendLogo from '../components/BackendLogo/index.vue'
-import Index from "@/components/Logo/index.vue"
-import { getCodeImg, register } from "@/api/login"
+import SystemBackground from '@/components/SystemBackground'
+import Logo from "@/components/Logo"
+import { getCodeImg, register, registerEnabled } from "@/api/login"
+import { mobileFlag } from "@/utils/yxx";
 
 export default {
   name: 'Register',
-  components: {
-    loginLeft: BackendLogo,
-    loginLogo: Index
-  },
+  components: { SystemBackground, Logo },
   data() {
     const equalToPassword = (rule, value, callback) => {
       if (this.registerForm.password !== value) {
@@ -137,7 +135,7 @@ export default {
   },
   methods: {
     checkScreenSize() {
-      this.isMobile = window.innerWidth < 768
+      this.isMobile = mobileFlag()
     },
     getCode() {
       getCodeImg().then(res => {

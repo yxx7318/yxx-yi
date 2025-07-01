@@ -2,12 +2,12 @@
   <div style="height: 100vh">
     <el-row>
       <el-col :span="isMobile ? 0 : 12" v-show="!isMobile">
-        <login-left></login-left>
+        <system-background></system-background>
       </el-col>
       <el-col :span="isMobile ? 24 : 12">
-        <div :class="{'mobileLogin': isMobile}">
-          <login-logo v-show="isMobile"></login-logo>
-          <div :class="['login', isMobile ? 'MobileLogin' : 'noMobileLogin']">
+        <div>
+          <logo v-show="isMobile"></logo>
+          <div :class="['login', isMobile ? 'mobileLogin' : 'noMobileLogin']">
             <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
               <h2 class="title">登 录</h2>
               <el-form-item prop="username">
@@ -42,7 +42,7 @@
                   <svg-icon slot="prefix" icon-class="validCode" class="el-input__icon input-icon" />
                 </el-input>
                 <div class="login-code">
-                  <img :src="codeUrl" @click="getCode" class="login-code-img"/>
+                  <img alt="please retry" :src="codeUrl" @click="getCode" class="login-code-img" />
                 </div>
               </el-form-item>
               <el-checkbox v-model="loginForm.rememberMe" style="margin:0px 0px 25px 0px">记住密码</el-checkbox>
@@ -73,19 +73,17 @@
 </template>
 
 <script>
-import BackendLogo from '../components/BackendLogo/index.vue'
-import Index from '../components/Logo/index.vue'
-import { getCodeImg } from "@/api/login"
+import SystemBackground from '@/components/SystemBackground'
+import Logo from '@/components/Logo'
+import { getCodeImg, registerEnabled } from "@/api/login"
 import Cookies from "js-cookie"
 import { encrypt, decrypt } from '@/utils/jsencrypt'
 import { footerContent } from '@/settings'
+import { mobileFlag } from "@/utils/yxx";
 
 export default {
   name: 'Login',
-  components: {
-    loginLeft: BackendLogo,
-    loginLogo: Index
-  },
+  components: { SystemBackground, Logo },
   data() {
     return {
       isMobile: false,
@@ -125,6 +123,7 @@ export default {
     this.checkScreenSize()
     window.addEventListener('resize', this.checkScreenSize)
     this.getCode()
+    this.getRegister()
     this.getCookie()
   },
   beforeDestroy() {
@@ -132,7 +131,7 @@ export default {
   },
   methods: {
     checkScreenSize() {
-      this.isMobile = window.innerWidth < 768
+      this.isMobile = mobileFlag()
     },
     getCode() {
       getCodeImg().then(res => {
@@ -141,6 +140,11 @@ export default {
           this.codeUrl = "data:image/gif;base64," + res.img
           this.loginForm.uuid = res.uuid
         }
+      })
+    },
+    getRegister() {
+      registerEnabled().then(res => {
+        this.register = res.data
       })
     },
     getCookie() {
@@ -250,9 +254,5 @@ export default {
 }
 .login-code-img {
   height: 38px;
-}
-
-.loginLogo {
-  display: flex;
 }
 </style>

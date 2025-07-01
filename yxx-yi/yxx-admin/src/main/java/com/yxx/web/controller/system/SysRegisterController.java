@@ -1,6 +1,7 @@
 package com.yxx.web.controller.system;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,11 +27,17 @@ public class SysRegisterController extends BaseController
     @PostMapping("/register")
     public AjaxResult register(@RequestBody RegisterBody user)
     {
-        if (!("true".equals(configService.selectConfigByKey("sys.account.registerUser"))))
+        if (!configService.selectRegisterEnabled())
         {
             return error("当前系统没有开启注册功能！");
         }
         String msg = registerService.register(user);
         return StringUtils.isEmpty(msg) ? success() : error(msg);
+    }
+
+    @GetMapping("/register")
+    public AjaxResult register()
+    {
+        return success(configService.selectRegisterEnabled());
     }
 }
