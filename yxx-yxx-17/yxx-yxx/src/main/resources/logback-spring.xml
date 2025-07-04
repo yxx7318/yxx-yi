@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- 关键：引入 Spring Boot 的默认 Logback 配置 -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <!-- 日志存放路径 -->
+    <property name="log.path" value="./yxx/logs"/>
+    <springProfile name="dev">
+        <!-- 日志输出格式 -->
+        <property name="log.pattern"
+                  value="%d{yyyy-MM-dd HH:mm:ss.SSS} [${PID} %thread [%X{traceId}]] ${LOG_LEVEL_PATTERN:-%5p} at %class.%method \(%file:%line\) %logger{200} - [%method,%line] - %msg%n"/>
+
+        <!-- 日志输出格式(颜色) -->
+        <property name="log.pattern.color"
+                  value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){yellow} [%clr(${PID}){magenta} %thread %clr([%X{traceId}]){yellow}] %clr(${LOG_LEVEL_PATTERN:-%5p}) at %class.%method \(%file:%line\) %logger{200} - [%method,%line] - %msg%n"/>
+    </springProfile>
+
+    <springProfile name="test">
+        <!-- 日志输出格式 -->
+        <property name="log.pattern"
+                  value="%d{yyyy-MM-dd HH:mm:ss.SSS} [${PID} %thread [%X{traceId}]] ${LOG_LEVEL_PATTERN:-%5p} at %class.%method \(%file:%line\) %logger{200} - [%method,%line] - %msg%n"/>
+
+        <!-- 日志输出格式(颜色) -->
+        <property name="log.pattern.color"
+                  value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){yellow} [%clr(${PID}){magenta} %thread %clr([%X{traceId}]){yellow}] %clr(${LOG_LEVEL_PATTERN:-%5p}) at %class.%method \(%file:%line\) %logger{200} - [%method,%line] - %msg%n"/>
+    </springProfile>
+
+    <springProfile name="prod">
+        <!-- 日志输出格式 -->
+        <property name="log.pattern"
+                  value="%d{yyyy-MM-dd HH:mm:ss.SSS} [${PID} %thread [%X{traceId}]] ${LOG_LEVEL_PATTERN:-%5p} at %class.%method \(%file:%line\) %logger{200} - [%method,%line] - %msg%n"/>
+
+        <!-- 日志输出格式(颜色) -->
+        <property name="log.pattern.color"
+                  value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){yellow} [%clr(${PID}){magenta} %thread %clr([%X{traceId}]){yellow}] %clr(${LOG_LEVEL_PATTERN:-%5p}) at %class.%method \(%file:%line\) %logger{200} - [%method,%line] - %msg%n"/>
+    </springProfile>
+
+    <!-- 控制台输出 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${log.pattern.color}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 系统日志输出 -->
+    <appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/sys-info.log</file>
+        <!-- 循环策略：基于时间创建日志文件 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 日志文件名格式 -->
+            <fileNamePattern>${log.path}/sys-info.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- 日志最大的历史 60天 -->
+            <maxHistory>60</maxHistory>
+            <!-- 单个日志文件最大 100MB -->
+            <maxFileSize>100MB</maxFileSize>
+            <!-- 所有归档日志文件总大小 20GB -->
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 -->
+            <level>INFO</level>
+            <!-- 匹配时的操作：接收（记录） -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 不匹配时的操作：拒绝（不记录） -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- 系统错误日志 -->
+    <appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/sys-error.log</file>
+        <!-- 循环策略：基于时间创建日志文件 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 日志文件名格式 -->
+            <fileNamePattern>${log.path}/sys-error.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- 日志最大的历史 60天 -->
+            <maxHistory>60</maxHistory>
+            <!-- 单个日志文件最大 100MB -->
+            <maxFileSize>100MB</maxFileSize>
+            <!-- 所有归档日志文件总大小 20GB -->
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 -->
+            <level>ERROR</level>
+            <!-- 匹配时的操作：接收（记录） -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 不匹配时的操作：拒绝（不记录） -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- 用户访问日志输出  -->
+    <appender name="sys-user" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/sys-user.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 按天回滚 daily -->
+            <fileNamePattern>${log.path}/sys-user.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- 日志最大的历史 60天 -->
+            <maxHistory>60</maxHistory>
+            <!-- 单个日志文件最大 100MB -->
+            <maxFileSize>100MB</maxFileSize>
+            <!-- 所有归档日志文件总大小 20GB -->
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 异步日志输出  -->
+    <appender name="sys-async" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/sys-async.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 按天回滚 daily -->
+            <fileNamePattern>${log.path}/sys-async.%d{yyyy-MM-dd}.%i.log</fileNamePattern>
+            <!-- 日志最大的历史 60天 -->
+            <maxHistory>60</maxHistory>
+            <!-- 单个日志文件最大 100MB -->
+            <maxFileSize>100MB</maxFileSize>
+            <!-- 所有归档日志文件总大小 20GB -->
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <!-- 开发环境配置 -->
+    <springProfile name="dev">
+        <!-- 系统模块日志级别控制  -->
+        <logger name="com.yxx" level="debug"/>
+        <!-- Spring日志级别控制  -->
+        <logger name="org.springframework" level="warn"/>
+
+        <!--控制台日志-->
+        <root level="info">
+            <appender-ref ref="console"/>
+        </root>
+
+        <!--系统操作日志-->
+        <root level="info">
+            <appender-ref ref="file_info"/>
+            <appender-ref ref="file_error"/>
+        </root>
+
+        <!--系统用户操作日志-->
+        <logger name="sys-user" level="info">
+            <appender-ref ref="sys-user"/>
+        </logger>
+
+        <!--异步日志输出-->
+        <logger name="sys-async" level="info">
+            <appender-ref ref="sys-async"/>
+        </logger>
+    </springProfile>
+
+    <!-- 测试环境配置 -->
+    <springProfile name="test">
+        <!-- 系统模块日志级别控制  -->
+        <logger name="com.yxx" level="info"/>
+        <!-- Spring日志级别控制  -->
+        <logger name="org.springframework" level="warn"/>
+
+        <!--控制台日志-->
+        <root level="warn">
+            <appender-ref ref="console"/>
+        </root>
+
+        <!--系统操作日志-->
+        <root level="warn">
+            <appender-ref ref="file_info"/>
+            <appender-ref ref="file_error"/>
+        </root>
+
+        <!--系统用户操作日志-->
+        <logger name="sys-user" level="info">
+            <appender-ref ref="sys-user"/>
+        </logger>
+
+        <!--异步日志输出-->
+        <logger name="sys-async" level="info">
+            <appender-ref ref="sys-async"/>
+        </logger>
+    </springProfile>
+
+    <!-- 生产环境配置 -->
+    <springProfile name="prod">
+        <!-- 系统模块日志级别控制  -->
+        <logger name="com.yxx" level="error"/>
+        <!-- Spring日志级别控制  -->
+        <logger name="org.springframework" level="error"/>
+
+        <!--控制台日志-->
+        <root level="error">
+            <appender-ref ref="console"/>
+        </root>
+
+        <!--系统操作日志-->
+        <root level="error">
+            <appender-ref ref="file_info"/>
+            <appender-ref ref="file_error"/>
+        </root>
+
+        <!--系统用户操作日志-->
+        <logger name="sys-user" level="info">
+            <appender-ref ref="sys-user"/>
+        </logger>
+
+        <!--异步日志输出-->
+        <logger name="sys-async" level="info">
+            <appender-ref ref="sys-async"/>
+        </logger>
+    </springProfile>
+</configuration> 

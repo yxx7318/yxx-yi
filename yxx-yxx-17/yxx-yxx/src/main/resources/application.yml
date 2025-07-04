@@ -1,0 +1,95 @@
+# 项目相关配置
+yxx:
+  # 名称
+  name: YXX
+  # 版本
+  version: 3.8.9
+  # 版权年份
+  copyrightYear: 2025
+  # 默认为当前项目路径下
+  profile: ./yxx/uploadPath
+  # 获取ip地址开关
+  addressEnabled: true
+  # 验证码类型 math 数字计算 char 字符验证
+  captchaType: char
+
+# Spring配置
+spring:
+  # 配置文件
+  profiles:
+    active: '@profiles.active@'
+  # json时Data对象序列化格式
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  # 资源信息
+  messages:
+    # 国际化资源文件路径
+    basename: i18n/messages
+  mvc:
+    # 当没有匹配的控制器方法时，抛出 NoHandlerFoundException
+    throw-exception-if-no-handler-found: true
+  web:
+    resources:
+      # 不自动注册默认的静态资源路径，所有静态资源请求（如/css/style.css）都会经过 DispatcherServlet
+      # 会影响swagger，需要手动配置资源处理器，如果没有添加静态资源会直接抛出异常，如果映射但没有匹配到到也会报404页面异常
+      add-mappings: false
+  # 文件上传
+  servlet:
+    multipart:
+      # 单个文件大小
+      max-file-size: 1024MB
+      # 设置总上传的文件大小
+      max-request-size: 4096MB
+  # 服务模块
+  devtools:
+    restart:
+      # 热部署开关
+      enabled: false
+  enabled:
+    # 数字自动转化字符串
+    numToStr: false
+
+# MyBatis Plus配置
+mybatis-plus:
+  configuration:
+    cache-enabled: true
+    use-generated-keys: true
+    default-executor-type: SIMPLE
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+    # 配置全局枚举处理器
+    default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
+  global-config:
+    db-config:
+      # 定义属性为deleteFlag的代表为逻辑删除
+      logic-delete-field: deleteFlag
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+  # 搜索指定包别名
+  typeAliasesPackage: com.yxx.**.domain
+  # 配置mapper的扫描，找到所有的mapper.xml映射文件
+  mapperLocations: classpath*:mapper/**/*Mapper.xml
+
+# PageHelper分页插件
+pagehelper:
+  helperDialect: mysql
+  # 是否支持通过Mapper方法参数传递分页参数(为true会直接通过PageQueryEntity的pageNum和pageSize完成分页)
+  supportMethodsArguments: false
+  # 自定义分页参数名称
+  params: count=countSql
+  # 当 pageSize=0 时，是否查询所有数据
+  pageSizeZero: true
+
+# 防止XSS攻击
+xss:
+  # 过滤开关
+  enabled: true
+  # 排除链接（多个用逗号分隔）
+  excludes: /system/notice
+  # 匹配链接
+  urlPatterns: /system/*,/monitor/*,/tool/*
+
+# 监听服务
+server:
+  ports: [ 3306, 3308, 444, 80, 443, 6379 ]
+  appNames: [ "mysql", "nginx", "java", "php-fpm", "python", "node", "redis" ]
