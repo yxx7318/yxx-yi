@@ -62,6 +62,19 @@ public class MpPageUtils {
     }
 
     /**
+     * 获取排序对象
+     * @param column 排序列
+     * @param asc 是否asc
+     * @return 排序对象
+     */
+    private static OrderItem initOrderItem(String column, boolean asc) {
+        OrderItem orderItem = new OrderItem();
+        orderItem.setColumn(column);
+        orderItem.setAsc(asc);
+        return orderItem;
+    }
+
+    /**
      * 将当前分页查询条件转换为MyBatis-Plus的Page对象，并根据提供的排序项进行排序
      *
      * @param <DTO>  实际的数据类型
@@ -72,7 +85,7 @@ public class MpPageUtils {
         Page<T> page = getSelectPage(dto);
         // 如果排序字段值不为空
         if (!StringUtils.isEmpty(dto.getOrderByColumn())) {
-            page.addOrder(new OrderItem(dto.getOrderByColumn(), "asc".equals(dto.getIsAsc())));
+            page.addOrder(initOrderItem(dto.getOrderByColumn(), "asc".equals(dto.getIsAsc())));
             // 如果有输入的排序参数
         } else if (items != null && items.length > 0) {
             page.addOrder(items);
@@ -89,7 +102,7 @@ public class MpPageUtils {
      * @return 转换后的Page对象
      */
     public static <DTO extends PageQueryEntity, T> Page<T> toMapPage(DTO dto, String defaultSortBy, Boolean defaultIsAsc) {
-        return toMpPage(dto, new OrderItem(defaultSortBy, defaultIsAsc));
+        return toMpPage(dto, initOrderItem(defaultSortBy, defaultIsAsc));
     }
 
     /**
@@ -99,7 +112,7 @@ public class MpPageUtils {
      * @return 转换后的Page对象
      */
     public static <DTO extends PageQueryEntity, T> Page<T> toMpPageDefaultSortBySort(DTO dto) {
-        return toMpPage(dto, new OrderItem("sort", false));
+        return toMpPage(dto, initOrderItem("sort", false));
     }
 
     /**
@@ -109,7 +122,7 @@ public class MpPageUtils {
      * @return 转换后的Page对象
      */
     public static <DTO extends PageQueryEntity, T> Page<T> toMpPageDefaultSortByCreateTime(DTO dto) {
-        return toMpPage(dto, new OrderItem("create_time", false));
+        return toMpPage(dto, initOrderItem("create_time", false));
     }
 
     /**
@@ -119,20 +132,19 @@ public class MpPageUtils {
      * @return 转换后的Page对象
      */
     public static <DTO extends PageQueryEntity, T> Page<T> toMpPageDefaultSortByUpdateTime(DTO dto) {
-        return toMpPage(dto, new OrderItem("update_time", false));
+        return toMpPage(dto, initOrderItem("update_time", false));
     }
 
     /**
      * 根据分页参数和查询条件构造器，执行分页查询并返回结果
      *
-     * @param <DTO>       分页查询实体类型，必须继承自 PageQueryEntity
      * @param pageNum    当前页码
      * @param pageSize   每页大小
      * @param baseMapper MyBatis-Plus 的 BaseMapper 对象，用于执行数据库操作
      * @param wrapper    查询条件构造器，用于构建查询条件
      * @return 包含分页结果的 Page 对象，其中包含分页信息和查询到的数据
      */
-    public static <DTO extends PageQueryEntity, T> Page<T> getSelectPage(Integer pageNum, Integer pageSize, BaseMapper<T> baseMapper, Wrapper<T> wrapper) {
+    public static <T> Page<T> getSelectPage(Integer pageNum, Integer pageSize, BaseMapper<T> baseMapper, Wrapper<T> wrapper) {
         clearPage();
         return baseMapper.selectPage(getSelectPage(pageNum, pageSize), wrapper);
     }
@@ -155,11 +167,10 @@ public class MpPageUtils {
      * 处理Page对象的基本信息（总记录数、总页数），并创建一个对应的PageDTO对象
      *
      * @param <VO> 目标视图类型
-     * @param <DTO> 原始实体类型
      * @param p    MyBatis-Plus的Page对象
      * @return 转换后的PageDTO对象
      */
-    public static <DTO extends PageQueryEntity, T, VO> PageResult<VO> dealWith(Page<T> p) {
+    public static <T, VO> PageResult<VO> dealWith(Page<T> p) {
         PageResult<VO> dto = new PageResult<>();
         dto.setPageNum((int) p.getCurrent());
         dto.setPageSize((int) p.getSize());
@@ -171,13 +182,12 @@ public class MpPageUtils {
     /**
      * 将MyBatis-Plus的Page对象转换为PageVo对象，并使用BeanUtils进行属性拷贝
      *
-     * @param <DTO>    原始实体类型
      * @param <VO>    目标视图类型
      * @param p       MyBatis-Plus的Page对象
      * @param voClass 目标视图类型的Class对象
      * @return 转换后的PageDTO对象
      */
-    public static <DTO extends PageQueryEntity, T, VO> PageResult<VO> of(Page<T> p, Class<VO> voClass) {
+    public static <T, VO> PageResult<VO> of(Page<T> p, Class<VO> voClass) {
         PageResult<VO> dto = dealWith(p);
 
         List<T> records = p.getRecords();
@@ -195,13 +205,12 @@ public class MpPageUtils {
     /**
      * 将MyBatis-Plus的Page对象转换为PageVo对象，并使用自定义转换器进行转换
      *
-     * @param <DTO>      原始实体类型
      * @param <VO>      目标视图类型
      * @param p         MyBatis-Plus的Page对象
      * @param convertor 自定义转换器，用于将原始实体转换为目标视图类型
      * @return 转换后的PageDTO对象
      */
-    public static <DTO extends PageQueryEntity, T, VO> PageResult<VO> of(Page<T> p, Function<T, VO> convertor) {
+    public static <T, VO> PageResult<VO> of(Page<T> p, Function<T, VO> convertor) {
         PageResult<VO> dto = dealWith(p);
 
         List<T> records = p.getRecords();
