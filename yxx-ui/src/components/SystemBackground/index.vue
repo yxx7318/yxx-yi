@@ -17,6 +17,7 @@
 
 <script>
 import Logo from '@/components/Logo'
+
 export default {
   name: 'SystemBackground',
   // 注册组件

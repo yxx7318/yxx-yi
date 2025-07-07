@@ -8,10 +8,15 @@
         <div>
           <logo v-show="isMobile"></logo>
           <div :class="['register', isMobile ? 'mobileLogin' : 'noMobileLogin']">
-            <el-form ref="registerForm" :model="registerForm" :rules="registerRules" class="register-form">
+            <el-form ref="registerRef" :model="registerForm" :rules="registerRules" class="register-form">
               <h2 class="title">注 册</h2>
               <el-form-item prop="username">
-                <el-input v-model="registerForm.username" type="text" auto-complete="off" placeholder="账号">
+                <el-input
+                  v-model="registerForm.username"
+                  type="text"
+                  auto-complete="off"
+                  placeholder="账号"
+                >
                   <svg-icon slot="prefix" icon-class="user" class="el-input__icon input-icon"/>
                 </el-input>
               </el-form-item>
@@ -68,7 +73,7 @@
               </el-form-item>
             </el-form>
             <div class="el-register-footer">
-              <span>Copyright © 2024-2025 YXX All Rights Reserved.</span>
+              <span>{{ footerContent }}</span>
             </div>
           </div>
         </div>
@@ -80,8 +85,9 @@
 <script>
 import SystemBackground from '@/components/SystemBackground'
 import Logo from "@/components/Logo"
-import { getCodeImg, register, registerEnabled } from "@/api/login"
-import { mobileFlag } from "@/utils/yxx";
+import { getCodeImg, register } from "@/api/login"
+import { mobileFlag } from "@/utils/yxx"
+import settings from "@/settings"
 
 export default {
   name: 'Register',
@@ -122,7 +128,8 @@ export default {
         code: [{required: true, trigger: "change", message: "请输入验证码"}]
       },
       loading: false,
-      captchaEnabled: true
+      captchaEnabled: true,
+      footerContent: settings.footerContent
     }
   },
   mounted() {
@@ -147,7 +154,7 @@ export default {
       })
     },
     handleRegister() {
-      this.$refs.registerForm.validate(valid => {
+      this.$refs.registerRef.validate(valid => {
         if (valid) {
           this.loading = true
           register(this.registerForm).then(res => {

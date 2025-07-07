@@ -2,13 +2,13 @@
   <div style="height: 100vh">
     <el-row>
       <el-col :span="isMobile ? 0 : 12" v-show="!isMobile">
-        <system-background></system-background>
+        <system-background />
       </el-col>
       <el-col :span="isMobile ? 24 : 12">
         <div>
-          <logo v-show="isMobile"></logo>
+          <logo v-show="isMobile" />
           <div :class="['login', isMobile ? 'mobileLogin' : 'noMobileLogin']">
-            <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form">
+            <el-form ref="loginRef" :model="loginForm" :rules="loginRules" class="login-form">
               <h2 class="title">登 录</h2>
               <el-form-item prop="username">
                 <el-input
@@ -57,7 +57,7 @@
                   <span v-if="!loading">登 录</span>
                   <span v-else>登 录 中...</span>
                 </el-button>
-                <div style="float: right;" v-if="register">
+                <div style="float: right" v-if="register">
                   <router-link class="link-type" :to="'/register'">立即注册</router-link>
                 </div>
               </el-form-item>
@@ -78,8 +78,8 @@ import Logo from '@/components/Logo'
 import { getCodeImg, registerEnabled } from "@/api/login"
 import Cookies from "js-cookie"
 import { encrypt, decrypt } from '@/utils/jsencrypt'
-import { footerContent } from '@/settings'
-import { mobileFlag } from "@/utils/yxx";
+import settings from '@/settings'
+import { mobileFlag } from "@/utils/yxx"
 
 export default {
   name: 'Login',
@@ -108,7 +108,7 @@ export default {
       captchaEnabled: true,
       register: false,
       redirect: undefined,
-      footerContent: footerContent
+      footerContent: settings.footerContent
     }
   },
   watch: {
@@ -158,7 +158,7 @@ export default {
       }
     },
     handleLogin() {
-      this.$refs.loginForm.validate(valid => {
+      this.$refs.loginRef.validate(valid => {
         if (valid) {
           this.loading = true
           if (this.loginForm.rememberMe) {
