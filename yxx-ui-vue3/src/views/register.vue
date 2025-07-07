@@ -85,7 +85,7 @@ import SystemBackground from '@/components/SystemBackground'
 import Logo from "@/components/Logo"
 import { getCodeImg, register } from "@/api/login"
 import { mobileFlag } from "@/utils/yxx"
-import settings from "@/settings";
+import settings from "@/settings"
 
 // 响应式数据
 const isMobile = ref(false)
