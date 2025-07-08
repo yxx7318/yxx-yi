@@ -1,87 +1,103 @@
 <template>
-  <div class="register">
-    <el-form ref="registerRef" :model="registerForm" :rules="registerRules" class="register-form">
-      <h3 class="title">{{ title }}</h3>
-      <el-form-item prop="username">
-        <el-input 
-          v-model="registerForm.username" 
-          type="text" 
-          size="large" 
-          auto-complete="off" 
-          placeholder="账号"
-        >
-          <template #prefix><svg-icon icon-class="user" class="el-input__icon input-icon" /></template>
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="password">
-        <el-input
-          v-model="registerForm.password"
-          type="password"
-          size="large" 
-          auto-complete="off"
-          placeholder="密码"
-          @keyup.enter="handleRegister"
-        >
-          <template #prefix><svg-icon icon-class="password" class="el-input__icon input-icon" /></template>
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="confirmPassword">
-        <el-input
-          v-model="registerForm.confirmPassword"
-          type="password"
-          size="large" 
-          auto-complete="off"
-          placeholder="确认密码"
-          @keyup.enter="handleRegister"
-        >
-          <template #prefix><svg-icon icon-class="password" class="el-input__icon input-icon" /></template>
-        </el-input>
-      </el-form-item>
-      <el-form-item prop="code" v-if="captchaEnabled">
-        <el-input
-          size="large" 
-          v-model="registerForm.code"
-          auto-complete="off"
-          placeholder="验证码"
-          style="width: 63%"
-          @keyup.enter="handleRegister"
-        >
-          <template #prefix><svg-icon icon-class="validCode" class="el-input__icon input-icon" /></template>
-        </el-input>
-        <div class="register-code">
-          <img :src="codeUrl" @click="getCode" class="register-code-img"/>
+  <div style="height: 100vh">
+    <el-row>
+      <el-col :span="isMobile ? 0 : 12" v-show="!isMobile">
+        <SystemBackground />
+      </el-col>
+      <el-col :span="isMobile ? 24 : 12">
+        <div>
+          <Logo v-show="isMobile" />
+          <div :class="['register', isMobile ? 'mobileLogin' : 'noMobileLogin']">
+            <el-form ref="registerRef" :model="registerForm" :rules="registerRules" class="register-form">
+              <h2 class="title">注 册</h2>
+              <el-form-item prop="username">
+                <el-input
+                  v-model="registerForm.username"
+                  type="text"
+                  size="large"
+                  auto-complete="off"
+                  placeholder="账号"
+                >
+                  <template #prefix><svg-icon icon-class="user" class="el-input__icon input-icon" /></template>
+                </el-input>
+              </el-form-item>
+              <el-form-item prop="password">
+                <el-input
+                  v-model="registerForm.password"
+                  type="password"
+                  size="large"
+                  auto-complete="off"
+                  placeholder="密码"
+                  @keyup.enter="handleRegister"
+                >
+                  <template #prefix><svg-icon icon-class="password" class="el-input__icon input-icon" /></template>
+                </el-input>
+              </el-form-item>
+              <el-form-item prop="confirmPassword">
+                <el-input
+                  v-model="registerForm.confirmPassword"
+                  type="password"
+                  size="large"
+                  auto-complete="off"
+                  placeholder="确认密码"
+                  @keyup.enter="handleRegister"
+                >
+                  <template #prefix><svg-icon icon-class="password" class="el-input__icon input-icon" /></template>
+                </el-input>
+              </el-form-item>
+              <el-form-item prop="code" v-if="captchaEnabled">
+                <el-input
+                  v-model="registerForm.code"
+                  auto-complete="off"
+                  placeholder="验证码"
+                  style="width: 63%"
+                  @keyup.enter="handleRegister"
+                >
+                  <template #prefix><svg-icon icon-class="validCode" class="el-input__icon input-icon" /></template>
+                </el-input>
+                <div class="register-code">
+                  <img :src="codeUrl" @click="getCode" class="register-code-img"/>
+                </div>
+              </el-form-item>
+              <el-form-item style="width:100%">
+                <el-button
+                  :loading="loading"
+                  size="large"
+                  type="primary"
+                  style="width:100%"
+                  @click.prevent="handleRegister"
+                >
+                  <span v-if="!loading">注 册</span>
+                  <span v-else>注 册 中...</span>
+                </el-button>
+                <div style="float: right">
+                  <router-link class="link-type" :to="'/login'">使用已有账户登录</router-link>
+                </div>
+              </el-form-item>
+            </el-form>
+            <div class="el-register-footer">
+              <span>{{ footerContent }}</span>
+            </div>
+          </div>
         </div>
-      </el-form-item>
-      <el-form-item style="width:100%;">
-        <el-button
-          :loading="loading"
-          size="large" 
-          type="primary"
-          style="width:100%;"
-          @click.prevent="handleRegister"
-        >
-          <span v-if="!loading">注 册</span>
-          <span v-else>注 册 中...</span>
-        </el-button>
-        <div style="float: right;">
-          <router-link class="link-type" :to="'/login'">使用已有账户登录</router-link>
-        </div>
-      </el-form-item>
-    </el-form>
-    <!--  底部  -->
-    <div class="el-register-footer">
-      <span>Copyright © 2024-2025 YXX All rights reserved.</span>
-    </div>
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script setup>
+import SystemBackground from '@/components/SystemBackground'
+import Logo from "@/components/Logo"
 import { ElMessageBox } from "element-plus"
 import { getCodeImg, register } from "@/api/login"
+import settings from "@/settings.js"
+import { mobileFlag } from "@/utils/yxx.js"
 
 const title = import.meta.env.VITE_APP_TITLE
 const router = useRouter()
 const { proxy } = getCurrentInstance()
+
+const footerContent = settings.footerContent
 
 const registerForm = ref({
   username: "",
@@ -116,6 +132,7 @@ const registerRules = {
   code: [{ required: true, trigger: "change", message: "请输入验证码" }]
 }
 
+const isMobile = ref(false)
 const codeUrl = ref("")
 const loading = ref(false)
 const captchaEnabled = ref(true)
@@ -142,6 +159,10 @@ function handleRegister() {
   })
 }
 
+function checkScreenSize() {
+  isMobile.value = mobileFlag()
+}
+
 function getCode() {
   getCodeImg().then(res => {
     captchaEnabled.value = res.captchaEnabled === undefined ? true : res.captchaEnabled
@@ -152,17 +173,31 @@ function getCode() {
   })
 }
 
+checkScreenSize()
+window.addEventListener('resize', checkScreenSize)
 getCode()
+
+onBeforeUnmount(() => {
+  window.removeEventListener('resize', checkScreenSize)
+})
 </script>
 
-<style lang='scss' scoped>
+<style scoped>
+.mobileLogin {
+  background-color: #353e54;
+  height: 100vh;
+  min-height: 400px;
+}
+.noMobileLogin {
+  border-color: #bfbfbf;
+  height: 100vh;
+  background-color: #bfbfbf;
+  min-height: 500px;
+}
 .register {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-  background-image: url("../assets/images/login-background.jpg");
-  background-size: cover;
 }
 .title {
   margin: 0px auto 30px auto;
@@ -184,7 +219,7 @@ getCode()
   .input-icon {
     height: 39px;
     width: 14px;
-    margin-left: 0px;
+    margin-left: 2px;
   }
 }
 .register-tip {
@@ -194,7 +229,7 @@ getCode()
 }
 .register-code {
   width: 33%;
-  height: 40px;
+  height: 38px;
   float: right;
   img {
     cursor: pointer;

@@ -58,3 +58,14 @@ export function getCodeImg() {
     timeout: 20000
   })
 }
+
+// 获取注册开关
+export function registerEnabled() {
+  return request({
+    url: '/register',
+    headers: {
+      isToken: false
+    },
+    method: 'get'
+  })
+}
