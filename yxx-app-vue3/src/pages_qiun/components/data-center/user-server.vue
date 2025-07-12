@@ -136,7 +136,7 @@ export default {
 
 <style scoped lang="scss">
 .content {
-  padding-top: 10 rpx;
+  padding-top: 10rpx;
 }
 
 .data_body {
@@ -147,22 +147,22 @@ export default {
   background-color: #ffffff;
 
   .friend_operate {
-    padding: 30 rpx 20 rpx;
+    padding: 30rpx 20rpx;
 
     .title {
       text-align: left;
-      margin-bottom: 30 rpx;
-      font-size: 40 rpx;
+      margin-bottom: 30rpx;
+      font-size: 40rpx;
     }
   }
 
   .view_item {
-    padding: 30 rpx 20 rpx;
+    padding: 30rpx 20rpx;
 
     .title {
       text-align: left;
-      margin-bottom: 30 rpx;
-      font-size: 40 rpx;
+      margin-bottom: 30rpx;
+      font-size: 40rpx;
     }
   }
 
@@ -171,43 +171,43 @@ export default {
     flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-    height: 450 rpx;
+    height: 450rpx;
 
     .progress_block {
       width: 45%;
-      border-radius: 20 rpx;
-      height: 180 rpx;
+      border-radius: 20rpx;
+      height: 180rpx;
       position: relative;
       overflow: hidden;
 
       .name {
         color: #fff;
-        font-size: 24 rpx;
+        font-size: 24rpx;
         position: absolute;
-        top: 20 rpx;
-        left: 10 rpx;
-        max-width: 144 rpx;
+        top: 20rpx;
+        left: 10rpx;
+        max-width: 144rpx;
       }
 
       .value {
         color: #fff;
-        font-size: 40 rpx;
+        font-size: 40rpx;
         position: absolute;
-        top: 64 rpx;
-        left: 10 rpx;
-        max-width: 144 rpx;
+        top: 64rpx;
+        left: 10rpx;
+        max-width: 144rpx;
       }
 
       .circle {
         position: absolute;
-        right: 8 rpx;
-        top: 16 rpx;
+        right: 8rpx;
+        top: 16rpx;
       }
 
       .arcbar {
         position: absolute;
         right: -4rpx;
-        top: 8 rpx;
+        top: 8rpx;
       }
     }
 

@@ -130,7 +130,7 @@ export default {
 .body {
   height: 100vh;
   margin: 0;
-  padding: 0 20 rpx;
+  padding: 0 20rpx;
   font-family: "montserrat";
   background-image: linear-gradient(125deg, #CB9FFE, #5894F7, #ABCDFA, #74A3F6, #CB9FFE);
   background-size: 400%;
@@ -169,14 +169,14 @@ body {
     background-size: 100% 100%;
 
     .back {
-      font-size: 54 rpx;
-      padding: 20 rpx 14 rpx 15 rpx 14 rpx;
+      font-size: 54rpx;
+      padding: 20rpx 14rpx 15rpx 14rpx;
       color: #fff;
     }
 
     .title {
       color: #fff;
-      font-size: 30 rpx;
+      font-size: 30rpx;
       flex: 1;
       text-align: center;
     }
@@ -187,25 +187,25 @@ body {
   }
 
   .head {
-    padding: 0 16 rpx 14 rpx 16 rpx;
+    padding: 0 16rpx 14rpx 16rpx;
     color: #fff;
     background-color: #40A2ED;
     justify-content: space-between;
-    font-size: 26 rpx !important;
+    font-size: 26rpx !important;
 
     .calendar_drag {
-      width: 340 rpx;
+      width: 340rpx;
       display: flex;
       justify-content: center;
       align-items: center;
 
       .calendar_name {
-        margin-right: 10 rpx;
+        margin-right: 10rpx;
       }
 
       .icon-calendar {
-        font-size: 26 rpx;
-        margin-top: 4 rpx;
+        font-size: 26rpx;
+        margin-top: 4rpx;
       }
     }
   }
@@ -222,21 +222,21 @@ body {
 
       .view_block {
         background-color: #fff;
-        padding: 16 rpx 20 rpx 10 rpx 20 rpx;
-        border-radius: 20 rpx;
-        margin-bottom: 40 rpx;
+        padding: 16rpx 20rpx 10rpx 20rpx;
+        border-radius: 20rpx;
+        margin-bottom: 40rpx;
 
         .title {
           text-align: left;
-          margin-bottom: 30 rpx;
-          font-size: 30 rpx;
+          margin-bottom: 30rpx;
+          font-size: 30rpx;
         }
 
         .trend_title {
           text-align: right;
-          font-size: 22 rpx;
+          font-size: 22rpx;
           color: #ff9900;
-          margin-top: 50 rpx;
+          margin-top: 50rpx;
         }
       }
     }

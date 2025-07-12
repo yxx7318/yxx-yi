@@ -34,7 +34,7 @@ page {
 }
 
 .view-content {
-  font-size: 26 rpx;
+  font-size: 26rpx;
   padding: 12px 5px 0;
   color: #333;
   line-height: 24px;

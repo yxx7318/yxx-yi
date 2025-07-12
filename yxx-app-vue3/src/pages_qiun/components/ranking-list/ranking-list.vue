@@ -67,19 +67,19 @@ export default {
 <style scoped lang="scss">
 .ranking-item {
   display: flex;
-  margin-bottom: 13 rpx;
-  padding: 10 rpx;
+  margin-bottom: 13rpx;
+  padding: 10rpx;
   align-content: center;
 
   .name {
-    padding-right: 10 rpx;
+    padding-right: 10rpx;
     color: #868688;
   }
 
   .progress {
     flex: 5;
     text-align: left;
-    padding-right: 10 rpx;
+    padding-right: 10rpx;
 
     text {
       display: inline-block;
@@ -89,7 +89,7 @@ export default {
   }
 
   .num {
-    font-size: 26 rpx;
+    font-size: 26rpx;
     color: #3EB2F5;
   }
 }

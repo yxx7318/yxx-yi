@@ -58,8 +58,8 @@ export default {
 
 <style lang="scss" scoped>
 .u-cell-icon {
-  width: 36 rpx;
-  height: 36 rpx;
-  margin-right: 8 rpx;
+  width: 36rpx;
+  height: 36rpx;
+  margin-right: 8rpx;
 }
 </style>

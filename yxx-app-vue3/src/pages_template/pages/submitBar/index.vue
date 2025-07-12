@@ -31,17 +31,17 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  margin-top: 100 rpx;
-  border: solid 2 rpx #f2f2f2;
+  margin-top: 100rpx;
+  border: solid 2rpx #f2f2f2;
   background-color: #ffffff;
-  padding: 16 rpx 0;
+  padding: 16rpx 0;
 
   .left {
     display: flex;
-    font-size: 20 rpx;
+    font-size: 20rpx;
 
     .item {
-      margin: 0 20 rpx;
+      margin: 0 20rpx;
 
       &.car {
         text-align: center;
@@ -58,20 +58,20 @@
 
   .right {
     display: flex;
-    font-size: 28 rpx;
-    padding-right: 10 rpx;
+    font-size: 28rpx;
+    padding-right: 10rpx;
     align-items: center;
 
     .btn {
-      line-height: 66 rpx;
-      padding: 0 30 rpx;
-      border-radius: 36 rpx;
+      line-height: 66rpx;
+      padding: 0 30rpx;
+      border-radius: 36rpx;
       color: #ffffff;
     }
 
     .cart {
       background-color: #ed3f14;
-      margin-right: 30 rpx;
+      margin-right: 30rpx;
     }
 
     .buy {

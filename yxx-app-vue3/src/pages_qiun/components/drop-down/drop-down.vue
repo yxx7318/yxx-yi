@@ -130,19 +130,19 @@ li {
 
   &__selected {
     position: relative;
-    padding: 10 rpx 0;
+    padding: 10rpx 0;
     box-sizing: border-box;
     color: #fff;
 
     .selected__name {
-      font-size: 28 rpx;
+      font-size: 28rpx;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
     }
 
     .selected__icon {
-      margin-left: 20 rpx;
+      margin-left: 20rpx;
 
       &.down {
         transition: transform .3s;
@@ -195,14 +195,14 @@ li {
       }
 
       &__option {
-        font-size: 30 rpx;
-        padding: 18 rpx;
+        font-size: 30rpx;
+        padding: 18rpx;
         display: flex;
         justify-content: space-between;
         color: #303133;
 
         &:not(:last-child) {
-          border-bottom: 1 rpx solid #DDDDDD;
+          border-bottom: 1rpx solid #DDDDDD;
         }
       }
     }
@@ -225,9 +225,9 @@ li {
   &:not(:last-child):after {
     content: ' ';
     position: absolute;
-    width: 2 rpx;
-    top: 36 rpx;
-    bottom: 36 rpx;
+    width: 2rpx;
+    top: 36rpx;
+    bottom: 36rpx;
     right: 0;
     background: $uni-border-color;
   }

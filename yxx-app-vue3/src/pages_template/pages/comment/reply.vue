@@ -155,8 +155,8 @@ page {
 }
 
 .comment {
-  padding: 30 rpx;
-  font-size: 32 rpx;
+  padding: 30rpx;
+  font-size: 32rpx;
   background-color: #ffffff;
 
   .top {
@@ -169,24 +169,24 @@ page {
 
     .heart-photo {
       image {
-        width: 64 rpx;
-        height: 64 rpx;
+        width: 64rpx;
+        height: 64rpx;
         border-radius: 50%;
         background-color: #f2f2f2;
       }
     }
 
     .user-info {
-      margin-left: 10 rpx;
+      margin-left: 10rpx;
 
       .name {
         color: #5677fc;
-        font-size: 28 rpx;
-        margin-bottom: 4 rpx;
+        font-size: 28rpx;
+        margin-bottom: 4rpx;
       }
 
       .date {
-        font-size: 20 rpx;
+        font-size: 20rpx;
         color: $u-light-color;
       }
     }
@@ -194,16 +194,16 @@ page {
 
   .right {
     display: flex;
-    font-size: 20 rpx;
+    font-size: 20rpx;
     align-items: center;
     color: #9a9a9a;
 
     .like {
-      margin-left: 6 rpx;
+      margin-left: 6rpx;
     }
 
     .num {
-      font-size: 26 rpx;
+      font-size: 26rpx;
       color: #9a9a9a;
     }
   }
@@ -218,30 +218,30 @@ page {
 }
 
 .all-reply {
-  margin-top: 10 rpx;
-  padding-top: 20 rpx;
+  margin-top: 10rpx;
+  padding-top: 20rpx;
   background-color: #ffffff;
 
   .all-reply-top {
-    margin-left: 20 rpx;
-    padding-left: 20 rpx;
-    border-left: solid 4 rpx #5677fc;
-    font-size: 30 rpx;
+    margin-left: 20rpx;
+    padding-left: 20rpx;
+    border-left: solid 4rpx #5677fc;
+    font-size: 30rpx;
     font-weight: bold;
   }
 
   .item {
-    border-bottom: solid 2 rpx $u-border-color;
+    border-bottom: solid 2rpx $u-border-color;
   }
 
   .reply {
-    padding: 20 rpx;
+    padding: 20rpx;
     background-color: rgb(242, 242, 242);
-    border-radius: 12 rpx;
-    margin: 10 rpx 0;
+    border-radius: 12rpx;
+    margin: 10rpx 0;
 
     .username {
-      font-size: 24 rpx;
+      font-size: 24rpx;
       color: #7a7a7a;
     }
   }

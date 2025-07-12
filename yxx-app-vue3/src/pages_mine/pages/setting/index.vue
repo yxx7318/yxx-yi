@@ -95,14 +95,14 @@ function dialogClose() {
 
 .item-box {
   background-color: #FFFFFF;
-  margin: 30 rpx;
+  margin: 30rpx;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  padding: 10 rpx;
-  border-radius: 8 rpx;
+  padding: 10rpx;
+  border-radius: 8rpx;
   color: #303133;
-  font-size: 32 rpx;
+  font-size: 32rpx;
 }
 </style>

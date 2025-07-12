@@ -2,7 +2,7 @@
   <view class="content">
     <image class="logo" src="@/static/logo.png"></image>
     <view class="text-area">
-      <text class="title"> RuoYi-Geek-App</text>
+      <text class="title"> Yxx-App</text>
     </view>
     <view class="text-area">
       <up-text type="primary" text="uview-plus"></up-text>
@@ -52,12 +52,12 @@ function getServerData() {
 }
 
 .logo {
-  height: 200 rpx;
-  width: 200 rpx;
-  margin-top: 200 rpx;
+  height: 200rpx;
+  width: 200rpx;
+  margin-top: 200rpx;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 50 rpx;
+  margin-bottom: 50rpx;
 }
 
 .text-area {
@@ -66,7 +66,7 @@ function getServerData() {
 }
 
 .title {
-  font-size: 36 rpx;
+  font-size: 36rpx;
   color: #8f8f94;
 }
 

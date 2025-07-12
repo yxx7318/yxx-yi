@@ -112,7 +112,7 @@ export default {
   flex-wrap: wrap;
 
   .marginRight {
-    margin-right: 36 rpx !important;
+    margin-right: 36rpx !important;
   }
 
   .view_100 {
@@ -126,28 +126,28 @@ export default {
 
   .kind {
     width: 24%;
-    padding: 10 rpx;
-    margin-bottom: 40 rpx;
+    padding: 10rpx;
+    margin-bottom: 40rpx;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    border-radius: 16 rpx;
-    margin-left: 16 rpx;
+    border-radius: 16rpx;
+    margin-left: 16rpx;
     box-shadow: -4px 4px 4px #ccc;
     position: relative;
   }
 
   .kind_one {
-    border-radius: 10 rpx;
+    border-radius: 10rpx;
   }
 
   .kind_two {
-    border-radius: 10 rpx;
+    border-radius: 10rpx;
   }
 
   .kind_three {
-    border-radius: 16 rpx;
-    width: 300 rpx;
+    border-radius: 16rpx;
+    width: 300rpx;
     margin: 0 auto;
 
     .three_3 {
@@ -157,7 +157,7 @@ export default {
   }
 
   .kind_four {
-    border-radius: 10 rpx;
+    border-radius: 10rpx;
 
     .four_3 {
       display: flex;
@@ -174,7 +174,7 @@ export default {
   }
 
   .kind_five {
-    border-radius: 20 rpx;
+    border-radius: 20rpx;
 
     .five_3 {
       view {

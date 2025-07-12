@@ -256,49 +256,49 @@ function handleDeleteAddress() {
 <style lang="scss" scoped>
 :v-deep(.line) {
   color: $u-light-color;
-  font-size: 28 rpx;
+  font-size: 28rpx;
 }
 
 .wrap {
   background-color: #f5f5f5;
   min-height: 100vh;
-  padding: 20 rpx;
+  padding: 20rpx;
   box-sizing: border-box;
 
   .container {
-    border-radius: 16 rpx;
+    border-radius: 16rpx;
     overflow: hidden;
-    box-shadow: 0 2 rpx 12 rpx rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2rpx 12rpx rgba(0, 0, 0, 0.05);
   }
 
   .top {
     background-color: #ffffff;
-    padding: 30 rpx;
+    padding: 30rpx;
 
     .item {
       display: flex;
-      font-size: 32 rpx;
-      line-height: 100 rpx;
+      font-size: 32rpx;
+      line-height: 100rpx;
       align-items: center;
-      border-bottom: solid 1 rpx #eeeeee;
+      border-bottom: solid 1rpx #eeeeee;
       position: relative;
 
       .left {
-        width: 180 rpx;
+        width: 180rpx;
         font-weight: 500;
         color: #333;
 
         .required {
           color: #fa3534;
-          margin-right: 4 rpx;
+          margin-right: 4rpx;
         }
       }
 
       input {
         text-align: left;
         flex: 1;
-        height: 100 rpx;
-        font-size: 30 rpx;
+        height: 100rpx;
+        font-size: 30rpx;
 
         &.error-input {
           border-bottom: 1px solid #fa3534;
@@ -306,35 +306,35 @@ function handleDeleteAddress() {
       }
 
       u-icon {
-        margin-left: 10 rpx;
+        margin-left: 10rpx;
       }
     }
 
     .error-msg {
       color: #fa3534;
-      font-size: 24 rpx;
-      padding-left: 180 rpx;
+      font-size: 24rpx;
+      padding-left: 180rpx;
       margin-top: -10rpx;
-      margin-bottom: 10 rpx;
+      margin-bottom: 10rpx;
     }
 
     .address {
-      padding: 20 rpx 0;
+      padding: 20rpx 0;
       align-items: flex-start;
 
       .left {
-        padding-top: 20 rpx;
+        padding-top: 20rpx;
       }
 
       textarea {
         flex: 1;
-        height: 180 rpx;
+        height: 180rpx;
         background-color: #f9f9f9;
-        line-height: 60 rpx;
-        margin: 20 rpx 0;
-        padding: 20 rpx;
-        border-radius: 12 rpx;
-        font-size: 30 rpx;
+        line-height: 60rpx;
+        margin: 20rpx 0;
+        padding: 20rpx;
+        border-radius: 12rpx;
+        font-size: 30rpx;
 
         &.error-textarea {
           border: 1px solid #fa3534;
@@ -344,18 +344,18 @@ function handleDeleteAddress() {
   }
 
   .bottom {
-    margin-top: 20 rpx;
-    padding: 30 rpx;
+    margin-top: 20rpx;
+    padding: 30rpx;
     background-color: #ffffff;
-    font-size: 28 rpx;
-    border-radius: 16 rpx;
+    font-size: 28rpx;
+    border-radius: 16rpx;
 
     .tag {
       display: flex;
       align-items: center;
 
       .left {
-        width: 160 rpx;
+        width: 160rpx;
         font-weight: 500;
         color: #333;
       }
@@ -366,14 +366,14 @@ function handleDeleteAddress() {
         flex: 1;
 
         .tags {
-          width: 150 rpx;
-          padding: 20 rpx 10 rpx;
-          border: solid 2 rpx #eeeeee;
+          width: 150rpx;
+          padding: 20rpx 10rpx;
+          border: solid 2rpx #eeeeee;
           text-align: center;
-          border-radius: 100 rpx;
-          margin: 0 20 rpx 20 rpx 0;
+          border-radius: 100rpx;
+          margin: 0 20rpx 20rpx 0;
           display: flex;
-          font-size: 28 rpx;
+          font-size: 28rpx;
           align-items: center;
           justify-content: center;
           color: #333;
@@ -394,23 +394,23 @@ function handleDeleteAddress() {
     }
 
     .default {
-      margin-top: 30 rpx;
+      margin-top: 30rpx;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-bottom: 20 rpx;
+      padding-bottom: 20rpx;
 
       .left {
         .set {
           font-weight: 500;
           color: #333;
-          font-size: 30 rpx;
+          font-size: 30rpx;
         }
 
         .tips {
-          font-size: 24 rpx;
+          font-size: 24rpx;
           color: #999;
-          margin-top: 10 rpx;
+          margin-top: 10rpx;
         }
       }
     }
@@ -419,32 +419,32 @@ function handleDeleteAddress() {
   .button-group {
     display: flex;
     flex-direction: column;
-    margin-top: 60 rpx;
+    margin-top: 60rpx;
 
     .save-btn {
       background: linear-gradient(90deg, #ff4034, #fa3534);
       color: #fff;
-      height: 90 rpx;
-      line-height: 90 rpx;
+      height: 90rpx;
+      line-height: 90rpx;
       text-align: center;
-      font-size: 32 rpx;
-      border-radius: 45 rpx;
+      font-size: 32rpx;
+      border-radius: 45rpx;
       font-weight: bold;
-      box-shadow: 0 10 rpx 20 rpx rgba(250, 53, 52, 0.2);
-      letter-spacing: 2 rpx;
+      box-shadow: 0 10rpx 20rpx rgba(250, 53, 52, 0.2);
+      letter-spacing: 2rpx;
     }
 
     .delete-btn {
-      margin-top: 30 rpx;
+      margin-top: 30rpx;
       background: #ffffff;
       color: #fa3534;
       border: 1px solid #fa3534;
-      height: 90 rpx;
-      line-height: 90 rpx;
+      height: 90rpx;
+      line-height: 90rpx;
       text-align: center;
-      font-size: 32 rpx;
-      border-radius: 45 rpx;
-      letter-spacing: 2 rpx;
+      font-size: 32rpx;
+      border-radius: 45rpx;
+      letter-spacing: 2rpx;
     }
   }
 }

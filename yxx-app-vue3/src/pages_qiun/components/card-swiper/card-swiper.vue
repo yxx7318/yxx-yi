@@ -64,7 +64,7 @@ export default {
 
 <style lang="scss">
 .top-swiper {
-  margin-bottom: 30 rpx;
+  margin-bottom: 30rpx;
 
   .box {
     padding-top: var(--status-bar-height);
@@ -78,8 +78,8 @@ export default {
   }
 
   .swiper {
-    height: 600 rpx;
-    margin: 0 20 rpx;
+    height: 600rpx;
+    margin: 0 20rpx;
 
     .le-img {
       width: 100%;
@@ -114,23 +114,23 @@ export default {
         .title_box {
           width: 100%;
           text-align: center;
-          font-size: 40 rpx;
-          margin: 30 rpx 0;
+          font-size: 40rpx;
+          margin: 30rpx 0;
         }
 
 
         .author_box {
           width: 100%;
           text-align: center;
-          font-size: 30 rpx;
+          font-size: 30rpx;
           position: relative;
-          height: 80 rpx;
-          line-height: 80 rpx;
+          height: 80rpx;
+          line-height: 80rpx;
 
           &::before {
             content: "";
             height: 1px;
-            width: 150 rpx;
+            width: 150rpx;
             position: absolute;
             transform: translateX(-50%);
             left: 50%;

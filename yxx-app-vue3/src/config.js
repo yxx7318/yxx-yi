@@ -8,21 +8,21 @@ const config = {
    // 应用信息
    appInfo: {
      // 应用名称
-     name: "ruoyi-app-vue3",
+     name: "yxx-app-vue3",
      // 应用版本
      version: "1.1.0",
      // 应用logo
      logo: "/static/logo.png",
      // 官方网站
-     site_url: "http://ruoyi.vip",
+     site_url: "https://gitee.com/yxx7318/yxx-yi",
      // 政策协议
      agreements: [{
          title: "隐私政策",
-         url: "https://ruoyi.vip/protocol.html"
+         url: ""
        },
        {
          title: "用户服务协议",
-         url: "https://ruoyi.vip/protocol.html"
+         url: ""
        }
      ]
    }

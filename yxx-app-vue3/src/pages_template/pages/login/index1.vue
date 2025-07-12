@@ -59,29 +59,29 @@ const submit = () => {
 
 <style lang="scss" scoped>
 .wrap {
-  font-size: 28 rpx;
+  font-size: 28rpx;
 
   .content {
-    width: 600 rpx;
-    margin: 80 rpx auto 0;
+    width: 600rpx;
+    margin: 80rpx auto 0;
 
     .title {
       text-align: left;
-      font-size: 60 rpx;
+      font-size: 60rpx;
       font-weight: 500;
-      margin-bottom: 100 rpx;
+      margin-bottom: 100rpx;
     }
 
     input {
       text-align: left;
-      margin-bottom: 10 rpx;
-      padding-bottom: 6 rpx;
+      margin-bottom: 10rpx;
+      padding-bottom: 6rpx;
     }
 
     .tips {
       color: $u-info;
-      margin-bottom: 60 rpx;
-      margin-top: 8 rpx;
+      margin-bottom: 60rpx;
+      margin-top: 8rpx;
       font-size: 12px;
     }
 
@@ -89,8 +89,8 @@ const submit = () => {
       background-color: rgb(253, 243, 208);
       color: $u-tips-color;
       border: none;
-      font-size: 30 rpx;
-      padding: 12 rpx 0;
+      font-size: 30rpx;
+      padding: 12rpx 0;
 
       &::after {
         border: none;
@@ -101,14 +101,14 @@ const submit = () => {
       color: $u-tips-color;
       display: flex;
       justify-content: space-between;
-      margin-top: 30 rpx;
+      margin-top: 30rpx;
     }
   }
 
   .buttom {
     .loginType {
       display: flex;
-      padding: 350 rpx 150 rpx 150 rpx 150 rpx;
+      padding: 350rpx 150rpx 150rpx 150rpx;
       justify-content: space-between;
 
       .item {
@@ -116,13 +116,13 @@ const submit = () => {
         flex-direction: column;
         align-items: center;
         color: $u-content-color;
-        font-size: 28 rpx;
+        font-size: 28rpx;
       }
     }
 
     .hint {
-      padding: 20 rpx 40 rpx;
-      font-size: 20 rpx;
+      padding: 20rpx 40rpx;
+      font-size: 20rpx;
       color: $u-tips-color;
 
       .link {

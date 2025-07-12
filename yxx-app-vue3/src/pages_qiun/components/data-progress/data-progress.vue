@@ -54,14 +54,14 @@ export default {
 
 <style lang="scss">
 .paddingMiddle {
-  padding: 18 rpx 10 rpx;
+  padding: 18rpx 10rpx;
 }
 
 .progress {
 
   .title {
-    font-size: 28 rpx;
-    width: 170 rpx;
+    font-size: 28rpx;
+    width: 170rpx;
     display: flex;
     align-items: center;
 
@@ -75,18 +75,18 @@ export default {
       color: #fff;
       position: absolute;
       z-index: 2;
-      left: 26 rpx;
+      left: 26rpx;
       height: 100%;
       display: flex;
       align-items: center;
       text-overflow: ellipsis;
       white-space: nowrap;
       overflow: hidden;
-      height: 44 rpx;
+      height: 44rpx;
     }
 
     progress {
-      padding: 6 rpx 0;
+      padding: 6rpx 0;
     }
 
   }

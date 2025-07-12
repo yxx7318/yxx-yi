@@ -85,7 +85,7 @@ page {
 }
 
 .pwd-retrieve-container {
-  padding-top: 36 rpx;
+  padding-top: 36rpx;
   padding: 15px;
 }
 </style>

@@ -1,7 +1,6 @@
 // #ifdef APP-VUE || H5
 /**
  * v-copyText 复制文本内容
- * Copyright (c) 2022 ruoyi
  * v-copyText="要复制的文本内容"
  * v-copyText:callback="复制成功后的回调函数"
  * 点击被标注的元素即可复制文本内容

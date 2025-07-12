@@ -17,7 +17,7 @@
         <view class="list-cell list-cell-arrow">
           <view class="menu-item-box">
             <view>官方邮箱</view>
-            <view class="text-right">ruoyi@xx.com</view>
+            <view class="text-right">yxx@xx.com</view>
           </view>
         </view>
         <view class="list-cell list-cell-arrow">
@@ -38,7 +38,7 @@
     </view>
 
     <view class="copyright">
-      <view>Copyright &copy; 2022 ruoyi.vip All Rights Reserved.</view>
+      <view>Copyright © 2024-2025 YXX All rights reserved.</view>
     </view>
   </view>
 </template>
@@ -57,15 +57,15 @@ page {
 }
 
 .copyright {
-  margin-top: 50 rpx;
+  margin-top: 50rpx;
   text-align: center;
-  line-height: 60 rpx;
+  line-height: 60rpx;
   color: #999;
 }
 
 .header-section {
   display: flex;
-  padding: 30 rpx 0 0;
+  padding: 30rpx 0 0;
   flex-direction: column;
   align-items: center;
 }

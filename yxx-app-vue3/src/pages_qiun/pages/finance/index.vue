@@ -290,7 +290,7 @@ onMounted(() => {
   height: 100%;
   background-color: #560594;
   margin: 0;
-  padding-bottom: 20 rpx;
+  padding-bottom: 20rpx;
 
   .li_4 {
     list-style-type: none;
@@ -298,8 +298,8 @@ onMounted(() => {
 
   .nav {
     position: fixed;
-    top: 50 rpx;
-    left: 20 rpx;
+    top: 50rpx;
+    left: 20rpx;
   }
 
   .text_green {
@@ -308,18 +308,18 @@ onMounted(() => {
 
   .main {
     width: 100%;
-    padding: 0 10 rpx;
+    padding: 0 10rpx;
     box-sizing: border-box;
-    margin-top: 20 rpx;
+    margin-top: 20rpx;
 
     .detail_list {
-      height: 700 rpx;
+      height: 700rpx;
       overflow: auto;
       color: #9E9E9E;
 
       .detail_item {
         display: flex;
-        margin: 20 rpx 0;
+        margin: 20rpx 0;
         align-items: center;
 
         .icon {
@@ -327,7 +327,7 @@ onMounted(() => {
           text-align: center;
 
           .li_2 {
-            font-size: 80 rpx;
+            font-size: 80rpx;
           }
         }
 
@@ -351,7 +351,7 @@ onMounted(() => {
     }
 
     .extend_message {
-      margin-top: 20 rpx;
+      margin-top: 20rpx;
       color: #ccc;
       display: flex;
 
@@ -362,17 +362,17 @@ onMounted(() => {
 
     .level_bar {
       width: 100%;
-      height: 40 rpx;
-      border-radius: 40 rpx;
+      height: 40rpx;
+      border-radius: 40rpx;
       overflow: hidden;
       display: flex;
       color: #ccc;
-      font-size: 20 rpx;
+      font-size: 20rpx;
       text-align: right;
-      line-height: 40 rpx;
+      line-height: 40rpx;
 
       view {
-        border-right: 2 rpx solid #fff;
+        border-right: 2rpx solid #fff;
         position: relative;
       }
 
@@ -384,7 +384,7 @@ onMounted(() => {
 
       .range {
         position: absolute;
-        bottom: 30 rpx;
+        bottom: 30rpx;
         right: -40rpx;
       }
 
@@ -401,18 +401,18 @@ onMounted(() => {
       float: right;
       display: flex;
       color: #ccc;
-      font-size: 22 rpx;
+      font-size: 22rpx;
 
       view {
-        line-height: 50 rpx;
-        height: 50 rpx;
-        margin: 0 20 rpx;
+        line-height: 50rpx;
+        height: 50rpx;
+        margin: 0 20rpx;
       }
 
       .active_btn {
-        padding: 0 rpx 20 rpx;
+        padding: 0rpx 20rpx;
         border: 1px solid #ccc;
-        border-radius: 40 rpx;
+        border-radius: 40rpx;
       }
     }
 
@@ -420,18 +420,18 @@ onMounted(() => {
       width: 100%;
       box-sizing: border-box;
       background-color: #fff;
-      border-radius: 12 rpx;
+      border-radius: 12rpx;
       position: relative;
-      padding: 20 rpx;
+      padding: 20rpx;
     }
 
     .row_block {
       width: 100%;
       box-sizing: border-box;
       background-color: #fff;
-      border-radius: 12 rpx;
+      border-radius: 12rpx;
       position: relative;
-      padding: 20 rpx;
+      padding: 20rpx;
 
       &::after {
         content: "";
@@ -456,10 +456,10 @@ onMounted(() => {
 
       .title_icon {
         background-color: #7E7E7E;
-        height: 40 rpx;
-        width: 10 rpx;
-        border-radius: 10 rpx;
-        margin-right: 20 rpx;
+        height: 40rpx;
+        width: 10rpx;
+        border-radius: 10rpx;
+        margin-right: 20rpx;
         font-size: 16px;
         font-weight: 600;
       }
@@ -469,14 +469,14 @@ onMounted(() => {
       width: 100%;
       background-color: #F5F5F5;
       box-sizing: border-box;
-      padding: 10 rpx;
+      padding: 10rpx;
 
       .rank_item {
         width: 100%;
-        margin: 20 rpx 0;
+        margin: 20rpx 0;
         box-sizing: border-box;
         display: flex;
-        font-size: 26 rpx;
+        font-size: 26rpx;
         justify-content: space-between;
         align-items: center;
 
@@ -492,7 +492,7 @@ onMounted(() => {
         }
 
         .name {
-          margin: 0 10 rpx;
+          margin: 0 10rpx;
           color: #7D7D7D;
           width: 20%;
         }
@@ -511,29 +511,29 @@ onMounted(() => {
   }
 
   .top_head {
-    height: 435 rpx;
+    height: 435rpx;
     width: 100%;
-    padding: 110 rpx 10 rpx 0 rpx 10 rpx;
+    padding: 110rpx 10rpx 0rpx 10rpx;
     background: url("https://img1.qunarzz.com/travel/d3/1704/db/34de73c353d44db5.jpg_r_640x426x70_53f464ca.jpg") no-repeat center 0px;
     background-size: 100% 100%;
     box-sizing: border-box;
 
     .top_desc {
       width: 100%;
-      border-radius: 20 rpx;
+      border-radius: 20rpx;
       background-color: #fff;
-      margin-top: 20 rpx;
-      padding: 20 rpx;
+      margin-top: 20rpx;
+      padding: 20rpx;
       box-sizing: border-box;
 
       .text-gray {
-        font-size: 28 rpx;
+        font-size: 28rpx;
         color: #ccc;
-        margin-right: 10 rpx;
+        margin-right: 10rpx;
       }
 
       .remaining {
-        font-size: 46 rpx;
+        font-size: 46rpx;
       }
 
       .flex_1 {
@@ -541,7 +541,7 @@ onMounted(() => {
       }
 
       .head_block {
-        margin-top: 20 rpx;
+        margin-top: 20rpx;
 
         .income {
           color: #E34B5E;
@@ -550,11 +550,11 @@ onMounted(() => {
     }
 
     .text_des {
-      height: 100 rpx;
+      height: 100rpx;
       color: #fff;
       font-weight: 900;
       position: relative;
-      margin-left: 60 rpx;
+      margin-left: 60rpx;
 
       text {
         display: inline-block;
@@ -562,26 +562,26 @@ onMounted(() => {
       }
 
       .month_num {
-        font-size: 90 rpx;
+        font-size: 90rpx;
       }
 
       .month_text {
-        font-size: 56 rpx;
+        font-size: 56rpx;
       }
 
       .month_year {
-        font-size: 22 rpx;
+        font-size: 22rpx;
         position: absolute;
-        left: 60 rpx;
-        top: 20 rpx;
+        left: 60rpx;
+        top: 20rpx;
       }
 
       .point {
-        font-size: 40 rpx;
+        font-size: 40rpx;
       }
 
       .title {
-        font-size: 40 rpx;
+        font-size: 40rpx;
       }
     }
   }

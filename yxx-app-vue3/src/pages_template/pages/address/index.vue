@@ -143,7 +143,7 @@ function selectAddress(address: AddressInfo) {
 
 <style lang="scss" scoped>
 .address-container {
-  padding-bottom: 180 rpx;
+  padding-bottom: 180rpx;
   min-height: 100vh;
   background-color: #f5f5f5;
 }
@@ -153,35 +153,35 @@ function selectAddress(address: AddressInfo) {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding-top: 200 rpx;
+  padding-top: 200rpx;
 
   .empty-image {
-    width: 200 rpx;
-    height: 200 rpx;
-    margin-bottom: 40 rpx;
+    width: 200rpx;
+    height: 200rpx;
+    margin-bottom: 40rpx;
   }
 
   .empty-text {
     color: #999;
-    font-size: 30 rpx;
+    font-size: 30rpx;
   }
 }
 
 .item {
-  box-shadow: 0 4 rpx 12 rpx rgba(0, 0, 0, 0.1);
-  border-radius: 16 rpx;
-  margin: 20 rpx;
-  padding: 30 rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+  border-radius: 16rpx;
+  margin: 20rpx;
+  padding: 30rpx;
   background-color: #ffffff;
 
   .top {
     display: flex;
     align-items: center;
-    font-size: 32 rpx;
+    font-size: 32rpx;
     font-weight: bold;
 
     .phone {
-      margin-left: 40 rpx;
+      margin-left: 40rpx;
       color: #666666;
     }
 
@@ -191,10 +191,10 @@ function selectAddress(address: AddressInfo) {
       text {
         background-color: #e0f7fa;
         color: #00bcd4;
-        border-radius: 20 rpx;
-        padding: 8 rpx 16 rpx;
-        font-size: 24 rpx;
-        margin-left: 10 rpx;
+        border-radius: 20rpx;
+        padding: 8rpx 16rpx;
+        font-size: 24rpx;
+        margin-left: 10rpx;
       }
 
       .red {
@@ -205,28 +205,28 @@ function selectAddress(address: AddressInfo) {
   }
 
   .bottom {
-    margin-top: 20 rpx;
-    font-size: 28 rpx;
+    margin-top: 20rpx;
+    font-size: 28rpx;
     color: #666666;
     line-height: 1.6;
-    padding-bottom: 20 rpx;
+    padding-bottom: 20rpx;
     border-bottom: 1px solid #f0f0f0;
   }
 
   .actions {
     display: flex;
     justify-content: flex-end;
-    margin-top: 20 rpx;
+    margin-top: 20rpx;
 
     .action-btn {
       display: flex;
       align-items: center;
-      margin-left: 30 rpx;
-      font-size: 26 rpx;
+      margin-left: 30rpx;
+      font-size: 26rpx;
       color: #666;
 
       text {
-        margin-left: 6 rpx;
+        margin-left: 6rpx;
       }
     }
   }
@@ -234,18 +234,18 @@ function selectAddress(address: AddressInfo) {
 
 .addSite {
   position: fixed;
-  bottom: 40 rpx;
+  bottom: 40rpx;
   left: 50%;
   transform: translateX(-50%);
   width: 80%;
-  height: 100 rpx;
-  line-height: 100 rpx;
+  height: 100rpx;
+  line-height: 100rpx;
   background: linear-gradient(90deg, #ff4034, #fa3534);
-  border-radius: 50 rpx;
+  border-radius: 50rpx;
   text-align: center;
   color: #ffffff;
-  font-size: 32 rpx;
-  box-shadow: 0 8 rpx 16 rpx rgba(250, 53, 52, 0.2);
+  font-size: 32rpx;
+  box-shadow: 0 8rpx 16rpx rgba(250, 53, 52, 0.2);
   z-index: 100;
 
   .add {
@@ -256,7 +256,7 @@ function selectAddress(address: AddressInfo) {
     width: 100%;
 
     .icon {
-      margin-right: 10 rpx;
+      margin-right: 10rpx;
     }
   }
 }

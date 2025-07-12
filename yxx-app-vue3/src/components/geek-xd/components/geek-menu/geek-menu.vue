@@ -46,11 +46,11 @@ const titleStype = computed(() => {
 </template>
 <style lang="scss" scoped>
 .menu {
-  padding: 20 rpx;
+  padding: 20rpx;
 }
 
 .circle {
-  padding: 20 rpx;
+  padding: 20rpx;
   border-radius: 100%;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 
@@ -60,7 +60,7 @@ const titleStype = computed(() => {
 }
 
 .rect {
-  padding: 15 rpx;
+  padding: 15rpx;
   margin-bottom: -15rpx;
 
   &:active {

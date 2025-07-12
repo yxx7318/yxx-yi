@@ -1,5 +1,5 @@
 {
-  "name": "ruoyi-geek-app",
+  "name": "yxx-app",
   "version": "1.0.0",
   "description": "若依Geek管理系统",
   "author": "Geek-XD",
@@ -7,7 +7,7 @@
   "homepage": "https://gitee.com/geek-xd",
   "repository": {
     "type": "git",
-    "url": "https://gitee.com/geek-xd/ruoyi-geek-app.git"
+    "url": "https://gitee.com/yxx7318/yxx-yi"
   },
   "engines": {
     "node": "^18.0.0 || >=20.0.0"

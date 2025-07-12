@@ -37,14 +37,14 @@ const props = defineProps({
   padding: 0;
   border-radius: 10px;
   background-color: #ffffff;
-  width: 700 rpx;
-  padding: 20 rpx;
-  margin: 10 rpx;
+  width: 700rpx;
+  padding: 20rpx;
+  margin: 10rpx;
   position: relative;
 
   .img {
-    height: 200 rpx;
-    width: 200 rpx;
+    height: 200rpx;
+    width: 200rpx;
   }
 }
 
@@ -52,21 +52,21 @@ const props = defineProps({
   display: flex;
 
   .content {
-    height: 200 rpx;
-    padding-left: 20 rpx;
+    height: 200rpx;
+    padding-left: 20rpx;
 
     .title {
-      width: 400 rpx;
-      font-size: 35 rpx;
+      width: 400rpx;
+      font-size: 35rpx;
     }
 
     .subTitle {
-      width: 400 rpx;
-      height: 90 rpx;
-      margin-top: 10 rpx;
-      font-size: 20 rpx;
+      width: 400rpx;
+      height: 90rpx;
+      margin-top: 10rpx;
+      font-size: 20rpx;
       color: rgb(87, 87, 87);
-      line-height: 30 rpx;
+      line-height: 30rpx;
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 3;
@@ -75,9 +75,9 @@ const props = defineProps({
     }
 
     .price {
-      font-size: 40 rpx;
+      font-size: 40rpx;
       color: red;
-      width: 400 rpx;
+      width: 400rpx;
     }
   }
 }
@@ -85,19 +85,19 @@ const props = defineProps({
 .rect {
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 350 rpx;
+  width: 350rpx;
   padding: 0;
-  margin: 10 rpx;
+  margin: 10rpx;
   display: inline-block;
 
   .img {
     border-radius: 10px 10px 0 0;
-    height: 350 rpx;
-    width: 350 rpx;
+    height: 350rpx;
+    width: 350rpx;
   }
 
   .content {
-    padding: 0 20 rpx;
+    padding: 0 20rpx;
     margin: 0;
     width: 100%;
     display: flex;
@@ -105,18 +105,18 @@ const props = defineProps({
     justify-content: space-between;
 
     .title {
-      width: 330 rpx;
-      font-size: 25 rpx;
+      width: 330rpx;
+      font-size: 25rpx;
     }
 
     .subTitle {
-      width: 330 rpx;
-      font-size: 20 rpx;
+      width: 330rpx;
+      font-size: 20rpx;
       color: rgb(87, 87, 87);
     }
 
     .price {
-      font-size: 30 rpx;
+      font-size: 30rpx;
       color: red;
       width: 100%;
     }

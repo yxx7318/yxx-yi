@@ -227,14 +227,14 @@ body {
     background-size: 100% 100%;
 
     .back {
-      font-size: 54 rpx;
-      padding: 20 rpx 14 rpx 15 rpx 14 rpx;
+      font-size: 54rpx;
+      padding: 20rpx 14rpx 15rpx 14rpx;
       color: #fff;
     }
 
     .title {
       color: #fff;
-      font-size: 30 rpx;
+      font-size: 30rpx;
       flex: 1;
       text-align: center;
     }
@@ -245,25 +245,25 @@ body {
   }
 
   .head {
-    padding: 0 16 rpx 14 rpx 16 rpx;
+    padding: 0 16rpx 14rpx 16rpx;
     color: #fff;
     background-color: #40A2ED;
     justify-content: space-between;
-    font-size: 26 rpx !important;
+    font-size: 26rpx !important;
 
     .calendar_drag {
-      width: 340 rpx;
+      width: 340rpx;
       display: flex;
       justify-content: center;
       align-items: center;
 
       .calendar_name {
-        margin-right: 10 rpx;
+        margin-right: 10rpx;
       }
 
       .icon-calendar {
-        font-size: 26 rpx;
-        margin-top: 4 rpx;
+        font-size: 26rpx;
+        margin-top: 4rpx;
       }
     }
   }
@@ -277,17 +277,17 @@ body {
     position: relative;
 
     .item {
-      padding: 0 20 rpx;
-      margin-bottom: 20 rpx;
+      padding: 0 20rpx;
+      margin-bottom: 20rpx;
 
       .name {
         font-weight: 600;
-        font-size: 36 rpx;
+        font-size: 36rpx;
       }
 
       .operate {
         view {
-          padding: 5 rpx 12 rpx;
+          padding: 5rpx 12rpx;
           color: #fff;
         }
 
@@ -301,19 +301,19 @@ body {
       }
 
       .tip {
-        margin-bottom: 30 rpx;
+        margin-bottom: 30rpx;
 
         .update {
           color: #C4100A;
           margin-left: auto;
-          font-size: 30 rpx;
+          font-size: 30rpx;
         }
       }
     }
 
     .cry {
-      font-size: 96 rpx;
-      margin-bottom: 10 rpx;
+      font-size: 96rpx;
+      margin-bottom: 10rpx;
     }
   }
 }
@@ -342,7 +342,7 @@ body {
   width: 100%;
 
   canvas {
-    margin-top: 40 rpx;
+    margin-top: 40rpx;
   }
 }
 </style>

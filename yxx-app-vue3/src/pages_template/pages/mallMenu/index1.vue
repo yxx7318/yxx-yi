@@ -97,7 +97,7 @@ const clickMenu = (menu) => {
 }
 
 .u-search-box {
-  padding: 18 rpx 30 rpx;
+  padding: 18rpx 30rpx;
 }
 
 .u-menu-wrap {
@@ -108,31 +108,31 @@ const clickMenu = (menu) => {
 
 .u-search-inner {
   background-color: rgb(234, 234, 234);
-  border-radius: 100 rpx;
+  border-radius: 100rpx;
   display: flex;
   align-items: center;
-  padding: 10 rpx 16 rpx;
+  padding: 10rpx 16rpx;
 }
 
 .u-search-text {
-  font-size: 26 rpx;
+  font-size: 26rpx;
   color: $u-tips-color;
-  margin-left: 10 rpx;
+  margin-left: 10rpx;
 }
 
 .u-tab-view {
-  width: 200 rpx;
+  width: 200rpx;
   height: 100%;
 }
 
 .u-tab-item {
-  height: 110 rpx;
+  height: 110rpx;
   background: #f6f6f6;
   box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 26 rpx;
+  font-size: 26rpx;
   color: #444;
   font-weight: 400;
   line-height: 1;
@@ -141,7 +141,7 @@ const clickMenu = (menu) => {
 .u-tab-item-active {
   position: relative;
   color: #000;
-  font-size: 30 rpx;
+  font-size: 30rpx;
   font-weight: 600;
   background: #fff;
 }
@@ -150,9 +150,9 @@ const clickMenu = (menu) => {
   content: "";
   position: absolute;
   border-left: 4px solid $u-primary;
-  height: 32 rpx;
+  height: 32rpx;
   left: 0;
-  top: 39 rpx;
+  top: 39rpx;
 }
 
 .u-tab-view {
@@ -164,25 +164,25 @@ const clickMenu = (menu) => {
 }
 
 .page-view {
-  padding: 16 rpx;
+  padding: 16rpx;
 }
 
 .class-item {
-  margin-bottom: 30 rpx;
+  margin-bottom: 30rpx;
   background-color: #fff;
-  padding: 16 rpx;
-  border-radius: 8 rpx;
+  padding: 16rpx;
+  border-radius: 8rpx;
 }
 
 .item-title {
-  font-size: 26 rpx;
+  font-size: 26rpx;
   color: $u-main-color;
   font-weight: bold;
 }
 
 .item-menu-name {
   font-weight: normal;
-  font-size: 24 rpx;
+  font-size: 24rpx;
   color: $u-main-color;
 }
 
@@ -192,7 +192,7 @@ const clickMenu = (menu) => {
 }
 
 // 定义项目尺寸变量
-$item-size: 100 rpx;
+$item-size: 100rpx;
 
 .thumb-box {
   width: 33.333333%;
@@ -200,8 +200,8 @@ $item-size: 100 rpx;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  margin-top: 20 rpx;
-  padding: 10 rpx;
+  margin-top: 20rpx;
+  padding: 10rpx;
   box-sizing: border-box;
 
   .item-menu-image {
@@ -211,9 +211,9 @@ $item-size: 100 rpx;
 
   .item-menu-name {
     font-weight: normal;
-    font-size: 24 rpx;
+    font-size: 24rpx;
     color: $u-main-color;
-    margin-top: 10 rpx;
+    margin-top: 10rpx;
     text-align: center;
   }
 }

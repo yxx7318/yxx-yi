@@ -178,30 +178,30 @@ export default {
 
 <style scoped lang="less">
 .content {
-  padding-top: 10 rpx;
+  padding-top: 10rpx;
 
   .progress, .firend_operate {
-    padding: 0 10 rpx;
+    padding: 0 10rpx;
   }
 
   .progress {
-    margin-bottom: 20 rpx;
+    margin-bottom: 20rpx;
   }
 
   .friend_operate {
-    padding: 30 rpx 20 rpx;
+    padding: 30rpx 20rpx;
 
     .title {
       text-align: left;
-      margin-bottom: 30 rpx;
-      font-size: 40 rpx;
+      margin-bottom: 30rpx;
+      font-size: 40rpx;
     }
 
     .trend_title {
       float: right;
-      font-size: 22 rpx;
+      font-size: 22rpx;
       color: #ff9900;
-      margin-top: 20 rpx;
+      margin-top: 20rpx;
     }
   }
 }

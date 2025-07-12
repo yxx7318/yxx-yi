@@ -88,16 +88,16 @@ const finish = () => {
 
 <style lang="scss">
 .money {
-  font-size: 80 rpx;
+  font-size: 80rpx;
   color: $u-warning;
   position: relative;
 
   .close {
     position: absolute;
-    top: 20 rpx;
-    right: 20 rpx;
-    line-height: 28 rpx;
-    font-size: 28 rpx;
+    top: 20rpx;
+    right: 20rpx;
+    line-height: 28rpx;
+    font-size: 28rpx;
   }
 }
 

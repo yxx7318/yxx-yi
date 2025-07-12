@@ -1,4 +1,4 @@
-import { tansParams } from "./ruoyi"
+import { tansParams } from "./yxx"
 
 /**
  * 获取uuid

@@ -8,7 +8,7 @@ import { createSSRApp } from 'vue'
 import directive from './directive' // directive
 
 import { useDict } from '@/utils/dict'
-import { parseTime, resetForm, addDateRange, handleTree, selectDictLabel, selectDictLabels } from '@/utils/ruoyi'
+import { parseTime, resetForm, addDateRange, handleTree, selectDictLabel, selectDictLabels } from '@/utils/yxx'
 
 
 

@@ -84,30 +84,30 @@ function formatNumber(num, place) {
   flex-direction: column;
   justify-content: space-between;
   position: relative;
-  padding: 20 rpx;
+  padding: 20rpx;
   background-color: white;
-  border-radius: 20 rpx;
-  height: 360 rpx;
-  width: 700 rpx;
-  margin: 25 rpx;
+  border-radius: 20rpx;
+  height: 360rpx;
+  width: 700rpx;
+  margin: 25rpx;
 
   .geek-header {
     display: flex;
     justify-content: space-between;
-    height: 60 rpx;
+    height: 60rpx;
     width: 100%;
-    margin-bottom: 6 rpx;
+    margin-bottom: 6rpx;
 
     .geek-shop {
-      font-size: 28 rpx;
+      font-size: 28rpx;
       font-weight: 600;
     }
 
     .geek-status {
-      width: 100 rpx;
+      width: 100rpx;
       text-align: center;
       opacity: 0.5;
-      font-size: 25 rpx;
+      font-size: 25rpx;
       text-align: end;
     }
 
@@ -116,21 +116,21 @@ function formatNumber(num, place) {
   .geek-content {
     position: relative;
     height: auto;
-    width: 664 rpx;
+    width: 664rpx;
 
     .geek-img {
-      border-radius: 30 rpx;
-      height: 170 rpx;
-      width: 170 rpx;
+      border-radius: 30rpx;
+      height: 170rpx;
+      width: 170rpx;
       display: inline-block;
     }
 
     .geek-label {
       position: absolute;
-      top: 40 rpx;
-      left: 178 rpx;
+      top: 40rpx;
+      left: 178rpx;
 
-      width: 350 rpx;
+      width: 350rpx;
 
       display: -webkit-box;
       -webkit-line-clamp: 2;
@@ -141,11 +141,11 @@ function formatNumber(num, place) {
 
     .geek-sum {
       position: absolute;
-      top: 44 rpx;
-      right: 20 rpx;
+      top: 44rpx;
+      right: 20rpx;
 
-      width: 150 rpx;
-      height: 84 rpx;
+      width: 150rpx;
+      height: 84rpx;
 
       .geek-price {
         display: flex;
@@ -153,18 +153,18 @@ function formatNumber(num, place) {
         font-weight: bold;
 
         .geek-sum-1 {
-          font-size: 32 rpx;
+          font-size: 32rpx;
         }
 
         .geek-sum-2 {
-          padding-top: 20 rpx;
-          font-size: 20 rpx;
+          padding-top: 20rpx;
+          font-size: 20rpx;
         }
       }
 
 
       .geek-sum-3 {
-        font-size: 20 rpx;
+        font-size: 20rpx;
         text-align: end;
       }
     }
@@ -173,45 +173,45 @@ function formatNumber(num, place) {
   .geek-footer {
     display: flex;
     justify-content: space-between;
-    height: 60 rpx;
+    height: 60rpx;
     width: 100%;
-    font-size: 25 rpx;
+    font-size: 25rpx;
 
     .geek-more {
-      height: 60 rpx;
-      margin-right: 110 rpx;
+      height: 60rpx;
+      margin-right: 110rpx;
       text-align: center;
-      line-height: 60 rpx;
+      line-height: 60rpx;
       display: inline-block;
     }
 
     .geek-buttonGroup {
-      height: 60 rpx;
+      height: 60rpx;
       display: inline-block;
 
       .geek-btn {
-        border: 1 rpx solid #E9E9E9;
-        width: 140 rpx;
-        height: 60 rpx;
-        border-radius: 80 rpx;
+        border: 1rpx solid #E9E9E9;
+        width: 140rpx;
+        height: 60rpx;
+        border-radius: 80rpx;
         opacity: 0.8;
-        padding: 10 rpx;
-        margin-right: 10 rpx;
+        padding: 10rpx;
+        margin-right: 10rpx;
         text-align: center;
         display: inline-block;
 
       }
 
       .geek-buy {
-        width: 140 rpx;
-        height: 60 rpx;
-        border-radius: 80 rpx;
+        width: 140rpx;
+        height: 60rpx;
+        border-radius: 80rpx;
         opacity: 0.8;
-        padding: 10 rpx;
+        padding: 10rpx;
         text-align: center;
         display: inline-block;
         color: #F25E53;
-        border: 1 rpx solid #F4DADA;
+        border: 1rpx solid #F4DADA;
       }
     }
   }

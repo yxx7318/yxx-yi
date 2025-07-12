@@ -94,14 +94,14 @@ export default {
 <style scoped lang="scss">
 .ranking-item {
   display: flex;
-  margin-bottom: 13 rpx;
+  margin-bottom: 13rpx;
   align-content: center;
-  height: 50 rpx;
+  height: 50rpx;
 
   .name {
-    padding-right: 10 rpx;
+    padding-right: 10rpx;
     color: #868688;
-    font-size: 20 rpx;
+    font-size: 20rpx;
     flex: 1;
     white-space: nowrap;
     overflow: hidden;
@@ -111,18 +111,18 @@ export default {
   .progress {
     flex: 5;
     text-align: left;
-    padding-right: 10 rpx;
+    padding-right: 10rpx;
 
     text {
       display: inline-block;
-      border-radius: 30 rpx;
+      border-radius: 30rpx;
       vertical-align: top;
     }
 
   }
 
   .num {
-    font-size: 26 rpx;
+    font-size: 26rpx;
     color: #3EB2F5;
     flex: 1;
   }

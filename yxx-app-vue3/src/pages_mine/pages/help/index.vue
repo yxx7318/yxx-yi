@@ -29,11 +29,11 @@ const list = ref([{
     title: '若依可以商用吗？',
     content: '可以'
   }, {
-    title: '若依官网地址多少？',
-    content: 'http://ruoyi.vip'
+    title: '官网地址多少？',
+    content: 'https://gitee.com/yxx7318/yxx-yi'
   }, {
-    title: '若依文档地址多少？',
-    content: 'http://doc.ruoyi.vip'
+    title: '文档地址多少？',
+    content: 'https://gitee.com/yxx7318/yxx-yi'
   }]
 },
   {
@@ -65,46 +65,46 @@ page {
 }
 
 .help-container {
-  margin-bottom: 100 rpx;
-  padding: 30 rpx;
+  margin-bottom: 100rpx;
+  padding: 30rpx;
 }
 
 .list-title {
-  margin-bottom: 30 rpx;
+  margin-bottom: 30rpx;
 }
 
 .childList {
   background: #ffffff;
-  box-shadow: 0px 0px 10 rpx rgba(193, 193, 193, 0.2);
-  border-radius: 16 rpx;
-  margin-top: 10 rpx;
+  box-shadow: 0px 0px 10rpx rgba(193, 193, 193, 0.2);
+  border-radius: 16rpx;
+  margin-top: 10rpx;
 }
 
 .line {
   width: 100%;
-  height: 1 rpx;
+  height: 1rpx;
   background-color: #F5F5F5;
 }
 
 .text-title {
   color: #303133;
-  font-size: 32 rpx;
+  font-size: 32rpx;
   font-weight: bold;
-  margin-left: 10 rpx;
+  margin-left: 10rpx;
 
   .iconfont {
     font-size: 16px;
-    margin-right: 10 rpx;
+    margin-right: 10rpx;
   }
 }
 
 .text-item {
-  font-size: 28 rpx;
-  padding: 24 rpx;
+  font-size: 28rpx;
+  padding: 24rpx;
 }
 
 .question {
   color: #606266;
-  font-size: 28 rpx;
+  font-size: 28rpx;
 }
 </style>

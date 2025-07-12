@@ -30,6 +30,6 @@ const cityChange = (e) => {
 </template>
 <style scoped>
 .btn-wrap {
-  margin: 100 rpx 30 rpx;
+  margin: 100rpx 30rpx;
 }
 </style>

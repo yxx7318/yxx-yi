@@ -117,8 +117,8 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100 rpx;
-  height: 100 rpx;
+  width: 100rpx;
+  height: 100rpx;
 }
 
 .uni-calendar-item__weeks-box-circle {

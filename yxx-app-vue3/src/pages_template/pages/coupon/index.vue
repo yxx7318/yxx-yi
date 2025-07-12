@@ -97,57 +97,57 @@ page {
 }
 
 .u-wrap {
-  padding: 24 rpx;
+  padding: 24rpx;
 }
 
 .meituan {
-  margin: 30 rpx auto;
+  margin: 30rpx auto;
   background-color: #ffffff;
-  width: 700 rpx;
+  width: 700rpx;
   // border: 10rpx;
   color: $u-warning;
-  font-size: 28 rpx;
+  font-size: 28rpx;
 
   .content {
     display: flex;
     align-items: center;
-    padding: 80 rpx 20 rpx;
-    border: 10 rpx;
+    padding: 80rpx 20rpx;
+    border: 10rpx;
     background-color: #fff5f4;
 
     .left {
       .sum {
-        font-size: 32 rpx;
+        font-size: 32rpx;
 
         .num {
-          font-size: 60 rpx;
+          font-size: 60rpx;
           font-weight: bold;
         }
       }
     }
 
     .centre {
-      margin-left: 40 rpx;
+      margin-left: 40rpx;
 
       .title {
-        font-size: 32 rpx;
+        font-size: 32rpx;
         font-weight: bold;
         color: $u-main-color;
-        margin-bottom: 20 rpx;
+        margin-bottom: 20rpx;
       }
     }
 
     .right {
-      margin-left: 30 rpx;
+      margin-left: 30rpx;
 
       .immediate-use {
-        padding: 0 20 rpx;
-        height: 50 rpx;
-        border-radius: 25 rpx;
-        line-height: 50 rpx;
+        padding: 0 20rpx;
+        height: 50rpx;
+        border-radius: 25rpx;
+        line-height: 50rpx;
         background-color: $u-warning !important;
         color: #ffffff !important;
-        font-size: 24 rpx;
+        font-size: 24rpx;
         border: none;
         word-break: keep-all;
       }
@@ -155,43 +155,43 @@ page {
   }
 
   .tips {
-    padding: 0 20 rpx;
-    border: 10 rpx;
+    padding: 0 20rpx;
+    border: 10rpx;
     background-color: $u-info-light;
     position: relative;
     color: $u-tips-color;
     display: flex;
     justify-content: space-between;
-    line-height: 60 rpx;
-    font-size: 24 rpx;
+    line-height: 60rpx;
+    font-size: 24rpx;
 
     .circle-left,
     .circle-right {
       position: absolute;
-      height: 36 rpx;
-      width: 18 rpx;
+      height: 36rpx;
+      width: 18rpx;
       background-color: #f2f2f2;
     }
 
     .circle-right {
-      border-radius: 40 rpx 0 0 40 rpx;
+      border-radius: 40rpx 0 0 40rpx;
       right: 0;
       top: -18rpx;
     }
 
     .circle-left {
-      border-radius: 0 40 rpx 40 rpx 0;
+      border-radius: 0 40rpx 40rpx 0;
       left: 0;
       top: -18rpx;
     }
 
     .rule {
-      font-size: 24 rpx;
+      font-size: 24rpx;
       display: flex;
       align-items: center;
 
       text {
-        margin-right: 10 rpx;
+        margin-right: 10rpx;
         flex: 1;
       }
     }
@@ -199,91 +199,91 @@ page {
 }
 
 .jingdong {
-  margin-top: 40 rpx;
-  width: 700 rpx;
+  margin-top: 40rpx;
+  width: 700rpx;
   height: auto;
   background-color: #ffffff;
   display: flex;
 
   .left {
-    padding: 0 30 rpx;
+    padding: 0 30rpx;
     background-color: rgb(95, 148, 224); //rgb(94, 152, 225);
     text-align: center;
-    font-size: 28 rpx;
+    font-size: 28rpx;
     color: #ffffff;
 
     .sum {
-      margin-top: 50 rpx;
+      margin-top: 50rpx;
       font-weight: bold;
-      font-size: 32 rpx;
+      font-size: 32rpx;
 
       .num {
-        font-size: 80 rpx;
+        font-size: 80rpx;
       }
     }
 
     .type {
-      margin-bottom: 50 rpx;
-      font-size: 24 rpx;
+      margin-bottom: 50rpx;
+      font-size: 24rpx;
     }
   }
 
   .right {
-    padding: 20 rpx 20 rpx 0;
-    font-size: 28 rpx;
+    padding: 20rpx 20rpx 0;
+    font-size: 28rpx;
 
     .top {
-      border-bottom: 2 rpx dashed $u-border-color;
+      border-bottom: 2rpx dashed $u-border-color;
 
       .title {
-        margin-right: 60 rpx;
-        line-height: 40 rpx;
+        margin-right: 60rpx;
+        line-height: 40rpx;
 
         .tag {
-          padding: 4 rpx 20 rpx;
+          padding: 4rpx 20rpx;
           background-color: rgb(73, 154, 201);
-          border-radius: 20 rpx;
+          border-radius: 20rpx;
           color: #ffffff;
           font-weight: bold;
-          font-size: 24 rpx;
-          margin-right: 10 rpx;
+          font-size: 24rpx;
+          margin-right: 10rpx;
         }
       }
 
       .bottom {
         display: flex;
-        margin-top: 20 rpx;
+        margin-top: 20rpx;
         align-items: center;
         justify-content: space-between;
-        margin-bottom: 10 rpx;
+        margin-bottom: 10rpx;
 
         .date {
-          font-size: 20 rpx;
+          font-size: 20rpx;
           flex: 1;
         }
 
         .immediate-use {
           height: auto;
-          padding: 0 20 rpx;
-          font-size: 24 rpx;
-          border-radius: 40 rpx;
-          line-height: 40 rpx;
+          padding: 0 20rpx;
+          font-size: 24rpx;
+          border-radius: 40rpx;
+          line-height: 40rpx;
           color: rgb(117, 142, 165);
-          border: 2 rpx solid rgb(117, 142, 165);
+          border: 2rpx solid rgb(117, 142, 165);
         }
       }
     }
 
     .tips {
       width: 100%;
-      line-height: 50 rpx;
+      line-height: 50rpx;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 24 rpx;
+      font-size: 24rpx;
 
       .transpond {
-        margin-right: 10 rpx;
+        margin-right: 10rpx;
       }
 
       .explain {
@@ -292,10 +292,10 @@ page {
       }
 
       .particulars {
-        width: 30 rpx;
-        height: 30 rpx;
+        width: 30rpx;
+        height: 30rpx;
         box-sizing: border-box;
-        padding-top: 8 rpx;
+        padding-top: 8rpx;
         border-radius: 50%;
         background-color: $u-info-disabled;
         text-align: center;
@@ -305,18 +305,18 @@ page {
 }
 
 .taobao {
-  margin-top: 40 rpx;
-  width: 700 rpx;
+  margin-top: 40rpx;
+  width: 700rpx;
   background-color: white;
-  padding: 30 rpx 20 rpx 20 rpx;
-  border-radius: 20 rpx;
+  padding: 30rpx 20rpx 20rpx;
+  border-radius: 20rpx;
 
   .title {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 20 rpx;
-    font-size: 30 rpx;
+    margin-bottom: 20rpx;
+    font-size: 30rpx;
 
     .left {
       display: flex;
@@ -328,17 +328,17 @@ page {
     }
 
     .buddha {
-      width: 70 rpx;
-      height: 70 rpx;
-      border-radius: 10 rpx;
-      margin-right: 10 rpx;
+      width: 70rpx;
+      height: 70rpx;
+      border-radius: 10rpx;
+      margin-right: 10rpx;
     }
 
     .entrance {
       color: $u-info;
-      border: solid 2 rpx $u-info;
-      line-height: 48 rpx;
-      padding: 0 30 rpx;
+      border: solid 2rpx $u-info;
+      line-height: 48rpx;
+      padding: 0 30rpx;
       background: none;
       border-radius: 15px;
     }
@@ -349,40 +349,40 @@ page {
 
     .left {
       width: 70%;
-      padding: 30 rpx 20 rpx;
+      padding: 30rpx 20rpx;
       background-color: rgb(255, 245, 244);
-      border-radius: 20 rpx;
-      border-right: dashed 2 rpx rgb(224, 215, 211);
+      border-radius: 20rpx;
+      border-right: dashed 2rpx rgb(224, 215, 211);
       display: flex;
 
       .picture {
-        width: 172 rpx;
-        height: 172 rpx;
-        border-radius: 20 rpx;
+        width: 172rpx;
+        height: 172rpx;
+        border-radius: 20rpx;
       }
 
       .introduce {
-        margin-left: 10 rpx;
+        margin-left: 10rpx;
 
         .top {
           color: $u-warning;
-          font-size: 28 rpx;
+          font-size: 28rpx;
 
           .big {
-            font-size: 60 rpx;
+            font-size: 60rpx;
             font-weight: bold;
-            margin-right: 10 rpx;
+            margin-right: 10rpx;
           }
         }
 
         .type {
-          font-size: 28 rpx;
+          font-size: 28rpx;
           color: $u-info-dark;
         }
 
         .date {
-          margin-top: 10 rpx;
-          font-size: 20 rpx;
+          margin-top: 10rpx;
+          font-size: 20rpx;
           color: $u-info-dark;
         }
       }
@@ -390,22 +390,22 @@ page {
 
     .right {
       width: 30%;
-      padding: 40 rpx 20 rpx;
+      padding: 40rpx 20rpx;
       background-color: rgb(255, 245, 244);
-      border-radius: 20 rpx;
+      border-radius: 20rpx;
       display: flex;
       align-items: center;
 
       .use {
         height: auto;
-        padding: 0 20 rpx;
-        font-size: 24 rpx;
-        border-radius: 40 rpx;
+        padding: 0 20rpx;
+        font-size: 24rpx;
+        border-radius: 40rpx;
         color: #ffffff !important;
         background-color: $u-warning !important;
-        line-height: 40 rpx;
+        line-height: 40rpx;
         color: rgb(117, 142, 165);
-        margin-left: 20 rpx;
+        margin-left: 20rpx;
       }
     }
   }

@@ -14,6 +14,7 @@ const useUserStore = defineStore("user", {
   state: () => ({
     token: getToken(),
     name: "",
+    nickName: "",
     avatar: "",
     roles: Array(),
     permissions: [],
@@ -56,6 +57,7 @@ const useUserStore = defineStore("user", {
               this.roles = ["ROLE_DEFAULT"]
             }
             this.name = user.userName
+            this.nickName = user.nickName
             this.avatar = avatar
             resolve(res)
           })
@@ -73,6 +75,7 @@ const useUserStore = defineStore("user", {
             this.roles = []
             this.permissions = []
             this.name = ""
+            this.nickName = ""
             this.avatar = ""
             removeToken()
             resolve(null)

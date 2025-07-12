@@ -269,21 +269,21 @@ export default {
   background-color: #1C191F;
   margin: 0;
   color: #fff;
-  padding: 80 rpx 20 rpx 0 20 rpx;
+  padding: 80rpx 20rpx 0 20rpx;
   width: 100%;
   box-sizing: border-box;
-  padding-bottom: 50 rpx;
+  padding-bottom: 50rpx;
 
   .box_view {
     width: 100%;
-    padding: 20 rpx;
+    padding: 20rpx;
     position: relative;
     background-color: #312C34;
     color: #FFFFFF;
     box-sizing: border-box;
-    border-radius: 20 rpx;
+    border-radius: 20rpx;
     overflow: hidden;
-    margin-top: 30 rpx;
+    margin-top: 30rpx;
   }
 
   .speed_rank_view {
@@ -300,20 +300,20 @@ export default {
         float: left;
         width: 33%;
         box-sizing: border-box;
-        padding: 30 rpx 20 rpx;
+        padding: 30rpx 20rpx;
         text-align: left;
 
         .name {
-          font-size: 26 rpx;
+          font-size: 26rpx;
         }
 
         .data {
-          font-size: 40 rpx;
-          margin-top: 10 rpx;
+          font-size: 40rpx;
+          margin-top: 10rpx;
 
           .unit {
-            font-size: 24 rpx;
-            margin-left: 14 rpx;
+            font-size: 24rpx;
+            margin-left: 14rpx;
           }
         }
       }
@@ -322,26 +322,26 @@ export default {
 
   .sport_analysis_view {
     width: 100%;
-    padding: 20 rpx;
+    padding: 20rpx;
     position: relative;
     background-color: #312C34;
     color: #FFFFFF;
     box-sizing: border-box;
-    border-radius: 20 rpx;
+    border-radius: 20rpx;
     overflow: hidden;
 
     .top {
       width: 100%;
-      height: 120 rpx;
+      height: 120rpx;
       display: flex;
       align-items: center;
 
       .icon-feiji {
-        margin-top: 10 rpx;
+        margin-top: 10rpx;
       }
 
       .title {
-        margin-left: 10 rpx;
+        margin-left: 10rpx;
       }
     }
 
@@ -349,17 +349,17 @@ export default {
       width: 100%;
       display: flex;
       justify-content: space-between;
-      font-size: 28 rpx;
+      font-size: 28rpx;
 
       .iconfont {
-        font-size: 28 rpx;
-        margin-right: 10 rpx;
-        margin-top: 4 rpx;
+        font-size: 28rpx;
+        margin-right: 10rpx;
+        margin-top: 4rpx;
       }
 
       .left {
         width: 50%;
-        height: 60 rpx;
+        height: 60rpx;
         display: flex;
         align-items: center;
         justify-content: flex-start;
@@ -367,7 +367,7 @@ export default {
 
       .right {
         width: 50%;
-        height: 60 rpx;
+        height: 60rpx;
         display: flex;
         align-items: center;
         justify-content: flex-end;
@@ -378,17 +378,17 @@ export default {
       width: 100%;
       display: flex;
       justify-content: space-between;
-      font-size: 28 rpx;
+      font-size: 28rpx;
 
       .iconfont {
-        font-size: 28 rpx;
-        margin-right: 10 rpx;
-        margin-top: 4 rpx;
+        font-size: 28rpx;
+        margin-right: 10rpx;
+        margin-top: 4rpx;
       }
 
       .left {
         width: 50%;
-        height: 60 rpx;
+        height: 60rpx;
         display: flex;
         align-items: center;
         justify-content: flex-start;
@@ -400,7 +400,7 @@ export default {
 
       .right {
         width: 50%;
-        height: 60 rpx;
+        height: 60rpx;
         display: flex;
         align-items: center;
         justify-content: flex-end;
@@ -414,7 +414,7 @@ export default {
     background-color: #312C34;
     color: #FFFFFF;
     box-sizing: border-box;
-    border-radius: 20 rpx;
+    border-radius: 20rpx;
     overflow: hidden;
 
     .top {
@@ -430,20 +430,20 @@ export default {
         float: left;
         width: 33%;
         box-sizing: border-box;
-        padding: 30 rpx 20 rpx;
+        padding: 30rpx 20rpx;
         text-align: center;
 
         .name {
-          font-size: 26 rpx;
+          font-size: 26rpx;
         }
 
         .data {
-          font-size: 40 rpx;
-          margin-top: 10 rpx;
+          font-size: 40rpx;
+          margin-top: 10rpx;
 
           .unit {
-            font-size: 24 rpx;
-            margin-left: 14 rpx;
+            font-size: 24rpx;
+            margin-left: 14rpx;
           }
         }
       }
@@ -458,7 +458,7 @@ export default {
     background-color: #312C34;
     color: #FFFFFF;
     box-sizing: border-box;
-    border-radius: 20 rpx;
+    border-radius: 20rpx;
     overflow: hidden;
   }
 
@@ -466,19 +466,19 @@ export default {
     display: flex;
     width: 100%;
     align-items: center;
-    height: 150 rpx;
+    height: 150rpx;
 
     .left {
       display: flex;
       align-items: center;
 
       .iconfont {
-        font-size: 40 rpx !important;
+        font-size: 40rpx !important;
       }
 
       .title {
-        font-size: 34 rpx;
-        margin-left: 20 rpx;
+        font-size: 34rpx;
+        margin-left: 20rpx;
       }
     }
   }
@@ -488,26 +488,26 @@ export default {
     width: 100%;
     justify-content: space-around;
     align-items: center;
-    height: 150 rpx;
+    height: 150rpx;
 
     .left {
       display: flex;
       align-items: center;
 
       .icon-zhexiantu {
-        font-size: 26 rpx;
+        font-size: 26rpx;
       }
 
       .title {
-        font-size: 34 rpx;
-        margin-left: 20 rpx;
+        font-size: 34rpx;
+        margin-left: 20rpx;
       }
     }
 
     .right {
-      font-size: 22 rpx;
-      padding: 10 rpx 30 rpx;
-      border-radius: 40 rpx;
+      font-size: 22rpx;
+      padding: 10rpx 30rpx;
+      border-radius: 40rpx;
       background-color: #342E39;
     }
   }
@@ -516,47 +516,47 @@ export default {
     display: flex;
     justify-content: center;
     width: 100%;
-    height: 190 rpx;
+    height: 190rpx;
     position: relative;
-    margin-top: 100 rpx;
+    margin-top: 100rpx;
     background-color: #312C34;
     color: #FFFFFF;
     box-sizing: border-box;
-    border-radius: 10 rpx;
+    border-radius: 10rpx;
 
     .consume_img {
-      width: 240 rpx;
+      width: 240rpx;
       height: auto;
       position: absolute;
       top: -80rpx;
-      left: 20 rpx;
+      left: 20rpx;
     }
 
     .consume_icon {
-      font-size: 220 rpx;
+      font-size: 220rpx;
       position: absolute;
       top: -80rpx;
-      left: 20 rpx;
+      left: 20rpx;
     }
 
     .desc {
       position: absolute;
-      right: 80 rpx;
-      top: 20 rpx;
+      right: 80rpx;
+      top: 20rpx;
 
       view {
-        padding: 10 rpx 0;
+        padding: 10rpx 0;
         display: flex;
         align-items: center;
       }
 
       .left {
-        font-size: 50 rpx;
+        font-size: 50rpx;
       }
 
       .right {
-        font-size: 30 rpx;
-        margin-left: 10 rpx;
+        font-size: 30rpx;
+        margin-left: 10rpx;
         font-weight: 400;
       }
     }
@@ -571,27 +571,27 @@ export default {
   }
 
   .small_text {
-    font-size: 24 rpx;
+    font-size: 24rpx;
   }
 
   .font-s-34 {
-    font-size: 34 rpx;
+    font-size: 34rpx;
   }
 
   .font-s-36 {
-    font-size: 36 rpx;
+    font-size: 36rpx;
   }
 
   .font-s-38 {
-    font-size: 38 rpx;
+    font-size: 38rpx;
   }
 
   .font-s-40 {
-    font-size: 40 rpx;
+    font-size: 40rpx;
   }
 
   .middle_text {
-    font-size: 36 rpx;
+    font-size: 36rpx;
   }
 
   .text_wide_900 {
@@ -611,7 +611,7 @@ export default {
       text-align: left;
 
       view {
-        padding: 10 rpx 0;
+        padding: 10rpx 0;
       }
     }
 
@@ -619,7 +619,7 @@ export default {
       text-align: center;
 
       view {
-        padding: 10 rpx 0;
+        padding: 10rpx 0;
       }
     }
 
@@ -627,7 +627,7 @@ export default {
       text-align: right;
 
       view {
-        padding: 10 rpx 0;
+        padding: 10rpx 0;
       }
     }
   }
@@ -637,51 +637,51 @@ export default {
 
     .title {
       color: #8E8B8B;
-      font-size: 24 rpx;
+      font-size: 24rpx;
     }
 
     .detail {
-      height: 120 rpx;
+      height: 120rpx;
       width: 100%;
       display: flex;
       align-items: flex-end;
 
       .icon-up {
-        margin-left: 40 rpx;
-        height: 54 rpx;
+        margin-left: 40rpx;
+        height: 54rpx;
         font-weight: 600;
       }
 
       .socre {
-        font-size: 80 rpx;
+        font-size: 80rpx;
         font-weight: 900;
       }
 
       .up_socre {
         color: #10A764;
-        height: 50 rpx;
-        font-size: 24 rpx;
+        height: 50rpx;
+        font-size: 24rpx;
         font-weight: 600;
       }
     }
   }
 
   .head {
-    height: 140 rpx;
-    line-height: 140 rpx;
+    height: 140rpx;
+    line-height: 140rpx;
     position: relative;
 
     .title {
-      font-size: 40 rpx;
-      margin-left: 20 rpx;
+      font-size: 40rpx;
+      margin-left: 20rpx;
     }
 
     .customer_img {
       position: absolute;
-      bottom: 0 rpx;
-      right: 20 rpx;
-      width: 100 rpx;
-      height: 100 rpx;
+      bottom: 0rpx;
+      right: 20rpx;
+      width: 100rpx;
+      height: 100rpx;
       margin: 0;
       padding: 0;
       background-size: 100% 100%;
@@ -701,8 +701,8 @@ export default {
 
   .nav {
     position: fixed;
-    top: 50 rpx;
-    left: 20 rpx;
+    top: 50rpx;
+    left: 20rpx;
   }
 }
 
@@ -713,11 +713,11 @@ export default {
 .consume_tip {
   display: inline-block;
   text-align: center;
-  width: 188 rpx;
-  height: 30 rpx;
-  line-height: 30 rpx;
+  width: 188rpx;
+  height: 30rpx;
+  line-height: 30rpx;
   position: absolute;
-  top: 36 rpx;
+  top: 36rpx;
   right: -44rpx;
   z-index: 2;
   overflow: hidden;
@@ -729,7 +729,7 @@ export default {
   border: 1px dashed;
   box-shadow: 0 0 0 3px #10A764, 0px 21px 5px -18px rgba(0, 0, 0, 0.6);
   background: #10A764;
-  font-size: 16 rpx;
+  font-size: 16rpx;
 }
 
 .wrap {
@@ -737,7 +737,7 @@ export default {
   height: 100%;
   position: absolute;
   top: -12rpx;
-  left: 12 rpx;
+  left: 12rpx;
   overflow: hidden;
 }
 
@@ -745,10 +745,10 @@ export default {
   content: "";
   display: block;
   border-radius: 8px 8px 0px 0px;
-  width: 80 rpx;
-  height: 14 rpx;
+  width: 80rpx;
+  height: 14rpx;
   position: absolute;
-  right: 68 rpx;
+  right: 68rpx;
   top: -1px;
   background: #4D6530;
 }
@@ -757,10 +757,10 @@ export default {
   content: "";
   display: block;
   border-radius: 0px 8px 8px 0px;
-  width: 14 rpx;
-  height: 80 rpx;
+  width: 14rpx;
+  height: 80rpx;
   position: absolute;
   right: -1px;
-  top: 66 rpx;
+  top: 66rpx;
   background: #4D6530;
 }</style>

@@ -407,7 +407,7 @@ export default {
 .uni-calendar__backtoday {
   position: absolute;
   right: 0;
-  top: 25 rpx;
+  top: 25rpx;
   padding: 0 5px;
   padding-left: 10px;
   height: 25px;

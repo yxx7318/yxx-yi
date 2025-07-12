@@ -130,8 +130,8 @@ view {
 
 .text {
   text-align: center;
-  font-size: 26 rpx;
-  margin-top: 10 rpx;
+  font-size: 26rpx;
+  margin-top: 10rpx;
 }
 
 .grid-item-box {
@@ -146,12 +146,12 @@ view {
 }
 
 .uni-margin-wrap {
-  width: 690 rpx;
+  width: 690rpx;
   width: 100%;;
 }
 
 .swiper {
-  height: 300 rpx;
+  height: 300rpx;
 }
 
 .swiper-box {
@@ -166,8 +166,8 @@ view {
   justify-content: center;
   align-items: center;
   color: #fff;
-  height: 300 rpx;
-  line-height: 300 rpx;
+  height: 300rpx;
+  line-height: 300rpx;
 }
 
 @media screen and (min-width: 500px) {

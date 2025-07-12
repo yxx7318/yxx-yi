@@ -170,7 +170,7 @@ page {
       border-radius: 20px;
 
       .icon {
-        font-size: 38 rpx;
+        font-size: 38rpx;
         margin-left: 10px;
         color: #999;
       }
@@ -203,7 +203,7 @@ page {
         height: 38px;
         position: absolute;
         margin-left: 10px;
-        width: 200 rpx;
+        width: 200rpx;
       }
     }
   }

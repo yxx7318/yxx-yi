@@ -245,7 +245,7 @@ onMounted(() => {
 .area-box {
   width: 100%;
   overflow: hidden;
-  height: 800 rpx;
+  height: 800rpx;
 
   > view {
     width: 150%;
@@ -259,7 +259,7 @@ onMounted(() => {
 
   .area-item {
     width: 33.3333333%;
-    height: 800 rpx;
+    height: 800rpx;
   }
 }
 </style>

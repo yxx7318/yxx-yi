@@ -352,11 +352,11 @@ export default {
 /* pages/uni-cropper/index.wxss */
 
 .cropper-config {
-  padding: 20 rpx 40 rpx;
+  padding: 20rpx 40rpx;
 }
 
 .cropper-content {
-  min-height: 750 rpx;
+  min-height: 750rpx;
   width: 100%;
 }
 
@@ -415,7 +415,7 @@ export default {
   width: 100%;
   height: 100%;
   overflow: visible;
-  outline: 1 rpx solid #69f;
+  outline: 1rpx solid #69f;
   outline-color: rgba(102, 153, 255, .75)
 }
 
@@ -427,8 +427,8 @@ export default {
   left: 0;
   width: 100%;
   height: 33.33333333%;
-  border-top: 1 rpx dashed rgba(255, 255, 255, 0.5);
-  border-bottom: 1 rpx dashed rgba(255, 255, 255, 0.5);
+  border-top: 1rpx dashed rgba(255, 255, 255, 0.5);
+  border-bottom: 1rpx dashed rgba(255, 255, 255, 0.5);
 }
 
 /* 纵向虚线 */
@@ -439,8 +439,8 @@ export default {
   top: 0;
   width: 33.33333333%;
   height: 100%;
-  border-left: 1 rpx dashed rgba(255, 255, 255, 0.5);
-  border-right: 1 rpx dashed rgba(255, 255, 255, 0.5);
+  border-left: 1rpx dashed rgba(255, 255, 255, 0.5);
+  border-right: 1rpx dashed rgba(255, 255, 255, 0.5);
 }
 
 /* 四个方向的线  为了之后的拖动事件*/
@@ -452,7 +452,7 @@ export default {
   background-color: #69f;
   top: 0;
   left: 0;
-  height: 1 rpx;
+  height: 1rpx;
   opacity: 0.1;
   cursor: n-resize;
 }
@@ -461,12 +461,12 @@ export default {
   content: '';
   position: absolute;
   top: 50%;
-  right: 0 rpx;
+  right: 0rpx;
   width: 100%;
   -webkit-transform: translate3d(0, -50%, 0);
   transform: translate3d(0, -50%, 0);
   bottom: 0;
-  height: 41 rpx;
+  height: 41rpx;
   background: transparent;
   z-index: 11;
 }
@@ -476,8 +476,8 @@ export default {
   display: block;
   background-color: #69f;
   top: 0;
-  right: 0 rpx;
-  width: 1 rpx;
+  right: 0rpx;
+  width: 1rpx;
   opacity: 0.1;
   height: 100%;
   cursor: e-resize;
@@ -488,7 +488,7 @@ export default {
   position: absolute;
   top: 0;
   left: 50%;
-  width: 41 rpx;
+  width: 41rpx;
   -webkit-transform: translate3d(-50%, 0, 0);
   transform: translate3d(-50%, 0, 0);
   bottom: 0;
@@ -504,7 +504,7 @@ export default {
   background-color: #69f;
   bottom: 0;
   left: 0;
-  height: 1 rpx;
+  height: 1rpx;
   opacity: 0.1;
   cursor: s-resize;
 }
@@ -513,12 +513,12 @@ export default {
   content: '';
   position: absolute;
   top: 50%;
-  right: 0 rpx;
+  right: 0rpx;
   width: 100%;
   -webkit-transform: translate3d(0, -50%, 0);
   transform: translate3d(0, -50%, 0);
   bottom: 0;
-  height: 41 rpx;
+  height: 41rpx;
   background: transparent;
   z-index: 11;
 }
@@ -529,7 +529,7 @@ export default {
   background-color: #69f;
   top: 0;
   left: 0;
-  width: 1 rpx;
+  width: 1rpx;
   opacity: 0.1;
   height: 100%;
   cursor: w-resize;
@@ -540,7 +540,7 @@ export default {
   position: absolute;
   top: 0;
   left: 50%;
-  width: 41 rpx;
+  width: 41rpx;
   -webkit-transform: translate3d(-50%, 0, 0);
   transform: translate3d(-50%, 0, 0);
   bottom: 0;
@@ -550,8 +550,8 @@ export default {
 }
 
 .uni-cropper-point {
-  width: 5 rpx;
-  height: 5 rpx;
+  width: 5rpx;
+  height: 5rpx;
   background-color: #69f;
   opacity: .75;
   position: absolute;
@@ -559,24 +559,24 @@ export default {
 }
 
 .point-t {
-  top: -3 rpx;
+  top: -3rpx;
   left: 50%;
-  margin-left: -3 rpx;
+  margin-left: -3rpx;
   cursor: n-resize;
 }
 
 .point-tr {
-  top: -3 rpx;
+  top: -3rpx;
   left: 100%;
-  margin-left: -3 rpx;
+  margin-left: -3rpx;
   cursor: n-resize;
 }
 
 .point-r {
   top: 50%;
   left: 100%;
-  margin-left: -3 rpx;
-  margin-top: -3 rpx;
+  margin-left: -3rpx;
+  margin-top: -3rpx;
   cursor: n-resize;
 }
 
@@ -586,8 +586,8 @@ export default {
   -webkit-transform: translate3d(-50%, -50%, 0);
   transform: translate3d(-50%, -50%, 0);
   cursor: n-resize;
-  width: 36 rpx;
-  height: 36 rpx;
+  width: 36rpx;
+  height: 36rpx;
   background-color: #69f;
   position: absolute;
   z-index: 1112;
@@ -597,32 +597,32 @@ export default {
 .point-b {
   left: 50%;
   top: 100%;
-  margin-left: -3 rpx;
-  margin-top: -3 rpx;
+  margin-left: -3rpx;
+  margin-top: -3rpx;
   cursor: n-resize;
 }
 
 .point-bl {
   left: 0%;
   top: 100%;
-  margin-left: -3 rpx;
-  margin-top: -3 rpx;
+  margin-left: -3rpx;
+  margin-top: -3rpx;
   cursor: n-resize;
 }
 
 .point-l {
   left: 0%;
   top: 50%;
-  margin-left: -3 rpx;
-  margin-top: -3 rpx;
+  margin-left: -3rpx;
+  margin-top: -3rpx;
   cursor: n-resize;
 }
 
 .point-lt {
   left: 0%;
   top: 0%;
-  margin-left: -3 rpx;
-  margin-top: -3 rpx;
+  margin-left: -3rpx;
+  margin-top: -3rpx;
   cursor: n-resize;
 }
 

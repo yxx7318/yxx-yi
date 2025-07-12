@@ -184,23 +184,23 @@ page {
 
 .left {
   display: flex;
-  width: 50 rpx;
-  height: 50 rpx;
+  width: 50rpx;
+  height: 50rpx;
   position: fixed;
   top: 0px;
-  padding: 10 rpx;
+  padding: 10rpx;
 }
 
 .cover {
   position: absolute;
   width: 100%;
-  height: 1250 rpx;
+  height: 1250rpx;
   z-index: 9997;
 }
 
 .normal-login-container {
   width: 100%;
-  margin-top: 200 rpx;
+  margin-top: 200rpx;
 
   .logo-content {
     width: 100%;
@@ -230,7 +230,7 @@ page {
       border-radius: 20px;
 
       .icon {
-        font-size: 38 rpx;
+        font-size: 38rpx;
         margin-left: 10px;
         color: #999;
       }
@@ -263,7 +263,7 @@ page {
         height: 38px;
         position: absolute;
         margin-left: 10px;
-        width: 200 rpx;
+        width: 200rpx;
       }
     }
   }
@@ -276,12 +276,12 @@ page {
 
 .active {
   position: absolute;
-  width: 280 rpx;
-  height: 280 rpx;
+  width: 280rpx;
+  height: 280rpx;
   left: 50%;
   margin-left: -140rpx;
-  top: 533 rpx;
-  bottom: 533 rpx;
+  top: 533rpx;
+  bottom: 533rpx;
   border-radius: 50%;
   z-index: 9999;
 
@@ -296,13 +296,13 @@ page {
   position: absolute;
   top: -200rpx;
   width: 100%;
-  height: 1250 rpx;
+  height: 1250rpx;
   background-color: #9acafc;
-  border-radius: 0 0 400 rpx 400 rpx;
+  border-radius: 0 0 400rpx 400rpx;
   box-shadow: 0px 5px 8px rgba(0, 0, 0, 0.27);
   transition: transform 0.3s ease-out;
   z-index: 9998;
-  padding: 200 rpx 0 0 0;
+  padding: 200rpx 0 0 0;
 }
 
 .collapsed-up {
@@ -311,12 +311,12 @@ page {
 
 .button {
   position: absolute;
-  width: 280 rpx;
-  height: 280 rpx;
+  width: 280rpx;
+  height: 280rpx;
   left: 50%;
   margin-left: -140rpx;
-  top: 533 rpx;
-  bottom: 533 rpx;
+  top: 533rpx;
+  bottom: 533rpx;
   border-radius: 50%;
   transition: background-color 0.3s;
   z-index: 9999;
@@ -333,14 +333,14 @@ page {
 
 .shadow1 {
   position: absolute;
-  width: 280 rpx;
-  height: 280 rpx;
+  width: 280rpx;
+  height: 280rpx;
   left: 50%;
   margin-left: -140rpx;
-  top: 533 rpx;
-  bottom: 533 rpx;
+  top: 533rpx;
+  bottom: 533rpx;
   border-radius: 50%;
-  border-width: 4 rpx;
+  border-width: 4rpx;
   border-color: rgb(70, 161, 253);
   transition: background-color 0.3s;
   z-index: 9998;
@@ -363,14 +363,14 @@ page {
 
 .shadow2 {
   position: absolute;
-  width: 280 rpx;
-  height: 280 rpx;
+  width: 280rpx;
+  height: 280rpx;
   left: 50%;
   margin-left: -140rpx;
-  top: 533 rpx;
-  bottom: 533 rpx;
+  top: 533rpx;
+  bottom: 533rpx;
   border-radius: 50%;
-  border-width: 4 rpx;
+  border-width: 4rpx;
   border-color: rgb(70, 161, 253);
   transition: background-color 0.3s;
   z-index: 9998;
@@ -393,14 +393,14 @@ page {
 
 .shadow3 {
   position: absolute;
-  width: 280 rpx;
-  height: 280 rpx;
+  width: 280rpx;
+  height: 280rpx;
   left: 50%;
   margin-left: -140rpx;
-  top: 533 rpx;
-  bottom: 533 rpx;
+  top: 533rpx;
+  bottom: 533rpx;
   border-radius: 50%;
-  border-width: 4 rpx;
+  border-width: 4rpx;
   border-color: rgb(70, 161, 253);
   transition: background-color 0.3s;
   z-index: 9998;
@@ -430,114 +430,114 @@ page {
 
 .text-first {
   position: absolute;
-  width: 256 rpx;
-  height: 84 rpx;
+  width: 256rpx;
+  height: 84rpx;
   left: 50%;
   transform: translateX(-50%);
-  top: 250 rpx;
-  bottom: 986.67 rpx;
+  top: 250rpx;
+  bottom: 986.67rpx;
 
   color: rgb(255, 255, 255);
   font-family: "Microsoft YaHei";
-  font-size: 64 rpx;
+  font-size: 64rpx;
   font-weight: 400;
-  line-height: 84 rpx;
-  letter-spacing: 0 rpx;
+  line-height: 84rpx;
+  letter-spacing: 0rpx;
   text-align: center;
 }
 
 .text-second {
   position: absolute;
-  width: 256 rpx;
-  height: 84 rpx;
+  width: 256rpx;
+  height: 84rpx;
   left: 50%;
   transform: translateX(-50%);
-  top: 350 rpx;
-  bottom: 986.67 rpx;
+  top: 350rpx;
+  bottom: 986.67rpx;
 
   color: rgb(255, 255, 255);
   font-family: "Microsoft YaHei";
-  font-size: 64 rpx;
+  font-size: 64rpx;
   font-weight: 400;
-  line-height: 84 rpx;
-  letter-spacing: 0 rpx;
+  line-height: 84rpx;
+  letter-spacing: 0rpx;
   text-align: center;
 }
 
 .text-third {
   position: absolute;
-  width: 200 rpx;
-  height: 60 rpx;
+  width: 200rpx;
+  height: 60rpx;
   left: 50%;
   transform: translateX(-50%);
-  top: 450 rpx;
-  bottom: 615 rpx;
+  top: 450rpx;
+  bottom: 615rpx;
   margin: 0 auto;
 
   color: rgb(255, 255, 255);
   font-family: "Microsoft YaHei";
-  font-size: 50 rpx;
+  font-size: 50rpx;
   font-weight: 400;
-  line-height: 60 rpx;
-  letter-spacing: 0 rpx;
+  line-height: 60rpx;
+  letter-spacing: 0rpx;
   text-align: center;
 }
 
 .text-forth {
   position: absolute;
-  width: 180 rpx;
-  height: 36 rpx;
+  width: 180rpx;
+  height: 36rpx;
   left: 0;
   right: 0;
-  top: 948 rpx;
-  bottom: 330 rpx;
+  top: 948rpx;
+  bottom: 330rpx;
   margin: 0 auto;
 
   color: rgb(255, 255, 255);
   font-family: "Microsoft YaHei";
-  font-size: 27 rpx;
+  font-size: 27rpx;
   font-weight: 400;
-  line-height: 36 rpx;
-  letter-spacing: 0 rpx;
+  line-height: 36rpx;
+  letter-spacing: 0rpx;
   text-align: center;
   text-decoration-line: underline;
 }
 
 .text-fifth {
   position: absolute;
-  width: 120 rpx;
-  height: 150 rpx;
+  width: 120rpx;
+  height: 150rpx;
   left: 0;
   right: 0;
-  top: 60 rpx;
-  bottom: 418 rpx;
+  top: 60rpx;
+  bottom: 418rpx;
   margin: 0 auto;
 
   color: rgb(255, 255, 255);
   font-family: "Microsoft YaHei";
-  font-size: 60 rpx;
+  font-size: 60rpx;
   font-weight: 400;
-  line-height: 80 rpx;
-  letter-spacing: 0 rpx;
+  line-height: 80rpx;
+  letter-spacing: 0rpx;
   text-align: center;
 }
 
 .text-sixth {
   position: absolute;
-  width: 100 rpx;
-  height: 17 rpx;
+  width: 100rpx;
+  height: 17rpx;
   margin: 0 auto;
-  top: 710 rpx;
+  top: 710rpx;
   left: 50%;
   transform: translateX(-50%);
-  padding: 0 179 rpx 7 rpx 180 rpx;
+  padding: 0 179rpx 7rpx 180rpx;
   z-index: 9997;
 
   color: rgb(15, 15, 15);
   font-family: "Microsoft YaHei";
-  font-size: 17 rpx;
+  font-size: 17rpx;
   font-weight: 400;
-  line-height: 17 rpx;
+  line-height: 17rpx;
   letter-spacing: 0;
   text-align: left;
 }
@@ -546,7 +546,7 @@ page {
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 750 rpx;
+  height: 750rpx;
   background-color: #ffffff;
   z-index: 9996;
 }
