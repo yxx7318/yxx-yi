@@ -1,0 +1,77 @@
+<template>
+  <view class="content">
+    <image class="logo" src="@/static/logo.png"></image>
+    <view class="text-area">
+      <text class="title"> RuoYi-Geek-App</text>
+    </view>
+    <view class="text-area">
+      <up-text type="primary" text="uview-plus"></up-text>
+    </view>
+    <view class="charts-box">
+      <qiun-data-charts type="column" :chartData="chartData"/>
+    </view>
+  </view>
+</template>
+
+<script setup>
+import {ref, onMounted} from 'vue'
+
+const chartData = ref({})
+
+onMounted(() => {
+  getServerData()
+});
+
+function getServerData() {
+  // 模拟从服务器获取数据时的延时
+  setTimeout(() => {
+    let res = {
+      categories: ['2016', '2017', '2018', '2019', '2020', '2021'],
+      series: [
+        {
+          name: '目标值',
+          data: [35, 36, 31, 33, 13, 34],
+        },
+        {
+          name: '完成量',
+          data: [18, 27, 21, 24, 6, 28],
+        },
+      ],
+    };
+    chartData.value = JSON.parse(JSON.stringify(res));
+  }, 500);
+}
+</script>
+
+<style scoped>
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo {
+  height: 200 rpx;
+  width: 200 rpx;
+  margin-top: 200 rpx;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 50 rpx;
+}
+
+.text-area {
+  display: flex;
+  justify-content: center;
+}
+
+.title {
+  font-size: 36 rpx;
+  color: #8f8f94;
+}
+
+.charts-box {
+  width: 100%;
+  height: 300px;
+}
+</style>
