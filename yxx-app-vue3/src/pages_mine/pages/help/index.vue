@@ -21,12 +21,12 @@ import {ref} from "vue"
 
 const list = ref([{
   icon: 'iconfont icon-github',
-  title: '若依问题',
+  title: '问题',
   childList: [{
-    title: '若依开源吗？',
+    title: '开源吗？',
     content: '开源'
   }, {
-    title: '若依可以商用吗？',
+    title: '可以商用吗？',
     content: '可以'
   }, {
     title: '官网地址多少？',

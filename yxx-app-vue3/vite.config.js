@@ -21,8 +21,6 @@ export default defineConfig(() => {
       preprocessorOptions: {
         scss: {
           api: "modern-compiler", // or 'modern'
-          // 全局引入 uView Plus 的变量文件（假设变量定义在 libs/css/variables.scss）
-          additionalData: `@use "uview-plus/libs/css/variables.scss" as *;`,
         }
       }
     },

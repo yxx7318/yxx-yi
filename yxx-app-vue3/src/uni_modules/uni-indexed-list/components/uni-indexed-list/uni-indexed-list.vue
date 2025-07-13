@@ -39,11 +39,11 @@
 	// #endif
 	// #ifdef APP-PLUS
 	function throttle(func, delay) {
-		var prev = Date.now();
+		let prev = Date.now();
 		return function() {
-			var context = this;
-			var args = arguments;
-			var now = Date.now();
+			let context = this;
+			let args = arguments;
+			let now = Date.now();
 			if (now - prev >= delay) {
 				func.apply(context, args);
 				prev = Date.now();
@@ -236,9 +236,9 @@
 
 			// #ifdef H5
 			IsPC() {
-				var userAgentInfo = navigator.userAgent;
-				var Agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
-				var flag = true;
+				let userAgentInfo = navigator.userAgent;
+				let Agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
+				let flag = true;
 				for (let v = 0; v < Agents.length - 1; v++) {
 					if (userAgentInfo.indexOf(Agents[v]) > 0) {
 						flag = false;

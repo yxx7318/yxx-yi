@@ -2,7 +2,7 @@ const COLOR = [
   "#EE6A66", "#6BC588", "#FFC300", "#24ABFD"
 ]
 
-var ISCANVAS2D = true
+let ISCANVAS2D = true
 
 switch (uni.getSystemInfoSync().platform) {
   case 'android':

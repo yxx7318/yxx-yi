@@ -244,7 +244,7 @@
 				if (!this.canReset) {
 					return;
 				}
-				var items = this.dataList
+				let items = this.dataList
 				for (let i = 0; i < items.length; i++) {
 					let item = items[i]
 					this.$set(item, 'checked', false)

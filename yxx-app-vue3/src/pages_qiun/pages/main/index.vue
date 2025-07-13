@@ -21,7 +21,8 @@
       </view>
       <!-- 公司区域下拉列表 -->
       <drop-down ref="companyDrop" @tap="changDrop(2)" @changeItem="changeLocation" :list="locationArray"
-                 :contentTop="top" contentRight="10" :selectWidth="showCalendar ? '200rpx' : '300rpx'" listWidth="75%">
+                 :contentTop="top" contentLeft="0" :selectWidth="showCalendar ? '200rpx' : '400rpx'" listWidth="75%">
+
       </drop-down>
     </view>
     <uni-calendar ref="calendar" :insert="false" :start-date="startDate" :end-date="endDate" :clearDate="false"
@@ -223,8 +224,7 @@ body {
   }
 
   .nav {
-    background-image: url(http://photo.gdbjyy.cn/image/BCAI/top_bg.jpg);
-    background-size: 100% 100%;
+    background-color: #40A2ED;
 
     .back {
       font-size: 54rpx;
@@ -245,6 +245,8 @@ body {
   }
 
   .head {
+    display: flex;
+    justify-content: space-between;
     padding: 0 16rpx 14rpx 16rpx;
     color: #fff;
     background-color: #40A2ED;

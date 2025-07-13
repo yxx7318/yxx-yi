@@ -116,7 +116,7 @@ slider {
 
 input {
   width: 100%;
-  margin-bottom: 20 upx;
+  margin-bottom: 20upx;
 }
 
 .btns {
@@ -127,5 +127,5 @@ input {
 
 button {
   width: 100%;
-  margin-top: 10 upx;
+  margin-top: 10upx;
 }</style>

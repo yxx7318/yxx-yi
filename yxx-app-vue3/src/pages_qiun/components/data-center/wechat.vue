@@ -67,6 +67,8 @@ import teamTrand from '../../static/json/wechat/5.json'
 import dataTable from "../../static/json/wechat/6.json"
 
 import Config from '../../static/js/config'
+import TextBlock from "../text-block/text-block.vue"
+import QiunDataCharts from "@/components/qiun-data-charts/components/qiun-data-charts/qiun-data-charts.vue"
 
 export default {
   name: 'wechat',
@@ -77,6 +79,8 @@ export default {
     }
   },
   components: {
+    QiunDataCharts,
+    TextBlock,
     DataProgress,
     SeniorTable,
   },

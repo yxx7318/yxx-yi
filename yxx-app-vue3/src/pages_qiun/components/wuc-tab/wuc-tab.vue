@@ -1,6 +1,12 @@
 <template>
-  <scroll-view class="wuc-tab" :class="tabClass" :style="tabStyle" scroll-with-animation scroll-x
-               :scroll-left="scrollLeft">
+  <scroll-view
+    class="wuc-tab"
+    scroll-with-animation="true"
+    scroll-x="true"
+    :class="tabClass"
+    :style="tabStyle"
+    :scroll-left="scrollLeft"
+  >
     <div v-if="!textFlex">
       <div class="wuc-tab-item" :class="[index === tabCur ? selectClass + ' cur':'']" v-for="(item,index) in tabList"
            :key="index" :id="index" @tap="tabSelect(index,$event)">
@@ -91,8 +97,8 @@ swiper {
   height: 90rpx;
   display: inline-block;
   line-height: 90rpx;
-  margin: 0 10 upx;
-  padding: 0 20 upx;
+  margin: 0 10upx;
+  padding: 0 20upx;
 }
 
 .wuc-tab-item.cur {
@@ -105,7 +111,7 @@ swiper {
   width: 100%;
   top: 0;
   z-index: 1024;
-  box-shadow: 0 1 upx 6 upx rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1upx 6upx rgba(0, 0, 0, 0.1);
 }
 
 .flex {
@@ -141,6 +147,6 @@ swiper {
 }
 
 .text-xl {
-  font-size: 36 upx;
+  font-size: 36upx;
 }
 </style>

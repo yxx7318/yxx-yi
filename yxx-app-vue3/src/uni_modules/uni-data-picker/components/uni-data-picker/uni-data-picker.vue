@@ -205,7 +205,7 @@
         this._dispatchEvent(e)
       },
       _processReadonly(dataList, value) {
-        var isTree = dataList.findIndex((item) => {
+        let isTree = dataList.findIndex((item) => {
           return item.children
         })
         if (isTree > -1) {
@@ -229,8 +229,8 @@
 
         let result = []
         for (let i = 0; i < value.length; i++) {
-          var val = value[i]
-          var item = dataList.find((v) => {
+          let val = value[i]
+          let item = dataList.find((v) => {
             return v.value == val
           })
           if (item) {
@@ -242,10 +242,10 @@
         }
       },
       _filterForArray(data, valueArray) {
-        var result = []
+        let result = []
         for (let i = 0; i < valueArray.length; i++) {
-          var value = valueArray[i]
-          var found = data.find((item) => {
+          let value = valueArray[i]
+          let found = data.find((item) => {
             return item.value == value
           })
           if (found) {
@@ -257,8 +257,8 @@
       _dispatchEvent(selected) {
         let item = {}
         if (selected.length) {
-          var value = new Array(selected.length)
-          for (var i = 0; i < selected.length; i++) {
+          let value = new Array(selected.length)
+          for (let i = 0; i < selected.length; i++) {
             value[i] = selected[i].value
           }
           item = selected[selected.length - 1]

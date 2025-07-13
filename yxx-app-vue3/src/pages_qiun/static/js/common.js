@@ -23,7 +23,7 @@ export default {
   },
   getTelephoneInfo() {
     return new Promise((resolve, reject) => {
-      var data = uni.getStorageSync("telephoneInfo");
+      let data = uni.getStorageSync("telephoneInfo");
       if (!data) {
         // 获取右上角胶囊的位置信息
         //#ifndef H5
@@ -57,20 +57,20 @@ export default {
   },
   // 获取上个月的年月日
   getPreMonth(date) {
-    var arr = date.split('-');
-    var year = arr[0]; //获取当前日期的年份
-    var month = arr[1]; //获取当前日期的月份
-    var day = arr[2]; //获取当前日期的日
-    var days = new Date(year, month, 0);
+    let arr = date.split('-');
+    let year = arr[0]; //获取当前日期的年份
+    let month = arr[1]; //获取当前日期的月份
+    let day = arr[2]; //获取当前日期的日
+    let days = new Date(year, month, 0);
     days = days.getDate(); //获取当前日期中月的天数
-    var year2 = year;
-    var month2 = parseInt(month) - 1;
+    let year2 = year;
+    let month2 = parseInt(month) - 1;
     if (month2 == 0) {
       year2 = parseInt(year2) - 1;
       month2 = 12;
     }
-    var day2 = day;
-    var days2 = new Date(year2, month2, 0);
+    let day2 = day;
+    let days2 = new Date(year2, month2, 0);
     days2 = days2.getDate();
     if (day2 > days2) {
       day2 = days2;
@@ -78,7 +78,7 @@ export default {
     if (month2 < 10) {
       month2 = '0' + month2;
     }
-    var t2 = year2 + '-' + month2 + '-' + "01";
+    let t2 = year2 + '-' + month2 + '-' + "01";
     return t2;
   },
   //检测小程序更新
@@ -138,7 +138,7 @@ export default {
       this.loginTip();
     } else {
       let part = '';
-      for (var item in param) {
+      for (let item in param) {
         part += '&' + item + '=' + param[item];
       }
       url = url + part.replace('&', '?');
@@ -155,7 +155,7 @@ export default {
       this.tipMsg("很抱歉,你没有权限！");
     } else {
       let part = '';
-      for (var item in param) {
+      for (let item in param) {
         part += '&' + item + '=' + param[item];
       }
       url = "/pages" + url + part.replace('&', '?');

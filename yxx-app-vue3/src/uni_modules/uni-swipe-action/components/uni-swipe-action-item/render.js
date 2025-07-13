@@ -1,8 +1,8 @@
 const MIN_DISTANCE = 10;
 export default {
 	showWatch(newVal, oldVal, ownerInstance, instance, self) {
-		var state = self.state
-		var $el = ownerInstance.$el || ownerInstance.$vm && ownerInstance.$vm.$el
+		let state = self.state
+		let $el = ownerInstance.$el || ownerInstance.$vm && ownerInstance.$vm.$el
 		if (!$el) return
 		this.getDom(instance, ownerInstance, self)
 		if (newVal && newVal !== 'none') {
@@ -115,10 +115,10 @@ export default {
 	 * @param {Object} ownerInstance
 	 */
 	getDom(instance, ownerInstance, self) {
-		var state = self.state
-		var $el = ownerInstance.$el || ownerInstance.$vm && ownerInstance.$vm.$el
-		var leftDom = $el.querySelector('.button-group--left')
-		var rightDom = $el.querySelector('.button-group--right')
+		let state = self.state
+		let $el = ownerInstance.$el || ownerInstance.$vm && ownerInstance.$vm.$el
+		let leftDom = $el.querySelector('.button-group--left')
+		let rightDom = $el.querySelector('.button-group--right')
 
 		state.leftWidth = leftDom.offsetWidth || 0
 		state.rightWidth = rightDom.offsetWidth || 0
@@ -148,12 +148,12 @@ export default {
 	 * @param {Object} ins
 	 */
 	moveDirection(left, ins, ownerInstance, self) {
-		var state = self.state
-		var threshold = state.threshold
-		var position = state.position
-		var isopen = state.isopen || 'none'
-		var leftWidth = state.leftWidth
-		var rightWidth = state.rightWidth
+		let state = self.state
+		let threshold = state.threshold
+		let position = state.position
+		let isopen = state.isopen || 'none'
+		let leftWidth = state.leftWidth
+		let rightWidth = state.rightWidth
 		if (state.deltaX === 0) {
 			this.openState('none', ins, ownerInstance, self)
 			return
@@ -247,7 +247,7 @@ export default {
 		let instance = event.instance;
 		let state = self.state
 		this.resetTouchStatus(instance, self);
-		var touch = event.touches[0];
+		let touch = event.touches[0];
 		state.startX = touch.clientX;
 		state.startY = touch.clientY;
 	},

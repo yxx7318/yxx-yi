@@ -78,7 +78,7 @@ function dialogConfirm() {
   //console.log('----------------点击确认------------')
   userStore.logOut().then(() => {
     uni.reLaunch({
-      url: '/pages/login'
+      url: '/pages/index'
     })
   })
 }

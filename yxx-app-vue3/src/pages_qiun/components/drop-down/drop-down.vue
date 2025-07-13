@@ -1,12 +1,10 @@
 <template>
   <div class="dropdown-item">
     <!-- selected -->
-    <view :class="['dropdown-item__selected',listWidth!='150rpx'?'dropdown-item__right':'dropdown-item__left']"
+    <view :class="['dropdown-item__selected',listWidth!='150rpx' ? 'dropdown-item__right' : 'dropdown-item__left']"
           @click="changePopup" :style="{maxWidth:selectWidth}">
       <view class="selected__name">{{ selectItem.text }}</view>
-      <view class="selected__icon"
-            :class="showClass === 'show'? 'up' : 'down'"
-      >
+      <view class="selected__icon" :class="showClass === 'show' ? 'up' : 'down'">
         <li class="iconfont icon-caretdown"></li>
       </view>
     </view>

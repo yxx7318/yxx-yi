@@ -148,7 +148,7 @@ export default {
   },
   created() {
     this.$watch(() => {
-      var al = [];
+      let al = [];
       ['pageCurrent',
         'pageSize',
         'spaceInfo',
@@ -410,7 +410,7 @@ export default {
         result.push(`${parentField} == null || ${parentField} == ""`)
       }
       if (selected.length) {
-        for (var i = 0; i < selected.length - 1; i++) {
+        for (let i = 0; i < selected.length - 1; i++) {
           result.push(`${parentField} == '${selected[i].value}'`)
         }
       }

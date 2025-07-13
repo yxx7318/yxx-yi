@@ -200,8 +200,8 @@ export default {
 
 .geek-qrcode-canvas {
   position: fixed;
-  top: -99999 upx;
-  left: -99999 upx;
+  top: -99999upx;
+  left: -99999upx;
   z-index: -99999;
 }
 </style>

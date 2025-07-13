@@ -5,9 +5,10 @@
       <text class="title">{{ item.name }}</text>
       <view class="body">
         <view class="number">{{ item.now ? item.now + "/" : "" }}{{ item.expect }} [{{ item.value }}%]</view>
-        <progress :percent="item.value" backgroundColor="#C9C9C9"
+        <progress :percent="item.value"
+                  backgroundColor="#C9C9C9"
                   :border-radius="borderRadius?borderRadius+'rpx':'0px'"
-                  :color="time"
+                  active="true"
                   stroke-width="16"/>
       </view>
     </view>
@@ -35,7 +36,6 @@ export default {
   },
   data() {
     return {
-      time: 0
     }
   },
   watch: {
