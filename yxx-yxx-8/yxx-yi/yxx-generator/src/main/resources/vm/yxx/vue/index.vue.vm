@@ -617,7 +617,7 @@ export default {
           this.form.${subclassName}List = this.${subclassName}List
 #end
           if (this.form.${pkColumn.javaField} != null) {
-            update${BusinessName}(this.form).then(response => {
+            update${BusinessName}(this.form.${pkColumn.javaField}, this.form).then(response => {
               this.#[[$modal]]#.msgSuccess("修改成功")
               this.open = false
               this.getList()

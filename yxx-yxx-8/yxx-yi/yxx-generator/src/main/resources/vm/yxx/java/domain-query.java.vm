@@ -13,7 +13,7 @@ import lombok.experimental.Accessors;
 import lombok.*;
 
 /**
- * ${functionName}查询Dto对象 ${tableName}
+ * ${functionName}QueryDto对象 ${tableName}
  *
  * @author ${author}
  * @date ${datetime}

@@ -20,9 +20,19 @@ import ${packageName}.domain.${subClassName};
 import lombok.RequiredArgsConstructor;
 import com.yxx.common.core.service.impl.ServiceImplPlus;
 import ${packageName}.mapper.${ClassName}Mapper;
-import ${packageName}.domain.${ClassName};
+import ${packageName}.domain.${ClassName}Do;
+import ${packageName}.domain.${ClassName}Vo;
+import ${packageName}.domain.${ClassName}QueryDto;
+import ${packageName}.domain.${ClassName}EditDto;
 import ${packageName}.service.I${ClassName}Service;
 
+#foreach ($column in $columns)
+#if($column.javaField.toLowerCase().indexOf("id") != -1)
+## 获取主键，并首字母大写
+#set($IdAttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+#break
+#end
+#end
 /**
  * ${functionName}Service业务层处理
  *
@@ -32,63 +42,75 @@ import ${packageName}.service.I${ClassName}Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper, ${ClassName}> implements I${ClassName}Service {
+public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper, ${ClassName}Do> implements I${ClassName}Service {
 
     private final ${ClassName}Mapper ${className}Mapper;
 
     /**
      * 查询${functionName}分页结果
      *
-     * @param ${className} ${functionName}
-     * @return ${functionName}
+     * @param ${className}QueryDto ${functionName}查询实体
+     * @return ${functionName}分页
      */
     @Override
-    public PageResult<${ClassName}> select${ClassName}Page(${ClassName} ${className}) {
+    public PageResult<${ClassName}Vo> select${ClassName}Page(${ClassName}QueryDto ${className}QueryDto) {
         startPage();
-        PageResult<${ClassName}> page = getMyBatisPageResult(${className}Mapper.select${ClassName}List(${className}));
+        PageResult<${ClassName}Vo> page
+                = super.getMyBatisPageResult(select${ClassName}DoList(${className}QueryDto), ${ClassName}Vo.class);
         clearPage();
         return page;
     }
 
     /**
-     * 查询${functionName}列表
+     * 查询${functionName}Vo列表
      *
-     * @param ${className} ${functionName}
-     * @return ${functionName}
+     * @param ${className}QueryDto ${functionName}查询实体
+     * @return ${functionName}集合
      */
     @Override
-    public List<${ClassName}> select${ClassName}List(${ClassName} ${className}) {
-        return ${className}Mapper.select${ClassName}List(${className});
+    public List<${ClassName}Vo> select${ClassName}VoList(${ClassName}QueryDto ${className}QueryDto) {
+        return super.convertVoList(${className}Mapper.select${ClassName}List(${className}QueryDto), ${ClassName}Vo.class);
     }
 
     /**
-     * 查询${functionName}
+     * 查询${functionName}Do列表
      *
-     * @param ${pkColumn.javaField} ${functionName}主键
-     * @return ${functionName}
+     * @param ${className}QueryDto ${functionName}查询实体
+     * @return ${functionName}集合
      */
     @Override
-    public ${ClassName} select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField}) {
-        return ${className}Mapper.select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaField});
+    public List<${ClassName}Do> select${ClassName}DoList(${ClassName}QueryDto ${className}QueryDto) {
+        return ${className}Mapper.select${ClassName}List(${className}QueryDto);
+    }
+
+    /**
+     * 查询单个${functionName}
+     *
+     * @param ${pkColumn.javaField} ${functionName}主键
+     * @return ${functionName}单个
+     */
+    @Override
+    public ${ClassName}Vo select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField}) {
+        return super.convertBean(${className}Mapper.select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaField}), ${ClassName}Vo.class);
     }
 
     /**
      * 新增${functionName}
      *
-     * @param ${className} ${functionName}
+     * @param ${className}EditDto ${functionName}编辑实体
      * @return 结果
      */
 #if($table.sub)
     @Transactional(rollbackFor = Exception.class)
 #end
     @Override
-    public int insert${ClassName}(${ClassName} ${className}) {
+    public int insert${ClassName}(${ClassName}EditDto ${className}EditDto) {
 #foreach ($column in $columns)
 #if($column.javaField == 'createTime')
-        ${className}.setCreateTime(DateUtils.getNowDate());
+        ${className}EditDto.setCreateTime(DateUtils.getNowDate());
 #end
 #if($column.javaField == 'createBy')
-        ${className}.setCreateBy(getUserNameOrNotLogged());
+        ${className}EditDto.setCreateBy(getUserNameOrNotLogged());
 #end
 #end
 #if($table.sub)
@@ -96,34 +118,35 @@ public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper,
         insert${subClassName}(${className});
         return rows;
 #else
-        return ${className}Mapper.insert${ClassName}(${className});
+        return ${className}Mapper.insert${ClassName}(super.convertT(${className}EditDto));
 #end
     }
 
     /**
      * 修改${functionName}
      *
-     * @param ${className} ${functionName}
+     * @param ${pkColumn.javaField} ${functionName}主键
+     * @param ${className}EditDto ${functionName}编辑实体
      * @return 结果
      */
 #if($table.sub)
     @Transactional(rollbackFor = Exception.class)
 #end
     @Override
-    public int update${ClassName}(${ClassName} ${className}) {
+    public int update${ClassName}(${pkColumn.javaType} ${pkColumn.javaField}, ${ClassName}EditDto ${className}EditDto) {
 #foreach ($column in $columns)
 #if($column.javaField == 'updateTime')
-        ${className}.setUpdateTime(DateUtils.getNowDate());
+        ${className}EditDto.setUpdateTime(DateUtils.getNowDate());
 #end
 #if($column.javaField == 'updateBy')
-        ${className}.setUpdateBy(getUserNameOrNotLogged());
+        ${className}EditDto.setUpdateBy(getUserNameOrNotLogged());
 #end
 #end
 #if($table.sub)
         ${className}Mapper.delete${subClassName}By${subTableFkClassName}(${className}.get${pkColumn.capJavaField}());
         insert${subClassName}(${className});
 #end
-        return ${className}Mapper.update${ClassName}(${className});
+        return ${className}Mapper.update${ClassName}(super.convertT(${className}EditDto).set${IdAttrName}(${pkColumn.javaField}));
     }
 
     /**
@@ -144,7 +167,7 @@ public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper,
     }
 
     /**
-     * 删除${functionName}信息
+     * 删除单个${functionName}信息
      *
      * @param ${pkColumn.javaField} ${functionName}主键
      * @return 结果

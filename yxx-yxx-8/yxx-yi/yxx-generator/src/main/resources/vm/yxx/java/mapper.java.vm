@@ -2,7 +2,8 @@ package ${packageName}.mapper;
 
 import java.util.List;
 
-import ${packageName}.domain.${ClassName};
+import ${packageName}.domain.${ClassName}Do;
+import ${packageName}.domain.${ClassName}QueryDto;
 #if($table.sub)
 import ${packageName}.domain.${subClassName};
 #end
@@ -14,38 +15,39 @@ import com.yxx.common.core.mapper.BaseMapperPlus;
  * @author ${author}
  * @date ${datetime}
  */
-public interface ${ClassName}Mapper extends BaseMapperPlus<${ClassName}> {
+public interface ${ClassName}Mapper extends BaseMapperPlus<${ClassName}Do> {
+
     /**
      * 查询${functionName}列表
      *
-     * @param ${className} ${functionName}
+     * @param ${className}QueryDto ${functionName}查询实体
      * @return ${functionName}集合
      */
-    public List<${ClassName}> select${ClassName}List(${ClassName} ${className});
+    public List<${ClassName}Do> select${ClassName}List(${ClassName}QueryDto ${className}QueryDto);
 
     /**
      * 查询${functionName}
      *
      * @param ${pkColumn.javaField} ${functionName}主键
-     * @return ${functionName}
+     * @return ${functionName}单个
      */
-    public ${ClassName} select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField});
+    public ${ClassName}Do select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField});
 
     /**
      * 新增${functionName}
      *
-     * @param ${className} ${functionName}
+     * @param ${className}Do ${functionName}数据库实体
      * @return 结果
      */
-    public int insert${ClassName}(${ClassName} ${className});
+    public int insert${ClassName}(${ClassName}Do ${className}Do);
 
     /**
      * 修改${functionName}
      *
-     * @param ${className} ${functionName}
+     * @param ${className}Do ${functionName}数据库实体
      * @return 结果
      */
-    public int update${ClassName}(${ClassName} ${className});
+    public int update${ClassName}(${ClassName}Do ${className}Do);
 
     /**
      * 删除${functionName}

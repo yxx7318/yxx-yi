@@ -95,8 +95,8 @@
       <el-table-column label="用户ID" align="center" prop="userId" />
       <el-table-column label="用户账号" align="center" prop="userName" />
       <el-table-column label="密码" align="center" prop="password" />
-      <el-table-column label="注册时间" align="center" prop="registerTime" />
       <el-table-column label="账号状态" align="center" prop="status" />
+      <el-table-column label="注册时间" align="center" prop="registerTime" />
       <el-table-column label="备注" align="center" prop="remark" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
@@ -117,7 +117,7 @@
         </template>
       </el-table-column>
     </el-table>
-
+    
     <pagination
       v-show="total>0"
       :total="total"
@@ -191,7 +191,7 @@ export default {
       open: false,
       // 备注时间范围
       datetimerangeRegisterTime: [],
-      // 商品导入参数
+      // 导入Excel参数
       upload: {
         // 是否显示弹出层
         open: false,
@@ -206,8 +206,8 @@ export default {
         pageSize: 10,
         userName: null,
         password: null,
-        registerTime: null,
         status: null,
+        registerTime: null,
       },
       // 表单参数
       form: {},
@@ -248,8 +248,8 @@ export default {
         userId: null,
         userName: null,
         password: null,
-        registerTime: null,
         status: null,
+        registerTime: null,
         createBy: null,
         createTime: null,
         updateBy: null,
@@ -296,7 +296,7 @@ export default {
       this.$refs["form"].validate(valid => {
         if (valid) {
           if (this.form.userId != null) {
-            updateUser(this.form).then(response => {
+            updateUser(this.form.userId, this.form).then(response => {
               this.$modal.msgSuccess("修改成功")
               this.open = false
               this.getList()

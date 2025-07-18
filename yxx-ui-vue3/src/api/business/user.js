@@ -27,9 +27,9 @@ export function addUser(data) {
 }
 
 // 修改测试用户
-export function updateUser(data) {
+export function updateUser(userId, data) {
   return request({
-    url: '/business/user',
+    url: '/business/user/' + userId,
     method: 'put',
     data: data
   })

@@ -1,5 +1,6 @@
 package com.yxx.generator.config;
 
+import com.yxx.generator.constants.GenVmTypeEnum;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Lazy;
@@ -31,7 +32,7 @@ public class GenConfig
     public static boolean allowOverwrite;
 
     /** 激活的代码生成模板 */
-    public static String vmType;
+    public static GenVmTypeEnum vmType;
 
     /** 否开启代码生成基类属性(开启后可以提高生成的代码对MP的兼容性) */
     public static boolean entitySwitch;
@@ -91,7 +92,7 @@ public class GenConfig
         GenConfig.allowOverwrite = allowOverwrite;
     }
 
-    public static String getVmType()
+    public static GenVmTypeEnum getVmType()
     {
         return vmType;
     }
@@ -99,7 +100,7 @@ public class GenConfig
     @Value("${vmType}")
     public void setVmType(String vmType)
     {
-        GenConfig.vmType = vmType;
+        GenConfig.vmType = GenVmTypeEnum.MAP.get(vmType);
     }
 
     public static boolean isEntitySwitch()

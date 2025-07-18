@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.yxx.generator.config.GenConfig;
+import com.yxx.generator.constants.GenVmTypeEnum;
 import org.apache.velocity.VelocityContext;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
@@ -129,18 +130,22 @@ public class VelocityUtils
      */
     public static List<String> getTemplateList(String tplCategory, String tplWebType)
     {
-        String basePath = "vm/" + GenConfig.getVmType() + "/";
+        String basePath = "vm/" + GenConfig.getVmType().getValue() + "/";
         String useWebType = basePath + "vue";
         if ("element-plus".equals(tplWebType))
         {
             useWebType = basePath + "vue/v3";
         }
         List<String> templates = new ArrayList<String>();
-        templates.add(basePath + "java/domain.java.vm");
-        if ("yxx".equals(GenConfig.getVmType())) {
-            templates.add(basePath + "java/domain-query.java.vm");
+        if (GenVmTypeEnum.YXX.equals(GenConfig.getVmType())) {
+            templates.add(basePath + "java/domain-do.java.vm");
             templates.add(basePath + "java/domain-vo.java.vm");
+            templates.add(basePath + "java/domain-query.java.vm");
             templates.add(basePath + "java/domain-edit.java.vm");
+        }
+        else if (GenVmTypeEnum.RUO_YI.equals(GenConfig.getVmType()))
+        {
+            templates.add(basePath + "java/domain.java.vm");
         }
         templates.add(basePath + "java/mapper.java.vm");
         templates.add(basePath + "java/service.java.vm");
@@ -185,24 +190,28 @@ public class VelocityUtils
         String mybatisPath = MYBATIS_PATH + "/" + moduleName;
         String vuePath = "vue";
 
-        if (template.contains("domain.java.vm"))
+        if (GenVmTypeEnum.YXX.equals(GenConfig.getVmType()))
         {
-            fileName = StringUtils.format("{}/domain/{}.java", javaPath, className);
-        }
-        if ("yxx".equals(GenConfig.getVmType()))
-        {
-            if (template.contains("domain-query.java.vm"))
+            if (template.contains("domain-do.java.vm"))
             {
-                fileName = StringUtils.format("{}/domain/{}.java", javaPath, className + "Dto");
+                fileName = StringUtils.format("{}/domain/{}.java", javaPath, className + "Do");
             }
             if (template.contains("domain-vo.java.vm"))
             {
                 fileName = StringUtils.format("{}/domain/{}.java", javaPath, className + "Vo");
             }
+            if (template.contains("domain-query.java.vm"))
+            {
+                fileName = StringUtils.format("{}/domain/{}.java", javaPath, className + "QueryDto");
+            }
             if (template.contains("domain-edit.java.vm"))
             {
                 fileName = StringUtils.format("{}/domain/{}.java", javaPath, className + "EditDto");
             }
+        }
+        else if (GenVmTypeEnum.RUO_YI.equals(GenConfig.getVmType()))
+        {
+            fileName = StringUtils.format("{}/domain/{}.java", javaPath, className);
         }
         if (template.contains("sub-domain.java.vm") && StringUtils.equals(GenConstants.TPL_SUB, genTable.getTplCategory()))
         {

@@ -9,22 +9,22 @@ import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
 import com.yxx.common.core.service.impl.ServiceImplPlus;
 import com.yxx.business.example.mapper.TbTestUserMapper;
-import com.yxx.business.example.domain.TbTestUser;
+import com.yxx.business.example.domain.TbTestUserDo;
+import com.yxx.business.example.domain.TbTestUserVo;
 import com.yxx.business.example.domain.TbTestUserQueryDto;
 import com.yxx.business.example.domain.TbTestUserEditDto;
-import com.yxx.business.example.domain.TbTestUserVo;
 import com.yxx.business.example.service.ITbTestUserService;
 
 /**
  * 测试用户Service业务层处理
  *
  * @author yxx
- * @date 2025-06-03
+ * @date 2025-07-17
  */
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbTestUser> implements ITbTestUserService {
+public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbTestUserDo> implements ITbTestUserService {
 
     private final TbTestUserMapper tbTestUserMapper;
 
@@ -32,12 +32,13 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
      * 查询测试用户分页结果
      *
      * @param tbTestUserQueryDto 测试用户查询实体
-     * @return 测试用户
+     * @return 测试用户分页
      */
     @Override
-    public PageResult<TbTestUserVo> selectTbTestUserVoPage(TbTestUserQueryDto tbTestUserQueryDto) {
+    public PageResult<TbTestUserVo> selectTbTestUserPage(TbTestUserQueryDto tbTestUserQueryDto) {
         startPage();
-        PageResult<TbTestUserVo> page = getMyBatisPageResult(selectTbTestUserList(tbTestUserQueryDto), TbTestUserVo.class);
+        PageResult<TbTestUserVo> page
+                = super.getMyBatisPageResult(selectTbTestUserDoList(tbTestUserQueryDto), TbTestUserVo.class);
         clearPage();
         return page;
     }
@@ -46,29 +47,29 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
      * 查询测试用户Vo列表
      *
      * @param tbTestUserQueryDto 测试用户查询实体
-     * @return 测试用户
+     * @return 测试用户集合
      */
     @Override
     public List<TbTestUserVo> selectTbTestUserVoList(TbTestUserQueryDto tbTestUserQueryDto) {
-        return convertVoList(selectTbTestUserList(tbTestUserQueryDto), TbTestUserVo.class);
+        return super.convertVoList(tbTestUserMapper.selectTbTestUserList(tbTestUserQueryDto), TbTestUserVo.class);
     }
 
     /**
-     * 查询测试用户列表
+     * 查询测试用户Do列表
      *
      * @param tbTestUserQueryDto 测试用户查询实体
-     * @return 测试用户
+     * @return 测试用户集合
      */
     @Override
-    public List<TbTestUser> selectTbTestUserList(TbTestUserQueryDto tbTestUserQueryDto) {
+    public List<TbTestUserDo> selectTbTestUserDoList(TbTestUserQueryDto tbTestUserQueryDto) {
         return tbTestUserMapper.selectTbTestUserList(tbTestUserQueryDto);
     }
 
     /**
-     * 查询测试用户
+     * 查询单个测试用户
      *
      * @param userId 测试用户主键
-     * @return 测试用户
+     * @return 测试用户单个
      */
     @Override
     public TbTestUserVo selectTbTestUserByUserId(Long userId) {
@@ -91,6 +92,7 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
     /**
      * 修改测试用户
      *
+     * @param userId 测试用户主键
      * @param tbTestUserEditDto 测试用户编辑实体
      * @return 结果
      */
@@ -113,7 +115,7 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
     }
 
     /**
-     * 删除测试用户信息
+     * 删除单个测试用户信息
      *
      * @param userId 测试用户主键
      * @return 结果

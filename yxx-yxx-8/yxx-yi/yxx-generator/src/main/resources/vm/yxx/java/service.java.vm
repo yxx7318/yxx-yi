@@ -3,7 +3,10 @@ package ${packageName}.service;
 import java.util.List;
 
 import com.yxx.common.core.domain.PageResult;
-import ${packageName}.domain.${ClassName};
+import ${packageName}.domain.${ClassName}Do;
+import ${packageName}.domain.${ClassName}Vo;
+import ${packageName}.domain.${ClassName}QueryDto;
+import ${packageName}.domain.${ClassName}EditDto;
 import com.yxx.common.core.service.IServicePlus;
 
 /**
@@ -12,57 +15,67 @@ import com.yxx.common.core.service.IServicePlus;
  * @author ${author}
  * @date ${datetime}
  */
-public interface I${ClassName}Service extends IServicePlus<${ClassName}> {
+public interface I${ClassName}Service extends IServicePlus<${ClassName}Do> {
+
     /**
      * 查询${functionName}分页结果
      *
-     * @param ${className} ${functionName}
-     * @return ${functionName}分页结果
+     * @param ${className}QueryDto ${functionName}查询实体
+     * @return ${functionName}分页
      */
-    public PageResult<${ClassName}> select${ClassName}Page(${ClassName} ${className});
+    public PageResult<${ClassName}Vo> select${ClassName}Page(${ClassName}QueryDto ${className}QueryDto);
 
     /**
-     * 查询${functionName}列表
+     * 查询${functionName}Vo列表
      *
-     * @param ${className} ${functionName}
+     * @param ${className}QueryDto ${functionName}查询实体
      * @return ${functionName}集合
      */
-    public List<${ClassName}> select${ClassName}List(${ClassName} ${className});
+    public List<${ClassName}Vo> select${ClassName}VoList(${ClassName}QueryDto ${className}QueryDto);
 
     /**
-     * 查询${functionName}
+     * 查询${functionName}Do列表
+     *
+     * @param ${className}QueryDto ${functionName}查询实体
+     * @return ${functionName}集合
+     */
+    public List<${ClassName}Do> select${ClassName}DoList(${ClassName}QueryDto ${className}QueryDto);
+
+    /**
+     * 查询单个${functionName}
      *
      * @param ${pkColumn.javaField} ${functionName}主键
-     * @return ${functionName}
+     * @return ${functionName}单个
      */
-    public ${ClassName} select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField});
+    public ${ClassName}Vo select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField});
 
     /**
      * 新增${functionName}
      *
-     * @param ${className} ${functionName}
+     * @param ${className}EditDto ${functionName}编辑实体
      * @return 结果
      */
-    public int insert${ClassName}(${ClassName} ${className});
+    public int insert${ClassName}(${ClassName}EditDto ${className}EditDto);
 
     /**
      * 修改${functionName}
      *
-     * @param ${className} ${functionName}
+     * @param ${pkColumn.javaField} 主键
+     * @param ${className}EditDto ${functionName}编辑实体
      * @return 结果
      */
-    public int update${ClassName}(${ClassName} ${className});
+    public int update${ClassName}(${pkColumn.javaType} ${pkColumn.javaField}, ${ClassName}EditDto ${className}EditDto);
 
     /**
      * 批量删除${functionName}
      *
-     * @param ${pkColumn.javaField}s 需要删除的${functionName}主键集合
+     * @param ${pkColumn.javaField}s ${functionName}主键集合
      * @return 结果
      */
     public int delete${ClassName}By${pkColumn.capJavaField}s(List<${pkColumn.javaType}> ${pkColumn.javaField}s);
 
     /**
-     * 删除${functionName}信息
+     * 删除单个${functionName}信息
      *
      * @param ${pkColumn.javaField} ${functionName}主键
      * @return 结果

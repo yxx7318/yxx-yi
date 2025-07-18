@@ -18,7 +18,10 @@ import lombok.RequiredArgsConstructor;
 import com.yxx.common.annotation.Log;
 import com.yxx.common.core.controller.BaseControllerPlus;
 import com.yxx.common.enums.BusinessType;
-import ${packageName}.domain.${ClassName};
+import ${packageName}.domain.${ClassName}Do;
+import ${packageName}.domain.${ClassName}Vo;
+import ${packageName}.domain.${ClassName}QueryDto;
+import ${packageName}.domain.${ClassName}EditDto;
 import ${packageName}.service.I${ClassName}Service;
 import com.yxx.common.utils.poi.ExcelUtil;
 import com.yxx.common.core.domain.R;
@@ -39,7 +42,7 @@ import org.springframework.validation.annotation.Validated;
  * @author ${author}
  * @date ${datetime}
  */
-@Tag(name = "${functionName}管理-${ClassName})")
+@Tag(name = "${functionName}管理-${ClassName}")
 @RestController
 @RequestMapping("/${moduleName}/${businessName}")
 @RequiredArgsConstructor
@@ -51,11 +54,11 @@ public class ${ClassName}Controller extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('${permissionPrefix}:list')")
     @GetMapping("/list")
 #if($table.crud || $table.sub)
-    public PageResult<${ClassName}> list(@ParameterObject ${ClassName} ${className}) {
-        return ${className}Service.select${ClassName}Page(${className});
+    public PageResult<${ClassName}Vo> list(@ParameterObject ${ClassName}QueryDto ${className}QueryDto) {
+        return ${className}Service.select${ClassName}Page(${className}QueryDto);
     }
 #elseif($table.tree)
-    public R<List<${ClassName}>> list(@ParameterObject ${ClassName} ${className}) {
+    public R<List<${ClassName}Vo>> list(@ParameterObject ${ClassName} ${className}) {
         List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
         return R.ok(list);
     }
@@ -64,7 +67,7 @@ public class ${ClassName}Controller extends BaseControllerPlus {
     @Operation(summary = "查询--${functionName}单个")
     @PreAuthorize("@ss.hasPermi('${permissionPrefix}:query')")
     @GetMapping(value = "/{${pkColumn.javaField}}")
-    public R<${ClassName}> getInfo(@PathVariable ${pkColumn.javaType} ${pkColumn.javaField}) {
+    public R<${ClassName}Vo> getInfo(@PathVariable ${pkColumn.javaType} ${pkColumn.javaField}) {
         return R.ok(${className}Service.select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaField}));
     }
 
@@ -72,16 +75,16 @@ public class ${ClassName}Controller extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('${permissionPrefix}:add')")
     @Log(title = "${functionName}", businessType = BusinessType.INSERT)
     @PostMapping
-    public R<String> add(@RequestBody @Validated ${ClassName} ${className}) {
-        return toResult(${className}Service.insert${ClassName}(${className}));
+    public R<String> add(@RequestBody @Validated ${ClassName}EditDto ${className}EditDto) {
+        return toResult(${className}Service.insert${ClassName}(${className}EditDto));
     }
 
     @Operation(summary = "修改--${functionName}")
     @PreAuthorize("@ss.hasPermi('${permissionPrefix}:edit')")
     @Log(title = "${functionName}", businessType = BusinessType.UPDATE)
-    @PutMapping
-    public R<String> update(@RequestBody @Validated ${ClassName} ${className}) {
-        return toResult(${className}Service.update${ClassName}(${className}));
+    @PutMapping("/{${pkColumn.javaField}}")
+    public R<String> update(@PathVariable ${pkColumn.javaType} ${pkColumn.javaField}, @RequestBody @Validated ${ClassName}EditDto ${className}EditDto) {
+        return toResult(${className}Service.update${ClassName}(${pkColumn.javaField}, ${className}EditDto));
     }
 
     @Operation(summary = "删除--${functionName}")
@@ -96,9 +99,9 @@ public class ${ClassName}Controller extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('${permissionPrefix}:export')")
     @Log(title = "${functionName}", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, @ParameterObject ${ClassName} ${className}) {
-        List<${ClassName}> list = ${className}Service.select${ClassName}List(${className});
-        ExcelUtil<${ClassName}> util = new ExcelUtil<>(${ClassName}.class);
+    public void export(HttpServletResponse response, @ParameterObject ${ClassName}QueryDto ${className}QueryDto) {
+        List<${ClassName}Do> list = ${className}Service.select${ClassName}DoList(${className}QueryDto);
+        ExcelUtil<${ClassName}Do> util = new ExcelUtil<>(${ClassName}Do.class);
         util.exportExcel(response, list, "${functionName}数据");
     }
 
@@ -106,7 +109,7 @@ public class ${ClassName}Controller extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('${permissionPrefix}:import')")
     @PostMapping("/importTemplate")
     public void exportTemplate(HttpServletResponse response) {
-        ExcelUtil<${ClassName}> util = new ExcelUtil<>(${ClassName}.class);
+        ExcelUtil<${ClassName}Do> util = new ExcelUtil<>(${ClassName}Do.class);
         util.importTemplateExcel(response, "导入${functionName}模板数据");
     }
 
@@ -115,8 +118,8 @@ public class ${ClassName}Controller extends BaseControllerPlus {
     @Log(title = "${functionName}", businessType = BusinessType.IMPORT)
     @PostMapping("/importData")
     public R<Boolean> importData(MultipartFile file) throws IOException {
-        ExcelUtil<${ClassName}> util = new ExcelUtil<>(${ClassName}.class);
-        List<${ClassName}> list = util.importExcel(file.getInputStream());
+        ExcelUtil<${ClassName}Do> util = new ExcelUtil<>(${ClassName}Do.class);
+        List<${ClassName}Do> list = util.importExcel(file.getInputStream());
         return R.ok(${className}Service.saveBatch(list), "成功导入 " + list.size() + " 条记录");
     }
 }

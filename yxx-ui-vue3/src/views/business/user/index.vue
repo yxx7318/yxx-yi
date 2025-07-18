@@ -89,8 +89,8 @@
       <el-table-column label="用户ID" align="center" prop="userId" />
       <el-table-column label="用户账号" align="center" prop="userName" />
       <el-table-column label="密码" align="center" prop="password" />
-      <el-table-column label="注册时间" align="center" prop="registerTime" />
       <el-table-column label="账号状态" align="center" prop="status" />
+      <el-table-column label="注册时间" align="center" prop="registerTime" />
       <el-table-column label="备注" align="center" prop="remark" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
@@ -182,8 +182,8 @@ const data = reactive({
     pageSize: 10,
     userName: null,
     password: null,
-    registerTime: null,
     status: null,
+    registerTime: null,
   },
   rules: {
     userName: [
@@ -221,8 +221,8 @@ function reset() {
     userId: null,
     userName: null,
     password: null,
-    registerTime: null,
     status: null,
+    registerTime: null,
     createBy: null,
     createTime: null,
     updateBy: null,
@@ -275,7 +275,7 @@ function submitForm() {
   proxy.$refs["userRef"].validate(valid => {
     if (valid) {
       if (form.value.userId != null) {
-        updateUser(form.value).then(response => {
+        updateUser(form.value.userId, form.value).then(response => {
           proxy.$modal.msgSuccess("修改成功")
           open.value = false
           getList()

@@ -1,6 +1,6 @@
 package com.yxx.generator.domain;
 
-import jakarta.validation.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 import com.yxx.common.core.domain.BaseEntity;
 import com.yxx.common.utils.StringUtils;
 

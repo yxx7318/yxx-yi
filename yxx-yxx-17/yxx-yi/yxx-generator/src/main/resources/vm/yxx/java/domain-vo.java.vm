@@ -19,13 +19,13 @@ import lombok.*;
 
 #foreach ($column in $columns)
 #if ($column.required)
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
 #break
 #end
 #end
 
 /**
- * ${functionName}对象 ${tableName}
+ * ${functionName}Vo对象 ${tableName}
  *
  * @author ${author}
  * @date ${datetime}
@@ -42,8 +42,7 @@ import jakarta.validation.constraints.NotNull;
 @Accessors(chain = true)
 @Builder
 @Data
-@TableName(value = "${tableName}", autoResultMap = true)
-public class ${ClassName} extends ${Entity} {
+public class ${ClassName}Vo extends ${Entity} {
 
     private static final long serialVersionUID = 1L;
 
@@ -56,12 +55,6 @@ public class ${ClassName} extends ${Entity} {
 ## 添加校验
 #if($column.required)
     @NotNull(message = "$column.columnComment不能为空")
-#end
-## 添加Mp
-#if($column.javaField.toLowerCase().indexOf("id") != -1 && $index == 0)
-    @TableId(value = "$column.columnName", type = IdType.AUTO)
-#else
-    @TableField("$column.columnName")
 #end
 #if($column.list)
 #set($parentheseIndex=$column.columnComment.indexOf("（"))

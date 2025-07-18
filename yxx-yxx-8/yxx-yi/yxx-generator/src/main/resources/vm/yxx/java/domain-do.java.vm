@@ -1,10 +1,14 @@
 package ${packageName}.domain;
 
-#foreach ($import in $subImportList)
+#foreach ($import in $importList)
 import ${import};
 #end
 import com.yxx.common.annotation.Excel;
-import com.yxx.common.core.domain.BaseEntity;
+#if($table.crud || $table.sub)
+import com.yxx.common.core.domain.BaseColumnEntity;
+#elseif($table.tree)
+import com.yxx.common.core.domain.TreeEntity;
+#end
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -21,12 +25,17 @@ import javax.validation.constraints.NotNull;
 #end
 
 /**
- * ${subTable.functionName}对象 ${subTableName}
+ * ${functionName}Do对象 ${tableName}
  *
  * @author ${author}
  * @date ${datetime}
  */
-@Schema(description = "${functionName}实体")
+#if($table.crud || $table.sub)
+#set($Entity="BaseColumnEntity")
+#elseif($table.tree)
+#set($Entity="TreeEntity")
+#end
+@Schema(description = "${functionName}Do实体")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -34,20 +43,16 @@ import javax.validation.constraints.NotNull;
 @Builder
 @Data
 @TableName(value = "${tableName}", autoResultMap = true)
-public class ${subClassName} extends BaseEntity {
+public class ${ClassName}Do extends ${Entity} {
 
     private static final long serialVersionUID = 1L;
 
 ## 初始化计数器
 #set($index = 0)
-#foreach ($column in $subTable.columns)
+#foreach ($column in $columns)
 #if(!$table.isSuperColumn($column.javaField))
 ## 添加swagger
     @Schema(description = "$column.columnComment")
-## 添加校验
-#if($column.required)
-    @NotNull(message = "$column.columnComment不能为空")
-#end
 ## 添加Mp
 #if($column.javaField.toLowerCase().indexOf("id") != -1 && $index == 0)
     @TableId(value = "$column.columnName", type = IdType.AUTO)
@@ -78,5 +83,14 @@ public class ${subClassName} extends BaseEntity {
 #end
 ## 更新计数器
 #set($index = $index + 1)
+#end
+## 主子表的额外属性
+#if($table.sub)
+    /**
+    * $table.subTable.functionName信息
+    */
+    @TableField(exist = false)
+    private List<${subClassName}> ${subclassName}List;
+
 #end
 }

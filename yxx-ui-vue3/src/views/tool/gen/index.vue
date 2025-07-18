@@ -261,7 +261,7 @@ function handlePreview(row) {
   previewTable(row.tableId).then(response => {
     preview.value.data = response.data
     preview.value.open = true
-    preview.value.activeName = "domain.java"
+    preview.value.activeName = "domain-do.java"
   })
 }
 

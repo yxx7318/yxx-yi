@@ -14,13 +14,13 @@ import lombok.*;
 
 #foreach ($column in $columns)
 #if ($column.required)
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
 #break
 #end
 #end
 
 /**
- * ${functionName}修改Dto对象 ${tableName}
+ * ${functionName}EditDto对象 ${tableName}
  *
  * @author ${author}
  * @date ${datetime}
@@ -37,7 +37,7 @@ import jakarta.validation.constraints.NotNull;
 @Accessors(chain = true)
 @Builder
 @Data
-public class ${ClassName} extends ${Entity} {
+public class ${ClassName}EditDto extends ${Entity} {
 
     private static final long serialVersionUID = 1L;
 
