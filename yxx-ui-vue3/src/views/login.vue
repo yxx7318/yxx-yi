@@ -6,7 +6,7 @@
       </el-col>
       <el-col :span="isMobile ? 24 : 12">
         <div>
-          <logo v-show="isMobile" />
+          <logo v-show="isMobile && !heightTooLow" />
           <div :class="['login', isMobile ? 'mobileLogin' : 'noMobileLogin']">
             <el-form ref="loginRef" :model="loginForm" :rules="loginRules" class="login-form">
               <h2 class="title">登 录</h2>
@@ -107,6 +107,7 @@ const loginRules = {
 }
 
 const isMobile = ref(false)
+const heightTooLow = ref(false)
 const codeUrl = ref("")
 const loading = ref(false)
 // 验证码开关
@@ -159,6 +160,7 @@ function handleLogin() {
 
 function checkScreenSize() {
   isMobile.value = mobileFlag()
+  heightTooLow.value = window.innerHeight <= 660
 }
 
 function getCode() {

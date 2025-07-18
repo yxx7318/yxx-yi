@@ -6,7 +6,7 @@
       </el-col>
       <el-col :span="isMobile ? 24 : 12">
         <div>
-          <Logo v-show="isMobile" />
+          <Logo v-show="isMobile && !heightTooLow" />
           <div :class="['register', isMobile ? 'mobileLogin' : 'noMobileLogin']">
             <el-form ref="registerRef" :model="registerForm" :rules="registerRules" class="register-form">
               <h2 class="title">注 册</h2>
@@ -133,6 +133,7 @@ const registerRules = {
 }
 
 const isMobile = ref(false)
+const heightTooLow = ref(false)
 const codeUrl = ref("")
 const loading = ref(false)
 const captchaEnabled = ref(true)
@@ -161,6 +162,7 @@ function handleRegister() {
 
 function checkScreenSize() {
   isMobile.value = mobileFlag()
+  heightTooLow.value = window.innerHeight <= 660
 }
 
 function getCode() {

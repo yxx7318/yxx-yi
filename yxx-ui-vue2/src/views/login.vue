@@ -6,7 +6,7 @@
       </el-col>
       <el-col :span="isMobile ? 24 : 12">
         <div>
-          <logo v-show="isMobile" />
+          <logo v-show="isMobile && !heightTooLow" />
           <div :class="['login', isMobile ? 'mobileLogin' : 'noMobileLogin']">
             <el-form ref="loginRef" :model="loginForm" :rules="loginRules" class="login-form">
               <h2 class="title">登 录</h2>
@@ -87,6 +87,7 @@ export default {
   data() {
     return {
       isMobile: false,
+      heightTooLow: false,
       codeUrl: "",
       loginForm: {
         username: "admin",
@@ -132,6 +133,7 @@ export default {
   methods: {
     checkScreenSize() {
       this.isMobile = mobileFlag()
+      this.heightTooLow = window.innerHeight <= 660
     },
     getCode() {
       getCodeImg().then(res => {
