@@ -21,7 +21,7 @@
         <pagehelper.boot.version>2.1.0</pagehelper.boot.version>
         <fastjson.version>2.0.57</fastjson.version>
         <oshi.version>6.8.1</oshi.version>
-        <springdoc.version>2.6.0</springdoc.version>
+<!--        <springdoc.version>2.6.0</springdoc.version>-->
         <!-- 接口文档 -->
         <knife4j.version>4.5.0</knife4j.version>
         <commons.io.version>2.19.0</commons.io.version>
@@ -86,13 +86,6 @@
                 <groupId>com.github.oshi</groupId>
                 <artifactId>oshi-core</artifactId>
                 <version>${oshi.version}</version>
-            </dependency>
-
-            <!-- 继任Springfox，支持Springboot3 -->
-            <dependency>
-                <groupId>org.springdoc</groupId>
-                <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-                <version>${springdoc.version}</version>
             </dependency>
 
             <!-- knife4j 增强swagger -->

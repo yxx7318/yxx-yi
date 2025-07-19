@@ -10,6 +10,7 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 import io.swagger.v3.oas.models.servers.Server;
 import lombok.extern.slf4j.Slf4j;
 //import org.springdoc.core.*;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 
@@ -82,21 +83,21 @@ public class OpenapiConfig {
                 .servers(servers);
     }
 
-//    @Bean
-//    public GroupedOpenApi businessApi() {
-//        return GroupedOpenApi.builder()
-//                .group("业务接口(Business)")
-//                .packagesToScan(businessPath)
-//                .build();
-//
-//    }
-//
-//    @Bean
-//    public GroupedOpenApi supportApi() {
-//        return GroupedOpenApi.builder()
-//                .group("支撑接口(Support)")
-//                .pathsToMatch("/**")
-//                .packagesToExclude(businessPath)
-//                .build();
-//    }
+    @Bean
+    public GroupedOpenApi businessApi() {
+        return GroupedOpenApi.builder()
+                .group("业务接口(Business)")
+                .packagesToScan(businessPath)
+                .build();
+
+    }
+
+    @Bean
+    public GroupedOpenApi supportApi() {
+        return GroupedOpenApi.builder()
+                .group("支撑接口(Support)")
+                .pathsToMatch("/**")
+                .packagesToExclude(businessPath)
+                .build();
+    }
 }
