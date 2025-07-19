@@ -7,7 +7,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.experimental.Accessors;
 import lombok.*;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 /**
  * 测试用户EditDto对象 tb_test_user

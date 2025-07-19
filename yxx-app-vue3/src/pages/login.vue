@@ -18,7 +18,7 @@
         <view class="iconfont icon-code icon"></view>
         <input v-model="loginForm.code" type="number" class="input" placeholder="请输入验证码" maxlength="4"/>
         <view class="login-code">
-          <image :src="codeUrl" @click="getCode" class="login-code-img"></image>
+          <image alt="please retry" :src="codeUrl" @click="getCode" class="login-code-img"></image>
         </view>
       </view>
       <view class="action-btn">
