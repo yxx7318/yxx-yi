@@ -8,7 +8,7 @@
     "dev": "vue-cli-service serve --mode dev",
     "build:test": "vue-cli-service build --mode test",
     "build:prod": "vue-cli-service build --mode prod",
-    "preview": "node build/index.js --preview --mode prod --baseApi=/prod-api --proxyPort=7318"
+    "preview": "node build/index.js --preview --mode prod --baseApi=/prod-api --proxyPort=7318 --publicPath=/yxx-yi"
   },
   "keywords": [
     "vue",
