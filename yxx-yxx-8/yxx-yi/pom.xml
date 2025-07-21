@@ -185,6 +185,13 @@
                 <artifactId>yxx-common</artifactId>
                 <version>${yxx.version}</version>
             </dependency>
+
+            <!-- erp模块-->
+            <dependency>
+                <groupId>com.yxx</groupId>
+                <artifactId>yxx-z-erp</artifactId>
+                <version>${yxx.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -195,6 +202,7 @@
         <module>yxx-generator</module>
         <module>yxx-quartz</module>
         <module>yxx-system</module>
+        <module>yxx-z-erp</module>
     </modules>
 
 </project>

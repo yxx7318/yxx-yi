@@ -48,6 +48,11 @@
             <artifactId>yxx-generator</artifactId>
         </dependency>
 
+        <!-- erp模块-->
+        <dependency>
+            <groupId>com.yxx</groupId>
+            <artifactId>yxx-z-erp</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
