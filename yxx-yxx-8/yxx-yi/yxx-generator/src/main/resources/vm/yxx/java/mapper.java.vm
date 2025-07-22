@@ -2,8 +2,8 @@ package ${packageName}.mapper;
 
 import java.util.List;
 
-import ${packageName}.domain.${ClassName}Do;
-import ${packageName}.domain.${ClassName}QueryDto;
+import ${packageName}.entity.${ClassName}Do;
+import ${packageName}.entity.${ClassName}QueryDto;
 #if($table.sub)
 import ${packageName}.domain.${subClassName};
 #end

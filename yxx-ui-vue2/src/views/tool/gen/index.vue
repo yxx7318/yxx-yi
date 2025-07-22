@@ -311,7 +311,11 @@ export default {
       previewTable(row.tableId).then(response => {
         this.preview.data = response.data
         this.preview.open = true
-        this.preview.activeName = "domain-do.java"
+        for (let [key, value] of Object.entries(this.preview.data)) {
+          // 选中第一个
+          this.preview.activeName = key.substring(key.lastIndexOf('/')+1,key.indexOf('.vm'))
+          break
+        }
       })
     },
     /** 高亮显示 */

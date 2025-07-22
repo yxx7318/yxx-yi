@@ -135,7 +135,7 @@
           :name="key.substring(key.lastIndexOf('/')+1,key.indexOf('.vm'))"
           :key="value"
         >
-          <el-link :underline="false" icon="DocumentCopy" v-copyText="value" v-copyText:callback="copyTextSuccess" style="float:right">&nbsp;复制</el-link>
+          <el-link underline="never" icon="DocumentCopy" v-copyText="value" v-copyText:callback="copyTextSuccess" style="float:right">&nbsp;复制</el-link>
           <pre>{{ value }}</pre>
         </el-tab-pane>
       </el-tabs>
@@ -261,7 +261,11 @@ function handlePreview(row) {
   previewTable(row.tableId).then(response => {
     preview.value.data = response.data
     preview.value.open = true
-    preview.value.activeName = "domain-do.java"
+    for (let [key, value] of Object.entries(preview.value.data)) {
+      // 选中第一个
+      preview.value.activeName = key.substring(key.lastIndexOf('/')+1,key.indexOf('.vm'))
+      break
+    }
   })
 }
 

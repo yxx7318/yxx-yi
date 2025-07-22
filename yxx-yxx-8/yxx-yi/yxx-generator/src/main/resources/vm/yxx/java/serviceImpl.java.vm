@@ -20,10 +20,10 @@ import ${packageName}.domain.${subClassName};
 import lombok.RequiredArgsConstructor;
 import com.yxx.common.core.service.impl.ServiceImplPlus;
 import ${packageName}.mapper.${ClassName}Mapper;
-import ${packageName}.domain.${ClassName}Do;
-import ${packageName}.domain.${ClassName}Vo;
-import ${packageName}.domain.${ClassName}QueryDto;
-import ${packageName}.domain.${ClassName}EditDto;
+import ${packageName}.entity.${ClassName}Do;
+import ${packageName}.entity.${ClassName}Vo;
+import ${packageName}.entity.${ClassName}QueryDto;
+import ${packageName}.entity.${ClassName}EditDto;
 import ${packageName}.service.I${ClassName}Service;
 
 #foreach ($column in $columns)
