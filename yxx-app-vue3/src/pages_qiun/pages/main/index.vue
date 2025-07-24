@@ -21,7 +21,7 @@
       </view>
       <!-- 公司区域下拉列表 -->
       <drop-down ref="companyDrop" @tap="changDrop(2)" @changeItem="changeLocation" :list="locationArray"
-                 :contentTop="top" contentLeft="0" :selectWidth="showCalendar ? '200rpx' : '400rpx'" listWidth="75%">
+                 :contentTop="top" contentRight="10" :selectWidth="showCalendar ? '200rpx' : '400rpx'" listWidth="75%">
 
       </drop-down>
     </view>
