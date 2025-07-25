@@ -87,17 +87,17 @@
           v-hasPermi="['business:user:export']"
         >导出</el-button>
       </el-col>
-      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
+      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
     </el-row>
 
     <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="用户ID" align="center" prop="userId" />
-      <el-table-column label="用户账号" align="center" prop="userName" />
-      <el-table-column label="密码" align="center" prop="password" />
-      <el-table-column label="账号状态" align="center" prop="status" />
-      <el-table-column label="注册时间" align="center" prop="registerTime" />
-      <el-table-column label="备注" align="center" prop="remark" />
+      <el-table-column label="用户ID" align="center" prop="userId" v-if="columns[0].visible" />
+      <el-table-column label="用户账号" align="center" prop="userName" v-if="columns[1].visible" />
+      <el-table-column label="密码" align="center" prop="password" v-if="columns[2].visible" />
+      <el-table-column label="账号状态" align="center" prop="status" v-if="columns[3].visible" />
+      <el-table-column label="注册时间" align="center" prop="registerTime" v-if="columns[4].visible" />
+      <el-table-column label="备注" align="center" prop="remark" v-if="columns[4].visible" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -117,7 +117,7 @@
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"
@@ -200,6 +200,15 @@ export default {
         // 上传的地址
         url: "/business/user/importData"
       },
+      // 显隐列
+      columns: [
+          { key: 1, label: `用户ID`, visible: true },
+          { key: 2, label: `用户账号`, visible: true },
+          { key: 3, label: `密码`, visible: true },
+          { key: 4, label: `账号状态`, visible: true },
+          { key: 5, label: `注册时间`, visible: true },
+          { key: 6, label: `备注`, visible: true },
+      ],
       // 查询参数
       queryParams: {
         pageNum: 1,

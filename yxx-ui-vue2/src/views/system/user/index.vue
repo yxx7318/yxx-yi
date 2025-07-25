@@ -255,15 +255,6 @@ export default {
         },
         url: "/system/user/importData"
       },
-      // 查询参数
-      queryParams: {
-        pageNum: 1,
-        pageSize: 10,
-        userName: undefined,
-        phonenumber: undefined,
-        status: undefined,
-        deptId: undefined
-      },
       // 列信息
       columns: [
         { key: 0, label: `用户编号`, visible: true },
@@ -274,6 +265,15 @@ export default {
         { key: 5, label: `状态`, visible: true },
         { key: 6, label: `创建时间`, visible: true }
       ],
+      // 查询参数
+      queryParams: {
+        pageNum: 1,
+        pageSize: 10,
+        userName: undefined,
+        phonenumber: undefined,
+        status: undefined,
+        deptId: undefined
+      },
       // 表单校验
       rules: {
         userName: [
