@@ -59,6 +59,8 @@ module.exports = {
   },
   configureWebpack: {
     name: name,
+    // 开启源码映射，防止调试时源代码无法阅读，生产环境需要生成文件.map文件需要开启 productionSourceMap
+    devtool: process.env.NODE_ENV === 'development' ? 'cheap-module-eval-source-map' : 'source-map',
     resolve: {
       alias: {
         '@': resolve('src')

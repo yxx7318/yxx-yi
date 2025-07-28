@@ -9,7 +9,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
  *
  * @author yxx
  */
-@Schema(description = "通用结果相应类")
+@Schema(description = "通用结果响应对象")
 public class R<T> implements Serializable
 {
     private static final long serialVersionUID = 1L;
