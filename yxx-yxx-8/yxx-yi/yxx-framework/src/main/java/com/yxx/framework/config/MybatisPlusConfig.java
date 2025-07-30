@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.BlockAttackInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import com.github.pagehelper.autoconfigure.PageHelperProperties;
+import com.yxx.common.utils.spring.SpringUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -39,6 +41,8 @@ public class MybatisPlusConfig
         paginationInnerInterceptor.setDbType(DbType.MYSQL);
         // 设置最大单页限制数量，默认 500 条，-1 不受限制
         paginationInnerInterceptor.setMaxLimit(-1L);
+        // 开启参数合理化（和PageHelper同步）
+        paginationInnerInterceptor.setOverflow(SpringUtils.getBean(PageHelperProperties.class).getReasonable());
         return paginationInnerInterceptor;
     }
 

@@ -63,8 +63,9 @@ public class MpPageUtils {
 
     /**
      * 获取排序对象
+     *
      * @param column 排序列
-     * @param asc 是否asc
+     * @param asc    是否asc
      * @return 排序对象
      */
     private static OrderItem initOrderItem(String column, boolean asc) {
@@ -77,7 +78,7 @@ public class MpPageUtils {
     /**
      * 将当前分页查询条件转换为MyBatis-Plus的Page对象，并根据提供的排序项进行排序
      *
-     * @param <DTO>  实际的数据类型
+     * @param <DTO> 实际的数据类型
      * @param items 可变参数列表，指定排序规则
      * @return 转换后的Page对象
      */
@@ -96,7 +97,7 @@ public class MpPageUtils {
     /**
      * 将当前分页查询条件转换为MyBatis-Plus的Page对象，并使用默认的排序字段和顺序
      *
-     * @param <DTO>          实际的数据类型
+     * @param <DTO>         实际的数据类型
      * @param defaultSortBy 默认排序字段
      * @param defaultIsAsc  默认排序顺序
      * @return 转换后的Page对象
@@ -152,8 +153,8 @@ public class MpPageUtils {
     /**
      * 根据分页查询条件和查询条件构造器，执行分页查询并返回结果
      *
-     * @param <DTO>       分页查询实体类型，必须继承自 PageQueryEntity
-     * @param dto         分页查询条件对象，包含分页参数（如 pageNum 和 pageSize）以及是否获取所有数据的标志
+     * @param <DTO>      分页查询实体类型，必须继承自 PageQueryEntity
+     * @param dto        分页查询条件对象，包含分页参数（如 pageNum 和 pageSize）以及是否获取所有数据的标志
      * @param baseMapper MyBatis-Plus 的 BaseMapper 对象，用于执行数据库操作
      * @param wrapper    查询条件构造器，用于构建查询条件
      * @return 包含分页结果的 Page 对象，其中包含分页信息和查询到的数据
@@ -164,19 +165,39 @@ public class MpPageUtils {
     }
 
     /**
-     * 处理Page对象的基本信息（总记录数、总页数），并创建一个对应的PageDTO对象
+     * 处理Page对象的基本信息（总记录数、总页数），并创建一个对应的PageResult对象
      *
      * @param <VO> 目标视图类型
      * @param p    MyBatis-Plus的Page对象
      * @return 转换后的PageDTO对象
      */
-    public static <T, VO> PageResult<VO> dealWith(Page<T> p) {
-        PageResult<VO> dto = new PageResult<>();
-        dto.setPageNum((int) p.getCurrent());
-        dto.setPageSize((int) p.getSize());
-        dto.setTotal(p.getTotal());
-        dto.setAllData(p.getSize() == 0 || p.getTotal() <= p.getSize());
-        return dto;
+    private static <T, VO> PageResult<VO> basePageResult(Page<T> p) {
+        PageResult<VO> pageResult = new PageResult<>();
+        pageResult.setPageNum((int) p.getCurrent());
+        pageResult.setPageSize((int) p.getSize());
+        pageResult.setTotal(p.getTotal());
+        pageResult.setAllData(p.getSize() == 0 || p.getTotal() <= p.getSize());
+        return pageResult;
+    }
+
+    /**
+     * 将MyBatis-Plus的Page对象转换为PageVo对象，并使用BeanUtils进行属性拷贝
+     *
+     * @param <T> 基本数据库类型
+     * @param p   MyBatis-Plus的Page对象
+     * @return 转换后的PageDTO对象
+     */
+    public static <T> PageResult<T> of(Page<T> p) {
+        PageResult<T> pageResult = basePageResult(p);
+
+        List<T> records = p.getRecords();
+        // 如果记录结果为空
+        if (records == null || records.isEmpty()) {
+            pageResult.setRows(Collections.emptyList());
+            return pageResult;
+        }
+
+        return pageResult;
     }
 
     /**
@@ -188,7 +209,7 @@ public class MpPageUtils {
      * @return 转换后的PageDTO对象
      */
     public static <T, VO> PageResult<VO> of(Page<T> p, Class<VO> voClass) {
-        PageResult<VO> dto = dealWith(p);
+        PageResult<VO> dto = basePageResult(p);
 
         List<T> records = p.getRecords();
         // 如果记录结果为空
@@ -211,7 +232,7 @@ public class MpPageUtils {
      * @return 转换后的PageDTO对象
      */
     public static <T, VO> PageResult<VO> of(Page<T> p, Function<T, VO> convertor) {
-        PageResult<VO> dto = dealWith(p);
+        PageResult<VO> dto = basePageResult(p);
 
         List<T> records = p.getRecords();
         // 如果记录结果为空

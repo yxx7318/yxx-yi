@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.github.pagehelper.PageHelper;
 import com.yxx.common.core.domain.BaseColumnEntity;
-import com.yxx.common.core.domain.BaseEntity;
 import com.yxx.common.core.domain.PageQueryEntity;
 import com.yxx.common.core.domain.model.LoginUser;
 import com.yxx.common.core.page.PageDomain;
@@ -18,7 +17,6 @@ import com.yxx.common.core.domain.PageResult;
 
 import java.util.List;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * MyBatisPlus二次增强接口
@@ -107,7 +105,7 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
      * @param pageSize 页大小
      * @return 分页结果
      */
-    public Page<T> getMpPage(Integer pageNum, Integer pageSize);
+    public Page<T> getMpDoPage(Integer pageNum, Integer pageSize);
 
     /**
      * 获取MP通用分页结果
@@ -117,7 +115,7 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
      * @param wrapper  查询条件
      * @return 分页结果
      */
-    public Page<T> getMpPage(Integer pageNum, Integer pageSize, Wrapper<T> wrapper);
+    public Page<T> getMpDoPage(Integer pageNum, Integer pageSize, Wrapper<T> wrapper);
 
     /**
      * 获取MP通用分页结果
@@ -125,7 +123,7 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
      * @param dto 条件对象
      * @return 分页结果
      */
-    public <DTO extends PageQueryEntity> Page<T> getMpPage(DTO dto);
+    public <DTO extends PageQueryEntity> Page<T> getMpDoPage(DTO dto);
 
     /**
      * 获取MP通用分页结果
@@ -134,7 +132,7 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
      * @param wrapper 查询条件
      * @return 分页结果
      */
-    public <DTO extends PageQueryEntity> Page<T> getMpPage(DTO dto, Wrapper<T> wrapper);
+    public <DTO extends PageQueryEntity> Page<T> getMpDoPage(DTO dto, Wrapper<T> wrapper);
 
     /**
      * 获取转化后的VoList结果
@@ -155,14 +153,6 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
      * @return VoList
      */
     public <VO> List<VO> convertVoList(List<T> list, Function<T, VO> convertor);
-
-    /**
-     * 获取到MyBatis基本分页结果，不包含行结果
-     *
-     * @param list mybatis分页查询结果
-     * @return PageResult<VO>分页结果
-     */
-    public <VO> PageResult<VO> getMyBatisBasePageResult(List<T> list);
 
     /**
      * 获取到MyBatis分页结果并转化为Vo对象分页结果
@@ -189,10 +179,9 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
      *
      * @param pageNum  当前页码，如果为 null，则默认为第一页（1）
      * @param pageSize 每页大小，如果为 null，则默认为每页 10 条数据，为 0 则获取所有
-     * @param <VO>     VO对象类型
-     * @return 包含VO对象的分页结果 PageResult<VO>
+     * @return 基本T对象的分页结果 PageResult<T>
      */
-    public <VO> PageResult<VO> getMpPageResult(Integer pageNum, Integer pageSize);
+    public PageResult<T> getMpDoPageResult(Integer pageNum, Integer pageSize);
 
     /**
      * 根据分页参数获取MP分页结果和目标VO类获取分页结果
@@ -203,7 +192,7 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
      * @param <VO>     VO对象类型
      * @return 包含VO对象的分页结果 PageResult<VO>
      */
-    public <VO> PageResult<VO> getMpPageResult(Integer pageNum, Integer pageSize, Class<VO> voClass);
+    public <VO> PageResult<VO> getMpVoPageResult(Integer pageNum, Integer pageSize, Class<VO> voClass);
 
     /**
      * 根据分页参数获取MP分页结果和目标VO类获取分页结果
@@ -214,7 +203,7 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
      * @param <VO>     VO对象类型
      * @return 包含VO对象的分页结果 PageResult<VO>
      */
-    public <VO> PageResult<VO> getMpPageResult(Integer pageNum, Integer pageSize, Wrapper<T> wrapper, Class<VO> voClass);
+    public <VO> PageResult<VO> getMpVoPageResult(Integer pageNum, Integer pageSize, Wrapper<T> wrapper, Class<VO> voClass);
 
     /**
      * 根据分页参数获取MP分页结果和自定义转换方法获取分页结果
@@ -225,7 +214,7 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
      * @param <VO>      VO对象类型
      * @return 包含VO对象的分页结果 PageResult<VO>
      */
-    public <VO> PageResult<VO> getMpPageResult(Integer pageNum, Integer pageSize, Function<T, VO> convertor);
+    public <VO> PageResult<VO> getMpVoPageResult(Integer pageNum, Integer pageSize, Function<T, VO> convertor);
 
     /**
      * 根据分页参数获取MP分页结果和自定义转换方法获取分页结果
@@ -237,16 +226,15 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
      * @param <VO>      VO对象类型
      * @return 包含VO对象的分页结果 PageResult<VO>
      */
-    public <VO> PageResult<VO> getMpPageResult(Integer pageNum, Integer pageSize, Wrapper<T> wrapper, Function<T, VO> convertor);
+    public <VO> PageResult<VO> getMpVoPageResult(Integer pageNum, Integer pageSize, Wrapper<T> wrapper, Function<T, VO> convertor);
 
     /**
      * 根据对象获取分页结果
      *
      * @param dto  分页对象
-     * @param <VO> VO对象类型
-     * @return 包含VO对象的分页结果 PageResult<VO>
+     * @return 基本T对象的分页结果 PageResult<T>
      */
-    public <DTO extends PageQueryEntity, VO> PageResult<VO> getMpPageResult(DTO dto);
+    public <DTO extends PageQueryEntity> PageResult<T> getMpDoPageResult(DTO dto);
 
     /**
      * 根据对象获取分页结果并转化目标VO类获取分页结果
@@ -256,7 +244,7 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
      * @param <VO>    VO对象类型
      * @return 包含VO对象的分页结果 PageResult<VO>
      */
-    public <DTO extends PageQueryEntity, VO> PageResult<VO> getMpPageResult(DTO dto, Class<VO> voClass);
+    public <DTO extends PageQueryEntity, VO> PageResult<VO> getMpVoPageResult(DTO dto, Class<VO> voClass);
 
     /**
      * 根据对象获取分页结果并转化目标VO类获取分页结果
@@ -266,7 +254,7 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
      * @param <VO>      VO对象类型
      * @return 包含VO对象的分页结果 PageResult<VO>
      */
-    public <DTO extends PageQueryEntity, VO> PageResult<VO> getMpPageResult(DTO dto, Function<T, VO> convertor);
+    public <DTO extends PageQueryEntity, VO> PageResult<VO> getMpVoPageResult(DTO dto, Function<T, VO> convertor);
 
     /**
      * 根据对象和条件获取分页结果并转化目标VO类获取分页结果
@@ -277,7 +265,7 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
      * @param <VO>    VO对象类型
      * @return 包含VO对象的分页结果 PageResult<VO>
      */
-    public <DTO extends PageQueryEntity, VO> PageResult<VO> getMpPageResult(DTO dto, Wrapper<T> wrapper, Class<VO> voClass);
+    public <DTO extends PageQueryEntity, VO> PageResult<VO> getMpVoPageResult(DTO dto, Wrapper<T> wrapper, Class<VO> voClass);
 
     /**
      * 根据对象和条件获取分页结果并转化目标VO类获取分页结果
@@ -288,5 +276,5 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
      * @param <VO>      VO对象类型
      * @return 包含VO对象的分页结果 PageResult<VO>
      */
-    public <DTO extends PageQueryEntity, VO> PageResult<VO> getMpPageResult(DTO dto, Wrapper<T> wrapper, Function<T, VO> convertor);
+    public <DTO extends PageQueryEntity, VO> PageResult<VO> getMpVoPageResult(DTO dto, Wrapper<T> wrapper, Function<T, VO> convertor);
 }

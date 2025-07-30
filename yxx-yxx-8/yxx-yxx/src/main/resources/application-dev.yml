@@ -1,7 +1,4 @@
 spring:
-#  main:
-#    # 全局懒加载
-#    lazy-initialization: true
   # 数据源配置
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource

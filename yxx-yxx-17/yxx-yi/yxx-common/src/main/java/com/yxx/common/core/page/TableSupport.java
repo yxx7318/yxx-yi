@@ -29,11 +29,6 @@ public class TableSupport
     public static final String IS_ASC = "isAsc";
 
     /**
-     * 分页参数合理化
-     */
-    public static final String REASONABLE = "reasonable";
-
-    /**
      * 查询所有结果
      */
     public static final String ALL_DATA = "allData";
@@ -48,7 +43,6 @@ public class TableSupport
         pageDomain.setPageSize(Convert.toInt(ServletUtils.getParameter(PAGE_SIZE), 10));
         pageDomain.setOrderByColumn(ServletUtils.getParameter(ORDER_BY_COLUMN));
         pageDomain.setIsAsc(ServletUtils.getParameter(IS_ASC));
-        pageDomain.setReasonable(ServletUtils.getParameterToBool(REASONABLE));
         pageDomain.setAllData(Convert.toBool(ServletUtils.getParameter(ALL_DATA), Boolean.FALSE));
         return pageDomain;
     }
