@@ -141,11 +141,13 @@
           v-hasPermi="['${permissionPrefix}:export']"
         >导出</el-button>
       </el-col>
-      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
+      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
     </el-row>
 
     <el-table v-loading="loading" :data="${businessName}List" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
+## 初始化计数器
+#set($index = 0)
 #foreach($column in $columns)
 #set($javaField=$column.javaField)
 #set($parentheseIndex=$column.columnComment.indexOf("（"))
@@ -155,23 +157,26 @@
 #set($comment=$column.columnComment)
 #end
 #if($column.pk)
-      <el-table-column label="${comment}" align="center" prop="${javaField}" />
+      <el-table-column label="${comment}" align="center" prop="${javaField}" v-if="columns[$index].visible" />
+#set($index = $index + 1)
 #elseif($column.list && $column.htmlType == "date")
-      <el-table-column label="${comment}" align="center" prop="${javaField}">
+      <el-table-column label="${comment}" align="center" prop="${javaField}" v-if="columns[$index].visible">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.${javaField}, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
+#set($index = $index + 1)
 #elseif($column.list && $column.htmlType == "datetime")
-      <el-table-column label="${comment}" align="center" prop="${javaField}" />
+      <el-table-column label="${comment}" align="center" prop="${javaField}" v-if="columns[$index].visible" />
 #elseif($column.list && $column.htmlType == "imageUpload")
-      <el-table-column label="${comment}" align="center" prop="${javaField}" width="100">
+      <el-table-column label="${comment}" align="center" prop="${javaField}" width="100" v-if="columns[$index].visible">
         <template slot-scope="scope">
           <image-preview :src="scope.row.${javaField}" :width="50" :height="50"/>
         </template>
       </el-table-column>
+#set($index = $index + 1)
 #elseif($column.list && "" != $column.dictType)
-      <el-table-column label="${comment}" align="center" prop="${javaField}">
+      <el-table-column label="${comment}" align="center" prop="${javaField}" v-if="columns[$index].visible">
         <template slot-scope="scope">
 #if($column.htmlType == "checkbox")
           <dict-tag :options="dict.type.${column.dictType}" :value="scope.row.${javaField} ? scope.row.${javaField}.split(',') : []"/>
@@ -180,8 +185,10 @@
 #end
         </template>
       </el-table-column>
+#set($index = $index + 1)
 #elseif($column.list && "" != $javaField)
-      <el-table-column label="${comment}" align="center" prop="${javaField}" />
+      <el-table-column label="${comment}" align="center" prop="${javaField}" v-if="columns[$index].visible" />
+#set($index = $index + 1)
 #end
 #end
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
@@ -203,7 +210,7 @@
         </template>
       </el-table-column>
     </el-table>
-    
+
     <pagination
       v-show="total>0"
       :total="total"
@@ -466,6 +473,26 @@ export default {
         // 上传的地址
         url: "/${moduleName}/${businessName}/importData"
       },
+      // 显隐列
+      columns: [
+## 初始化计数器
+#set($index = 1)
+#foreach($column in $columns)
+#set($javaField=$column.javaField)
+#set($parentheseIndex=$column.columnComment.indexOf("（"))
+#if($parentheseIndex != -1)
+#set($comment=$column.columnComment.substring(0, $parentheseIndex))
+#else
+#set($comment=$column.columnComment)
+#end
+## 仅针对主键和展示的列
+#if($column.pk || $column.list)
+          { key: $index, label: `$comment`, visible: true },
+## 更新计数器
+#set($index = $index + 1)
+#end
+#end
+      ],
       // 查询参数
       queryParams: {
         pageNum: 1,
@@ -617,7 +644,7 @@ export default {
           this.form.${subclassName}List = this.${subclassName}List
 #end
           if (this.form.${pkColumn.javaField} != null) {
-            update${BusinessName}(this.form).then(response => {
+            update${BusinessName}(this.form.${pkColumn.javaField}, this.form).then(response => {
               this.#[[$modal]]#.msgSuccess("修改成功")
               this.open = false
               this.getList()

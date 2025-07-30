@@ -3,10 +3,10 @@ package ${packageName}.service;
 import java.util.List;
 
 import com.yxx.common.core.domain.PageResult;
-import ${packageName}.domain.${ClassName}Do;
-import ${packageName}.domain.${ClassName}Vo;
-import ${packageName}.domain.${ClassName}QueryDto;
-import ${packageName}.domain.${ClassName}EditDto;
+import ${packageName}.entity.${ClassName}Do;
+import ${packageName}.entity.${ClassName}Vo;
+import ${packageName}.entity.${ClassName}QueryDto;
+import ${packageName}.entity.${ClassName}EditDto;
 import com.yxx.common.core.service.IServicePlus;
 
 /**

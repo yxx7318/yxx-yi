@@ -18,12 +18,14 @@ import org.springframework.transaction.annotation.Transactional;
 import ${packageName}.domain.${subClassName};
 #end
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import com.yxx.common.core.service.impl.ServiceImplPlus;
 import ${packageName}.mapper.${ClassName}Mapper;
-import ${packageName}.domain.${ClassName}Do;
-import ${packageName}.domain.${ClassName}Vo;
-import ${packageName}.domain.${ClassName}QueryDto;
-import ${packageName}.domain.${ClassName}EditDto;
+import ${packageName}.entity.${ClassName}Do;
+import ${packageName}.entity.${ClassName}Vo;
+import ${packageName}.entity.${ClassName}QueryDto;
+import ${packageName}.entity.${ClassName}EditDto;
 import ${packageName}.service.I${ClassName}Service;
 
 #foreach ($column in $columns)
@@ -41,7 +43,7 @@ import ${packageName}.service.I${ClassName}Service;
  */
 @Slf4j
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
 public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper, ${ClassName}Do> implements I${ClassName}Service {
 
     private final ${ClassName}Mapper ${className}Mapper;
