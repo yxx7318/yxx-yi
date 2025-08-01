@@ -7,8 +7,8 @@
     <template v-for="(item, index) in topMenus">
       <el-menu-item :style="{'--theme': theme}" :index="item.path" :key="index" v-if="index < visibleNumber">
         <svg-icon
-        v-if="item.meta && item.meta.icon && item.meta.icon !== '#'"
-        :icon-class="item.meta.icon"/>
+          v-if="item.meta && item.meta.icon && item.meta.icon !== '#'"
+          :icon-class="item.meta.icon"/>
         {{ item.meta.title }}
       </el-menu-item>
     </template>
@@ -150,7 +150,7 @@ export default {
     activeRoutes(key) {
       const routes = []
       if (this.childrenMenus && this.childrenMenus.length > 0) {
-        this.childrenMenus.map((itevarm) => {
+        this.childrenMenus.map((item) => {
           if (key == item.parentPath || (key == "index" && "" == item.path)) {
             routes.push(item)
           }
