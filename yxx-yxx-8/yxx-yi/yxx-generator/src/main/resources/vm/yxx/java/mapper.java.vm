@@ -2,8 +2,23 @@ package ${packageName}.mapper;
 
 import java.util.List;
 
-import ${packageName}.entity.${ClassName}Do;
-import ${packageName}.entity.${ClassName}QueryDto;
+#if($table.sub || $table.tree)
+#set($ClassDo=${ClassName})
+#set($classDo=${className})
+#set($ClassQueryDto=${ClassName})
+#set($classQueryDto=${className})
+#else
+#set($ClassDo="${ClassName}Do")
+#set($classDo="${className}Do")
+#set($ClassQueryDto="${ClassName}QueryDto")
+#set($classQueryDto="${className}QueryDto")
+#end
+#if($table.sub || $table.tree)
+import ${packageName}.entity.${ClassDo};
+#else
+import ${packageName}.entity.${ClassDo};
+import ${packageName}.entity.${ClassQueryDto};
+#end
 #if($table.sub)
 import ${packageName}.domain.${subClassName};
 #end
@@ -15,15 +30,15 @@ import com.yxx.common.core.mapper.BaseMapperPlus;
  * @author ${author}
  * @date ${datetime}
  */
-public interface ${ClassName}Mapper extends BaseMapperPlus<${ClassName}Do> {
+public interface ${ClassName}Mapper extends BaseMapperPlus<${ClassDo}> {
 
     /**
      * 查询${functionName}列表
      *
-     * @param ${className}QueryDto ${functionName}查询实体
+     * @param ${classQueryDto} ${functionName}查询实体
      * @return ${functionName}集合
      */
-    public List<${ClassName}Do> select${ClassName}List(${ClassName}QueryDto ${className}QueryDto);
+    public List<${ClassDo}> select${ClassName}List(${ClassQueryDto} ${classQueryDto});
 
     /**
      * 查询${functionName}
@@ -31,23 +46,23 @@ public interface ${ClassName}Mapper extends BaseMapperPlus<${ClassName}Do> {
      * @param ${pkColumn.javaField} ${functionName}主键
      * @return ${functionName}单个
      */
-    public ${ClassName}Do select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField});
+    public ${ClassDo} select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField});
 
     /**
      * 新增${functionName}
      *
-     * @param ${className}Do ${functionName}数据库实体
+     * @param ${classDo} ${functionName}数据库实体
      * @return 结果
      */
-    public int insert${ClassName}(${ClassName}Do ${className}Do);
+    public int insert${ClassName}(${ClassDo} ${classDo});
 
     /**
      * 修改${functionName}
      *
-     * @param ${className}Do ${functionName}数据库实体
+     * @param ${classDo} ${functionName}数据库实体
      * @return 结果
      */
-    public int update${ClassName}(${ClassName}Do ${className}Do);
+    public int update${ClassName}(${ClassDo} ${classDo});
 
     /**
      * 删除${functionName}

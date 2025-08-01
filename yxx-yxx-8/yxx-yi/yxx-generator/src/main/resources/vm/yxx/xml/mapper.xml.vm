@@ -3,8 +3,15 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="${packageName}.mapper.${ClassName}Mapper">
+#if($table.sub || $table.tree)
+#set($ClassDo=${ClassName})
+#set($ClassQueryDto=${ClassName})
+#else
+#set($ClassDo="${ClassName}Do")
+#set($ClassQueryDto="${ClassName}QueryDto")
+#end
 
-    <resultMap type="${ClassName}Do" id="${ClassName}Result">
+    <resultMap type="${ClassDo}" id="${ClassName}Result">
 #foreach ($column in $columns)
         <result property="${column.javaField}"    column="${column.columnName}"    />
 #end
@@ -26,7 +33,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         select#foreach($column in $columns) $column.columnName#if($foreach.count != $columns.size()),#end#end from ${tableName}
     </sql>
 
-    <select id="select${ClassName}List" parameterType="${ClassName}QueryDto" resultMap="${ClassName}Result">
+    <select id="select${ClassName}List" parameterType="${ClassQueryDto}" resultMap="${ClassName}Result">
         <include refid="select${ClassName}Vo"/>
         <where>  
 #foreach($column in $columns)
@@ -77,7 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </select>
 #end
 
-    <insert id="insert${ClassName}" parameterType="${ClassName}Do"#if($pkColumn.increment) useGeneratedKeys="true" keyProperty="$pkColumn.javaField"#end>
+    <insert id="insert${ClassName}" parameterType="${ClassDo}"#if($pkColumn.increment) useGeneratedKeys="true" keyProperty="$pkColumn.javaField"#end>
         insert into ${tableName}
         <trim prefix="(" suffix=")" suffixOverrides=",">
 #foreach($column in $columns)
@@ -95,7 +102,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
          </trim>
     </insert>
 
-    <update id="update${ClassName}" parameterType="${ClassName}Do">
+    <update id="update${ClassName}" parameterType="${ClassDo}">
         update ${tableName}
         <trim prefix="SET" suffixOverrides=",">
 #foreach($column in $columns)

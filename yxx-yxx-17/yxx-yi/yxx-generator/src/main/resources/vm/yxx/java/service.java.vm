@@ -3,10 +3,29 @@ package ${packageName}.service;
 import java.util.List;
 
 import com.yxx.common.core.domain.PageResult;
-import ${packageName}.entity.${ClassName}Do;
-import ${packageName}.entity.${ClassName}Vo;
-import ${packageName}.entity.${ClassName}QueryDto;
-import ${packageName}.entity.${ClassName}EditDto;
+#if($table.sub || $table.tree)
+#set($ClassDo=${ClassName})
+#set($ClassVo=${ClassName})
+#set($ClassQueryDto=${ClassName})
+#set($classQueryDto="${className}")
+#set($ClassEditDto="${ClassName}")
+#set($classEditDto="${className}")
+#else
+#set($ClassDo="${ClassName}Do")
+#set($ClassVo="${ClassName}Vo")
+#set($ClassQueryDto="${ClassName}QueryDto")
+#set($classQueryDto="${className}QueryDto")
+#set($ClassEditDto="${ClassName}EditDto")
+#set($classEditDto="${className}QueryDto")
+#end
+#if($table.sub || $table.tree)
+import ${packageName}.entity.${ClassDo};
+#else
+import ${packageName}.entity.${ClassDo};
+import ${packageName}.entity.${ClassVo};
+import ${packageName}.entity.${ClassQueryDto};
+import ${packageName}.entity.${$ClassEditDto};
+#end
 import com.yxx.common.core.service.IServicePlus;
 
 /**
@@ -15,31 +34,34 @@ import com.yxx.common.core.service.IServicePlus;
  * @author ${author}
  * @date ${datetime}
  */
-public interface I${ClassName}Service extends IServicePlus<${ClassName}Do> {
+public interface I${ClassName}Service extends IServicePlus<${ClassDo}> {
 
     /**
      * 查询${functionName}分页结果
      *
-     * @param ${className}QueryDto ${functionName}查询实体
+     * @param ${classQueryDto} ${functionName}查询实体
      * @return ${functionName}分页
      */
-    public PageResult<${ClassName}Vo> select${ClassName}Page(${ClassName}QueryDto ${className}QueryDto);
+    public PageResult<${ClassName}> select${ClassName}Page(${ClassQueryDto} ${classQueryDto});
+#if($table.sub || $table.tree)
+#else
 
     /**
      * 查询${functionName}Vo列表
      *
-     * @param ${className}QueryDto ${functionName}查询实体
+     * @param ${classQueryDto} ${functionName}查询实体
      * @return ${functionName}集合
      */
-    public List<${ClassName}Vo> select${ClassName}VoList(${ClassName}QueryDto ${className}QueryDto);
+    public List<${ClassName}> select${ClassName}List(${ClassQueryDto} ${classQueryDto});
+#end
 
     /**
      * 查询${functionName}Do列表
      *
-     * @param ${className}QueryDto ${functionName}查询实体
+     * @param ${classQueryDto} ${functionName}查询实体
      * @return ${functionName}集合
      */
-    public List<${ClassName}Do> select${ClassName}DoList(${ClassName}QueryDto ${className}QueryDto);
+    public List<${ClassDo}> select${ClassDo}List(${ClassQueryDto} ${classQueryDto});
 
     /**
      * 查询单个${functionName}
@@ -47,24 +69,24 @@ public interface I${ClassName}Service extends IServicePlus<${ClassName}Do> {
      * @param ${pkColumn.javaField} ${functionName}主键
      * @return ${functionName}单个
      */
-    public ${ClassName}Vo select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField});
+    public ${ClassName} select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField});
 
     /**
      * 新增${functionName}
      *
-     * @param ${className}EditDto ${functionName}编辑实体
+     * @param ${classEditDto} ${functionName}编辑实体
      * @return 结果
      */
-    public int insert${ClassName}(${ClassName}EditDto ${className}EditDto);
+    public int insert${ClassName}(${ClassEditDto} ${classEditDto});
 
     /**
      * 修改${functionName}
      *
      * @param ${pkColumn.javaField} 主键
-     * @param ${className}EditDto ${functionName}编辑实体
+     * @param ${classEditDto} ${functionName}编辑实体
      * @return 结果
      */
-    public int update${ClassName}(${pkColumn.javaType} ${pkColumn.javaField}, ${ClassName}EditDto ${className}EditDto);
+    public int update${ClassName}(${pkColumn.javaType} ${pkColumn.javaField}, ${ClassEditDto} ${classEditDto});
 
     /**
      * 批量删除${functionName}

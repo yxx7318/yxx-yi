@@ -137,11 +137,16 @@ public class VelocityUtils
             useWebType = basePath + "vue/v3";
         }
         List<String> templates = new ArrayList<String>();
-        if (GenVmTypeEnum.YXX.equals(GenConfig.getVmType())) {
+        if (GenVmTypeEnum.YXX.equals(GenConfig.getVmType()) && GenConstants.TPL_CRUD.equals(tplCategory))
+        {
             templates.add(basePath + "java/domain-do.java.vm");
             templates.add(basePath + "java/domain-vo.java.vm");
             templates.add(basePath + "java/domain-query.java.vm");
             templates.add(basePath + "java/domain-edit.java.vm");
+        }
+        else if (GenVmTypeEnum.YXX.equals(GenConfig.getVmType()) && !GenConstants.TPL_CRUD.equals(tplCategory))
+        {
+            templates.add(basePath + "java/domain-all.java.vm");
         }
         else if (GenVmTypeEnum.RUO_YI.equals(GenConfig.getVmType()))
         {
@@ -192,19 +197,23 @@ public class VelocityUtils
 
         if (GenVmTypeEnum.YXX.equals(GenConfig.getVmType()))
         {
-            if (template.contains("domain-do.java.vm"))
+            if (template.contains("domain-all.java.vm"))
+            {
+                fileName = StringUtils.format("{}/entity/{}.java", javaPath, className);
+            }
+            else if (template.contains("domain-do.java.vm"))
             {
                 fileName = StringUtils.format("{}/entity/{}.java", javaPath, className + "Do");
             }
-            if (template.contains("domain-vo.java.vm"))
+            else if (template.contains("domain-vo.java.vm"))
             {
                 fileName = StringUtils.format("{}/entity/{}.java", javaPath, className + "Vo");
             }
-            if (template.contains("domain-query.java.vm"))
+            else if (template.contains("domain-query.java.vm"))
             {
                 fileName = StringUtils.format("{}/entity/{}.java", javaPath, className + "QueryDto");
             }
-            if (template.contains("domain-edit.java.vm"))
+            else if (template.contains("domain-edit.java.vm"))
             {
                 fileName = StringUtils.format("{}/entity/{}.java", javaPath, className + "EditDto");
             }
@@ -287,8 +296,16 @@ public class VelocityUtils
         {
             if (!column.isSuperColumn() && GenConstants.TYPE_DATE.equals(column.getJavaType()))
             {
-                importList.add("java.util.Date");
-                importList.add("com.fasterxml.jackson.annotation.JsonFormat");
+                if (GenVmTypeEnum.YXX.equals(GenConfig.getVmType()))
+                {
+                    importList.add("java.util.Date");
+                    importList.add("com.fasterxml.jackson.annotation.JsonFormat");
+                }
+                else
+                {
+                    importList.add("java.util.Date");
+                    importList.add("com.fasterxml.jackson.annotation.JsonFormat");
+                }
             }
             else if (!column.isSuperColumn() && GenConstants.TYPE_BIGDECIMAL.equals(column.getJavaType()))
             {

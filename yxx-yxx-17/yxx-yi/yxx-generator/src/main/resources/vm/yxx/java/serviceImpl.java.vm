@@ -22,10 +22,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import com.yxx.common.core.service.impl.ServiceImplPlus;
 import ${packageName}.mapper.${ClassName}Mapper;
-import ${packageName}.entity.${ClassName}Do;
-import ${packageName}.entity.${ClassName}Vo;
-import ${packageName}.entity.${ClassName}QueryDto;
-import ${packageName}.entity.${ClassName}EditDto;
+#if($table.sub || $table.tree)
+#set($ClassDo=${ClassName})
+#set($ClassVo=${ClassName})
+#set($ClassQueryDto=${ClassName})
+#set($classQueryDto="${className}")
+#set($ClassEditDto="${ClassName}")
+#set($classEditDto="${className}")
+#else
+#set($ClassDo="${ClassName}Do")
+#set($ClassVo="${ClassName}Vo")
+#set($ClassQueryDto="${ClassName}QueryDto")
+#set($classQueryDto="${className}QueryDto")
+#set($ClassEditDto="${ClassName}EditDto")
+#set($classEditDto="${className}QueryDto")
+#end
+#if($table.sub || $table.tree)
+import ${packageName}.entity.${ClassDo};
+#else
+import ${packageName}.entity.${ClassDo};
+import ${packageName}.entity.${ClassVo};
+import ${packageName}.entity.${ClassQueryDto};
+import ${packageName}.entity.${$ClassEditDto};
+#end
 import ${packageName}.service.I${ClassName}Service;
 
 #foreach ($column in $columns)
@@ -44,45 +63,48 @@ import ${packageName}.service.I${ClassName}Service;
 @Slf4j
 @Service
 @RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
-public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper, ${ClassName}Do> implements I${ClassName}Service {
+public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper, ${ClassDo}> implements I${ClassName}Service {
 
     private final ${ClassName}Mapper ${className}Mapper;
 
     /**
      * 查询${functionName}分页结果
      *
-     * @param ${className}QueryDto ${functionName}查询实体
+     * @param ${classQueryDto} ${functionName}查询实体
      * @return ${functionName}分页
      */
     @Override
-    public PageResult<${ClassName}Vo> select${ClassName}Page(${ClassName}QueryDto ${className}QueryDto) {
+    public PageResult<${ClassVo}> select${ClassName}Page(${ClassQueryDto} ${classQueryDto}) {
         startPage();
-        PageResult<${ClassName}Vo> page
-                = super.getMyBatisPageResult(select${ClassName}DoList(${className}QueryDto), ${ClassName}Vo.class);
+        PageResult<${ClassVo}> page
+                = super.getMyBatisPageResult(select${ClassDo}List(${classQueryDto}), ${ClassVo}.class);
         clearPage();
         return page;
     }
+#if($table.sub || $table.tree)
+#else
 
     /**
      * 查询${functionName}Vo列表
      *
-     * @param ${className}QueryDto ${functionName}查询实体
+     * @param ${classQueryDto} ${functionName}查询实体
      * @return ${functionName}集合
      */
     @Override
-    public List<${ClassName}Vo> select${ClassName}VoList(${ClassName}QueryDto ${className}QueryDto) {
-        return super.convertVoList(${className}Mapper.select${ClassName}List(${className}QueryDto), ${ClassName}Vo.class);
+    public List<${ClassVo}> select${ClassVo}List(${ClassQueryDto} ${classQueryDto}) {
+        return super.convertVoList(${className}Mapper.select${ClassName}List(${classQueryDto}), ${ClassVo}.class);
     }
+#end
 
     /**
      * 查询${functionName}Do列表
      *
-     * @param ${className}QueryDto ${functionName}查询实体
+     * @param ${classQueryDto} ${functionName}查询实体
      * @return ${functionName}集合
      */
     @Override
-    public List<${ClassName}Do> select${ClassName}DoList(${ClassName}QueryDto ${className}QueryDto) {
-        return ${className}Mapper.select${ClassName}List(${className}QueryDto);
+    public List<${ClassDo}> select${ClassDo}List(${ClassQueryDto} ${classQueryDto}) {
+        return ${className}Mapper.select${ClassName}List(${classQueryDto});
     }
 
     /**
@@ -92,27 +114,27 @@ public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper,
      * @return ${functionName}单个
      */
     @Override
-    public ${ClassName}Vo select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField}) {
-        return super.convertBean(${className}Mapper.select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaField}), ${ClassName}Vo.class);
+    public ${ClassVo} select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField}) {
+        return super.convertBean(${className}Mapper.select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaField}), ${ClassVo}.class);
     }
 
     /**
      * 新增${functionName}
      *
-     * @param ${className}EditDto ${functionName}编辑实体
+     * @param ${classEditDto} ${functionName}编辑实体
      * @return 结果
      */
 #if($table.sub)
     @Transactional(rollbackFor = Exception.class)
 #end
     @Override
-    public int insert${ClassName}(${ClassName}EditDto ${className}EditDto) {
+    public int insert${ClassName}(${ClassEditDto} ${classEditDto}) {
 #foreach ($column in $columns)
 #if($column.javaField == 'createTime')
-        ${className}EditDto.setCreateTime(DateUtils.getNowDate());
+        ${classEditDto}.setCreateTime(DateUtils.getNowDate());
 #end
 #if($column.javaField == 'createBy')
-        ${className}EditDto.setCreateBy(getUserNameOrNotLogged());
+        ${classEditDto}.setCreateBy(getUserNameOrNotLogged());
 #end
 #end
 #if($table.sub)
@@ -120,7 +142,7 @@ public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper,
         insert${subClassName}(${className});
         return rows;
 #else
-        return ${className}Mapper.insert${ClassName}(super.convertT(${className}EditDto));
+        return ${className}Mapper.insert${ClassName}(super.convertT(${classEditDto}));
 #end
     }
 
@@ -128,27 +150,27 @@ public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper,
      * 修改${functionName}
      *
      * @param ${pkColumn.javaField} ${functionName}主键
-     * @param ${className}EditDto ${functionName}编辑实体
+     * @param ${classEditDto} ${functionName}编辑实体
      * @return 结果
      */
 #if($table.sub)
     @Transactional(rollbackFor = Exception.class)
 #end
     @Override
-    public int update${ClassName}(${pkColumn.javaType} ${pkColumn.javaField}, ${ClassName}EditDto ${className}EditDto) {
+    public int update${ClassName}(${pkColumn.javaType} ${pkColumn.javaField}, ${ClassEditDto} ${classEditDto}) {
 #foreach ($column in $columns)
 #if($column.javaField == 'updateTime')
-        ${className}EditDto.setUpdateTime(DateUtils.getNowDate());
+        ${classEditDto}.setUpdateTime(DateUtils.getNowDate());
 #end
 #if($column.javaField == 'updateBy')
-        ${className}EditDto.setUpdateBy(getUserNameOrNotLogged());
+        ${classEditDto}.setUpdateBy(getUserNameOrNotLogged());
 #end
 #end
 #if($table.sub)
         ${className}Mapper.delete${subClassName}By${subTableFkClassName}(${className}.get${pkColumn.capJavaField}());
         insert${subClassName}(${className});
 #end
-        return ${className}Mapper.update${ClassName}(super.convertT(${className}EditDto).set${IdAttrName}(${pkColumn.javaField}));
+        return ${className}Mapper.update${ClassName}(super.convertT(${classEditDto}).set${IdAttrName}(${pkColumn.javaField}));
     }
 
     /**
