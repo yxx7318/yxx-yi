@@ -24,7 +24,7 @@ import ${packageName}.entity.${ClassDo};
 import ${packageName}.entity.${ClassDo};
 import ${packageName}.entity.${ClassVo};
 import ${packageName}.entity.${ClassQueryDto};
-import ${packageName}.entity.${$ClassEditDto};
+import ${packageName}.entity.${ClassEditDto};
 #end
 import com.yxx.common.core.service.IServicePlus;
 
@@ -42,7 +42,7 @@ public interface I${ClassName}Service extends IServicePlus<${ClassDo}> {
      * @param ${classQueryDto} ${functionName}查询实体
      * @return ${functionName}分页
      */
-    public PageResult<${ClassName}> select${ClassName}Page(${ClassQueryDto} ${classQueryDto});
+    public PageResult<${ClassName}> select${ClassVo}Page(${ClassQueryDto} ${classQueryDto});
 #if($table.sub || $table.tree)
 #else
 
@@ -52,7 +52,7 @@ public interface I${ClassName}Service extends IServicePlus<${ClassDo}> {
      * @param ${classQueryDto} ${functionName}查询实体
      * @return ${functionName}集合
      */
-    public List<${ClassName}> select${ClassName}List(${ClassQueryDto} ${classQueryDto});
+    public List<${ClassName}> select${ClassVo}List(${ClassQueryDto} ${classQueryDto});
 #end
 
     /**
@@ -69,7 +69,7 @@ public interface I${ClassName}Service extends IServicePlus<${ClassDo}> {
      * @param ${pkColumn.javaField} ${functionName}主键
      * @return ${functionName}单个
      */
-    public ${ClassName} select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField});
+    public ${ClassVo} select${ClassVo}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField});
 
     /**
      * 新增${functionName}

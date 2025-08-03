@@ -41,7 +41,7 @@ import ${packageName}.entity.${ClassDo};
 import ${packageName}.entity.${ClassDo};
 import ${packageName}.entity.${ClassVo};
 import ${packageName}.entity.${ClassQueryDto};
-import ${packageName}.entity.${$ClassEditDto};
+import ${packageName}.entity.${ClassEditDto};
 #end
 import ${packageName}.service.I${ClassName}Service;
 import com.yxx.common.utils.poi.ExcelUtil;
@@ -76,7 +76,7 @@ public class ${ClassName}Controller extends BaseControllerPlus {
     @GetMapping("/list")
 #if($table.crud || $table.sub)
     public PageResult<${ClassVo}> list(@ParameterObject ${ClassQueryDto} ${classQueryDto}) {
-        return ${className}Service.select${ClassName}Page(${ClassQueryDto});
+        return ${className}Service.select${ClassVo}Page(${classQueryDto});
     }
 #elseif($table.tree)
     public R<List<${ClassVo}>> list(@ParameterObject ${ClassName} ${className}) {
