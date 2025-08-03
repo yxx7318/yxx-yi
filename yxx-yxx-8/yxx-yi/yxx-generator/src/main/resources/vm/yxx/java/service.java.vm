@@ -42,7 +42,7 @@ public interface I${ClassName}Service extends IServicePlus<${ClassDo}> {
      * @param ${classQueryDto} ${functionName}查询实体
      * @return ${functionName}分页
      */
-    public PageResult<${ClassName}> select${ClassVo}Page(${ClassQueryDto} ${classQueryDto});
+    public PageResult<${ClassVo}> select${ClassVo}Page(${ClassQueryDto} ${classQueryDto});
 #if($table.sub || $table.tree)
 #else
 
@@ -52,7 +52,7 @@ public interface I${ClassName}Service extends IServicePlus<${ClassDo}> {
      * @param ${classQueryDto} ${functionName}查询实体
      * @return ${functionName}集合
      */
-    public List<${ClassName}> select${ClassVo}List(${ClassQueryDto} ${classQueryDto});
+    public List<${ClassVo}> select${ClassVo}List(${ClassQueryDto} ${classQueryDto});
 #end
 
     /**

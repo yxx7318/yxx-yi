@@ -89,7 +89,7 @@ public class ${ClassName}Controller extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('${permissionPrefix}:query')")
     @GetMapping(value = "/{${pkColumn.javaField}}")
     public R<${ClassVo}> getInfo(@PathVariable ${pkColumn.javaType} ${pkColumn.javaField}) {
-        return R.ok(${className}Service.select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaField}));
+        return R.ok(${className}Service.select${ClassVo}By${pkColumn.capJavaField}(${pkColumn.javaField}));
     }
 
     @Operation(summary = "新增--${functionName}")
