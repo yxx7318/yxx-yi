@@ -10,9 +10,9 @@
                @keyup.enter="handleQuery"
             />
          </el-form-item>
-         <el-form-item label="操作人员" prop="createBy">
+         <el-form-item label="操作人员" prop="createByName">
             <el-input
-               v-model="queryParams.createBy"
+               v-model="queryParams.createByName"
                placeholder="请输入操作人员"
                clearable
                style="width: 200px"
@@ -87,7 +87,7 @@
                <dict-tag :options="sys_notice_status" :value="scope.row.status" />
             </template>
          </el-table-column>
-         <el-table-column label="创建者" align="center" prop="createBy" width="100" />
+         <el-table-column label="创建者" align="center" prop="createByName" width="100" />
          <el-table-column label="创建时间" align="center" prop="createTime" width="100">
             <template #default="scope">
                <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d}') }}</span>
@@ -180,7 +180,7 @@ const data = reactive({
     pageNum: 1,
     pageSize: 10,
     noticeTitle: undefined,
-    createBy: undefined,
+    createByName: undefined,
     status: undefined
   },
   rules: {

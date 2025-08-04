@@ -84,9 +84,11 @@ public class SysDictType extends BaseEntity
             .append("dictName", getDictName())
             .append("dictType", getDictType())
             .append("status", getStatus())
-            .append("createBy", getCreateBy())
+            .append("createById", getCreateById())
+            .append("createByName", getCreateByName())
             .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
+            .append("updateById", getUpdateById())
+            .append("updateByName", getUpdateByName())
             .append("updateTime", getUpdateTime())
             .append("remark", getRemark())
             .toString();

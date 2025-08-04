@@ -15,11 +15,18 @@ public class BaseColumnEntity implements Serializable
     private static final long serialVersionUID = 1L;
 
     /**
-     * 创建者
+     * 创建者Id
      */
-    @TableField(value = "create_by", fill = FieldFill.INSERT)
-    @Schema(description = "创建者", hidden = true)
-    private String createBy;
+    @TableField(value = "create_by_id", fill = FieldFill.INSERT)
+    @Schema(description = "创建者Id", hidden = true)
+    private Long createById;
+
+    /**
+     * 创建者名称
+     */
+    @TableField(value = "create_by_name", fill = FieldFill.INSERT)
+    @Schema(description = "创建者名称", hidden = true)
+    private String createByName;
 
     /**
      * 创建时间
@@ -30,11 +37,18 @@ public class BaseColumnEntity implements Serializable
     private Date createTime;
 
     /**
-     * 更新者
+     * 更新者Id
      */
-    @TableField(value = "update_by", fill = FieldFill.UPDATE)
-    @Schema(description = "更新者", hidden = true)
-    private String updateBy;
+    @TableField(value = "update_by_id", fill = FieldFill.UPDATE)
+    @Schema(description = "更新者Id", hidden = true)
+    private Long updateById;
+
+    /**
+     * 更新者名称
+     */
+    @TableField(value = "update_by_name", fill = FieldFill.UPDATE)
+    @Schema(description = "更新者名称", hidden = true)
+    private String updateByName;
 
     /**
      * 更新时间

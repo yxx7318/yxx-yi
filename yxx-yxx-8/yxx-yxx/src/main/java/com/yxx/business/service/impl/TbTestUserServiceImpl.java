@@ -1,4 +1,4 @@
-package com.yxx.business.example.service.impl;
+package com.yxx.business.service.impl;
 
 import java.util.List;
 
@@ -7,23 +7,25 @@ import com.yxx.common.core.domain.PageResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import com.yxx.common.core.service.impl.ServiceImplPlus;
-import com.yxx.business.example.mapper.TbTestUserMapper;
-import com.yxx.business.example.domain.TbTestUserDo;
-import com.yxx.business.example.domain.TbTestUserVo;
-import com.yxx.business.example.domain.TbTestUserQueryDto;
-import com.yxx.business.example.domain.TbTestUserEditDto;
-import com.yxx.business.example.service.ITbTestUserService;
+import com.yxx.business.mapper.TbTestUserMapper;
+import com.yxx.business.entity.TbTestUserDo;
+import com.yxx.business.entity.TbTestUserVo;
+import com.yxx.business.entity.TbTestUserQueryDto;
+import com.yxx.business.entity.TbTestUserEditDto;
+import com.yxx.business.service.ITbTestUserService;
 
 /**
  * 测试用户Service业务层处理
  *
  * @author yxx
- * @date 2025-07-17
+ * @date 2025-08-04
  */
 @Slf4j
 @Service
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
 public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbTestUserDo> implements ITbTestUserService {
 
     private final TbTestUserMapper tbTestUserMapper;
@@ -35,7 +37,7 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
      * @return 测试用户分页
      */
     @Override
-    public PageResult<TbTestUserVo> selectTbTestUserPage(TbTestUserQueryDto tbTestUserQueryDto) {
+    public PageResult<TbTestUserVo> selectTbTestUserVoPage(TbTestUserQueryDto tbTestUserQueryDto) {
         startPage();
         PageResult<TbTestUserVo> page
                 = super.getMyBatisPageResult(selectTbTestUserDoList(tbTestUserQueryDto), TbTestUserVo.class);
@@ -72,35 +74,37 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
      * @return 测试用户单个
      */
     @Override
-    public TbTestUserVo selectTbTestUserByUserId(Long userId) {
+    public TbTestUserVo selectTbTestUserVoByUserId(Long userId) {
         return super.convertBean(tbTestUserMapper.selectTbTestUserByUserId(userId), TbTestUserVo.class);
     }
 
     /**
      * 新增测试用户
      *
-     * @param tbTestUserEditDto 测试用户编辑实体
+     * @param tbTestUserQueryDto 测试用户编辑实体
      * @return 结果
      */
     @Override
-    public int insertTbTestUser(TbTestUserEditDto tbTestUserEditDto) {
-        tbTestUserEditDto.setCreateBy(getUserNameOrNotLogged());
-        tbTestUserEditDto.setCreateTime(DateUtils.getNowDate());
-        return tbTestUserMapper.insertTbTestUser(super.convertT(tbTestUserEditDto));
+    public int insertTbTestUser(TbTestUserEditDto tbTestUserQueryDto) {
+        tbTestUserQueryDto.setCreateById(getUserIdOrNotLogged());
+        tbTestUserQueryDto.setCreateByName(getUserNameOrNotLogged());
+        tbTestUserQueryDto.setCreateTime(DateUtils.getNowDate());
+        return tbTestUserMapper.insertTbTestUser(super.convertT(tbTestUserQueryDto));
     }
 
     /**
      * 修改测试用户
      *
      * @param userId 测试用户主键
-     * @param tbTestUserEditDto 测试用户编辑实体
+     * @param tbTestUserQueryDto 测试用户编辑实体
      * @return 结果
      */
     @Override
-    public int updateTbTestUser(Long userId, TbTestUserEditDto tbTestUserEditDto) {
-        tbTestUserEditDto.setUpdateBy(getUserNameOrNotLogged());
-        tbTestUserEditDto.setUpdateTime(DateUtils.getNowDate());
-        return tbTestUserMapper.updateTbTestUser(super.convertT(tbTestUserEditDto).setUserId(userId));
+    public int updateTbTestUser(Long userId, TbTestUserEditDto tbTestUserQueryDto) {
+        tbTestUserQueryDto.setUpdateById(getUserIdOrNotLogged());
+        tbTestUserQueryDto.setUpdateByName(getUserNameOrNotLogged());
+        tbTestUserQueryDto.setUpdateTime(DateUtils.getNowDate());
+        return tbTestUserMapper.updateTbTestUser(super.convertT(tbTestUserQueryDto).setUserId(userId));
     }
 
     /**

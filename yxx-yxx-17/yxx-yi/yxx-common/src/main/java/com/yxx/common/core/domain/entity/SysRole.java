@@ -229,9 +229,11 @@ public class SysRole extends BaseEntity
             .append("deptCheckStrictly", isDeptCheckStrictly())
             .append("status", getStatus())
             .append("delFlag", getDelFlag())
-            .append("createBy", getCreateBy())
+            .append("createById", getCreateById())
+            .append("createByName", getCreateByName())
             .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
+            .append("updateById", getUpdateById())
+            .append("updateByName", getUpdateByName())
             .append("updateTime", getUpdateTime())
             .append("remark", getRemark())
             .toString();

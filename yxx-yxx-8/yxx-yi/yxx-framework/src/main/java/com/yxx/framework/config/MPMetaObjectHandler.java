@@ -26,11 +26,17 @@ public class MPMetaObjectHandler implements MetaObjectHandler {
         if (metaObject.hasSetter("updateTime")) {
             this.strictInsertFill(metaObject, "updateTime", DateUtils::getNowDate, Date.class);
         }
-        if (metaObject.hasSetter("createBy")) {
-            this.strictInsertFill(metaObject, "createBy", SecurityUtils::getUsernameOrNotLogged, String.class);
+        if (metaObject.hasSetter("createById")) {
+            this.strictInsertFill(metaObject, "createById", SecurityUtils::getUsernameOrNotLogged, String.class);
         }
-        if (metaObject.hasSetter("updateBy")) {
-            this.strictInsertFill(metaObject, "updateBy", SecurityUtils::getUsernameOrNotLogged, String.class);
+        if (metaObject.hasSetter("updateById")) {
+            this.strictInsertFill(metaObject, "updateById", SecurityUtils::getUsernameOrNotLogged, String.class);
+        }
+        if (metaObject.hasSetter("createByName")) {
+            this.strictInsertFill(metaObject, "createByName", SecurityUtils::getUserIdOrNotLogged, Long.class);
+        }
+        if (metaObject.hasSetter("updateByName")) {
+            this.strictInsertFill(metaObject, "updateByName", SecurityUtils::getUserIdOrNotLogged, Long.class);
         }
     }
 
@@ -44,8 +50,11 @@ public class MPMetaObjectHandler implements MetaObjectHandler {
         if (metaObject.hasSetter("updateTime")) {
             this.strictUpdateFill(metaObject, "updateTime", DateUtils::getNowDate, Date.class);
         }
-        if (metaObject.hasSetter("updateBy")) {
-            this.strictUpdateFill(metaObject, "updateBy", SecurityUtils::getUsernameOrNotLogged, String.class);
+        if (metaObject.hasSetter("updateById")) {
+            this.strictUpdateFill(metaObject, "updateById", SecurityUtils::getUsernameOrNotLogged, String.class);
+        }
+        if (metaObject.hasSetter("updateByName")) {
+            this.strictUpdateFill(metaObject, "updateByName", SecurityUtils::getUserIdOrNotLogged, Long.class);
         }
     }
 }

@@ -1,8 +1,9 @@
 package com.yxx.generator.domain;
 
-import jakarta.validation.constraints.NotBlank;
 import com.yxx.common.core.domain.BaseEntity;
 import com.yxx.common.utils.StringUtils;
+
+import javax.validation.constraints.NotBlank;
 
 /**
  * 代码生成业务字段表 gen_table_column
@@ -330,7 +331,7 @@ public class GenTableColumn extends BaseEntity
     {
         return StringUtils.equalsAnyIgnoreCase(javaField,
                 // BaseEntity
-                "createBy", "createTime", "updateBy", "updateTime", "remark",
+                "createById", "createByName", "createTime", "updateById", "updateByName", "updateTime", "remark",
                 // TreeEntity
                 "parentName", "parentId", "orderNum", "ancestors");
     }

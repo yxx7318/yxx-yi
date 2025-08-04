@@ -297,15 +297,15 @@ const daterange${AttrName} = ref([])
 const data = reactive({
   form: {},
   queryParams: {
-    #foreach ($column in $columns)
+#foreach ($column in $columns)
 #if($column.query)
     $column.javaField: null#if($foreach.count != $columns.size()),#end
 #end
 #end
   },
   rules: {
-    #foreach ($column in $columns)
-#if($column.required)
+#foreach ($column in $columns)
+#if($column.required && $column.javaField != "createTime" && $column.javaField != "updateTime")
 #set($parentheseIndex=$column.columnComment.indexOf("（"))
 #if($parentheseIndex != -1)
 #set($comment=$column.columnComment.substring(0, $parentheseIndex))

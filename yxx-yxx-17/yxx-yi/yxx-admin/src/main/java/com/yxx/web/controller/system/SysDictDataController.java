@@ -89,7 +89,8 @@ public class SysDictDataController extends BaseController
     @PostMapping
     public AjaxResult add(@Validated @RequestBody SysDictData dict)
     {
-        dict.setCreateBy(getUsername());
+        dict.setCreateById(getUserId());
+        dict.setCreateByName(getUsername());
         return toAjax(dictDataService.insertDictData(dict));
     }
 
@@ -101,7 +102,8 @@ public class SysDictDataController extends BaseController
     @PutMapping
     public AjaxResult edit(@Validated @RequestBody SysDictData dict)
     {
-        dict.setUpdateBy(getUsername());
+        dict.setUpdateById(getUserId());
+        dict.setUpdateByName(getUsername());
         return toAjax(dictDataService.updateDictData(dict));
     }
 

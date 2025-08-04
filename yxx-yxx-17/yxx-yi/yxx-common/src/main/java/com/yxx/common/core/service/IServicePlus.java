@@ -81,7 +81,7 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
     /**
      * 获取自注入spring管理的bean
      */
-    public com.yxx.common.core.service.IServicePlus<T> getSelfBean();
+    public IServicePlus<T> getSelfBean();
 
     /**
      * 获取转化后的Po结果

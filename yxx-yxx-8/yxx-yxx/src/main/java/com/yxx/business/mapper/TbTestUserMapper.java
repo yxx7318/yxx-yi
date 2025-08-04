@@ -1,16 +1,16 @@
-package com.yxx.business.example.mapper;
+package com.yxx.business.mapper;
 
 import java.util.List;
 
-import com.yxx.business.example.domain.TbTestUserDo;
-import com.yxx.business.example.domain.TbTestUserQueryDto;
+import com.yxx.business.entity.TbTestUserDo;
+import com.yxx.business.entity.TbTestUserQueryDto;
 import com.yxx.common.core.mapper.BaseMapperPlus;
 
 /**
  * 测试用户Mapper接口
  *
  * @author yxx
- * @date 2025-07-17
+ * @date 2025-08-04
  */
 public interface TbTestUserMapper extends BaseMapperPlus<TbTestUserDo> {
 

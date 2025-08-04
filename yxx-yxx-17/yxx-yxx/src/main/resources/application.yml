@@ -61,8 +61,8 @@ mybatis-plus:
     default-enum-type-handler: com.baomidou.mybatisplus.core.handlers.MybatisEnumTypeHandler
   global-config:
     db-config:
-      # 定义属性为deleteFlag的代表为逻辑删除
-      logic-delete-field: deleteFlag
+      # 定义属性为delFlag的代表为逻辑删除
+      logic-delete-field: delFlag
       logic-delete-value: 1
       logic-not-delete-value: 0
   # 搜索指定包别名

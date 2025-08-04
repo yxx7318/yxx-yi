@@ -130,11 +130,14 @@ public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper,
     @Override
     public int insert${ClassName}(${ClassEditDto} ${classEditDto}) {
 #foreach ($column in $columns)
+#if($column.javaField == 'createById')
+        ${classEditDto}.setCreateById(getUserIdOrNotLogged());
+#end
+#if($column.javaField == 'createByName')
+        ${classEditDto}.setCreateByName(getUserNameOrNotLogged());
+#end
 #if($column.javaField == 'createTime')
         ${classEditDto}.setCreateTime(DateUtils.getNowDate());
-#end
-#if($column.javaField == 'createBy')
-        ${classEditDto}.setCreateBy(getUserNameOrNotLogged());
 #end
 #end
 #if($table.sub)
@@ -159,11 +162,14 @@ public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper,
     @Override
     public int update${ClassName}(${pkColumn.javaType} ${pkColumn.javaField}, ${ClassEditDto} ${classEditDto}) {
 #foreach ($column in $columns)
+#if($column.javaField == 'updateById')
+        ${classEditDto}.setUpdateById(getUserIdOrNotLogged());
+#end
+#if($column.javaField == 'updateByName')
+        ${classEditDto}.setUpdateByName(getUserNameOrNotLogged());
+#end
 #if($column.javaField == 'updateTime')
         ${classEditDto}.setUpdateTime(DateUtils.getNowDate());
-#end
-#if($column.javaField == 'updateBy')
-        ${classEditDto}.setUpdateBy(getUserNameOrNotLogged());
 #end
 #end
 #if($table.sub)

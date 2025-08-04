@@ -2,10 +2,16 @@ package com.yxx.common.core.domain;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BaseQueryDtoEntity extends PageQueryEntity {
+/**
+ * Entity查询基类
+ */
+public class BaseQueryDtoEntity extends PageQueryEntity implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     /** 搜索值 */
     @Schema(description = "搜索值")

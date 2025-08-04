@@ -1,4 +1,4 @@
-package com.yxx.business.example.domain;
+package com.yxx.business.entity;
 
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
  * 测试用户Do对象 tb_test_user
  *
  * @author yxx
- * @date 2025-07-17
+ * @date 2025-08-04
  */
 @Schema(description = "测试用户Do实体")
 @NoArgsConstructor

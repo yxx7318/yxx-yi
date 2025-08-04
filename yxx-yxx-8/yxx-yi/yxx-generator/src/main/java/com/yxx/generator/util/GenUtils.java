@@ -9,6 +9,8 @@ import org.apache.commons.lang3.RegExUtils;
 
 import java.util.Arrays;
 
+import static com.yxx.common.utils.SecurityUtils.getUserId;
+
 /**
  * 代码生成器 工具类
  */
@@ -25,7 +27,8 @@ public class GenUtils
         genTable.setBusinessName(getBusinessName(genTable.getTableName()));
         genTable.setFunctionName(replaceText(genTable.getTableComment()));
         genTable.setFunctionAuthor(GenConfig.getAuthor());
-        genTable.setCreateBy(operName);
+        genTable.setCreateById(getUserId());
+        genTable.setCreateByName(operName);
     }
 
     /**
@@ -36,7 +39,8 @@ public class GenUtils
         String dataType = getDbType(column.getColumnType());
         String columnName = column.getColumnName();
         column.setTableId(table.getTableId());
-        column.setCreateBy(table.getCreateBy());
+        column.setCreateById(table.getCreateById());
+        column.setCreateByName(table.getCreateByName());
         // 设置java字段名
         column.setJavaField(StringUtils.toCamelCase(columnName));
         // 设置默认类型

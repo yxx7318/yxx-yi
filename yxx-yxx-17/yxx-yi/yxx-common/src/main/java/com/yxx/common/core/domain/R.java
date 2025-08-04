@@ -20,7 +20,7 @@ public class R<T> implements Serializable
     /** 失败 */
     public static final int FAIL = HttpStatus.ERROR;
 
-    /** 失败 */
+    /** 警告 */
     public static final int WARN = HttpStatus.WARN;
 
     @Schema(description = "状态码", example = "200")

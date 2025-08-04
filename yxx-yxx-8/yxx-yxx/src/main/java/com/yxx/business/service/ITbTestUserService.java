@@ -1,19 +1,19 @@
-package com.yxx.business.example.service;
+package com.yxx.business.service;
 
 import java.util.List;
 
 import com.yxx.common.core.domain.PageResult;
-import com.yxx.business.example.domain.TbTestUserDo;
-import com.yxx.business.example.domain.TbTestUserVo;
-import com.yxx.business.example.domain.TbTestUserQueryDto;
-import com.yxx.business.example.domain.TbTestUserEditDto;
+import com.yxx.business.entity.TbTestUserDo;
+import com.yxx.business.entity.TbTestUserVo;
+import com.yxx.business.entity.TbTestUserQueryDto;
+import com.yxx.business.entity.TbTestUserEditDto;
 import com.yxx.common.core.service.IServicePlus;
 
 /**
  * 测试用户Service接口
  *
  * @author yxx
- * @date 2025-07-17
+ * @date 2025-08-04
  */
 public interface ITbTestUserService extends IServicePlus<TbTestUserDo> {
 
@@ -23,7 +23,7 @@ public interface ITbTestUserService extends IServicePlus<TbTestUserDo> {
      * @param tbTestUserQueryDto 测试用户查询实体
      * @return 测试用户分页
      */
-    public PageResult<TbTestUserVo> selectTbTestUserPage(TbTestUserQueryDto tbTestUserQueryDto);
+    public PageResult<TbTestUserVo> selectTbTestUserVoPage(TbTestUserQueryDto tbTestUserQueryDto);
 
     /**
      * 查询测试用户Vo列表
@@ -47,24 +47,24 @@ public interface ITbTestUserService extends IServicePlus<TbTestUserDo> {
      * @param userId 测试用户主键
      * @return 测试用户单个
      */
-    public TbTestUserVo selectTbTestUserByUserId(Long userId);
+    public TbTestUserVo selectTbTestUserVoByUserId(Long userId);
 
     /**
      * 新增测试用户
      *
-     * @param tbTestUserEditDto 测试用户编辑实体
+     * @param tbTestUserQueryDto 测试用户编辑实体
      * @return 结果
      */
-    public int insertTbTestUser(TbTestUserEditDto tbTestUserEditDto);
+    public int insertTbTestUser(TbTestUserEditDto tbTestUserQueryDto);
 
     /**
      * 修改测试用户
      *
      * @param userId 主键
-     * @param tbTestUserEditDto 测试用户编辑实体
+     * @param tbTestUserQueryDto 测试用户编辑实体
      * @return 结果
      */
-    public int updateTbTestUser(Long userId, TbTestUserEditDto tbTestUserEditDto);
+    public int updateTbTestUser(Long userId, TbTestUserEditDto tbTestUserQueryDto);
 
     /**
      * 批量删除测试用户

@@ -169,14 +169,14 @@ const datetimerangeRegisterTime = ref([])
 const upload = ref({
   // 是否显示弹出层
   open: false,
-    // 弹出层标题
-    title: "测试用户导入",
-    // 上传的地址
-    url: "/business/user/importData"
+  // 弹出层标题
+  title: "测试用户导入",
+  // 上传的地址
+  url: "/business/user/importData"
 })
 
 // 显隐列
-const columns = ref([
+const columns = reactive([
   { key: 1, label: `用户ID`, visible: true },
   { key: 2, label: `用户账号`, visible: true },
   { key: 3, label: `密码`, visible: true },
@@ -185,7 +185,7 @@ const columns = ref([
   { key: 6, label: `备注`, visible: true },
 ])
 
-const data = reactive({
+const data = ref({
   form: {},
   queryParams: {
     pageNum: 1,
@@ -194,6 +194,7 @@ const data = reactive({
     password: null,
     status: null,
     registerTime: null,
+    remark: null
   },
   rules: {
     userName: [
@@ -233,9 +234,11 @@ function reset() {
     password: null,
     status: null,
     registerTime: null,
-    createBy: null,
+    createById: null,
+    createByName: null,
     createTime: null,
-    updateBy: null,
+    updateById: null,
+    updateByName: null,
     updateTime: null,
     remark: null
   }

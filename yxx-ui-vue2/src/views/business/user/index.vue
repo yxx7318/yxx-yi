@@ -202,12 +202,12 @@ export default {
       },
       // 显隐列
       columns: [
-          { key: 1, label: `用户ID`, visible: true },
-          { key: 2, label: `用户账号`, visible: true },
-          { key: 3, label: `密码`, visible: true },
-          { key: 4, label: `账号状态`, visible: true },
-          { key: 5, label: `注册时间`, visible: true },
-          { key: 6, label: `备注`, visible: true },
+        { key: 1, label: `用户ID`, visible: true },
+        { key: 2, label: `用户账号`, visible: true },
+        { key: 3, label: `密码`, visible: true },
+        { key: 4, label: `账号状态`, visible: true },
+        { key: 5, label: `注册时间`, visible: true },
+        { key: 6, label: `备注`, visible: true },
       ],
       // 查询参数
       queryParams: {
@@ -217,6 +217,7 @@ export default {
         password: null,
         status: null,
         registerTime: null,
+        remark: null
       },
       // 表单参数
       form: {},
@@ -259,9 +260,11 @@ export default {
         password: null,
         status: null,
         registerTime: null,
-        createBy: null,
+        createById: null,
+        createByName: null,
         createTime: null,
-        updateBy: null,
+        updateById: null,
+        updateByName: null,
         updateTime: null,
         remark: null
       }

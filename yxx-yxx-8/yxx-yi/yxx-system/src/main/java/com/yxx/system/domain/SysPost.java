@@ -112,9 +112,11 @@ public class SysPost extends BaseEntity
             .append("postName", getPostName())
             .append("postSort", getPostSort())
             .append("status", getStatus())
-            .append("createBy", getCreateBy())
+            .append("createById", getCreateById())
+            .append("createByName", getCreateByName())
             .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
+            .append("updateById", getUpdateById())
+            .append("updateByName", getUpdateByName())
             .append("updateTime", getUpdateTime())
             .append("remark", getRemark())
             .toString();

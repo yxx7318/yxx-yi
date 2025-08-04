@@ -1,26 +1,28 @@
-package com.yxx.business.example.domain;
+package com.yxx.business.entity;
 
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.yxx.common.core.domain.BaseQueryDtoEntity;
+import com.yxx.common.core.domain.BaseEditDtoEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.experimental.Accessors;
 import lombok.*;
 
+import javax.validation.constraints.NotNull;
+
 /**
- * 测试用户QueryDto对象 tb_test_user
+ * 测试用户EditDto对象 tb_test_user
  *
  * @author yxx
- * @date 2025-07-17
+ * @date 2025-08-04
  */
-@Schema(description = "测试用户查询条件实体")
+@Schema(description = "测试用户编辑实体")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @Builder
 @Data
-public class TbTestUserQueryDto extends BaseQueryDtoEntity {
+public class TbTestUserEditDto extends BaseEditDtoEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -28,6 +30,7 @@ public class TbTestUserQueryDto extends BaseQueryDtoEntity {
     private Long userId;
 
     @Schema(description = "用户账号")
+    @NotNull(message = "用户账号不能为空")
     private String userName;
 
     @Schema(description = "密码")

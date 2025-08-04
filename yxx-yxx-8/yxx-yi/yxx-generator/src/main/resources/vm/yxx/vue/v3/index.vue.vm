@@ -443,14 +443,14 @@ const datetimerange${AttrName} = ref([])
 const upload = ref({
   // 是否显示弹出层
   open: false,
-    // 弹出层标题
-    title: "${functionName}导入",
-    // 上传的地址
-    url: "/${moduleName}/${businessName}/importData"
+  // 弹出层标题
+  title: "${functionName}导入",
+  // 上传的地址
+  url: "/${moduleName}/${businessName}/importData"
 })
 
 // 显隐列
-const columns = ref([
+const columns = reactive([
 ## 初始化计数器
 #set($index = 1)
 #foreach($column in $columns)
@@ -475,15 +475,15 @@ const data = ref({
   queryParams: {
     pageNum: 1,
     pageSize: 10,
-    #foreach ($column in $columns)
+#foreach ($column in $columns)
 #if($column.query)
     $column.javaField: null#if($foreach.count != $columns.size()),#end
 #end
 #end
   },
   rules: {
-    #foreach ($column in $columns)
-#if($column.required)
+#foreach ($column in $columns)
+#if($column.required && $column.javaField != "createTime" && $column.javaField != "updateTime")
 #set($parentheseIndex=$column.columnComment.indexOf("（"))
 #if($parentheseIndex != -1)
 #set($comment=$column.columnComment.substring(0, $parentheseIndex))

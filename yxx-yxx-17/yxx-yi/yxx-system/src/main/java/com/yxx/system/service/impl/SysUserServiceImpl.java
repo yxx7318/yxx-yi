@@ -31,6 +31,8 @@ import com.yxx.system.service.ISysConfigService;
 import com.yxx.system.service.ISysDeptService;
 import com.yxx.system.service.ISysUserService;
 
+import static com.yxx.common.utils.SecurityUtils.getUserId;
+
 /**
  * 用户 业务层处理
  */
@@ -236,7 +238,7 @@ public class SysUserServiceImpl implements ISysUserService
     @Override
     public void checkUserDataScope(Long userId)
     {
-        if (!SysUser.isAdmin(SecurityUtils.getUserId()))
+        if (!SysUser.isAdmin(getUserId()))
         {
             SysUser user = new SysUser();
             user.setUserId(userId);
@@ -503,7 +505,8 @@ public class SysUserServiceImpl implements ISysUserService
                     deptService.checkDeptDataScope(user.getDeptId());
                     String password = configService.selectConfigByKey("sys.user.initPassword");
                     user.setPassword(SecurityUtils.encryptPassword(password));
-                    user.setCreateBy(operName);
+                    user.setCreateById(getUserId());
+                    user.setCreateByName(operName);
                     userMapper.insertUser(user);
                     successNum++;
                     successMsg.append("<br/>" + successNum + "、账号 " + user.getUserName() + " 导入成功");
@@ -515,7 +518,8 @@ public class SysUserServiceImpl implements ISysUserService
                     checkUserDataScope(u.getUserId());
                     deptService.checkDeptDataScope(user.getDeptId());
                     user.setUserId(u.getUserId());
-                    user.setUpdateBy(operName);
+                    user.setCreateById(getUserId());
+                    user.setCreateByName(operName);
                     userMapper.updateUser(user);
                     successNum++;
                     successMsg.append("<br/>" + successNum + "、账号 " + user.getUserName() + " 更新成功");

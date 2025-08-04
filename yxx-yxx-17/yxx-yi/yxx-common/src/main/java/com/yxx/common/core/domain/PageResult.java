@@ -23,7 +23,7 @@ public class PageResult<T> {
     @Schema(description = "状态码", example = "200")
     private Integer code = HttpStatus.SUCCESS;
 
-    @Schema(description = "消息", example = "操作成功")
+    @Schema(description = "消息", example = "查询成功")
     private String msg = "查询成功";
 
     @Schema(description = "页码", example = "1")

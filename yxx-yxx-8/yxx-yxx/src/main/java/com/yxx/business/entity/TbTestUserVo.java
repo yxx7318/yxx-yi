@@ -1,24 +1,20 @@
-package com.yxx.business.example.domain;
+package com.yxx.business.entity;
 
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yxx.common.annotation.Excel;
 import com.yxx.common.core.domain.BaseEntity;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableField;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.experimental.Accessors;
 import lombok.*;
 
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
 
 /**
  * 测试用户Vo对象 tb_test_user
  *
  * @author yxx
- * @date 2025-07-17
+ * @date 2025-08-04
  */
 @Schema(description = "测试用户Vo实体")
 @NoArgsConstructor

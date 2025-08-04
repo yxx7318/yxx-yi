@@ -10,20 +10,20 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.beans.factory.annotation.Value;
 
 @Configuration
-@ConditionalOnProperty(name = "redis.data.redisson", havingValue = "true")
+@ConditionalOnProperty(name = "redis.redisson", havingValue = "true")
 public class RedissonConfig {
 
-    @Value("${spring.data.redis.host}")
+    @Value("${spring.redis.host}")
     private String redisHost;
 
-    @Value("${spring.data.redis.port}")
+    @Value("${spring.redis.port}")
     private int redisPort;
 
-    @Value("${spring.data.redis.database}")
+    @Value("${spring.redis.database}")
     private int redisDatabase;
 
     // 如果有密码的话，添加以下属性
-    @Value("${spring.data.redis.password}")
+    @Value("${spring.redis.password}")
     private String redisPassword;
 
     @Bean

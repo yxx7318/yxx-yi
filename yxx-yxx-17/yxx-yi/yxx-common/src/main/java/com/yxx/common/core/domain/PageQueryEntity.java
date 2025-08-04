@@ -5,14 +5,16 @@ import com.yxx.common.core.utils.PageDomainUtils;
 import io.swagger.v3.oas.annotations.media.Schema;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
 /**
  * 分页查询条件对象，用于封装分页请求中的参数
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
-public class PageQueryEntity implements Serializable
+public class PageQueryEntity extends BaseColumnEntity implements Serializable
 {
 
     private static final long serialVersionUID = 1L;

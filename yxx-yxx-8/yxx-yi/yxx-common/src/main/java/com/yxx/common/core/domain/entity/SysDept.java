@@ -192,9 +192,11 @@ public class SysDept extends BaseEntity
             .append("email", getEmail())
             .append("status", getStatus())
             .append("delFlag", getDelFlag())
-            .append("createBy", getCreateBy())
+            .append("createById", getCreateById())
+            .append("createByName", getCreateByName())
             .append("createTime", getCreateTime())
-            .append("updateBy", getUpdateBy())
+            .append("updateById", getUpdateById())
+            .append("updateByName", getUpdateByName())
             .append("updateTime", getUpdateTime())
             .toString();
     }
