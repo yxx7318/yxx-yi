@@ -80,6 +80,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="dictType != null and dictType != ''">dict_type = #{dictType},</if>
  			<if test="status != null">status = #{status},</if>
  			<if test="remark != null">remark = #{remark},</if>
+ 			<if test="updateById != null">update_by_id = #{updateById},</if>
  			<if test="updateByName != null and updateByName != ''">update_by_name = #{updateByName},</if>
  			update_time = sysdate()
  		</set>
@@ -92,6 +93,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="dictType != null and dictType != ''">dict_type,</if>
  			<if test="status != null">status,</if>
  			<if test="remark != null and remark != ''">remark,</if>
+ 			<if test="createById != null">create_by_id,</if>
  			<if test="createByName != null and createByName != ''">create_by_name,</if>
  			create_time
  		)values(
@@ -99,6 +101,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="dictType != null and dictType != ''">#{dictType},</if>
  			<if test="status != null">#{status},</if>
  			<if test="remark != null and remark != ''">#{remark},</if>
+ 			<if test="createById != null">#{createById},</if>
  			<if test="createByName != null and createByName != ''">#{createByName},</if>
  			sysdate()
  		)

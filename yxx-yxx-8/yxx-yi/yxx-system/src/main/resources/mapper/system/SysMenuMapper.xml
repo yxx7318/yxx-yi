@@ -153,6 +153,7 @@
 			<if test="perms !=null">perms = #{perms},</if>
 			<if test="icon !=null and icon != ''">icon = #{icon},</if>
 			<if test="remark != null and remark != ''">remark = #{remark},</if>
+			<if test="updateById != null">update_by_id = #{updateById},</if>
 			<if test="updateByName != null and updateByName != ''">update_by_name = #{updateByName},</if>
 			update_time = sysdate()
 		</set>
@@ -177,6 +178,7 @@
 		<if test="perms !=null and perms != ''">perms,</if>
 		<if test="icon != null and icon != ''">icon,</if>
 		<if test="remark != null and remark != ''">remark,</if>
+		<if test="createById != null">create_by_id,</if>
 		<if test="createByName != null and createByName != ''">create_by_name,</if>
 		create_time
 		)values(
@@ -196,6 +198,7 @@
 		<if test="perms !=null and perms != ''">#{perms},</if>
 		<if test="icon != null and icon != ''">#{icon},</if>
 		<if test="remark != null and remark != ''">#{remark},</if>
+		<if test="createById != null">#{createById},</if>
 		<if test="createByName != null and createByName != ''">#{createByName},</if>
 		sysdate()
 		)

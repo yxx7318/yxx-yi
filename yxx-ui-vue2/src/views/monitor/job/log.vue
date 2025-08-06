@@ -190,7 +190,7 @@
 </template>
 
 <script>
-import { getJob} from "@/api/monitor/job"
+import { getJob } from "@/api/monitor/job"
 import { listJobLog, delJobLog, cleanJobLog } from "@/api/monitor/jobLog"
 
 export default {

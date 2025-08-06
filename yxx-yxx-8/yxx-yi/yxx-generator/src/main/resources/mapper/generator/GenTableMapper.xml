@@ -153,9 +153,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="genType != null and genType != ''">gen_type,</if>
 			<if test="genPath != null and genPath != ''">gen_path,</if>
 			<if test="remark != null and remark != ''">remark,</if>
+ 			<if test="createById != null">create_by_id,</if>
  			<if test="createByName != null and createByName != ''">create_by_name,</if>
 			create_time
-         )values(
+        )values(
 			<if test="tableName != null">#{tableName},</if>
 			<if test="tableComment != null and tableComment != ''">#{tableComment},</if>
 			<if test="className != null and className != ''">#{className},</if>
@@ -169,6 +170,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="genType != null and genType != ''">#{genType},</if>
 			<if test="genPath != null and genPath != ''">#{genPath},</if>
 			<if test="remark != null and remark != ''">#{remark},</if>
+ 			<if test="createById != null">#{createById},</if>
  			<if test="createByName != null and createByName != ''">#{createByName},</if>
 			sysdate()
          )
@@ -196,6 +198,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="businessName != null and businessName != ''">business_name = #{businessName},</if>
             <if test="functionName != null and functionName != ''">function_name = #{functionName},</if>
             <if test="options != null and options != ''">options = #{options},</if>
+            <if test="updateById != null">update_by_id = #{updateById},</if>
             <if test="updateByName != null and updateByName != ''">update_by_name = #{updateByName},</if>
             <if test="remark != null">remark = #{remark},</if>
             update_time = sysdate()

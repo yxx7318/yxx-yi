@@ -94,7 +94,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="concurrent != null and concurrent != ''">concurrent,</if>
  			<if test="status != null and status != ''">status,</if>
  			<if test="remark != null and remark != ''">remark,</if>
- 			<if test="createById != null and createById != ''">create_by_id,</if>
+ 			<if test="createById != null">create_by_id,</if>
  			<if test="createByName != null and createByName != ''">create_by_name,</if>
  			create_time
  		)values(
@@ -107,7 +107,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  			<if test="concurrent != null and concurrent != ''">#{concurrent},</if>
  			<if test="status != null and status != ''">#{status},</if>
  			<if test="remark != null and remark != ''">#{remark},</if>
- 			<if test="createById != null and createById != ''">#{createById},</if>
+ 			<if test="createById != null">#{createById},</if>
  			<if test="createByName != null and createByName != ''">#{createByName},</if>
  			sysdate()
  		)
