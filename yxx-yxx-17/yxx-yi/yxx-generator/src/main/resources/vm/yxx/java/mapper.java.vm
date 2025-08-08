@@ -20,7 +20,7 @@ import ${packageName}.entity.${ClassDo};
 import ${packageName}.entity.${ClassQueryDto};
 #end
 #if($table.sub)
-import ${packageName}.domain.${subClassName};
+import ${packageName}.entity.${subClassName};
 #end
 import com.yxx.common.core.mapper.BaseMapperPlus;
 
@@ -90,19 +90,52 @@ public interface ${ClassName}Mapper extends BaseMapperPlus<${ClassDo}> {
     public int delete${subClassName}By${subTableFkClassName}s(List<${pkColumn.javaType}> ${pkColumn.javaField}s);
 
     /**
-     * 批量新增${subTable.functionName}
-     *
-     * @param ${subclassName}List ${subTable.functionName}列表
-     * @return 结果
-     */
-    public int batch${subClassName}(List<${subClassName}> ${subclassName}List);
-
-    /**
      * 通过${functionName}主键删除${subTable.functionName}信息
      *
      * @param ${pkColumn.javaField} ${functionName}ID
      * @return 结果
      */
     public int delete${subClassName}By${subTableFkClassName}(${pkColumn.javaType} ${pkColumn.javaField});
+#foreach($column in $subTable.columns)
+#if($column.javaField.toLowerCase().indexOf("id") != -1)
+#set($subPkType=$column.javaType)
+#set($subPkJavaField=$column.javaField)
+#set($SubPkJavaField=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+#set($SubPkClassName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+#break
+#end
+#end
+
+    /**
+     * 查询对应的ids
+     *
+     * @param ${pkColumn.javaField} 关联id
+     * @return 结果
+     */
+    public List<${subPkType}> select${SubPkClassName}sBy${subTableFkClassName}(${pkColumn.javaType} ${pkColumn.javaField});
+
+    /**
+     * 新增${subTable.functionName}
+     *
+     * @param ${subclassName} ${subTable.functionName}
+     * @return 结果
+     */
+    public int insert${subClassName}(${subClassName} ${subclassName});
+
+    /**
+     * 更新${subTable.functionName}
+     *
+     * @param ${subclassName} ${subTable.functionName}
+     * @return 结果
+     */
+    public int update${subClassName}(${subClassName} ${subclassName});
+
+    /**
+     * 删除${subTable.functionName}
+     *
+     * @param ${subclassName} ${subTable.functionName}
+     * @return 结果
+     */
+    public int delete${subClassName}(List<${subPkType}> ${subPkJavaField});
 #end
 }

@@ -32,6 +32,9 @@ import lombok.*;
 @Data
 public class ${ClassName}QueryDto extends ${Entity} {
 
+#if(${javaVersion} != "1.8")
+    @Serial
+#end
     private static final long serialVersionUID = 1L;
 
 #foreach ($column in $columns)

@@ -1,7 +1,6 @@
 package com.yxx.business.entity;
 
 import java.util.Date;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yxx.common.annotation.Excel;
 import com.yxx.common.core.domain.BaseColumnEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -12,15 +11,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.experimental.Accessors;
 import lombok.*;
 
-import javax.validation.constraints.NotNull;
-
 /**
- * 测试用户Do对象 tb_test_user
+ * 测试单生成Do对象 tb_test_user
  *
  * @author yxx
- * @date 2025-08-04
+ * @date 2025-08-08
  */
-@Schema(description = "测试用户Do实体")
+@Schema(description = "测试单生成Do实体")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -35,6 +32,11 @@ public class TbTestUserDo extends BaseColumnEntity {
     @Schema(description = "用户ID")
     @TableId(value = "user_id", type = IdType.AUTO)
     private Long userId;
+
+    @Schema(description = "主表ID")
+    @TableField("parent_id")
+    @Excel(name = "主表ID")
+    private Long parentId;
 
     @Schema(description = "用户账号")
     @TableField("user_name")
@@ -51,9 +53,13 @@ public class TbTestUserDo extends BaseColumnEntity {
     @Excel(name = "账号状态", readConverterExp = "0=正常,1=停用")
     private String status;
 
+    @Schema(description = "注册日期")
+    @TableField("register_date")
+    @Excel(name = "注册日期", width = 20, dateFormat = "yyyy-MM-dd")
+    private Date registerDate;
+
     @Schema(description = "注册时间")
     @TableField("register_time")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Excel(name = "注册时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date registerTime;
 

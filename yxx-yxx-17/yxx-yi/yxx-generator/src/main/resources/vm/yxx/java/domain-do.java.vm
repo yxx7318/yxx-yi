@@ -17,13 +17,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.experimental.Accessors;
 import lombok.*;
 
-#foreach ($column in $columns)
-#if ($column.required)
-import javax.validation.constraints.NotNull;
-#break
-#end
-#end
-
 /**
  * ${functionName}Do对象 ${tableName}
  *
@@ -45,6 +38,9 @@ import javax.validation.constraints.NotNull;
 @TableName(value = "${tableName}", autoResultMap = true)
 public class ${ClassName}Do extends ${Entity} {
 
+#if(${javaVersion} != "1.8")
+    @Serial
+#end
     private static final long serialVersionUID = 1L;
 
 ## 初始化计数器
@@ -69,10 +65,8 @@ public class ${ClassName}Do extends ${Entity} {
 #if($parentheseIndex != -1)
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
 #elseif($column.javaType == 'Date' && $column.htmlType == "datetime")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Excel(name = "${comment}", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
 #elseif($column.javaType == 'Date')
-    @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "${comment}", width = 20, dateFormat = "yyyy-MM-dd")
 #else
     @Excel(name = "${comment}")

@@ -8,15 +8,13 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.experimental.Accessors;
 import lombok.*;
 
-import javax.validation.constraints.NotNull;
-
 /**
- * 测试用户Vo对象 tb_test_user
+ * 测试单生成Vo对象 tb_test_user
  *
  * @author yxx
- * @date 2025-08-04
+ * @date 2025-08-08
  */
-@Schema(description = "测试用户Vo实体")
+@Schema(description = "测试单生成Vo实体")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -30,8 +28,11 @@ public class TbTestUserVo extends BaseEntity {
     @Schema(description = "用户ID")
     private Long userId;
 
+    @Schema(description = "主表ID")
+    @Excel(name = "主表ID")
+    private Long parentId;
+
     @Schema(description = "用户账号")
-    @NotNull(message = "用户账号不能为空")
     @Excel(name = "用户账号")
     private String userName;
 
@@ -42,6 +43,11 @@ public class TbTestUserVo extends BaseEntity {
     @Schema(description = "账号状态（0正常 1停用）")
     @Excel(name = "账号状态", readConverterExp = "0=正常,1=停用")
     private String status;
+
+    @Schema(description = "注册日期")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "注册日期", width = 20, dateFormat = "yyyy-MM-dd")
+    private Date registerDate;
 
     @Schema(description = "注册时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

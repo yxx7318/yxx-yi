@@ -1,7 +1,7 @@
 package ${packageName}.controller;
 
 import java.util.List;
-import javax.servlet.http.HttpServletResponse;
+import ${javax}.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -52,7 +52,11 @@ import com.yxx.common.core.domain.PageResult;
 #end
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
+#if(${javaVersion} == "1.8")
 import org.springdoc.api.annotations.ParameterObject;
+#else
+import org.springdoc.core.annotations.ParameterObject;
+#end
 
 import org.springframework.validation.annotation.Validated;
 

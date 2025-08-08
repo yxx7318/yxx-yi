@@ -1,4 +1,4 @@
-package ${packageName}.domain;
+package ${packageName}.entity;
 
 #foreach ($import in $subImportList)
 import ${import};
@@ -13,9 +13,15 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.experimental.Accessors;
 import lombok.*;
 
-#foreach ($column in $columns)
-#if ($column.required)
-import javax.validation.constraints.NotNull;
+#foreach ($column in $subTable.columns)
+#if (!$table.isSuperColumn($column.javaField) && $column.required && $column.javaType != "String")
+import ${javax}.validation.constraints.NotNull;
+#break
+#end
+#end
+#foreach ($column in $subTable.columns)
+#if (!$table.isSuperColumn($column.javaField) && $column.required && $column.javaType == "String")
+import ${javax}.validation.constraints.NotBlank;
 #break
 #end
 #end
@@ -36,6 +42,9 @@ import javax.validation.constraints.NotNull;
 @TableName(value = "${tableName}", autoResultMap = true)
 public class ${subClassName} extends BaseEntity {
 
+#if(${javaVersion} != "1.8")
+    @Serial
+#end
     private static final long serialVersionUID = 1L;
 
 ## 初始化计数器
@@ -45,8 +54,10 @@ public class ${subClassName} extends BaseEntity {
 ## 添加swagger
     @Schema(description = "$column.columnComment")
 ## 添加校验
-#if($column.required)
+#if($column.required && $column.javaType != "String")
     @NotNull(message = "$column.columnComment不能为空")
+#elseif($column.required && $column.javaType == "String")
+    @NotBlank(message = "$column.columnComment不能为空")
 #end
 ## 添加Mp
 #if($column.javaField.toLowerCase().indexOf("id") != -1 && $index == 0)

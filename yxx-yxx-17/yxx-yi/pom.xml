@@ -13,15 +13,14 @@
     <artifactId>yxx-yi</artifactId>
 
     <properties>
-        <mybatis-spring-boot.version>3.0.3</mybatis-spring-boot.version>
+        <mybatis-spring-boot.version>3.0.4</mybatis-spring-boot.version>
         <druid.version>1.2.23</druid.version>
         <bitwalker.version>1.21</bitwalker.version>
 
         <kaptcha.version>2.3.3</kaptcha.version>
-        <pagehelper.boot.version>2.1.0</pagehelper.boot.version>
+        <pagehelper.boot.version>2.1.1</pagehelper.boot.version>
         <fastjson.version>2.0.57</fastjson.version>
-        <oshi.version>6.8.1</oshi.version>
-<!--        <springdoc.version>2.6.0</springdoc.version>-->
+        <oshi.version>6.8.2</oshi.version>
         <!-- 接口文档 -->
         <knife4j.version>4.5.0</knife4j.version>
         <commons.io.version>2.19.0</commons.io.version>

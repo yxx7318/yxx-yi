@@ -1,7 +1,6 @@
 package com.yxx.business.service.impl;
 
 import java.util.List;
-
 import com.yxx.common.utils.DateUtils;
 import com.yxx.common.core.domain.PageResult;
 import lombok.extern.slf4j.Slf4j;
@@ -18,49 +17,51 @@ import com.yxx.business.entity.TbTestUserEditDto;
 import com.yxx.business.service.ITbTestUserService;
 
 /**
- * 测试用户Service业务层处理
+ * 测试单生成Service业务层处理
  *
  * @author yxx
- * @date 2025-08-04
+ * @date 2025-08-08
  */
 @Slf4j
 @Service
 @RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
 public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbTestUserDo> implements ITbTestUserService {
 
+    private final ITbTestUserService self;
+
     private final TbTestUserMapper tbTestUserMapper;
 
     /**
-     * 查询测试用户分页结果
+     * 查询测试单生成分页结果
      *
-     * @param tbTestUserQueryDto 测试用户查询实体
-     * @return 测试用户分页
+     * @param tbTestUserQueryDto 测试单生成查询实体
+     * @return 测试单生成分页
      */
     @Override
     public PageResult<TbTestUserVo> selectTbTestUserVoPage(TbTestUserQueryDto tbTestUserQueryDto) {
         startPage();
         PageResult<TbTestUserVo> page
-                = super.getMyBatisPageResult(selectTbTestUserDoList(tbTestUserQueryDto), TbTestUserVo.class);
+                = super.getMyBatisPageResult(self.selectTbTestUserDoList(tbTestUserQueryDto), TbTestUserVo.class);
         clearPage();
         return page;
     }
 
     /**
-     * 查询测试用户Vo列表
+     * 查询测试单生成Vo列表
      *
-     * @param tbTestUserQueryDto 测试用户查询实体
-     * @return 测试用户集合
+     * @param tbTestUserQueryDto 测试单生成查询实体
+     * @return 测试单生成集合
      */
     @Override
     public List<TbTestUserVo> selectTbTestUserVoList(TbTestUserQueryDto tbTestUserQueryDto) {
-        return super.convertVoList(tbTestUserMapper.selectTbTestUserList(tbTestUserQueryDto), TbTestUserVo.class);
+        return super.convertList(tbTestUserMapper.selectTbTestUserList(tbTestUserQueryDto), TbTestUserVo.class);
     }
 
     /**
-     * 查询测试用户Do列表
+     * 查询测试单生成Do列表
      *
-     * @param tbTestUserQueryDto 测试用户查询实体
-     * @return 测试用户集合
+     * @param tbTestUserQueryDto 测试单生成查询实体
+     * @return 测试单生成集合
      */
     @Override
     public List<TbTestUserDo> selectTbTestUserDoList(TbTestUserQueryDto tbTestUserQueryDto) {
@@ -68,10 +69,10 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
     }
 
     /**
-     * 查询单个测试用户
+     * 查询单个测试单生成
      *
-     * @param userId 测试用户主键
-     * @return 测试用户单个
+     * @param userId 测试单生成主键
+     * @return 测试单生成单个
      */
     @Override
     public TbTestUserVo selectTbTestUserVoByUserId(Long userId) {
@@ -79,9 +80,9 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
     }
 
     /**
-     * 新增测试用户
+     * 新增测试单生成
      *
-     * @param tbTestUserQueryDto 测试用户编辑实体
+     * @param tbTestUserQueryDto 测试单生成编辑实体
      * @return 结果
      */
     @Override
@@ -93,10 +94,10 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
     }
 
     /**
-     * 修改测试用户
+     * 修改测试单生成
      *
-     * @param userId 测试用户主键
-     * @param tbTestUserQueryDto 测试用户编辑实体
+     * @param userId 测试单生成主键
+     * @param tbTestUserQueryDto 测试单生成编辑实体
      * @return 结果
      */
     @Override
@@ -108,9 +109,9 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
     }
 
     /**
-     * 批量删除测试用户
+     * 批量删除测试单生成
      *
-     * @param userIds 需要删除的测试用户主键集合
+     * @param userIds 需要删除的测试单生成主键集合
      * @return 结果
      */
     @Override
@@ -119,9 +120,9 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
     }
 
     /**
-     * 删除单个测试用户信息
+     * 删除单个测试单生成信息
      *
-     * @param userId 测试用户主键
+     * @param userId 测试单生成主键
      * @return 结果
      */
     @Override

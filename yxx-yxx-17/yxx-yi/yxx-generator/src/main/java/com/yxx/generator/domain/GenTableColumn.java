@@ -3,7 +3,7 @@ package com.yxx.generator.domain;
 import com.yxx.common.core.domain.BaseEntity;
 import com.yxx.common.utils.StringUtils;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * 代码生成业务字段表 gen_table_column

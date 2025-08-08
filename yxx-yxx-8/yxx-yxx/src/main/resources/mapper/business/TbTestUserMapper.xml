@@ -6,9 +6,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <resultMap type="TbTestUserDo" id="TbTestUserResult">
         <result property="userId"    column="user_id"    />
+        <result property="parentId"    column="parent_id"    />
         <result property="userName"    column="user_name"    />
         <result property="password"    column="password"    />
         <result property="status"    column="status"    />
+        <result property="registerDate"    column="register_date"    />
         <result property="registerTime"    column="register_time"    />
         <result property="createById"    column="create_by_id"    />
         <result property="createByName"    column="create_by_name"    />
@@ -20,17 +22,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </resultMap>
 
     <sql id="selectTbTestUserVo">
-        select user_id, user_name, password, status, register_time, create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark from tb_test_user
+        select user_id, parent_id, user_name, password, status, register_date, register_time, create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark from tb_test_user
     </sql>
 
     <select id="selectTbTestUserList" parameterType="TbTestUserQueryDto" resultMap="TbTestUserResult">
         <include refid="selectTbTestUserVo"/>
-        <where>  
+        <where>
+            <if test="parentId != null"> and parent_id = #{parentId}</if>
             <if test="userName != null and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
             <if test="password != null and password != ''"> and password = #{password}</if>
             <if test="status != null and status != ''"> and status = #{status}</if>
+            <if test="params.beginRegisterDate != null and params.beginRegisterDate != '' and params.endRegisterDate != null and params.endRegisterDate != ''"> and register_date between #{params.beginRegisterDate} and #{params.endRegisterDate}</if>
             <if test="params.beginRegisterTime != null and params.beginRegisterTime != '' and params.endRegisterTime != null and params.endRegisterTime != ''"> and register_time between #{params.beginRegisterTime} and #{params.endRegisterTime}</if>
-            <if test="remark != null and remark != ''"> and remark = #{remark}</if>
         </where>
     </select>
 
@@ -42,9 +45,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="insertTbTestUser" parameterType="TbTestUserDo" useGeneratedKeys="true" keyProperty="userId">
         insert into tb_test_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="parentId != null">parent_id,</if>
             <if test="userName != null and userName != ''">user_name,</if>
             <if test="password != null">password,</if>
             <if test="status != null">status,</if>
+            <if test="registerDate != null">register_date,</if>
             <if test="registerTime != null">register_time,</if>
             <if test="createById != null">create_by_id,</if>
             <if test="createByName != null">create_by_name,</if>
@@ -53,11 +58,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateByName != null">update_by_name,</if>
             <if test="updateTime != null">update_time,</if>
             <if test="remark != null">remark,</if>
-         </trim>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="parentId != null">#{parentId},</if>
             <if test="userName != null and userName != ''">#{userName},</if>
             <if test="password != null">#{password},</if>
             <if test="status != null">#{status},</if>
+            <if test="registerDate != null">#{registerDate},</if>
             <if test="registerTime != null">#{registerTime},</if>
             <if test="createById != null">#{createById},</if>
             <if test="createByName != null">#{createByName},</if>
@@ -66,15 +73,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="updateByName != null">#{updateByName},</if>
             <if test="updateTime != null">#{updateTime},</if>
             <if test="remark != null">#{remark},</if>
-         </trim>
+        </trim>
     </insert>
 
     <update id="updateTbTestUser" parameterType="TbTestUserDo">
         update tb_test_user
         <trim prefix="SET" suffixOverrides=",">
+            <if test="parentId != null">parent_id = #{parentId},</if>
             <if test="userName != null and userName != ''">user_name = #{userName},</if>
             <if test="password != null">password = #{password},</if>
             <if test="status != null">status = #{status},</if>
+            <if test="registerDate != null">register_date = #{registerDate},</if>
             <if test="registerTime != null">register_time = #{registerTime},</if>
             <if test="createById != null">create_by_id = #{createById},</if>
             <if test="createByName != null">create_by_name = #{createByName},</if>
@@ -92,7 +101,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     </delete>
 
     <delete id="deleteTbTestUserByUserIds" parameterType="List">
-        delete from tb_test_user where user_id in 
+        delete from tb_test_user where user_id in
         <foreach item="userId" collection="list" open="(" separator="," close=")">
             #{userId}
         </foreach>

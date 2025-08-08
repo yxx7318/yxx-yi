@@ -3,6 +3,14 @@ package ${packageName}.entity;
 #foreach ($import in $importList)
 import ${import};
 #end
+#foreach ($column in $columns)
+#if(!$table.isSuperColumn($column.javaField))
+#if($column.javaType == 'Date')
+import com.fasterxml.jackson.annotation.JsonFormat;
+#break
+#end
+#end
+#end
 #if($table.crud || $table.sub)
 import com.yxx.common.core.domain.BaseEditDtoEntity;
 #elseif($table.tree)
@@ -13,8 +21,14 @@ import lombok.experimental.Accessors;
 import lombok.*;
 
 #foreach ($column in $columns)
-#if ($column.required)
-import javax.validation.constraints.NotNull;
+#if (!$table.isSuperColumn($column.javaField) && $column.required && $column.javaType != "String")
+import ${javax}.validation.constraints.NotNull;
+#break
+#end
+#end
+#foreach ($column in $columns)
+#if (!$table.isSuperColumn($column.javaField) && $column.required && $column.javaType == "String")
+import ${javax}.validation.constraints.NotBlank;
 #break
 #end
 #end
@@ -39,6 +53,9 @@ import javax.validation.constraints.NotNull;
 @Data
 public class ${ClassName}EditDto extends ${Entity} {
 
+#if(${javaVersion} != "1.8")
+    @Serial
+#end
     private static final long serialVersionUID = 1L;
 
 #foreach ($column in $columns)
@@ -46,8 +63,15 @@ public class ${ClassName}EditDto extends ${Entity} {
 ## 添加swagger
     @Schema(description = "$column.columnComment")
 ## 添加校验
-#if($column.required)
+#if($column.required && $column.javaType != "String")
     @NotNull(message = "$column.columnComment不能为空")
+#elseif($column.required && $column.javaType == "String")
+    @NotBlank(message = "$column.columnComment不能为空")
+#end
+#if($column.javaType == 'Date' && $column.htmlType == "datetime")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+#elseif($column.javaType == 'Date')
+    @JsonFormat(pattern = "yyyy-MM-dd")
 #end
     private $column.javaType $column.javaField;
 

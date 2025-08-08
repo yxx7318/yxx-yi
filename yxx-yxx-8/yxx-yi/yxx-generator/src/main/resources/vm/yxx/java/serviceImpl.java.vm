@@ -1,7 +1,12 @@
 package ${packageName}.service.impl;
 
 import java.util.List;
-
+#if($table.sub)
+import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.Map;
+import com.yxx.common.core.utils.StreamUtils;
+#end
 #foreach ($column in $columns)
 #if($column.javaField == 'createTime' || $column.javaField == 'updateTime')
 import com.yxx.common.utils.DateUtils;
@@ -15,7 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import com.yxx.common.utils.StringUtils;
 import org.springframework.transaction.annotation.Transactional;
-import ${packageName}.domain.${subClassName};
+import ${packageName}.entity.${subClassName};
 #end
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +59,15 @@ import ${packageName}.service.I${ClassName}Service;
 #break
 #end
 #end
+#if($table.sub)
+#foreach ($column in $subTable.columns)
+#if($column.javaField.toLowerCase().indexOf("id") != -1)
+## 获取主键，并首字母大写
+#set($SubIdAttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+#break
+#end
+#end
+#end
 /**
  * ${functionName}Service业务层处理
  *
@@ -64,6 +78,8 @@ import ${packageName}.service.I${ClassName}Service;
 @Service
 @RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
 public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper, ${ClassDo}> implements I${ClassName}Service {
+
+    private final I${ClassName}Service self;
 
     private final ${ClassName}Mapper ${className}Mapper;
 
@@ -77,7 +93,7 @@ public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper,
     public PageResult<${ClassVo}> select${ClassVo}Page(${ClassQueryDto} ${classQueryDto}) {
         startPage();
         PageResult<${ClassVo}> page
-                = super.getMyBatisPageResult(select${ClassDo}List(${classQueryDto}), ${ClassVo}.class);
+                = super.getMyBatisPageResult(self.select${ClassDo}List(${classQueryDto}), ${ClassVo}.class);
         clearPage();
         return page;
     }
@@ -92,7 +108,7 @@ public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper,
      */
     @Override
     public List<${ClassVo}> select${ClassVo}List(${ClassQueryDto} ${classQueryDto}) {
-        return super.convertVoList(${className}Mapper.select${ClassName}List(${classQueryDto}), ${ClassVo}.class);
+        return super.convertList(${className}Mapper.select${ClassName}List(${classQueryDto}), ${ClassVo}.class);
     }
 #end
 
@@ -142,7 +158,7 @@ public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper,
 #end
 #if($table.sub)
         int rows = ${className}Mapper.insert${ClassName}(${className});
-        insert${subClassName}(${className});
+        insert${subClassName}(${className}.get${pkColumn.capJavaField}(), ${className}.get${subClassName}List());
         return rows;
 #else
         return ${className}Mapper.insert${ClassName}(super.convertT(${classEditDto}));
@@ -173,8 +189,22 @@ public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper,
 #end
 #end
 #if($table.sub)
-        ${className}Mapper.delete${subClassName}By${subTableFkClassName}(${className}.get${pkColumn.capJavaField}());
-        insert${subClassName}(${className});
+#foreach($column in $subTable.columns)
+#if($column.javaField.toLowerCase().indexOf("id") != -1)
+#set($subPkType=$column.javaType)
+#set($SubPkClassName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+#break
+#end
+#end
+        HashSet<${subPkType}> ids = new HashSet<>(${className}Mapper.select${SubPkClassName}sBy${subTableFkClassName}(${pkColumn.javaField}));
+        ${classEditDto}.get${subClassName}List().forEach(item -> ids.remove(item.get${SubIdAttrName}()));
+        // 需要删除的子表ids
+        ${className}Mapper.delete${subClassName}(new ArrayList<>(ids));
+        // 构建更新和插入的list
+        Map<Boolean, List<${subClassName}>> insertUpdateMap =
+            StreamUtils.partitioningBy(${classEditDto}.get${subClassName}List(), item -> item.get${SubIdAttrName}() == null);
+        update${subClassName}(insertUpdateMap.get(false));
+        insert${subClassName}(${className}.get${pkColumn.capJavaField}(), insertUpdateMap.get(true));
 #end
         return ${className}Mapper.update${ClassName}(super.convertT(${classEditDto}).set${IdAttrName}(${pkColumn.javaField}));
     }
@@ -217,22 +247,49 @@ public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper,
     /**
      * 新增${subTable.functionName}信息
      *
-     * @param ${className} ${functionName}对象
+     * @param ${pkColumn.javaField} ${functionName}主键
+     * @param insertList 插入列
      */
-    public void insert${subClassName}(${ClassName} ${className}) {
-        List<${subClassName}> ${subclassName}List = ${className}.get${subClassName}List();
-        ${pkColumn.javaType} ${pkColumn.javaField} = ${className}.get${pkColumn.capJavaField}();
-        if (StringUtils.isNotNull(${subclassName}List))
+    public void insert${subClassName}(${pkColumn.javaType} ${pkColumn.javaField}, List<${subClassName}> insertList) {
+        if (StringUtils.isNotNull(insertList))
         {
-            List<${subClassName}> list = new ArrayList<${subClassName}>();
-            for (${subClassName} ${subclassName} : ${subclassName}List)
+            List<${subClassName}> list = new ArrayList<>();
+            for (${subClassName} ${subclassName} : insertList)
             {
                 ${subclassName}.set${subTableFkClassName}(${pkColumn.javaField});
+                ${subclassName}.setCreateById(getUserIdOrNotLogged());
+                ${subclassName}.setCreateByName(getUserNameOrNotLogged());
+                ${subclassName}.setCreateTime(DateUtils.getNowDate());
                 list.add(${subclassName});
             }
             if (list.size() > 0)
             {
-                ${className}Mapper.batch${subClassName}(list);
+                list.forEach(${className}Mapper::insert${subClassName});
+            }
+        }
+    }
+#end
+#if($table.sub)
+
+    /**
+     * 更新${subTable.functionName}信息
+     *
+     * @param updateList 更新列
+     */
+    public void update${subClassName}(List<${subClassName}> updateList) {
+        if (StringUtils.isNotNull(updateList))
+        {
+            List<${subClassName}> list = new ArrayList<>();
+            for (${subClassName} ${subclassName} : updateList)
+            {
+                ${subclassName}.setUpdateById(getUserIdOrNotLogged());
+                ${subclassName}.setUpdateByName(getUserNameOrNotLogged());
+                ${subclassName}.setUpdateTime(DateUtils.getNowDate());
+                list.add(${subclassName});
+            }
+            if (list.size() > 0)
+            {
+                list.forEach(${className}Mapper::update${subClassName});
             }
         }
     }

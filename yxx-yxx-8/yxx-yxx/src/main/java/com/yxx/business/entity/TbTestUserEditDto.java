@@ -7,15 +7,15 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.experimental.Accessors;
 import lombok.*;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 /**
- * 测试用户EditDto对象 tb_test_user
+ * 测试单生成EditDto对象 tb_test_user
  *
  * @author yxx
- * @date 2025-08-04
+ * @date 2025-08-08
  */
-@Schema(description = "测试用户编辑实体")
+@Schema(description = "测试单生成编辑实体")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -29,8 +29,11 @@ public class TbTestUserEditDto extends BaseEditDtoEntity {
     @Schema(description = "用户ID")
     private Long userId;
 
+    @Schema(description = "主表ID")
+    private Long parentId;
+
     @Schema(description = "用户账号")
-    @NotNull(message = "用户账号不能为空")
+    @NotBlank(message = "用户账号不能为空")
     private String userName;
 
     @Schema(description = "密码")
@@ -39,7 +42,12 @@ public class TbTestUserEditDto extends BaseEditDtoEntity {
     @Schema(description = "账号状态（0正常 1停用）")
     private String status;
 
+    @Schema(description = "注册日期")
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private Date registerDate;
+
     @Schema(description = "注册时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date registerTime;
 
 }

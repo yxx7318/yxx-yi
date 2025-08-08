@@ -30,15 +30,6 @@ import java.util.stream.Collectors;
 public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseColumnEntity> extends ServiceImpl<M, T> implements IServicePlus<T> {
 
     /**
-     * 获取自注入spring管理的bean
-     */
-    @Override
-    @SuppressWarnings("unchecked")
-    public IServicePlus<T> getSelfBean() {
-        return (IServicePlus<T>) SingletonFactory.getSingleton(this.getClass());
-    }
-
-    /**
      * 获取转化后的Po结果
      */
     @Override
@@ -95,11 +86,13 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseColumnEn
         return MpPageUtils.getSelectPage(dto, this.baseMapper, wrapper);
     }
 
+
+
     /**
-     * 获取转化后的VoList结果
+     * 获取转化后的List结果
      */
     @Override
-    public <VO> List<VO> convertVoList(List<T> list, Class<VO> voClass) {
+    public <PO, VO> List<VO> convertList(List<PO> list, Class<VO> voClass) {
         if (CollUtil.isEmpty(list)) {
             return Collections.emptyList();
         }
@@ -110,7 +103,7 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseColumnEn
      * 获取转化后的VoList结果
      */
     @Override
-    public <VO> List<VO> convertVoList(List<T> list, Function<T, VO> convertor) {
+    public <PO, VO> List<VO> convertList(List<PO> list, Function<PO, VO> convertor) {
         if (CollUtil.isEmpty(list)) {
             return Collections.emptyList();
         }
@@ -123,10 +116,10 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseColumnEn
      * 获取到MyBatis分页结果并转化为Vo对象分页结果
      */
     @Override
-    public <VO> PageResult<VO> getMyBatisPageResult(List<T> list, Class<VO> voClass) {
+    public <PO, VO> PageResult<VO> getMyBatisPageResult(List<PO> list, Class<VO> voClass) {
         PageResult<VO> result = PageUtils.getMyBatisBasePageResult(list);
         // 复制到VO中
-        result.setRows(convertVoList(list, voClass));
+        result.setRows(convertList(list, voClass));
         return result;
     }
 
@@ -134,10 +127,10 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseColumnEn
      * 获取到MyBatis分页结果并转化为Vo对象分页结果
      */
     @Override
-    public <VO> PageResult<VO> getMyBatisPageResult(List<T> list, Function<T, VO> convertor) {
+    public <PO, VO> PageResult<VO> getMyBatisPageResult(List<PO> list, Function<PO, VO> convertor) {
         PageResult<VO> result = PageUtils.getMyBatisBasePageResult(list);
         // 使用转换器自定义Vo的处理
-        result.setRows(convertVoList(list, convertor));
+        result.setRows(convertList(list, convertor));
         return result;
     }
 

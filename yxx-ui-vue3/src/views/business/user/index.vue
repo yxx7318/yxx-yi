@@ -1,6 +1,14 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
+      <el-form-item label="主表ID" prop="parentId">
+        <el-input
+          v-model="queryParams.parentId"
+          placeholder="请输入主表ID"
+          clearable
+          @keyup.enter="handleQuery"
+        />
+      </el-form-item>
       <el-form-item label="用户账号" prop="userName">
         <el-input
           v-model="queryParams.userName"
@@ -16,6 +24,26 @@
           clearable
           @keyup.enter="handleQuery"
         />
+      </el-form-item>
+      <el-form-item label="账号状态" prop="status">
+        <el-select v-model="queryParams.status" placeholder="请选择账号状态" clearable>
+          <el-option
+            v-for="dict in sys_common_status"
+            :key="dict.value"
+            :label="dict.label"
+            :value="dict.value"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="注册日期">
+        <el-date-picker
+          v-model="daterangeRegisterDate"
+          value-format="YYYY-MM-DD"
+          type="daterange"
+          range-separator="-"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+        ></el-date-picker>
       </el-form-item>
       <el-form-item label="注册时间">
         <el-date-picker
@@ -87,11 +115,20 @@
     <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="用户ID" align="center" prop="userId" v-if="columns[0].visible" />
-      <el-table-column label="用户账号" align="center" prop="userName" v-if="columns[1].visible" />
-      <el-table-column label="密码" align="center" prop="password" v-if="columns[2].visible" />
-      <el-table-column label="账号状态" align="center" prop="status" v-if="columns[3].visible" />
-      <el-table-column label="注册时间" align="center" prop="registerTime" v-if="columns[4].visible" />
-      <el-table-column label="备注" align="center" prop="remark" v-if="columns[5].visible" />
+      <el-table-column label="主表ID" align="center" prop="parentId" v-if="columns[1].visible" />
+      <el-table-column label="用户账号" align="center" prop="userName" v-if="columns[2].visible" />
+      <el-table-column label="密码" align="center" prop="password" v-if="columns[3].visible" />
+      <el-table-column label="账号状态" align="center" prop="status" v-if="columns[4].visible">
+        <template #default="scope">
+          <dict-tag :options="sys_common_status" :value="scope.row.status"/>
+        </template>
+      </el-table-column>
+      <el-table-column label="注册日期" align="center" prop="registerDate" width="180" v-if="columns[5].visible">
+        <template #default="scope">
+          <span>{{ parseTime(scope.row.registerDate, '{y}-{m}-{d}') }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="注册时间" align="center" prop="registerTime" v-if="columns[6].visible" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
           <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['business:user:edit']">修改</el-button>
@@ -108,14 +145,34 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改测试用户对话框 -->
+    <!-- 添加或修改测试单生成对话框 -->
     <el-dialog :title="title" v-model="open" width="500px" append-to-body>
       <el-form ref="userRef" :model="form" :rules="rules" label-width="80px">
+        <el-form-item label="主表ID" prop="parentId">
+          <el-input v-model="form.parentId" placeholder="请输入主表ID" />
+        </el-form-item>
         <el-form-item label="用户账号" prop="userName">
           <el-input v-model="form.userName" placeholder="请输入用户账号" />
         </el-form-item>
         <el-form-item label="密码" prop="password">
           <el-input v-model="form.password" placeholder="请输入密码" />
+        </el-form-item>
+        <el-form-item label="账号状态" prop="status">
+          <el-radio-group v-model="form.status">
+            <el-radio
+              v-for="dict in sys_common_status"
+              :key="dict.value"
+              :label="dict.value"
+            >{{dict.label}}</el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="注册日期" prop="registerDate">
+          <el-date-picker clearable
+            v-model="form.registerDate"
+            type="date"
+            value-format="YYYY-MM-DD"
+            placeholder="请选择注册日期">
+          </el-date-picker>
         </el-form-item>
         <el-form-item label="注册时间" prop="registerTime">
           <el-date-picker clearable
@@ -124,9 +181,6 @@
             value-format="YYYY-MM-DD HH:mm:ss"
             placeholder="请选择注册时间">
           </el-date-picker>
-        </el-form-item>
-        <el-form-item label="备注" prop="remark">
-          <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -137,7 +191,7 @@
       </template>
     </el-dialog>
 
-    <!-- 导入测试用户对话框 -->
+    <!-- 导入测试单生成对话框 -->
     <excel-upload
       :title="upload.title"
       :uploadUrl="upload.url"
@@ -152,6 +206,7 @@
 import { listUser, getUser, delUser, addUser, updateUser } from "@/api/business/user"
 
 const { proxy } = getCurrentInstance()
+const { sys_common_status } = proxy.useDict('sys_common_status')
 
 const userList = ref([])
 const open = ref(false)
@@ -162,7 +217,9 @@ const single = ref(true)
 const multiple = ref(true)
 const total = ref(0)
 const title = ref("")
-// 备注时间范围
+// 注册时间日期范围
+const daterangeRegisterDate = ref([])
+// 注册时间时间范围
 const datetimerangeRegisterTime = ref([])
 
 // 导入Excel参数
@@ -170,7 +227,7 @@ const upload = ref({
   // 是否显示弹出层
   open: false,
   // 弹出层标题
-  title: "测试用户导入",
+  title: "测试单生成导入",
   // 上传的地址
   url: "/business/user/importData"
 })
@@ -178,23 +235,25 @@ const upload = ref({
 // 显隐列
 const columns = reactive([
   { key: 1, label: `用户ID`, visible: true },
-  { key: 2, label: `用户账号`, visible: true },
-  { key: 3, label: `密码`, visible: true },
-  { key: 4, label: `账号状态`, visible: true },
-  { key: 5, label: `注册时间`, visible: true },
-  { key: 6, label: `备注`, visible: true },
+  { key: 2, label: `主表ID`, visible: true },
+  { key: 3, label: `用户账号`, visible: true },
+  { key: 4, label: `密码`, visible: true },
+  { key: 5, label: `账号状态`, visible: true },
+  { key: 6, label: `注册日期`, visible: true },
+  { key: 7, label: `注册时间`, visible: true },
 ])
 
-const data = ref({
+const data = reactive({
   form: {},
   queryParams: {
     pageNum: 1,
     pageSize: 10,
+    parentId: null,
     userName: null,
     password: null,
     status: null,
+    registerDate: null,
     registerTime: null,
-    remark: null
   },
   rules: {
     userName: [
@@ -205,10 +264,14 @@ const data = ref({
 
 const { queryParams, form, rules } = toRefs(data)
 
-/** 查询测试用户列表 */
+/** 查询测试单生成列表 */
 function getList() {
   loading.value = true
   queryParams.value.params = {}
+  if (null != daterangeRegisterDate && '' != daterangeRegisterDate) {
+    queryParams.value.params["beginRegisterDate"] = daterangeRegisterDate.value[0]
+    queryParams.value.params["endRegisterDate"] = daterangeRegisterDate.value[1]
+  }
   if (null != datetimerangeRegisterTime && '' != datetimerangeRegisterTime) {
     queryParams.value.params["beginRegisterTime"] = datetimerangeRegisterTime.value[0]
     queryParams.value.params["endRegisterTime"] = datetimerangeRegisterTime.value[1]
@@ -230,9 +293,11 @@ function cancel() {
 function reset() {
   form.value = {
     userId: null,
+    parentId: null,
     userName: null,
     password: null,
     status: null,
+    registerDate: null,
     registerTime: null,
     createById: null,
     createByName: null,
@@ -253,6 +318,7 @@ function handleQuery() {
 
 /** 重置按钮操作 */
 function resetQuery() {
+  daterangeRegisterDate.value = []
   datetimerangeRegisterTime.value = []
   proxy.resetForm("queryRef")
   handleQuery()
@@ -269,7 +335,7 @@ function handleSelectionChange(selection) {
 function handleAdd() {
   reset()
   open.value = true
-  title.value = "添加测试用户"
+  title.value = "添加测试单生成"
 }
 
 /** 修改按钮操作 */
@@ -279,7 +345,7 @@ function handleUpdate(row) {
   getUser(_userId).then(response => {
     form.value = response.data
     open.value = true
-    title.value = "修改测试用户"
+    title.value = "修改测试单生成"
   })
 }
 
@@ -307,7 +373,7 @@ function submitForm() {
 /** 删除按钮操作 */
 function handleDelete(row) {
   const _userIds = row.userId || ids.value
-  proxy.$modal.confirm('是否确认删除测试用户编号为"' + _userIds + '"的数据项？').then(function() {
+  proxy.$modal.confirm('是否确认删除测试单生成编号为"' + _userIds + '"的数据项？').then(function() {
     return delUser(_userIds)
   }).then(() => {
     getList()

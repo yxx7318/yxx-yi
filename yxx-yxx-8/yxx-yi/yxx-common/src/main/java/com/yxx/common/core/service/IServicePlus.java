@@ -79,11 +79,6 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
     }
 
     /**
-     * 获取自注入spring管理的bean
-     */
-    public IServicePlus<T> getSelfBean();
-
-    /**
      * 获取转化后的Po结果
      */
     public <PO> PO convertBean(T t, Class<PO> voClass);
@@ -135,24 +130,26 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
     public <DTO extends PageQueryEntity> Page<T> getMpDoPage(DTO dto, Wrapper<T> wrapper);
 
     /**
-     * 获取转化后的VoList结果
+     * 获取转化后的List结果
      *
      * @param list    数据库查询结果
      * @param voClass voClass对象字节码
+     * @param <PO>    PO对象
      * @param <VO>    VO对象
      * @return VoList
      */
-    public <VO> List<VO> convertVoList(List<T> list, Class<VO> voClass);
+    public <PO, VO> List<VO> convertList(List<PO> list, Class<VO> voClass);
 
     /**
      * 获取转化后的VoList结果
      *
      * @param list      数据库查询结果
      * @param convertor 自定义转换方法
-     * @param <VO>      VO对象
+     * @param <PO>    PO对象
+     * @param <VO>    VO对象
      * @return VoList
      */
-    public <VO> List<VO> convertVoList(List<T> list, Function<T, VO> convertor);
+    public <PO, VO> List<VO> convertList(List<PO> list, Function<PO, VO> convertor);
 
     /**
      * 获取到MyBatis分页结果并转化为Vo对象分页结果
@@ -162,7 +159,7 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
      * @param <VO>    VO对象
      * @return PageResult<VO>分页结果
      */
-    public <VO> PageResult<VO> getMyBatisPageResult(List<T> list, Class<VO> voClass);
+    public <PO, VO> PageResult<VO> getMyBatisPageResult(List<PO> list, Class<VO> voClass);
 
     /**
      * 获取到MyBatis分页结果并转化为Vo对象分页结果
@@ -172,7 +169,7 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
      * @param <VO>      VO对象
      * @return PageResult<VO>分页结果
      */
-    public <VO> PageResult<VO> getMyBatisPageResult(List<T> list, Function<T, VO> convertor);
+    public <PO, VO> PageResult<VO> getMyBatisPageResult(List<PO> list, Function<PO, VO> convertor);
 
     /**
      * 根据分页参数获取MP分页结果

@@ -3,6 +3,14 @@ package ${packageName}.entity;
 #foreach ($import in $importList)
 import ${import};
 #end
+#foreach ($column in $columns)
+#if(!$table.isSuperColumn($column.javaField))
+#if($column.javaType == 'Date')
+import com.fasterxml.jackson.annotation.JsonFormat;
+#break
+#end
+#end
+#end
 import com.yxx.common.annotation.Excel;
 #if($table.crud || $table.sub)
 import com.yxx.common.core.domain.BaseEntity;
@@ -12,13 +20,6 @@ import com.yxx.common.core.domain.TreeEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.experimental.Accessors;
 import lombok.*;
-
-#foreach ($column in $columns)
-#if ($column.required)
-import javax.validation.constraints.NotNull;
-#break
-#end
-#end
 
 /**
  * ${functionName}Vo对象 ${tableName}
@@ -40,6 +41,9 @@ import javax.validation.constraints.NotNull;
 @Data
 public class ${ClassName}Vo extends ${Entity} {
 
+#if(${javaVersion} != "1.8")
+    @Serial
+#end
     private static final long serialVersionUID = 1L;
 
 ## 初始化计数器
@@ -48,10 +52,6 @@ public class ${ClassName}Vo extends ${Entity} {
 #if(!$table.isSuperColumn($column.javaField))
 ## 添加swagger
     @Schema(description = "$column.columnComment")
-## 添加校验
-#if($column.required)
-    @NotNull(message = "$column.columnComment不能为空")
-#end
 #if($column.list)
 #set($parentheseIndex=$column.columnComment.indexOf("（"))
 #if($parentheseIndex != -1)

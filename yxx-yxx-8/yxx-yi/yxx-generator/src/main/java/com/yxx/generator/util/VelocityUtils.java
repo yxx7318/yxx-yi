@@ -62,6 +62,16 @@ public class VelocityUtils
         velocityContext.put("columns", genTable.getColumns());
         velocityContext.put("table", genTable);
         velocityContext.put("dicts", getDicts(genTable));
+        String javaVersion = System.getProperty("java.specification.version");
+        velocityContext.put("javaVersion", javaVersion);
+        if ("1.8".equals(System.getProperty("java.specification.version")))
+        {
+            velocityContext.put("javax", "javax");
+        }
+        else
+        {
+            velocityContext.put("javax", "jakarta");
+        }
         setMenuVelocityContext(velocityContext, genTable);
         if (GenConstants.TPL_TREE.equals(tplCategory))
         {
@@ -222,7 +232,11 @@ public class VelocityUtils
         {
             fileName = StringUtils.format("{}/domain/{}.java", javaPath, className);
         }
-        if (template.contains("sub-domain.java.vm") && StringUtils.equals(GenConstants.TPL_SUB, genTable.getTplCategory()))
+        if (GenVmTypeEnum.YXX.equals(GenConfig.getVmType()) && template.contains("sub-domain.java.vm") && StringUtils.equals(GenConstants.TPL_SUB, genTable.getTplCategory()))
+        {
+            fileName = StringUtils.format("{}/entity/{}.java", javaPath, genTable.getSubTable().getClassName());
+        }
+        else if (GenVmTypeEnum.RUO_YI.equals(GenConfig.getVmType()) && template.contains("sub-domain.java.vm") && StringUtils.equals(GenConstants.TPL_SUB, genTable.getTplCategory()))
         {
             fileName = StringUtils.format("{}/domain/{}.java", javaPath, genTable.getSubTable().getClassName());
         }
@@ -288,6 +302,10 @@ public class VelocityUtils
         List<GenTableColumn> columns = genTable.getColumns();
         GenTable subGenTable = genTable.getSubTable();
         HashSet<String> importList = new HashSet<String>();
+        if (!"1.8".equals(System.getProperty("java.specification.version")))
+        {
+            importList.add("java.io.Serial");
+        }
         if (StringUtils.isNotNull(subGenTable))
         {
             importList.add("java.util.List");
@@ -299,7 +317,6 @@ public class VelocityUtils
                 if (GenVmTypeEnum.YXX.equals(GenConfig.getVmType()))
                 {
                     importList.add("java.util.Date");
-                    importList.add("com.fasterxml.jackson.annotation.JsonFormat");
                 }
                 else
                 {

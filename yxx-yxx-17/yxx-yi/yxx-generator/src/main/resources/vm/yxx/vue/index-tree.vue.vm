@@ -37,22 +37,43 @@
           <el-option label="请选择字典生成" value="" />
         </el-select>
       </el-form-item>
-#elseif($column.htmlType == "datetime" && $column.queryType != "BETWEEN")
+#elseif($column.htmlType == "date" && $column.queryType != "BETWEEN")
       <el-form-item label="${comment}" prop="${column.javaField}">
         <el-date-picker clearable
           v-model="queryParams.${column.javaField}"
           type="date"
           value-format="yyyy-MM-dd"
-          placeholder="选择${comment}">
+          placeholder="请选择${comment}">
         </el-date-picker>
       </el-form-item>
-#elseif($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
+#elseif($column.htmlType == "date" && $column.queryType == "BETWEEN")
       <el-form-item label="${comment}">
         <el-date-picker
           v-model="daterange${AttrName}"
           style="width: 240px"
           value-format="yyyy-MM-dd"
           type="daterange"
+          range-separator="-"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
+        ></el-date-picker>
+      </el-form-item>
+#elseif($column.htmlType == "datetime" && $column.queryType != "BETWEEN")
+      <el-form-item label="${comment}" prop="${column.javaField}">
+        <el-date-picker clearable
+          v-model="queryParams.${column.javaField}"
+          type="datetime"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          placeholder="选择${comment}">
+        </el-date-picker>
+      </el-form-item>
+#elseif($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
+      <el-form-item label="${comment}">
+        <el-date-picker
+          v-model="datetimerange${AttrName}"
+          style="width: 340px"
+          value-format="yyyy-MM-dd HH:mm:ss"
+          type="datetimerange"
           range-separator="-"
           start-placeholder="开始日期"
           end-placeholder="结束日期"
@@ -87,7 +108,27 @@
           @click="toggleExpandAll"
         >展开/折叠</el-button>
       </el-col>
-      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
+      <el-col :span="1.5">
+        <el-button
+          type="info"
+          plain
+          icon="el-icon-upload2"
+          size="mini"
+          @click="upload.open = true"
+          v-hasPermi="['${permissionPrefix}:import']"
+        >导入</el-button>
+      </el-col>
+      <el-col :span="1.5">
+        <el-button
+          type="warning"
+          plain
+          icon="el-icon-download"
+          size="mini"
+          @click="handleExport"
+          v-hasPermi="['${permissionPrefix}:export']"
+        >导出</el-button>
+      </el-col>
+      <right-toolbar :showSearch.sync="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
     </el-row>
 
     <el-table
@@ -98,6 +139,8 @@
       :default-expand-all="isExpandAll"
       :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
     >
+## 初始化计数器
+#set($index = 0)
 #foreach($column in $columns)
 #set($javaField=$column.javaField)
 #set($parentheseIndex=$column.columnComment.indexOf("（"))
@@ -107,20 +150,26 @@
 #set($comment=$column.columnComment)
 #end
 #if($column.pk)
-#elseif($column.list && $column.htmlType == "datetime")
-      <el-table-column label="${comment}" align="center" prop="${javaField}" width="180">
+#elseif($column.list && $column.htmlType == "date")
+      <el-table-column label="$comment" prop="${javaField}" width="180" v-if="columns[$index].visible">#set($index = $index + 1)
         <template slot-scope="scope">
-          <span>{{ parseTime(scope.row.${javaField}, '{y}-{m}-{d}') }}</span>
+          <el-date-picker clearable v-model="scope.row.$javaField" type="date" value-format="yyyy-MM-dd" placeholder="请选择$comment" />
+        </template>
+      </el-table-column>
+#elseif($column.list && $column.htmlType == "datetime")
+      <el-table-column label="${comment}" align="center" prop="${javaField}" width="240" v-if="columns[$index].visible">#set($index = $index + 1)
+        <template slot-scope="scope">
+          <el-date-picker clearable v-model="scope.row.$javaField" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" placeholder="请选择$comment" />
         </template>
       </el-table-column>
 #elseif($column.list && $column.htmlType == "imageUpload")
-      <el-table-column label="${comment}" align="center" prop="${javaField}" width="100">
+      <el-table-column label="${comment}" align="center" prop="${javaField}" width="100" v-if="columns[$index].visible">#set($index = $index + 1)
         <template slot-scope="scope">
           <image-preview :src="scope.row.${javaField}" :width="50" :height="50"/>
         </template>
       </el-table-column>
 #elseif($column.list && "" != $column.dictType)
-      <el-table-column label="${comment}" align="center" prop="${javaField}">
+      <el-table-column label="${comment}" align="center" prop="${javaField}" v-if="columns[$index].visible">#set($index = $index + 1)
         <template slot-scope="scope">
 #if($column.htmlType == "checkbox")
           <dict-tag :options="dict.type.${column.dictType}" :value="scope.row.${javaField} ? scope.row.${javaField}.split(',') : []"/>
@@ -131,9 +180,9 @@
       </el-table-column>
 #elseif($column.list && "" != $javaField)
 #if(${foreach.index} == 1)
-      <el-table-column label="${comment}" prop="${javaField}" />
+      <el-table-column label="${comment}" prop="${javaField}" v-if="columns[$index].visible" />#set($index = $index + 1)
 #else
-      <el-table-column label="${comment}" align="center" prop="${javaField}" />
+      <el-table-column label="${comment}" align="center" prop="${javaField}" v-if="columns[$index].visible" />#set($index = $index + 1)
 #end
 #end
 #end
@@ -256,12 +305,21 @@
             <el-radio label="1">请选择字典生成</el-radio>
           </el-radio-group>
         </el-form-item>
-#elseif($column.htmlType == "datetime")
+#elseif($column.htmlType == "date")
         <el-form-item label="${comment}" prop="${field}">
           <el-date-picker clearable
             v-model="form.${field}"
             type="date"
             value-format="yyyy-MM-dd"
+            placeholder="请选择${comment}">
+          </el-date-picker>
+        </el-form-item>
+#elseif($column.htmlType == "datetime")
+        <el-form-item label="${comment}" prop="${field}">
+          <el-date-picker clearable
+            v-model="form.${field}"
+            type="datetime"
+            value-format="yyyy-MM-dd HH:mm:ss"
             placeholder="选择${comment}">
           </el-date-picker>
         </el-form-item>
@@ -279,6 +337,15 @@
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
+
+    <!-- 导入${functionName}对话框 -->
+    <excel-upload
+      :title="upload.title"
+      :uploadUrl="upload.url"
+      :open="upload.open"
+      @uploadClose="upload.open = false"
+      @handleFileSuccess="getList">
+    </excel-upload>
   </div>
 </template>
 
@@ -316,10 +383,44 @@ export default {
 #foreach ($column in $columns)
 #if($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
 #set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
-      // $comment时间范围
+      // $comment日期范围
       daterange${AttrName}: [],
 #end
+#if($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
+      #set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+      // $comment时间范围
+      datetimerange${AttrName}: [],
 #end
+#end
+      // 导入Excel参数
+      upload: {
+        // 是否显示弹出层
+        open: false,
+        // 弹出层标题
+        title: "${functionName}导入",
+        // 上传的地址
+        url: "/${moduleName}/${businessName}/importData"
+      },
+      // 显隐列
+      columns: [
+## 初始化计数器
+#set($index = 1)
+#foreach($column in $columns)
+#set($javaField=$column.javaField)
+#set($parentheseIndex=$column.columnComment.indexOf("（"))
+#if($parentheseIndex != -1)
+#set($comment=$column.columnComment.substring(0, $parentheseIndex))
+#else
+#set($comment=$column.columnComment)
+#end
+## 仅针对主键和展示的列
+#if($column.pk || $column.list)
+          { key: $index, label: `$comment`, visible: true },
+## 更新计数器
+#set($index = $index + 1)
+#end
+#end
+      ],
       // 查询参数
       queryParams: {
 #foreach ($column in $columns)
@@ -356,17 +457,26 @@ export default {
     getList() {
       this.loading = true
 #foreach ($column in $columns)
-#if($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
+#if($column.queryType == "BETWEEN" && ($column.htmlType == "date" || $column.htmlType == "datetime"))
       this.queryParams.params = {}
 #break
 #end
 #end
 #foreach ($column in $columns)
-#if($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
+#if($column.htmlType == "date" && $column.queryType == "BETWEEN")
 #set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
       if (null != this.daterange${AttrName} && '' != this.daterange${AttrName}) {
         this.queryParams.params["begin${AttrName}"] = this.daterange${AttrName}[0]
         this.queryParams.params["end${AttrName}"] = this.daterange${AttrName}[1]
+      }
+#end
+#end
+#foreach ($column in $columns)
+#if($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
+#set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+      if (null != this.datetimerange${AttrName} && '' != this.datetimerange${AttrName}) {
+        this.queryParams.params["begin${AttrName}"] = this.datetimerange${AttrName}[0]
+        this.queryParams.params["end${AttrName}"] = this.datetimerange${AttrName}[1]
       }
 #end
 #end
@@ -420,9 +530,13 @@ export default {
     /** 重置按钮操作 */
     resetQuery() {
 #foreach ($column in $columns)
-#if($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
+#if($column.htmlType == "date" && $column.queryType == "BETWEEN")
 #set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
       this.daterange${AttrName} = []
+#end
+#if($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
+#set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
+      this.datetimerange${AttrName} = []
 #end
 #end
       this.resetForm("queryForm")
@@ -499,6 +613,12 @@ export default {
         this.getList()
         this.#[[$modal]]#.msgSuccess("删除成功")
       }).catch(() => {})
+    },
+    /** 导出按钮操作 */
+    handleExport() {
+      this.download('${moduleName}/${businessName}/export', {
+        ...this.queryParams
+      }, `${businessName}_export_#[[${this.parseTime(new Date())}]]#.xlsx`)
     }
   }
 }
