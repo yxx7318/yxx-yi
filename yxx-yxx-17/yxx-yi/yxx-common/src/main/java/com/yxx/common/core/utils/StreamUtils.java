@@ -135,6 +135,43 @@ public class StreamUtils {
     }
 
     /**
+     * 将集合根据给定的条件分为两个部分
+     *
+     * <p>此方法使用 Java Stream API 将集合元素根据给定的谓词条件分为两组：
+     * - 满足条件的元素（true 组）
+     * - 不满足条件的元素（false 组）
+     *
+     * <p>方法会自动过滤掉集合中的 null 元素，确保结果中不包含 null 值。
+     *
+     * @param <T>        集合元素的类型
+     * @param collection 要分组的集合，可以为 null 或空
+     * @param predicate  用于分组的条件，不能为 null
+     * @return 包含两个键（true 和 false）的 Map：
+     *         - true 键对应满足条件的元素列表
+     *         - false 键对应不满足条件的元素列表
+     *         如果输入集合为空或 null，返回空 Map
+     * @throws NullPointerException 如果 predicate 为 null
+     *
+     * @example
+     * <pre>{@code
+     * List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, null);
+     * Map<Boolean, List<Integer>> result = partitioningBy(numbers, n -> n % 2 == 0);
+     *
+     * // 结果：
+     * // true: [2, 4]
+     * // false: [1, 3, 5]
+     * }</pre>
+     */
+    public static <T> Map<Boolean, List<T>> partitioningBy(Collection<T> collection, Predicate<T> predicate) {
+        if (CollUtil.isEmpty(collection)) {
+            return MapUtil.newHashMap();
+        }
+        return collection
+                .stream().filter(Objects::nonNull)
+                .collect(Collectors.partitioningBy(predicate));
+    }
+
+    /**
      * 将collection按照规则(比如有相同的班级id)分类成map<br>
      * <B>{@code Collection<E> -------> Map<K,List<E>> } </B>
      *
