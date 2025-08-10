@@ -18,7 +18,7 @@ import javax.validation.constraints.NotBlank;
  * 测试树表生成对象 tb_test_user_tree
  *
  * @author yxx
- * @date 2025-08-08
+ * @date 2025-08-09
  */
 @Schema(description = "测试树表生成实体")
 @NoArgsConstructor
@@ -42,9 +42,10 @@ public class TbTestUserTree extends TreeEntity {
     private Long treeId;
 
     @Schema(description = "节点名称")
+    @NotBlank(message = "节点名称不能为空")
     @TableField("tree_name")
     @Excel(name = "节点名称")
-    private Long treeName;
+    private String treeName;
 
     @Schema(description = "用户账号")
     @NotBlank(message = "用户账号不能为空")

@@ -30,7 +30,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <include refid="selectTbTestUserTreeVo"/>
         <where>
             <if test="treeId != null"> and tree_id = #{treeId}</if>
-            <if test="treeName != null"> and tree_name like concat('%', #{treeName}, '%')</if>
+            <if test="treeName != null and treeName != ''"> and tree_name like concat('%', #{treeName}, '%')</if>
             <if test="userName != null and userName != ''"> and user_name like concat('%', #{userName}, '%')</if>
             <if test="password != null and password != ''"> and password = #{password}</if>
             <if test="status != null and status != ''"> and status = #{status}</if>
@@ -48,7 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         insert into tb_test_user_tree
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="treeId != null">tree_id,</if>
-            <if test="treeName != null">tree_name,</if>
+            <if test="treeName != null and treeName != ''">tree_name,</if>
             <if test="userName != null and userName != ''">user_name,</if>
             <if test="password != null">password,</if>
             <if test="status != null">status,</if>
@@ -64,7 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="treeId != null">#{treeId},</if>
-            <if test="treeName != null">#{treeName},</if>
+            <if test="treeName != null and treeName != ''">#{treeName},</if>
             <if test="userName != null and userName != ''">#{userName},</if>
             <if test="password != null">#{password},</if>
             <if test="status != null">#{status},</if>
@@ -84,7 +84,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         update tb_test_user_tree
         <trim prefix="SET" suffixOverrides=",">
             <if test="treeId != null">tree_id = #{treeId},</if>
-            <if test="treeName != null">tree_name = #{treeName},</if>
+            <if test="treeName != null and treeName != ''">tree_name = #{treeName},</if>
             <if test="userName != null and userName != ''">user_name = #{userName},</if>
             <if test="password != null">password = #{password},</if>
             <if test="status != null">status = #{status},</if>

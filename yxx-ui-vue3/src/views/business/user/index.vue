@@ -26,9 +26,9 @@
         />
       </el-form-item>
       <el-form-item label="账号状态" prop="status">
-        <el-select v-model="queryParams.status" placeholder="请选择账号状态" clearable>
+        <el-select v-model="queryParams.status" placeholder="请选择账号状态" clearable style="width: 180px">
           <el-option
-            v-for="dict in sys_common_status"
+            v-for="dict in sys_normal_disable"
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
@@ -120,7 +120,7 @@
       <el-table-column label="密码" align="center" prop="password" v-if="columns[3].visible" />
       <el-table-column label="账号状态" align="center" prop="status" v-if="columns[4].visible">
         <template #default="scope">
-          <dict-tag :options="sys_common_status" :value="scope.row.status"/>
+          <dict-tag :options="sys_normal_disable" :value="scope.row.status"/>
         </template>
       </el-table-column>
       <el-table-column label="注册日期" align="center" prop="registerDate" width="180" v-if="columns[5].visible">
@@ -145,7 +145,7 @@
       @pagination="getList"
     />
 
-    <!-- 添加或修改测试单生成对话框 -->
+    <!-- 添加或修改测试单表生成对话框 -->
     <el-dialog :title="title" v-model="open" width="500px" append-to-body>
       <el-form ref="userRef" :model="form" :rules="rules" label-width="80px">
         <el-form-item label="主表ID" prop="parentId">
@@ -160,7 +160,7 @@
         <el-form-item label="账号状态" prop="status">
           <el-radio-group v-model="form.status">
             <el-radio
-              v-for="dict in sys_common_status"
+              v-for="dict in sys_normal_disable"
               :key="dict.value"
               :label="dict.value"
             >{{dict.label}}</el-radio>
@@ -191,7 +191,7 @@
       </template>
     </el-dialog>
 
-    <!-- 导入测试单生成对话框 -->
+    <!-- 导入测试单表生成对话框 -->
     <excel-upload
       :title="upload.title"
       :uploadUrl="upload.url"
@@ -206,7 +206,7 @@
 import { listUser, getUser, delUser, addUser, updateUser } from "@/api/business/user"
 
 const { proxy } = getCurrentInstance()
-const { sys_common_status } = proxy.useDict('sys_common_status')
+const { sys_normal_disable } = proxy.useDict('sys_normal_disable')
 
 const userList = ref([])
 const open = ref(false)
@@ -227,7 +227,7 @@ const upload = ref({
   // 是否显示弹出层
   open: false,
   // 弹出层标题
-  title: "测试单生成导入",
+  title: "测试单表生成导入",
   // 上传的地址
   url: "/business/user/importData"
 })
@@ -264,7 +264,7 @@ const data = reactive({
 
 const { queryParams, form, rules } = toRefs(data)
 
-/** 查询测试单生成列表 */
+/** 查询测试单表生成列表 */
 function getList() {
   loading.value = true
   queryParams.value.params = {}
@@ -335,7 +335,7 @@ function handleSelectionChange(selection) {
 function handleAdd() {
   reset()
   open.value = true
-  title.value = "添加测试单生成"
+  title.value = "添加测试单表生成"
 }
 
 /** 修改按钮操作 */
@@ -345,7 +345,7 @@ function handleUpdate(row) {
   getUser(_userId).then(response => {
     form.value = response.data
     open.value = true
-    title.value = "修改测试单生成"
+    title.value = "修改测试单表生成"
   })
 }
 
@@ -373,7 +373,7 @@ function submitForm() {
 /** 删除按钮操作 */
 function handleDelete(row) {
   const _userIds = row.userId || ids.value
-  proxy.$modal.confirm('是否确认删除测试单生成编号为"' + _userIds + '"的数据项？').then(function() {
+  proxy.$modal.confirm('是否确认删除测试单表生成编号为"' + _userIds + '"的数据项？').then(function() {
     return delUser(_userIds)
   }).then(() => {
     getList()

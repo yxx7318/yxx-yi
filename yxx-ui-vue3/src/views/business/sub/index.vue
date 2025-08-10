@@ -18,9 +18,9 @@
         />
       </el-form-item>
       <el-form-item label="账号状态" prop="status">
-        <el-select v-model="queryParams.status" placeholder="请选择账号状态" clearable>
+        <el-select v-model="queryParams.status" placeholder="请选择账号状态" clearable style="width: 180px">
           <el-option
-            v-for="dict in sys_common_status"
+            v-for="dict in sys_normal_disable"
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
@@ -107,7 +107,7 @@
       <el-table-column label="密码" align="center" prop="password" v-if="columns[2].visible" />
       <el-table-column label="账号状态" align="center" prop="status" v-if="columns[3].visible">
         <template #default="scope">
-          <dict-tag :options="sys_common_status" :value="scope.row.status"/>
+          <dict-tag :options="sys_normal_disable" :value="scope.row.status"/>
         </template>
       </el-table-column>
       <el-table-column label="注册日期" align="center" prop="registerDate" width="180" v-if="columns[4].visible">
@@ -144,7 +144,7 @@
         <el-form-item label="账号状态" prop="status">
           <el-radio-group v-model="form.status">
             <el-radio
-              v-for="dict in sys_common_status"
+              v-for="dict in sys_normal_disable"
               :key="dict.value"
               :label="dict.value"
             >{{dict.label}}</el-radio>
@@ -166,7 +166,7 @@
             placeholder="请选择注册时间">
           </el-date-picker>
         </el-form-item>
-        <el-divider content-position="center">测试单生成信息</el-divider>
+        <el-divider content-position="center">测试单表生成信息</el-divider>
         <el-row :gutter="10" class="mb8">
           <el-col :span="1.5">
             <el-button type="primary" icon="Plus" @click="handleAddTbTestUser">添加</el-button>
@@ -192,7 +192,7 @@
             <template #default="scope">
               <el-select v-model="scope.row.status" placeholder="请选择账号状态">
                 <el-option
-                  v-for="dict in sys_common_status"
+                  v-for="dict in sys_normal_disable"
                   :key="dict.value"
                   :label="dict.label"
                   :value="dict.value"
@@ -237,7 +237,7 @@
 import { listSub, getSub, delSub, addSub, updateSub } from "@/api/business/sub"
 
 const { proxy } = getCurrentInstance()
-const { sys_common_status } = proxy.useDict('sys_common_status')
+const { sys_normal_disable } = proxy.useDict('sys_normal_disable')
 
 const subList = ref([])
 const tbTestUserList = ref([])
@@ -399,12 +399,12 @@ function handleDelete(row) {
   }).catch(() => {})
 }
 
-/** 测试单生成序号 */
+/** 测试单表生成序号 */
 function rowTbTestUserIndex({ row, rowIndex }) {
   row.index = rowIndex + 1
 }
 
-/** 测试单生成添加按钮操作 */
+/** 测试单表生成添加按钮操作 */
 function handleAddTbTestUser() {
   let obj = {}
   obj.userName = ""
@@ -415,10 +415,10 @@ function handleAddTbTestUser() {
   tbTestUserList.value.push(obj)
 }
 
-/** 测试单生成删除按钮操作 */
+/** 测试单表生成删除按钮操作 */
 function handleDeleteTbTestUser() {
   if (checkedTbTestUser.value.length == 0) {
-    proxy.$modal.msgError("请先选择要删除的测试单生成数据")
+    proxy.$modal.msgError("请先选择要删除的测试单表生成数据")
   } else {
     const tbTestUsers = tbTestUserList.value
     const checkedTbTestUsers = checkedTbTestUser.value

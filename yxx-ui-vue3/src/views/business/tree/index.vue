@@ -34,9 +34,9 @@
         />
       </el-form-item>
       <el-form-item label="账号状态" prop="status">
-        <el-select v-model="queryParams.status" placeholder="请选择账号状态" clearable>
+        <el-select v-model="queryParams.status" placeholder="请选择账号状态" clearable style="width: 180px">
           <el-option
-            v-for="dict in sys_common_status"
+            v-for="dict in sys_normal_disable"
             :key="dict.value"
             :label="dict.label"
             :value="dict.value"
@@ -105,7 +105,7 @@
           v-hasPermi="['business:tree:export']"
         >导出</el-button>
       </el-col>
-      <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
+      <right-toolbar v-model:showSearch="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
     </el-row>
 
     <el-table
@@ -116,21 +116,21 @@
       :default-expand-all="isExpandAll"
       :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
     >
-      <el-table-column label="节点ID" prop="treeId" v-if="columns[15].visible" />
-      <el-table-column label="节点名称" align="center" prop="treeName" v-if="columns[16].visible" />
-      <el-table-column label="用户账号" align="center" prop="userName" v-if="columns[17].visible" />
-      <el-table-column label="密码" align="center" prop="password" v-if="columns[18].visible" />
-      <el-table-column label="账号状态" align="center" prop="status" v-if="columns[19].visible">
+      <el-table-column label="节点ID" prop="treeId" v-if="columns[0].visible" />
+      <el-table-column label="节点名称" align="center" prop="treeName" v-if="columns[1].visible" />
+      <el-table-column label="用户账号" align="center" prop="userName" v-if="columns[2].visible" />
+      <el-table-column label="密码" align="center" prop="password" v-if="columns[3].visible" />
+      <el-table-column label="账号状态" align="center" prop="status" v-if="columns[4].visible">
         <template #default="scope">
-          <dict-tag :options="sys_common_status" :value="scope.row.status"/>
+          <dict-tag :options="sys_normal_disable" :value="scope.row.status"/>
         </template>
       </el-table-column>
-      <el-table-column label="注册日期" align="center" prop="registerDate" width="180" v-if="columns[20].visible">
+      <el-table-column label="注册日期" align="center" prop="registerDate" width="180" v-if="columns[5].visible">
         <template #default="scope">
           <span>{{ parseTime(scope.row.registerDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="注册时间" align="center" prop="registerTime" width="240" v-if="columns[21].visible" />
+      <el-table-column label="注册时间" align="center" prop="registerTime" width="240" v-if="columns[6].visible" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
           <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['business:tree:edit']">修改</el-button>
@@ -165,18 +165,26 @@
         <el-form-item label="账号状态" prop="status">
           <el-radio-group v-model="form.status">
             <el-radio
-              v-for="dict in sys_common_status"
+              v-for="dict in sys_normal_disable"
               :key="dict.value"
-              :label="dict.value"
+              :value="dict.value"
             >{{dict.label}}</el-radio>
           </el-radio-group>
+        </el-form-item>
+        <el-form-item label="注册日期" prop="registerDate">
+          <el-date-picker clearable
+            v-model="form.registerDate"
+            type="date"
+            value-format="YYYY-MM-DD"
+            placeholder="请选择注册日期">
+          </el-date-picker>
         </el-form-item>
         <el-form-item label="注册时间" prop="registerTime">
           <el-date-picker clearable
             v-model="form.registerTime"
-            type="date"
-            value-format="YYYY-MM-DD"
-            placeholder="选择注册时间">
+            type="datetime"
+            value-format="YYYY-MM-DD HH:mm:ss"
+            placeholder="请选择注册时间">
           </el-date-picker>
         </el-form-item>
       </el-form>
@@ -194,7 +202,7 @@
 import { listTree, getTree, delTree, addTree, updateTree } from "@/api/business/tree"
 
 const { proxy } = getCurrentInstance()
-const { sys_common_status } = proxy.useDict('sys_common_status')
+const { sys_normal_disable } = proxy.useDict('sys_normal_disable')
 
 const treeList = ref([])
 const treeOptions = ref([])
@@ -243,6 +251,9 @@ const data = reactive({
     registerTime: null,
   },
   rules: {
+    treeName: [
+      { required: true, message: "节点名称不能为空", trigger: "blur" }
+    ],
     userName: [
       { required: true, message: "用户账号不能为空", trigger: "blur" }
     ],
@@ -255,9 +266,9 @@ const { queryParams, form, rules } = toRefs(data)
 function getList() {
   loading.value = true
   queryParams.value.params = {}
-  if (null != daterangeRegisterTime && '' != daterangeRegisterTime) {
-    queryParams.value.params["beginRegisterTime"] = daterangeRegisterTime.value[0]
-    queryParams.value.params["endRegisterTime"] = daterangeRegisterTime.value[1]
+  if (null != daterangeRegisterDate && '' != daterangeRegisterDate) {
+    queryParams.value.params["beginRegisterDate"] = daterangeRegisterDate.value[0]
+    queryParams.value.params["endRegisterDate"] = daterangeRegisterDate.value[1]
   }
   if (null != datetimerangeRegisterTime && '' != datetimerangeRegisterTime) {
     queryParams.value.params["beginRegisterTime"] = datetimerangeRegisterTime.value[0]

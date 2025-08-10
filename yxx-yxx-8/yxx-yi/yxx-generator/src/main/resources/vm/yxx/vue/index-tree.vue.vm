@@ -381,7 +381,7 @@ export default {
       // 重新渲染表格状态
       refreshTable: true,
 #foreach ($column in $columns)
-#if($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
+#if($column.htmlType == "date" && $column.queryType == "BETWEEN")
 #set($AttrName=$column.javaField.substring(0,1).toUpperCase() + ${column.javaField.substring(1)})
       // $comment日期范围
       daterange${AttrName}: [],

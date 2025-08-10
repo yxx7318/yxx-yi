@@ -5,7 +5,7 @@ drop table if exists `tb_test_user_tree`;
 create table `tb_test_user_tree` (
   user_id           bigint(20)      not null auto_increment      comment '用户ID',
   tree_id           bigint(20)                                   comment '节点ID',
-  tree_name         bigint(20)                                   comment '节点名称',
+  tree_name         varchar(30)     not null                     comment '节点名称',
   user_name         varchar(30)     not null                     comment '用户账号',
   password          varchar(100)    default ''                   comment '密码',
   status            char(1)         default '0'                  comment '账号状态（0正常 1停用）',
