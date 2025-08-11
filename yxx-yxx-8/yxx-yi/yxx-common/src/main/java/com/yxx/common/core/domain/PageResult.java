@@ -3,6 +3,8 @@ package com.yxx.common.core.domain;
 import com.yxx.common.constant.HttpStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
+import lombok.experimental.Accessors;
+
 import java.util.List;
 
 /**
@@ -11,6 +13,7 @@ import java.util.List;
  * @param <T> 实际的数据类型
  */
 @Schema(description = "分页结果实体类")
+@Accessors(chain = true)
 @Data
 public class PageResult<T> {
 

@@ -112,14 +112,25 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseColumnEn
 
 
     /**
+     * 获取到MyBatis分页结果
+     *
+     * @param list    分页插件查询数据
+     * @param <PO>    PO对象
+     * @return PageResult<PO>分页结果
+     */
+    public <PO> PageResult<PO> getMyBatisPageResult(List<PO> list) {
+        PageResult<PO> result = PageUtils.getMyBatisBasePageResult(list);
+        return result.setRows(list);
+    }
+
+    /**
      * 获取到MyBatis分页结果并转化为Vo对象分页结果
      */
     @Override
     public <PO, VO> PageResult<VO> getMyBatisPageResult(List<PO> list, Class<VO> voClass) {
         PageResult<VO> result = PageUtils.getMyBatisBasePageResult(list);
         // 复制到VO中
-        result.setRows(convertList(list, voClass));
-        return result;
+        return result.setRows(convertList(list, voClass));
     }
 
     /**
@@ -129,8 +140,7 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseColumnEn
     public <PO, VO> PageResult<VO> getMyBatisPageResult(List<PO> list, Function<PO, VO> convertor) {
         PageResult<VO> result = PageUtils.getMyBatisBasePageResult(list);
         // 使用转换器自定义Vo的处理
-        result.setRows(convertList(list, convertor));
-        return result;
+        return result.setRows(convertList(list, convertor));
     }
 
     /**
