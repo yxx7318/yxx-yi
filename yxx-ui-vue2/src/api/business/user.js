@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-// 查询测试用户列表
+// 查询测试单表生成列表
 export function listUser(query) {
   return request({
     url: '/business/user/list',
@@ -9,7 +9,7 @@ export function listUser(query) {
   })
 }
 
-// 查询测试用户详细
+// 查询测试单表生成详细
 export function getUser(userId) {
   return request({
     url: '/business/user/' + userId,
@@ -17,7 +17,7 @@ export function getUser(userId) {
   })
 }
 
-// 新增测试用户
+// 新增测试单表生成
 export function addUser(data) {
   return request({
     url: '/business/user',
@@ -26,7 +26,7 @@ export function addUser(data) {
   })
 }
 
-// 修改测试用户
+// 修改测试单表生成
 export function updateUser(userId, data) {
   return request({
     url: '/business/user/' + userId,
@@ -35,7 +35,7 @@ export function updateUser(userId, data) {
   })
 }
 
-// 删除测试用户
+// 删除测试单表生成
 export function delUser(userId) {
   return request({
     url: '/business/user/' + userId,

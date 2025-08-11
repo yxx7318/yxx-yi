@@ -3,6 +3,14 @@ package ${packageName}.entity;
 #foreach ($import in $subImportList)
 import ${import};
 #end
+#foreach ($column in $columns)
+#if(!$table.isSuperColumn($column.javaField))
+#if($column.javaType == 'Date')
+import com.fasterxml.jackson.annotation.JsonFormat;
+#break
+#end
+#end
+#end
 import com.yxx.common.annotation.Excel;
 import com.yxx.common.core.domain.BaseEntity;
 import com.baomidou.mybatisplus.annotation.TableName;

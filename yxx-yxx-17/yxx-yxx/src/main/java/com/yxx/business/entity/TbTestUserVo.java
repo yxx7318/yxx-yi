@@ -10,12 +10,12 @@ import lombok.experimental.Accessors;
 import lombok.*;
 
 /**
- * 测试用户Vo对象 tb_test_user
+ * 测试单表生成Vo对象 tb_test_user
  *
  * @author yxx
- * @date 2025-08-08
+ * @date 2025-08-11
  */
-@Schema(description = "测试用户Vo实体")
+@Schema(description = "测试单表生成Vo实体")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -30,8 +30,8 @@ public class TbTestUserVo extends BaseEntity {
     @Schema(description = "用户ID")
     private Long userId;
 
-    @Schema(description = "父表ID")
-    @Excel(name = "父表ID")
+    @Schema(description = "主表ID")
+    @Excel(name = "主表ID")
     private Long parentId;
 
     @Schema(description = "用户账号")
@@ -46,14 +46,14 @@ public class TbTestUserVo extends BaseEntity {
     @Excel(name = "账号状态", readConverterExp = "0=正常,1=停用")
     private String status;
 
-    @Schema(description = "注册时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Excel(name = "注册时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
-    private Date registerTime;
-
     @Schema(description = "注册日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "注册日期", width = 20, dateFormat = "yyyy-MM-dd")
     private Date registerDate;
+
+    @Schema(description = "注册时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "注册时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
+    private Date registerTime;
 
 }

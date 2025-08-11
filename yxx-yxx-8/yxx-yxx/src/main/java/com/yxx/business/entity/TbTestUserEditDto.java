@@ -10,12 +10,12 @@ import lombok.*;
 import javax.validation.constraints.NotBlank;
 
 /**
- * 测试单生成EditDto对象 tb_test_user
+ * 测试单表生成EditDto对象 tb_test_user
  *
  * @author yxx
- * @date 2025-08-08
+ * @date 2025-08-11
  */
-@Schema(description = "测试单生成编辑实体")
+@Schema(description = "测试单表生成编辑实体")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
