@@ -107,7 +107,7 @@
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="typeList" @selection-change="handleSelectionChange">
+    <el-table ref="dictTableRef" v-loading="loading" :data="typeList" @selection-change="handleSelectionChange" :default-sort="defaultSort" @sort-change="handleSortChange">
       <el-table-column type="selection" width="55" align="center" />
       <el-table-column label="字典编号" align="center" prop="dictId" />
       <el-table-column label="字典名称" align="center" prop="dictName" :show-overflow-tooltip="true" />
@@ -124,7 +124,7 @@
         </template>
       </el-table-column>
       <el-table-column label="备注" align="center" prop="remark" :show-overflow-tooltip="true" />
-      <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+      <el-table-column label="创建时间" align="center" prop="createTime" width="180" sortable="custom" :sort-orders="['descending', 'ascending']">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.createTime) }}</span>
         </template>
@@ -215,13 +215,17 @@ export default {
       open: false,
       // 日期范围
       dateRange: [],
+      // 默认排序
+      defaultSort: {prop: 'createTime', order: 'descending'},
       // 查询参数
       queryParams: {
         pageNum: 1,
         pageSize: 10,
         dictName: undefined,
         dictType: undefined,
-        status: undefined
+        status: undefined,
+        orderByColumn: "createTime",
+        isAsc: "descending"
       },
       // 表单参数
       form: {},
@@ -275,6 +279,7 @@ export default {
     resetQuery() {
       this.dateRange = []
       this.resetForm("queryForm")
+      this.$refs.dictTableRef.sort(this.defaultSort.prop, this.defaultSort.order)
       this.handleQuery()
     },
     /** 新增按钮操作 */
@@ -288,6 +293,12 @@ export default {
       this.ids = selection.map(item => item.dictId)
       this.single = selection.length!=1
       this.multiple = !selection.length
+    },
+    /** 排序触发事件 */
+    handleSortChange(column, prop, order) {
+      this.queryParams.orderByColumn = column.prop
+      this.queryParams.isAsc = column.order
+      this.getList()
     },
     /** 修改按钮操作 */
     handleUpdate(row) {

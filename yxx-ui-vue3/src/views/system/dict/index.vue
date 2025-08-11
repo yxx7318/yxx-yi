@@ -101,7 +101,7 @@
          <right-toolbar v-model:showSearch="showSearch" @queryTable="getList"></right-toolbar>
       </el-row>
 
-      <el-table v-loading="loading" :data="typeList" @selection-change="handleSelectionChange">
+      <el-table ref="dictTableRef" v-loading="loading" :data="typeList" @selection-change="handleSelectionChange" :default-sort="defaultSort" @sort-change="handleSortChange">
          <el-table-column type="selection" width="55" align="center" />
          <el-table-column label="字典编号" align="center" prop="dictId" />
          <el-table-column label="字典名称" align="center" prop="dictName" :show-overflow-tooltip="true"/>
@@ -118,7 +118,7 @@
             </template>
          </el-table-column>
          <el-table-column label="备注" align="center" prop="remark" :show-overflow-tooltip="true" />
-         <el-table-column label="创建时间" align="center" prop="createTime" width="180">
+         <el-table-column label="创建时间" align="center" prop="createTime" width="180" sortable="custom" :sort-orders="['descending', 'ascending']">
             <template #default="scope">
                <span>{{ parseTime(scope.row.createTime) }}</span>
             </template>
@@ -188,6 +188,7 @@ const multiple = ref(true)
 const total = ref(0)
 const title = ref("")
 const dateRange = ref([])
+const defaultSort = ref({ prop: "createTime", order: "descending" })
 
 const data = reactive({
   form: {},
@@ -196,7 +197,9 @@ const data = reactive({
     pageSize: 10,
     dictName: undefined,
     dictType: undefined,
-    status: undefined
+    status: undefined,
+    orderByColumn: defaultSort.value.prop,
+    isAsc: defaultSort.value.order
   },
   rules: {
     dictName: [{ required: true, message: "字典名称不能为空", trigger: "blur" }],
@@ -244,6 +247,7 @@ function handleQuery() {
 function resetQuery() {
   dateRange.value = []
   proxy.resetForm("queryRef")
+  proxy.$refs["dictTableRef"].sort(defaultSort.value.prop, defaultSort.value.order)
   handleQuery()
 }
 
@@ -259,6 +263,13 @@ function handleSelectionChange(selection) {
   ids.value = selection.map(item => item.dictId)
   single.value = selection.length != 1
   multiple.value = !selection.length
+}
+
+/** 排序触发事件 */
+function handleSortChange(column, prop, order) {
+  queryParams.value.orderByColumn = column.prop
+  queryParams.value.isAsc = column.order
+  getList()
 }
 
 /** 修改按钮操作 */
