@@ -20,7 +20,7 @@ import javax.validation.constraints.NotBlank;
  * 测试主表生成对象 tb_test_user_sub
  *
  * @author yxx
- * @date 2025-08-08
+ * @date 2025-08-11
  */
 @Schema(description = "测试主表生成实体")
 @NoArgsConstructor
@@ -67,7 +67,7 @@ public class TbTestUserSub extends BaseEntity {
     private Date registerTime;
 
     /**
-    * 测试单生成信息
+    * 测试单表生成信息
     */
     @TableField(exist = false)
     @Valid

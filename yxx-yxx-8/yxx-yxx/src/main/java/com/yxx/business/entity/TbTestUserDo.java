@@ -12,12 +12,12 @@ import lombok.experimental.Accessors;
 import lombok.*;
 
 /**
- * 测试单生成Do对象 tb_test_user
+ * 测试单表生成Do对象 tb_test_user
  *
  * @author yxx
- * @date 2025-08-08
+ * @date 2025-08-11
  */
-@Schema(description = "测试单生成Do实体")
+@Schema(description = "测试单表生成Do实体")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)

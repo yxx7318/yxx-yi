@@ -33,7 +33,7 @@ import com.yxx.common.enums.BusinessType;
 #set($ClassQueryDto="${ClassName}QueryDto")
 #set($classQueryDto="${className}QueryDto")
 #set($ClassEditDto="${ClassName}EditDto")
-#set($classEditDto="${className}QueryDto")
+#set($classEditDto="${className}EditDto")
 #end
 #if($table.sub || $table.tree)
 import ${packageName}.entity.${ClassDo};

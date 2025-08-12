@@ -1,10 +1,18 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
-      <el-form-item label="主表ID" prop="parentId">
+      <el-form-item label="节点ID" prop="treeId">
         <el-input
-          v-model="queryParams.parentId"
-          placeholder="请输入主表ID"
+          v-model="queryParams.treeId"
+          placeholder="请输入节点ID"
+          clearable
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
+      <el-form-item label="节点名称" prop="treeName">
+        <el-input
+          v-model="queryParams.treeName"
+          placeholder="请输入节点名称"
           clearable
           @keyup.enter.native="handleQuery"
         />
@@ -53,12 +61,12 @@
           value-format="yyyy-MM-dd HH:mm:ss"
           type="datetimerange"
           range-separator="-"
-          start-placeholder="开始时间"
-          end-placeholder="结束时间"
+          start-placeholder="开始日期"
+          end-placeholder="结束日期"
         ></el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+	    <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
@@ -71,30 +79,17 @@
           icon="el-icon-plus"
           size="mini"
           @click="handleAdd"
-          v-hasPermi="['business:user:add']"
+          v-hasPermi="['business:tree:add']"
         >新增</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
-          type="success"
+          type="info"
           plain
-          icon="el-icon-edit"
+          icon="el-icon-sort"
           size="mini"
-          :disabled="single"
-          @click="handleUpdate"
-          v-hasPermi="['business:user:edit']"
-        >修改</el-button>
-      </el-col>
-      <el-col :span="1.5">
-        <el-button
-          type="danger"
-          plain
-          icon="el-icon-delete"
-          size="mini"
-          :disabled="multiple"
-          @click="handleDelete"
-          v-hasPermi="['business:user:remove']"
-        >删除</el-button>
+          @click="toggleExpandAll"
+        >展开/折叠</el-button>
       </el-col>
       <el-col :span="1.5">
         <el-button
@@ -103,7 +98,7 @@
           icon="el-icon-upload2"
           size="mini"
           @click="upload.open = true"
-          v-hasPermi="['business:user:import']"
+          v-hasPermi="['business:tree:import']"
         >导入</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -113,16 +108,22 @@
           icon="el-icon-download"
           size="mini"
           @click="handleExport"
-          v-hasPermi="['business:user:export']"
+          v-hasPermi="['business:tree:export']"
         >导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
     </el-row>
 
-    <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="用户ID" align="center" prop="userId" v-if="columns[0].visible" />
-      <el-table-column label="主表ID" align="center" prop="parentId" v-if="columns[1].visible" />
+    <el-table
+      v-if="refreshTable"
+      v-loading="loading"
+      :data="treeList"
+      row-key="userId"
+      :default-expand-all="isExpandAll"
+      :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
+    >
+      <el-table-column label="节点ID" prop="treeId" v-if="columns[0].visible" />
+      <el-table-column label="节点名称" align="center" prop="treeName" v-if="columns[1].visible" />
       <el-table-column label="用户账号" align="center" prop="userName" v-if="columns[2].visible" />
       <el-table-column label="密码" align="center" prop="password" v-if="columns[3].visible" />
       <el-table-column label="账号状态" align="center" prop="status" v-if="columns[4].visible">
@@ -143,32 +144,34 @@
             type="text"
             icon="el-icon-edit"
             @click="handleUpdate(scope.row)"
-            v-hasPermi="['business:user:edit']"
+            v-hasPermi="['business:tree:edit']"
           >修改</el-button>
+          <el-button
+            size="mini"
+            type="text"
+            icon="el-icon-plus"
+            @click="handleAdd(scope.row)"
+            v-hasPermi="['business:tree:add']"
+          >新增</el-button>
           <el-button
             size="mini"
             type="text"
             icon="el-icon-delete"
             @click="handleDelete(scope.row)"
-            v-hasPermi="['business:user:remove']"
+            v-hasPermi="['business:tree:remove']"
           >删除</el-button>
         </template>
       </el-table-column>
     </el-table>
 
-    <pagination
-      v-show="total>0"
-      :total="total"
-      :page.sync="queryParams.pageNum"
-      :limit.sync="queryParams.pageSize"
-      @pagination="getList"
-    />
-
-    <!-- 添加或修改测试单表生成对话框 -->
+    <!-- 添加或修改测试树表生成对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="500px" append-to-body>
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="主表ID" prop="parentId">
-          <el-input v-model="form.parentId" placeholder="请输入主表ID" />
+        <el-form-item label="节点ID" prop="treeId">
+          <treeselect v-model="form.treeId" :options="treeOptions" :normalizer="normalizer" placeholder="请选择节点ID" />
+        </el-form-item>
+        <el-form-item label="节点名称" prop="treeName">
+          <el-input v-model="form.treeName" placeholder="请输入节点名称" />
         </el-form-item>
         <el-form-item label="用户账号" prop="userName">
           <el-input v-model="form.userName" placeholder="请输入用户账号" />
@@ -198,7 +201,7 @@
             v-model="form.registerTime"
             type="datetime"
             value-format="yyyy-MM-dd HH:mm:ss"
-            placeholder="请选择注册时间">
+            placeholder="选择注册时间">
           </el-date-picker>
         </el-form-item>
       </el-form>
@@ -208,7 +211,7 @@
       </div>
     </el-dialog>
 
-    <!-- 导入测试单表生成对话框 -->
+    <!-- 导入测试树表生成对话框 -->
     <excel-upload
       :title="upload.title"
       :uploadUrl="upload.url"
@@ -220,32 +223,35 @@
 </template>
 
 <script>
-import { listUser, getUser, addUser, updateUser, delUser } from "@/api/business/user"
+import { listTree, getTree, delTree, addTree, updateTree } from "@/api/business/tree"
+import Treeselect from "@riophae/vue-treeselect"
+import "@riophae/vue-treeselect/dist/vue-treeselect.css"
 
 export default {
-  name: "User",
+  name: "Tree",
   dicts: ['sys_normal_disable'],
+  components: {
+    Treeselect
+  },
   data() {
     return {
       // 遮罩层
       loading: true,
-      // 选中数组
-      ids: [],
-      // 非单个禁用
-      single: true,
-      // 非多个禁用
-      multiple: true,
       // 显示搜索条件
       showSearch: true,
-      // 总条数
-      total: 0,
-      // 测试单表生成表格数据
-      userList: [],
+      // 测试树表生成表格数据
+      treeList: [],
+      // 测试树表生成树选项
+      treeOptions: [],
       // 弹出层标题
       title: "",
       // 是否显示弹出层
       open: false,
-      // 注册日期日期范围
+      // 是否展开，默认全部展开
+      isExpandAll: true,
+      // 重新渲染表格状态
+      refreshTable: true,
+      // 注册时间日期范围
       daterangeRegisterDate: [],
       // 注册时间时间范围
       datetimerangeRegisterTime: [],
@@ -254,25 +260,25 @@ export default {
         // 是否显示弹出层
         open: false,
         // 弹出层标题
-        title: "测试单表生成导入",
+        title: "测试树表生成导入",
         // 上传的地址
-        url: "/business/user/importData"
+        url: "/business/tree/importData"
       },
       // 显隐列
       columns: [
           { key: 1, label: `用户ID`, visible: true },
-          { key: 2, label: `主表ID`, visible: true },
-          { key: 3, label: `用户账号`, visible: true },
-          { key: 4, label: `密码`, visible: true },
-          { key: 5, label: `账号状态`, visible: true },
-          { key: 6, label: `注册日期`, visible: true },
-          { key: 7, label: `注册时间`, visible: true },
+          { key: 2, label: `节点ID`, visible: true },
+          { key: 3, label: `节点名称`, visible: true },
+          { key: 4, label: `用户账号`, visible: true },
+          { key: 5, label: `密码`, visible: true },
+          { key: 6, label: `账号状态`, visible: true },
+          { key: 7, label: `注册日期`, visible: true },
+          { key: 8, label: `注册时间`, visible: true },
       ],
       // 查询参数
       queryParams: {
-        pageNum: 1,
-        pageSize: 10,
-        parentId: null,
+        treeId: null,
+        treeName: null,
         userName: null,
         password: null,
         status: null,
@@ -283,6 +289,9 @@ export default {
       form: {},
       // 表单校验
       rules: {
+        treeName: [
+          { required: true, message: "节点名称不能为空", trigger: "blur" }
+        ],
         userName: [
           { required: true, message: "用户账号不能为空", trigger: "blur" }
         ],
@@ -293,7 +302,7 @@ export default {
     this.getList()
   },
   methods: {
-    /** 查询测试单表生成列表 */
+    /** 查询测试树表生成列表 */
     getList() {
       this.loading = true
       this.queryParams.params = {}
@@ -305,10 +314,29 @@ export default {
         this.queryParams.params["beginRegisterTime"] = this.datetimerangeRegisterTime[0]
         this.queryParams.params["endRegisterTime"] = this.datetimerangeRegisterTime[1]
       }
-      listUser(this.queryParams).then(response => {
-        this.userList = response.rows
-        this.total = Number(response.total)
+      listTree(this.queryParams).then(response => {
+        this.treeList = this.handleTree(response.data, "userId", "treeId")
         this.loading = false
+      })
+    },
+    /** 转换测试树表生成数据结构 */
+    normalizer(node) {
+      if (node.children && !node.children.length) {
+        delete node.children
+      }
+      return {
+        id: node.userId,
+        label: node.treeName,
+        children: node.children
+      }
+    },
+	/** 查询测试树表生成下拉树结构 */
+    getTreeselect() {
+      listTree().then(response => {
+        this.treeOptions = []
+        const data = { userId: 0, treeName: '顶级节点', children: [] }
+        data.children = this.handleTree(response.data, "userId", "treeId")
+        this.treeOptions.push(data)
       })
     },
     // 取消按钮
@@ -320,7 +348,8 @@ export default {
     reset() {
       this.form = {
         userId: null,
-        parentId: null,
+        treeId: null,
+        treeName: null,
         userName: null,
         password: null,
         status: null,
@@ -338,7 +367,6 @@ export default {
     },
     /** 搜索按钮操作 */
     handleQuery() {
-      this.queryParams.pageNum = 1
       this.getList()
     },
     /** 重置按钮操作 */
@@ -348,26 +376,37 @@ export default {
       this.resetForm("queryForm")
       this.handleQuery()
     },
-    // 多选框选中数据
-    handleSelectionChange(selection) {
-      this.ids = selection.map(item => item.userId)
-      this.single = selection.length!==1
-      this.multiple = !selection.length
-    },
     /** 新增按钮操作 */
-    handleAdd() {
+    handleAdd(row) {
       this.reset()
+      this.getTreeselect()
+      if (row != null && row.userId) {
+        this.form.treeId = row.userId
+      } else {
+        this.form.treeId = 0
+      }
       this.open = true
-      this.title = "添加测试单表生成"
+      this.title = "添加测试树表生成"
+    },
+    /** 展开/折叠操作 */
+    toggleExpandAll() {
+      this.refreshTable = false
+      this.isExpandAll = !this.isExpandAll
+      this.$nextTick(() => {
+        this.refreshTable = true
+      })
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset()
-      const userId = row.userId || this.ids
-      getUser(userId).then(response => {
+      this.getTreeselect()
+      if (row != null) {
+        this.form.treeId = row.treeId
+      }
+      getTree(row.userId).then(response => {
         this.form = response.data
         this.open = true
-        this.title = "修改测试单表生成"
+        this.title = "修改测试树表生成"
       })
     },
     /** 提交按钮 */
@@ -375,13 +414,13 @@ export default {
       this.$refs["form"].validate(valid => {
         if (valid) {
           if (this.form.userId != null) {
-            updateUser(this.form.userId, this.form).then(response => {
+            updateTree(form.value.userId, this.form).then(response => {
               this.$modal.msgSuccess("修改成功")
               this.open = false
               this.getList()
             })
           } else {
-            addUser(this.form).then(response => {
+            addTree(this.form).then(response => {
               this.$modal.msgSuccess("新增成功")
               this.open = false
               this.getList()
@@ -392,9 +431,8 @@ export default {
     },
     /** 删除按钮操作 */
     handleDelete(row) {
-      const userIds = row.userId || this.ids
-      this.$modal.confirm('是否确认删除测试单表生成编号为"' + userIds + '"的数据项？').then(function() {
-        return delUser(userIds)
+      this.$modal.confirm('是否确认删除测试树表生成编号为"' + row.userId + '"的数据项？').then(function() {
+        return delTree(row.userId)
       }).then(() => {
         this.getList()
         this.$modal.msgSuccess("删除成功")
@@ -402,9 +440,9 @@ export default {
     },
     /** 导出按钮操作 */
     handleExport() {
-      this.download('business/user/export', {
+      this.download('business/tree/export', {
         ...this.queryParams
-      }, `user_export_${this.parseTime(new Date())}.xlsx`)
+      }, `tree_export_${this.parseTime(new Date())}.xlsx`)
     }
   }
 }

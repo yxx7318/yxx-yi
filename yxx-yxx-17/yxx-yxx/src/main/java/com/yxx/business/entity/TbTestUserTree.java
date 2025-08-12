@@ -1,9 +1,10 @@
 package com.yxx.business.entity;
 
+import java.io.Serial;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yxx.common.annotation.Excel;
-import com.yxx.common.core.domain.BaseEntity;
+import com.yxx.common.core.domain.TreeEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -12,34 +13,41 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.experimental.Accessors;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
- * 测试单表生成对象 tb_test_user
+ * 测试树表生成对象 tb_test_user_tree
  *
  * @author yxx
  * @date 2025-08-11
  */
-@Schema(description = "测试主表生成实体")
+@Schema(description = "测试树表生成实体")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @Builder
 @Data
-@TableName(value = "tb_test_user_sub", autoResultMap = true)
-public class TbTestUser extends BaseEntity {
+@TableName(value = "tb_test_user_tree", autoResultMap = true)
+public class TbTestUserTree extends TreeEntity {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Schema(description = "用户ID")
     @TableId(value = "user_id", type = IdType.AUTO)
     private Long userId;
 
-    @Schema(description = "主表ID")
-    @TableField("parent_id")
-    @Excel(name = "主表ID")
-    private Long parentId;
+    @Schema(description = "节点ID")
+    @TableField("tree_id")
+    @Excel(name = "节点ID")
+    private Long treeId;
+
+    @Schema(description = "节点名称")
+    @NotBlank(message = "节点名称不能为空")
+    @TableField("tree_name")
+    @Excel(name = "节点名称")
+    private String treeName;
 
     @Schema(description = "用户账号")
     @NotBlank(message = "用户账号不能为空")

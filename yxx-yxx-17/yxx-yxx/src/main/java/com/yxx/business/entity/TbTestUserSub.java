@@ -1,5 +1,7 @@
 package com.yxx.business.entity;
 
+import java.io.Serial;
+import java.util.List;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yxx.common.annotation.Excel;
@@ -12,10 +14,11 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.experimental.Accessors;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 
 /**
- * 测试单表生成对象 tb_test_user
+ * 测试主表生成对象 tb_test_user_sub
  *
  * @author yxx
  * @date 2025-08-11
@@ -28,18 +31,14 @@ import javax.validation.constraints.NotBlank;
 @Builder
 @Data
 @TableName(value = "tb_test_user_sub", autoResultMap = true)
-public class TbTestUser extends BaseEntity {
+public class TbTestUserSub extends BaseEntity {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
-    @Schema(description = "用户ID")
-    @TableId(value = "user_id", type = IdType.AUTO)
-    private Long userId;
-
     @Schema(description = "主表ID")
-    @TableField("parent_id")
-    @Excel(name = "主表ID")
-    private Long parentId;
+    @TableId(value = "sub_id", type = IdType.AUTO)
+    private Long subId;
 
     @Schema(description = "用户账号")
     @NotBlank(message = "用户账号不能为空")
@@ -68,5 +67,12 @@ public class TbTestUser extends BaseEntity {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Excel(name = "注册时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private Date registerTime;
+
+    /**
+    * 测试单表生成信息
+    */
+    @TableField(exist = false)
+    @Valid
+    private List<TbTestUser> tbTestUserList;
 
 }

@@ -18,7 +18,8 @@
         <java.version>17</java.version>
 
         <yxx.version>3.8.9</yxx.version>
-        <spring-boot.version>3.5.4</spring-boot.version>
+        <!-- 最新版3.5.4 和 knife4j 4.5.0 存在兼容问题 -->
+        <spring-boot.version>3.3.5</spring-boot.version>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
         <spring-boot-maven-plugin.version>3.3.0</spring-boot-maven-plugin.version>
 

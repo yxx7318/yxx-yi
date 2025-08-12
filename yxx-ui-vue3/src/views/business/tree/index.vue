@@ -372,7 +372,7 @@ function submitForm() {
   proxy.$refs["treeRef"].validate(valid => {
     if (valid) {
       if (form.value.userId != null) {
-        updateTree(form.value).then(response => {
+        updateTree(form.value.userId, form.value).then(response => {
           proxy.$modal.msgSuccess("修改成功")
           open.value = false
           getList()

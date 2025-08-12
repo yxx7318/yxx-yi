@@ -8,12 +8,12 @@ import lombok.experimental.Accessors;
 import lombok.*;
 
 /**
- * 测试用户QueryDto对象 tb_test_user
+ * 测试单表生成QueryDto对象 tb_test_user
  *
  * @author yxx
- * @date 2025-08-08
+ * @date 2025-08-11
  */
-@Schema(description = "测试用户查询条件实体")
+@Schema(description = "测试单表生成查询条件实体")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -28,7 +28,7 @@ public class TbTestUserQueryDto extends BaseQueryDtoEntity {
     @Schema(description = "用户ID")
     private Long userId;
 
-    @Schema(description = "父表ID")
+    @Schema(description = "主表ID")
     private Long parentId;
 
     @Schema(description = "用户账号")
@@ -40,10 +40,10 @@ public class TbTestUserQueryDto extends BaseQueryDtoEntity {
     @Schema(description = "账号状态（0正常 1停用）")
     private String status;
 
-    @Schema(description = "注册时间")
-    private Date registerTime;
-
     @Schema(description = "注册日期")
     private Date registerDate;
+
+    @Schema(description = "注册时间")
+    private Date registerTime;
 
 }

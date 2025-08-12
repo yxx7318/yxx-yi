@@ -152,6 +152,15 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
     public <PO, VO> List<VO> convertList(List<PO> list, Function<PO, VO> convertor);
 
     /**
+     * 获取到MyBatis分页结果
+     *
+     * @param list    分页插件查询数据
+     * @param <PO>    PO对象
+     * @return PageResult<PO>分页结果
+     */
+    public <PO> PageResult<PO> getMyBatisPageResult(List<PO> list);
+
+    /**
      * 获取到MyBatis分页结果并转化为Vo对象分页结果
      *
      * @param list    分页插件查询数据

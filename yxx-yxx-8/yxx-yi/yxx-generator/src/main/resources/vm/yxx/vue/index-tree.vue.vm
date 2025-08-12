@@ -151,17 +151,13 @@
 #end
 #if($column.pk)
 #elseif($column.list && $column.htmlType == "date")
-      <el-table-column label="$comment" prop="${javaField}" width="180" v-if="columns[$index].visible">#set($index = $index + 1)
+      <el-table-column label="${comment}" align="center" prop="${javaField}" v-if="columns[$index].visible">#set($index = $index + 1)
         <template slot-scope="scope">
-          <el-date-picker clearable v-model="scope.row.$javaField" type="date" value-format="yyyy-MM-dd" placeholder="请选择$comment" />
+          <span>{{ parseTime(scope.row.${javaField}, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
 #elseif($column.list && $column.htmlType == "datetime")
-      <el-table-column label="${comment}" align="center" prop="${javaField}" width="240" v-if="columns[$index].visible">#set($index = $index + 1)
-        <template slot-scope="scope">
-          <el-date-picker clearable v-model="scope.row.$javaField" type="datetime" value-format="yyyy-MM-dd HH:mm:ss" placeholder="请选择$comment" />
-        </template>
-      </el-table-column>
+      <el-table-column label="${comment}" align="center" prop="${javaField}" v-if="columns[$index].visible" />#set($index = $index + 1)
 #elseif($column.list && $column.htmlType == "imageUpload")
       <el-table-column label="${comment}" align="center" prop="${javaField}" width="100" v-if="columns[$index].visible">#set($index = $index + 1)
         <template slot-scope="scope">
@@ -590,7 +586,7 @@ export default {
 #end
 #end
           if (this.form.${pkColumn.javaField} != null) {
-            update${BusinessName}(this.form).then(response => {
+            update${BusinessName}(form.value.${pkColumn.javaField}, this.form).then(response => {
               this.#[[$modal]]#.msgSuccess("修改成功")
               this.open = false
               this.getList()

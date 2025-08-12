@@ -78,13 +78,4 @@ public class ${ClassName}Do extends ${Entity} {
 ## 更新计数器
 #set($index = $index + 1)
 #end
-## 主子表的额外属性
-#if($table.sub)
-    /**
-    * $table.subTable.functionName信息
-    */
-    @TableField(exist = false)
-    private List<${subClassName}> ${subclassName}List;
-
-#end
 }

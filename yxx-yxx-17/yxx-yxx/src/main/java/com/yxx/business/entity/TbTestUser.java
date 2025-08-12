@@ -1,5 +1,6 @@
 package com.yxx.business.entity;
 
+import java.io.Serial;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yxx.common.annotation.Excel;
@@ -12,7 +13,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.experimental.Accessors;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 /**
  * 测试单表生成对象 tb_test_user
@@ -30,6 +31,7 @@ import javax.validation.constraints.NotBlank;
 @TableName(value = "tb_test_user_sub", autoResultMap = true)
 public class TbTestUser extends BaseEntity {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Schema(description = "用户ID")

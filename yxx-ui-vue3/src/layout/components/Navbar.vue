@@ -95,7 +95,7 @@ function logout() {
     type: 'warning'
   }).then(() => {
     userStore.logOut().then(() => {
-      location.href = import.meta.env.VITE_APP_PUBLIC_PATH ? import.meta.env.VITE_APP_PUBLIC_PATH : '/' + 'index'
+      location.href = import.meta.env.VITE_APP_PUBLIC_PATH ? import.meta.env.VITE_APP_PUBLIC_PATH : '' + '/index'
     })
   }).catch(() => { })
 }
@@ -178,7 +178,7 @@ function toggleTheme() {
 
         svg {
           transition: transform 0.3s;
-          
+
           &:hover {
             transform: scale(1.15);
           }

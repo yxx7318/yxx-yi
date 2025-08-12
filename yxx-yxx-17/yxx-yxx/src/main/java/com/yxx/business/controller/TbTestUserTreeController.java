@@ -1,7 +1,7 @@
 package com.yxx.business.controller;
 
 import java.util.List;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -26,7 +26,7 @@ import com.yxx.common.utils.poi.ExcelUtil;
 import com.yxx.common.core.domain.R;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;
-import org.springdoc.api.annotations.ParameterObject;
+import org.springdoc.core.annotations.ParameterObject;
 
 import org.springframework.validation.annotation.Validated;
 
