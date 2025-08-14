@@ -1,5 +1,5 @@
 -- ----------------------------
--- 代码生成测试表
+-- 代码生成测试单表
 -- ----------------------------
 drop table if exists `tb_test_user`;
 create table `tb_test_user` (
