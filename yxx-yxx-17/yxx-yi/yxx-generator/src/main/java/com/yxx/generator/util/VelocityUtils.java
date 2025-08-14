@@ -31,6 +31,32 @@ public class VelocityUtils
     private static final String DEFAULT_PARENT_MENU_ID = "3";
 
     /**
+     * 处理日期的兼容
+     */
+    private static void dealDateType(GenTable genTable)
+    {
+        for (GenTableColumn column : genTable.getColumns())
+        {
+            if (GenVmTypeEnum.YXX.equals(GenConfig.getVmType()) && GenConstants.TYPE_DATE.equals(column.getJavaType()))
+            {
+                column.setJavaType(GenConstants.TYPE_LOCAL_DATE);
+            }
+            else if (GenVmTypeEnum.YXX.equals(GenConfig.getVmType()) && GenConstants.TYPE_DATE_TIME.equals(column.getJavaType()))
+            {
+                column.setJavaType(GenConstants.TYPE_LOCAL_DATE_TIME);
+            }
+            else if (GenVmTypeEnum.RUO_YI.equals(GenConfig.getVmType()) && GenConstants.TYPE_DATE.equals(column.getJavaType()))
+            {
+                column.setJavaType(GenConstants.TYPE_DATE);
+            }
+            else if (GenVmTypeEnum.RUO_YI.equals(GenConfig.getVmType()) && GenConstants.TYPE_DATE_TIME.equals(column.getJavaType()))
+            {
+                column.setJavaType(GenConstants.TYPE_DATE);
+            }
+        }
+    }
+
+    /**
      * 设置模板变量信息
      *
      * @return 模板列表
@@ -59,6 +85,8 @@ public class VelocityUtils
         velocityContext.put("pkColumn", genTable.getPkColumn());
         velocityContext.put("importList", getImportList(genTable));
         velocityContext.put("permissionPrefix", getPermissionPrefix(moduleName, businessName));
+        // 处理日期的兼容
+        dealDateType(genTable);
         velocityContext.put("columns", genTable.getColumns());
         velocityContext.put("table", genTable);
         velocityContext.put("dicts", getDicts(genTable));
@@ -130,6 +158,8 @@ public class VelocityUtils
         context.put("subClassName", subClassName);
         context.put("subclassName", StringUtils.uncapitalize(subClassName));
         context.put("subImportList", getImportList(genTable.getSubTable()));
+        // 处理日期的兼容
+        dealDateType(subTable);
     }
 
     /**
@@ -146,7 +176,7 @@ public class VelocityUtils
         {
             useWebType = basePath + "vue/v3";
         }
-        List<String> templates = new ArrayList<String>();
+        List<String> templates = new ArrayList<>();
         if (GenVmTypeEnum.YXX.equals(GenConfig.getVmType()) && GenConstants.TPL_CRUD.equals(tplCategory))
         {
             templates.add(basePath + "java/domain-do.java.vm");
@@ -301,35 +331,47 @@ public class VelocityUtils
     {
         List<GenTableColumn> columns = genTable.getColumns();
         GenTable subGenTable = genTable.getSubTable();
-        HashSet<String> importList = new HashSet<String>();
+        HashSet<String> importSet = new HashSet<>();
         if (!"1.8".equals(System.getProperty("java.specification.version")))
         {
-            importList.add("java.io.Serial");
+            importSet.add("java.io.Serial");
         }
         if (StringUtils.isNotNull(subGenTable))
         {
-            importList.add("java.util.List");
+            importSet.add("java.util.List");
         }
         for (GenTableColumn column : columns)
         {
-            if (!column.isSuperColumn() && GenConstants.TYPE_DATE.equals(column.getJavaType()))
+            if (!column.isSuperColumn() && GenConstants.isDate(column.getJavaType()))
             {
                 if (GenVmTypeEnum.YXX.equals(GenConfig.getVmType()))
                 {
-                    importList.add("java.util.Date");
+                    importSet.add("java.time.LocalDate");
                 }
                 else
                 {
-                    importList.add("java.util.Date");
-                    importList.add("com.fasterxml.jackson.annotation.JsonFormat");
+                    importSet.add("java.util.Date");
+                    importSet.add("com.fasterxml.jackson.annotation.JsonFormat");
+                }
+            }
+            else if (!column.isSuperColumn() && GenConstants.isDateTime(column.getJavaType()))
+            {
+                if (GenVmTypeEnum.YXX.equals(GenConfig.getVmType()))
+                {
+                    importSet.add("java.time.LocalDateTime");
+                }
+                else
+                {
+                    importSet.add("java.util.Date");
+                    importSet.add("com.fasterxml.jackson.annotation.JsonFormat");
                 }
             }
             else if (!column.isSuperColumn() && GenConstants.TYPE_BIGDECIMAL.equals(column.getJavaType()))
             {
-                importList.add("java.math.BigDecimal");
+                importSet.add("java.math.BigDecimal");
             }
         }
-        return importList;
+        return importSet;
     }
 
     /**
@@ -341,7 +383,7 @@ public class VelocityUtils
     public static String getDicts(GenTable genTable)
     {
         List<GenTableColumn> columns = genTable.getColumns();
-        Set<String> dicts = new HashSet<String>();
+        Set<String> dicts = new HashSet<>();
         addDicts(dicts, columns);
         if (StringUtils.isNotNull(genTable.getSubTable()))
         {

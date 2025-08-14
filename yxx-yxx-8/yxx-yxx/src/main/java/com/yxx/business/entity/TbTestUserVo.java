@@ -1,6 +1,7 @@
 package com.yxx.business.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yxx.common.annotation.Excel;
 import com.yxx.common.core.domain.BaseEntity;
@@ -12,7 +13,7 @@ import lombok.*;
  * 测试单表生成Vo对象 tb_test_user
  *
  * @author yxx
- * @date 2025-08-11
+ * @date 2025-08-14
  */
 @Schema(description = "测试单表生成Vo实体")
 @NoArgsConstructor
@@ -47,11 +48,11 @@ public class TbTestUserVo extends BaseEntity {
     @Schema(description = "注册日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "注册日期", width = 20, dateFormat = "yyyy-MM-dd")
-    private Date registerDate;
+    private LocalDate registerDate;
 
     @Schema(description = "注册时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Excel(name = "注册时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
-    private Date registerTime;
+    private LocalDateTime registerTime;
 
 }

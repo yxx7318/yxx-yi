@@ -1,7 +1,8 @@
 package com.yxx.business.entity;
 
 import java.util.List;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yxx.common.annotation.Excel;
 import com.yxx.common.core.domain.BaseEntity;
@@ -20,7 +21,7 @@ import javax.validation.constraints.NotBlank;
  * 测试主表生成对象 tb_test_user_sub
  *
  * @author yxx
- * @date 2025-08-11
+ * @date 2025-08-14
  */
 @Schema(description = "测试主表生成实体")
 @NoArgsConstructor
@@ -58,13 +59,13 @@ public class TbTestUserSub extends BaseEntity {
     @TableField("register_date")
     @JsonFormat(pattern = "yyyy-MM-dd")
     @Excel(name = "注册日期", width = 20, dateFormat = "yyyy-MM-dd")
-    private Date registerDate;
+    private LocalDate registerDate;
 
     @Schema(description = "注册时间")
     @TableField("register_time")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Excel(name = "注册时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
-    private Date registerTime;
+    private LocalDateTime registerTime;
 
     /**
     * 测试单表生成信息

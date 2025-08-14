@@ -5,7 +5,7 @@ import ${import};
 #end
 #foreach ($column in $columns)
 #if(!$table.isSuperColumn($column.javaField))
-#if($column.javaType == 'Date')
+#if($column.htmlType == "date" || $column.htmlType == "datetime")
 import com.fasterxml.jackson.annotation.JsonFormat;
 #break
 #end
@@ -68,9 +68,9 @@ public class ${ClassName}EditDto extends ${Entity} {
 #elseif($column.required && $column.javaType == "String")
     @NotBlank(message = "$column.columnComment不能为空")
 #end
-#if($column.javaType == 'Date' && $column.htmlType == "datetime")
+#if($column.htmlType == "datetime")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-#elseif($column.javaType == 'Date')
+#elseif($column.htmlType == "date")
     @JsonFormat(pattern = "yyyy-MM-dd")
 #end
     private $column.javaType $column.javaField;

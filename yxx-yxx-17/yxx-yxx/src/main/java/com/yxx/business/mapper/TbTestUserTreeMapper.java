@@ -9,7 +9,7 @@ import com.yxx.common.core.mapper.BaseMapperPlus;
  * 测试树表生成Mapper接口
  *
  * @author yxx
- * @date 2025-08-11
+ * @date 2025-08-14
  */
 public interface TbTestUserTreeMapper extends BaseMapperPlus<TbTestUserTree> {
 

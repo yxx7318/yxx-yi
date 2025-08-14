@@ -51,9 +51,34 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseColumnEn
         return convertor.apply(t);
     }
 
+    /**
+     * 获取转化后的T结果
+     */
     @Override
     public <PO> T convertT(PO po) {
         return BeanUtil.copyProperties(po, super.getEntityClass());
+    }
+
+    /**
+     * 获取转化后的List结果
+     */
+    @Override
+    public <PO, VO> List<VO> convertList(List<PO> list, Class<VO> voClass) {
+        if (CollUtil.isEmpty(list)) {
+            return Collections.emptyList();
+        }
+        return BeanUtil.copyToList(list, voClass);
+    }
+
+    /**
+     * 获取转化后的VoList结果
+     */
+    @Override
+    public <PO, VO> List<VO> convertList(List<PO> list, Function<PO, VO> convertor) {
+        if (CollUtil.isEmpty(list)) {
+            return Collections.emptyList();
+        }
+        return list.stream().map(convertor).collect(Collectors.toList());
     }
 
     /**
@@ -85,32 +110,6 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseColumnEn
     public <DTO extends PageQueryEntity> Page<T> getMpDoPage(DTO dto, Wrapper<T> wrapper) {
         return MpPageUtils.getSelectPage(dto, this.baseMapper, wrapper);
     }
-
-
-
-    /**
-     * 获取转化后的List结果
-     */
-    @Override
-    public <PO, VO> List<VO> convertList(List<PO> list, Class<VO> voClass) {
-        if (CollUtil.isEmpty(list)) {
-            return Collections.emptyList();
-        }
-        return BeanUtil.copyToList(list, voClass);
-    }
-
-    /**
-     * 获取转化后的VoList结果
-     */
-    @Override
-    public <PO, VO> List<VO> convertList(List<PO> list, Function<PO, VO> convertor) {
-        if (CollUtil.isEmpty(list)) {
-            return Collections.emptyList();
-        }
-        return list.stream().map(convertor).collect(Collectors.toList());
-    }
-
-
 
     /**
      * 获取到MyBatis分页结果

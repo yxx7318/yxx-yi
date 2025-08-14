@@ -133,9 +133,9 @@ public interface ${ClassName}Mapper extends BaseMapperPlus<${ClassDo}> {
     /**
      * 删除${subTable.functionName}
      *
-     * @param ${subclassName} ${subTable.functionName}
+     * @param ${subPkJavaField}s ${subTable.functionName}
      * @return 结果
      */
-    public int delete${subClassName}(List<${subPkType}> ${subPkJavaField});
+    public int delete${subClassName}(List<${subPkType}> ${subPkJavaField}s);
 #end
 }

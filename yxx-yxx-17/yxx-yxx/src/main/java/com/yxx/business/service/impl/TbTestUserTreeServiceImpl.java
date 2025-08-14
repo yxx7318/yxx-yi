@@ -1,7 +1,6 @@
 package com.yxx.business.service.impl;
 
 import java.util.List;
-import com.yxx.common.utils.DateUtils;
 import com.yxx.common.core.domain.PageResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,7 @@ import com.yxx.business.service.ITbTestUserTreeService;
  * 测试树表生成Service业务层处理
  *
  * @author yxx
- * @date 2025-08-11
+ * @date 2025-08-14
  */
 @Slf4j
 @Service
@@ -75,7 +74,7 @@ public class TbTestUserTreeServiceImpl extends ServiceImplPlus<TbTestUserTreeMap
     public int insertTbTestUserTree(TbTestUserTree tbTestUserTree) {
         tbTestUserTree.setCreateById(getUserIdOrNotLogged());
         tbTestUserTree.setCreateByName(getUserNameOrNotLogged());
-        tbTestUserTree.setCreateTime(DateUtils.getNowDate());
+        tbTestUserTree.setCreateTime(getNowLocalDateTime());
         return tbTestUserTreeMapper.insertTbTestUserTree(super.convertT(tbTestUserTree));
     }
 
@@ -90,7 +89,7 @@ public class TbTestUserTreeServiceImpl extends ServiceImplPlus<TbTestUserTreeMap
     public int updateTbTestUserTree(Long userId, TbTestUserTree tbTestUserTree) {
         tbTestUserTree.setUpdateById(getUserIdOrNotLogged());
         tbTestUserTree.setUpdateByName(getUserNameOrNotLogged());
-        tbTestUserTree.setUpdateTime(DateUtils.getNowDate());
+        tbTestUserTree.setUpdateTime(getNowLocalDateTime());
         return tbTestUserTreeMapper.updateTbTestUserTree(super.convertT(tbTestUserTree).setUserId(userId));
     }
 

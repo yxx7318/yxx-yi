@@ -9,12 +9,17 @@ import com.yxx.common.core.domain.PageQueryEntity;
 import com.yxx.common.core.domain.model.LoginUser;
 import com.yxx.common.core.page.PageDomain;
 import com.yxx.common.core.page.TableSupport;
+import com.yxx.common.utils.DateUtils;
+import com.yxx.common.utils.LocalDateUtils;
 import com.yxx.common.utils.PageUtils;
 import com.yxx.common.utils.SecurityUtils;
 import com.yxx.common.utils.StringUtils;
 import com.yxx.common.utils.sql.SqlUtil;
 import com.yxx.common.core.domain.PageResult;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.function.Function;
 
@@ -25,6 +30,7 @@ import java.util.function.Function;
  * @author yxx
  */
 public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
+
     /**
      * 设置请求分页数据
      */
@@ -79,6 +85,34 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
     }
 
     /**
+     * 获取当前日期, 默认格式为yyyy-MM-dd
+     */
+    default String getNowDate() {
+        return DateUtils.getDate();
+    }
+
+    /**
+     * 获取当前时间Date对象
+     */
+    default Date getNowDateTime() {
+        return DateUtils.getNowDate();
+    }
+
+    /**
+     * 获取当前日期LocalDate对象
+     */
+    default LocalDate getNowLocalDate() {
+        return LocalDateUtils.getNowLocalDate();
+    }
+
+    /**
+     * 获取当前时间LocalDateTime对象
+     */
+    default LocalDateTime getNowLocalDateTime() {
+        return LocalDateUtils.getNowLocalDateTime();
+    }
+
+    /**
      * 获取转化后的Po结果
      */
     public <PO> PO convertBean(T t, Class<PO> voClass);
@@ -92,6 +126,28 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
      * 获取转化后的T结果
      */
     public <PO> T convertT(PO po);
+
+    /**
+     * 获取转化后的List结果
+     *
+     * @param list    数据库查询结果
+     * @param voClass voClass对象字节码
+     * @param <PO>    PO对象
+     * @param <VO>    VO对象
+     * @return VoList
+     */
+    public <PO, VO> List<VO> convertList(List<PO> list, Class<VO> voClass);
+
+    /**
+     * 获取转化后的VoList结果
+     *
+     * @param list      数据库查询结果
+     * @param convertor 自定义转换方法
+     * @param <PO>    PO对象
+     * @param <VO>    VO对象
+     * @return VoList
+     */
+    public <PO, VO> List<VO> convertList(List<PO> list, Function<PO, VO> convertor);
 
     /**
      * 获取MP通用分页结果
@@ -128,28 +184,6 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
      * @return 分页结果
      */
     public <DTO extends PageQueryEntity> Page<T> getMpDoPage(DTO dto, Wrapper<T> wrapper);
-
-    /**
-     * 获取转化后的List结果
-     *
-     * @param list    数据库查询结果
-     * @param voClass voClass对象字节码
-     * @param <PO>    PO对象
-     * @param <VO>    VO对象
-     * @return VoList
-     */
-    public <PO, VO> List<VO> convertList(List<PO> list, Class<VO> voClass);
-
-    /**
-     * 获取转化后的VoList结果
-     *
-     * @param list      数据库查询结果
-     * @param convertor 自定义转换方法
-     * @param <PO>    PO对象
-     * @param <VO>    VO对象
-     * @return VoList
-     */
-    public <PO, VO> List<VO> convertList(List<PO> list, Function<PO, VO> convertor);
 
     /**
      * 获取到MyBatis分页结果

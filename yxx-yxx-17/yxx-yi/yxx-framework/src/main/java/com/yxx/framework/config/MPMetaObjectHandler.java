@@ -1,12 +1,11 @@
 package com.yxx.framework.config;
 
 import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import com.yxx.common.utils.DateUtils;
+import com.yxx.common.utils.LocalDateUtils;
 import com.yxx.common.utils.SecurityUtils;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
-
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 自定义元数据对象处理器
@@ -22,10 +21,10 @@ public class MPMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void insertFill(MetaObject metaObject) {
         if (metaObject.hasSetter("createTime")) {
-            this.strictInsertFill(metaObject, "createTime", DateUtils::getNowDate, Date.class);
+            this.strictInsertFill(metaObject, "createTime", LocalDateUtils::getNowLocalDateTime, LocalDateTime.class);
         }
         if (metaObject.hasSetter("updateTime")) {
-            this.strictInsertFill(metaObject, "updateTime", DateUtils::getNowDate, Date.class);
+            this.strictInsertFill(metaObject, "updateTime", LocalDateUtils::getNowLocalDateTime, LocalDateTime.class);
         }
         if (metaObject.hasSetter("createById")) {
             this.strictInsertFill(metaObject, "createById", SecurityUtils::getUsernameOrNotLogged, String.class);
@@ -49,7 +48,7 @@ public class MPMetaObjectHandler implements MetaObjectHandler {
     @Override
     public void updateFill(MetaObject metaObject) {
         if (metaObject.hasSetter("updateTime")) {
-            this.strictUpdateFill(metaObject, "updateTime", DateUtils::getNowDate, Date.class);
+            this.strictUpdateFill(metaObject, "updateTime", LocalDateUtils::getNowLocalDateTime, LocalDateTime.class);
         }
         if (metaObject.hasSetter("updateById")) {
             this.strictUpdateFill(metaObject, "updateById", SecurityUtils::getUsernameOrNotLogged, String.class);

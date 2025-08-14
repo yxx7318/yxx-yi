@@ -18,10 +18,6 @@ spring:
   # 配置文件
   profiles:
     active: '@profiles.active@'
-  # json时Data对象序列化格式
-  jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
-    time-zone: GMT+8
   # 资源信息
   messages:
     # 国际化资源文件路径
@@ -46,9 +42,20 @@ spring:
     restart:
       # 热部署开关
       enabled: false
-  enabled:
-    # 数字自动转化字符串
+  # json 序列化相关配置
+  # json时Date对象序列化格式
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  json:
+    # LocalDateTime 时间戳序列化和反序列化
+    timestampLocalDateTime: false
+    # 数字全部转化字符串
     numToStr: false
+    # null值字段忽略
+    nonNull: false
+    # null和empty值字段忽略
+    nonEmpty: false
 
 # MyBatis Plus配置
 mybatis-plus:

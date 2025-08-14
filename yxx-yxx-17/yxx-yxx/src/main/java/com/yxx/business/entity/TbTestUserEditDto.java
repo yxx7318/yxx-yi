@@ -1,7 +1,8 @@
 package com.yxx.business.entity;
 
 import java.io.Serial;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yxx.common.core.domain.BaseEditDtoEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -14,7 +15,7 @@ import jakarta.validation.constraints.NotBlank;
  * 测试单表生成EditDto对象 tb_test_user
  *
  * @author yxx
- * @date 2025-08-11
+ * @date 2025-08-14
  */
 @Schema(description = "测试单表生成编辑实体")
 @NoArgsConstructor
@@ -46,10 +47,10 @@ public class TbTestUserEditDto extends BaseEditDtoEntity {
 
     @Schema(description = "注册日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
-    private Date registerDate;
+    private LocalDate registerDate;
 
     @Schema(description = "注册时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date registerTime;
+    private LocalDateTime registerTime;
 
 }

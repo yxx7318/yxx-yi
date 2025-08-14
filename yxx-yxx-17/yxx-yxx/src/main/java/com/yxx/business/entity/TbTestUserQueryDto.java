@@ -1,7 +1,8 @@
 package com.yxx.business.entity;
 
 import java.io.Serial;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import com.yxx.common.core.domain.BaseQueryDtoEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.experimental.Accessors;
@@ -11,7 +12,7 @@ import lombok.*;
  * 测试单表生成QueryDto对象 tb_test_user
  *
  * @author yxx
- * @date 2025-08-11
+ * @date 2025-08-14
  */
 @Schema(description = "测试单表生成查询条件实体")
 @NoArgsConstructor
@@ -41,9 +42,9 @@ public class TbTestUserQueryDto extends BaseQueryDtoEntity {
     private String status;
 
     @Schema(description = "注册日期")
-    private Date registerDate;
+    private LocalDate registerDate;
 
     @Schema(description = "注册时间")
-    private Date registerTime;
+    private LocalDateTime registerTime;
 
 }

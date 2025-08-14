@@ -1,7 +1,6 @@
 package com.yxx.business.service.impl;
 
 import java.util.List;
-import com.yxx.common.utils.DateUtils;
 import com.yxx.common.core.domain.PageResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,7 @@ import com.yxx.business.service.ITbTestUserService;
  * 测试单表生成Service业务层处理
  *
  * @author yxx
- * @date 2025-08-11
+ * @date 2025-08-14
  */
 @Slf4j
 @Service
@@ -89,7 +88,7 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
     public int insertTbTestUser(TbTestUserEditDto tbTestUserEditDto) {
         tbTestUserEditDto.setCreateById(getUserIdOrNotLogged());
         tbTestUserEditDto.setCreateByName(getUserNameOrNotLogged());
-        tbTestUserEditDto.setCreateTime(DateUtils.getNowDate());
+        tbTestUserEditDto.setCreateTime(getNowLocalDateTime());
         return tbTestUserMapper.insertTbTestUser(super.convertT(tbTestUserEditDto));
     }
 
@@ -104,7 +103,7 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
     public int updateTbTestUser(Long userId, TbTestUserEditDto tbTestUserEditDto) {
         tbTestUserEditDto.setUpdateById(getUserIdOrNotLogged());
         tbTestUserEditDto.setUpdateByName(getUserNameOrNotLogged());
-        tbTestUserEditDto.setUpdateTime(DateUtils.getNowDate());
+        tbTestUserEditDto.setUpdateTime(getNowLocalDateTime());
         return tbTestUserMapper.updateTbTestUser(super.convertT(tbTestUserEditDto).setUserId(userId));
     }
 

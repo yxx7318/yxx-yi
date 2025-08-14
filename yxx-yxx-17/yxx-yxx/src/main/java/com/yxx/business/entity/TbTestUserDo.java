@@ -1,7 +1,8 @@
 package com.yxx.business.entity;
 
 import java.io.Serial;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import com.yxx.common.annotation.Excel;
 import com.yxx.common.core.domain.BaseColumnEntity;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -16,7 +17,7 @@ import lombok.*;
  * 测试单表生成Do对象 tb_test_user
  *
  * @author yxx
- * @date 2025-08-11
+ * @date 2025-08-14
  */
 @Schema(description = "测试单表生成Do实体")
 @NoArgsConstructor
@@ -58,11 +59,11 @@ public class TbTestUserDo extends BaseColumnEntity {
     @Schema(description = "注册日期")
     @TableField("register_date")
     @Excel(name = "注册日期", width = 20, dateFormat = "yyyy-MM-dd")
-    private Date registerDate;
+    private LocalDate registerDate;
 
     @Schema(description = "注册时间")
     @TableField("register_time")
     @Excel(name = "注册时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
-    private Date registerTime;
+    private LocalDateTime registerTime;
 
 }

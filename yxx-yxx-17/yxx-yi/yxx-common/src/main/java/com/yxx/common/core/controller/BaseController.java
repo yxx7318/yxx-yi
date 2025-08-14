@@ -4,8 +4,6 @@ import java.beans.PropertyEditorSupport;
 import java.util.Date;
 import java.util.List;
 
-import com.yxx.common.core.domain.R;
-import com.yxx.common.utils.bean.BeanUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.WebDataBinder;
@@ -141,7 +139,7 @@ public class BaseController
 
     /**
      * 响应返回结果
-     * 
+     *
      * @param rows 影响行数
      * @return 操作结果
      */
@@ -152,7 +150,7 @@ public class BaseController
 
     /**
      * 响应返回结果
-     * 
+     *
      * @param result 结果
      * @return 操作结果
      */

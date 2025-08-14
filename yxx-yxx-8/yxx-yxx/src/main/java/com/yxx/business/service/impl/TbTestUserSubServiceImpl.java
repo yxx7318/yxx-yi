@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.ArrayList;
 import java.util.Map;
 import com.yxx.common.core.utils.StreamUtils;
-import com.yxx.common.utils.DateUtils;
 import com.yxx.common.core.domain.PageResult;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,7 @@ import com.yxx.business.service.ITbTestUserSubService;
  * 测试主表生成Service业务层处理
  *
  * @author yxx
- * @date 2025-08-11
+ * @date 2025-08-14
  */
 @Slf4j
 @Service
@@ -83,7 +82,7 @@ public class TbTestUserSubServiceImpl extends ServiceImplPlus<TbTestUserSubMappe
     public int insertTbTestUserSub(TbTestUserSub tbTestUserSub) {
         tbTestUserSub.setCreateById(getUserIdOrNotLogged());
         tbTestUserSub.setCreateByName(getUserNameOrNotLogged());
-        tbTestUserSub.setCreateTime(DateUtils.getNowDate());
+        tbTestUserSub.setCreateTime(getNowLocalDateTime());
         int rows = tbTestUserSubMapper.insertTbTestUserSub(tbTestUserSub);
         insertTbTestUser(tbTestUserSub.getSubId(), tbTestUserSub.getTbTestUserList());
         return rows;
@@ -101,7 +100,7 @@ public class TbTestUserSubServiceImpl extends ServiceImplPlus<TbTestUserSubMappe
     public int updateTbTestUserSub(Long subId, TbTestUserSub tbTestUserSub) {
         tbTestUserSub.setUpdateById(getUserIdOrNotLogged());
         tbTestUserSub.setUpdateByName(getUserNameOrNotLogged());
-        tbTestUserSub.setUpdateTime(DateUtils.getNowDate());
+        tbTestUserSub.setUpdateTime(getNowLocalDateTime());
         HashSet<Long> ids = new HashSet<>(tbTestUserSubMapper.selectUserIdsByParentId(subId));
         tbTestUserSub.getTbTestUserList().forEach(item -> ids.remove(item.getUserId()));
         // 需要删除的子表ids
@@ -155,7 +154,7 @@ public class TbTestUserSubServiceImpl extends ServiceImplPlus<TbTestUserSubMappe
                 tbTestUser.setParentId(subId);
                 tbTestUser.setCreateById(getUserIdOrNotLogged());
                 tbTestUser.setCreateByName(getUserNameOrNotLogged());
-                tbTestUser.setCreateTime(DateUtils.getNowDate());
+                tbTestUser.setCreateTime(getNowLocalDateTime());
                 list.add(tbTestUser);
             }
             if (list.size() > 0)
@@ -178,7 +177,7 @@ public class TbTestUserSubServiceImpl extends ServiceImplPlus<TbTestUserSubMappe
             {
                 tbTestUser.setUpdateById(getUserIdOrNotLogged());
                 tbTestUser.setUpdateByName(getUserNameOrNotLogged());
-                tbTestUser.setUpdateTime(DateUtils.getNowDate());
+                tbTestUser.setUpdateTime(getNowLocalDateTime());
                 list.add(tbTestUser);
             }
             if (list.size() > 0)

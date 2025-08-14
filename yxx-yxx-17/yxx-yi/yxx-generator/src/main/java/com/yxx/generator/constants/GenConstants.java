@@ -108,8 +108,17 @@ public class GenConstants
     /** 高精度计算类型 */
     public static final String TYPE_BIGDECIMAL = "BigDecimal";
 
-    /** 时间类型 */
+    /** 日期类型 */
     public static final String TYPE_DATE = "Date";
+
+    /** 时间类型 */
+    public static final String TYPE_DATE_TIME = "DateTime";
+
+    /** 日期类型 */
+    public static final String TYPE_LOCAL_DATE = "LocalDate";
+
+    /** 时间类型 */
+    public static final String TYPE_LOCAL_DATE_TIME = "LocalDateTime";
 
     /** 模糊查询 */
     public static final String QUERY_LIKE = "LIKE";
@@ -119,4 +128,16 @@ public class GenConstants
 
     /** 需要 */
     public static final String REQUIRE = "1";
+
+    /** 是否是日期类型 */
+    public static boolean isDate(String javaType)
+    {
+        return TYPE_DATE.equals(javaType) || TYPE_LOCAL_DATE.equals(javaType);
+    }
+
+    /** 是否是时间类型 */
+    public static boolean isDateTime(String javaType)
+    {
+        return TYPE_DATE_TIME.equals(javaType) || TYPE_LOCAL_DATE_TIME.equals(javaType);
+    }
 }

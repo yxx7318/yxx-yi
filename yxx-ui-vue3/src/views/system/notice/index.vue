@@ -88,11 +88,7 @@
             </template>
          </el-table-column>
          <el-table-column label="创建者" align="center" prop="createByName" width="100" />
-         <el-table-column label="创建时间" align="center" prop="createTime" width="100">
-            <template #default="scope">
-               <span>{{ parseTime(scope.row.createTime, '{y}-{m}-{d}') }}</span>
-            </template>
-         </el-table-column>
+         <el-table-column label="创建时间" align="center" prop="createTime" width="160" />
          <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
             <template #default="scope">
                <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['system:notice:edit']">修改</el-button>

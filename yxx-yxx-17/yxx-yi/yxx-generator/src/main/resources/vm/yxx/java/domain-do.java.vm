@@ -64,9 +64,9 @@ public class ${ClassName}Do extends ${Entity} {
 #end
 #if($parentheseIndex != -1)
     @Excel(name = "${comment}", readConverterExp = "$column.readConverterExp()")
-#elseif($column.javaType == 'Date' && $column.htmlType == "datetime")
+#elseif($column.htmlType == "datetime")
     @Excel(name = "${comment}", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
-#elseif($column.javaType == 'Date')
+#elseif($column.htmlType == "date")
     @Excel(name = "${comment}", width = 20, dateFormat = "yyyy-MM-dd")
 #else
     @Excel(name = "${comment}")

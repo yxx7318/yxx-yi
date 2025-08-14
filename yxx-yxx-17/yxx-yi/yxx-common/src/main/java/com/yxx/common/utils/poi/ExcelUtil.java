@@ -24,6 +24,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import jakarta.servlet.http.HttpServletResponse;
+import com.yxx.common.utils.LocalDateUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.RegExUtils;
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -369,7 +370,7 @@ public class ExcelUtil<T>
         if (rows > 0)
         {
             // 定义一个map用于存放excel列的序号和field.
-            Map<String, Integer> cellMap = new HashMap<String, Integer>();
+            Map<String, Integer> cellMap = new HashMap<>();
             // 获取表头
             Row heard = sheet.getRow(titleNum);
             for (int i = 0; i < heard.getPhysicalNumberOfCells(); i++)
@@ -387,7 +388,7 @@ public class ExcelUtil<T>
             }
             // 有数据时才处理 得到类的所有field.
             List<Object[]> fields = this.getFields();
-            Map<Integer, Object[]> fieldsMap = new HashMap<Integer, Object[]>();
+            Map<Integer, Object[]> fieldsMap = new HashMap<>();
             for (Object[] objects : fields)
             {
                 Excel attr = (Excel) objects[1];
@@ -469,48 +470,75 @@ public class ExcelUtil<T>
                             val = DateUtil.getJavaDate((Double) val);
                         }
                     }
+                    else if (LocalDate.class == fieldType)
+                    {
+                        if (val instanceof String)
+                        {
+                            val = LocalDateUtils.parseToLocalDate(val);
+                        }
+                        else if (val instanceof Double)
+                        {
+                            val = LocalDateUtils.toLocalDate(DateUtil.getJavaDate((Double) val));
+                        }
+                        else if (val instanceof Date)
+                        {
+                            val = LocalDateUtils.toLocalDate((Date) val);
+                        }
+                    }
+                    else if (LocalDateTime.class == fieldType)
+                    {
+                        if (val instanceof String)
+                        {
+                            val = LocalDateUtils.parseToLocalDateTime(val);
+                        }
+                        else if (val instanceof Double)
+                        {
+                            val = LocalDateUtils.toLocalDateTime(DateUtil.getJavaDate((Double) val));
+                        }
+                        else if (val instanceof Date)
+                        {
+                            val = LocalDateUtils.toLocalDateTime((Date) val);
+                        }
+                    }
                     else if (Boolean.TYPE == fieldType || Boolean.class == fieldType)
                     {
                         val = Convert.toBool(val, false);
                     }
-                    if (StringUtils.isNotNull(fieldType))
+                    String propertyName = field.getName();
+                    if (StringUtils.isNotEmpty(attr.targetAttr()))
                     {
-                        String propertyName = field.getName();
-                        if (StringUtils.isNotEmpty(attr.targetAttr()))
-                        {
-                            propertyName = field.getName() + "." + attr.targetAttr();
-                        }
-                        if (StringUtils.isNotEmpty(attr.readConverterExp()))
-                        {
-                            val = reverseByExp(Convert.toStr(val), attr.readConverterExp(), attr.separator());
-                        }
-                        else if (StringUtils.isNotEmpty(attr.dictType()))
-                        {
-                            if (!sysDictMap.containsKey(attr.dictType() + val))
-                            {
-                                String dictValue = reverseDictByExp(Convert.toStr(val), attr.dictType(), attr.separator());
-                                sysDictMap.put(attr.dictType() + val, dictValue);
-                            }
-                            val = sysDictMap.get(attr.dictType() + val);
-                        }
-                        else if (!attr.handler().equals(ExcelHandlerAdapter.class))
-                        {
-                            val = dataFormatHandlerAdapter(val, attr, null);
-                        }
-                        else if (ColumnType.IMAGE == attr.cellType() && StringUtils.isNotEmpty(pictures))
-                        {
-                            StringBuilder propertyString = new StringBuilder();
-                            List<PictureData> images = pictures.get(row.getRowNum() + "_" + entry.getKey());
-                            for (PictureData picture : images)
-                            {
-                                byte[] data = picture.getData();
-                                String fileName = FileUtils.writeImportBytes(data);
-                                propertyString.append(fileName).append(SEPARATOR);
-                            }
-                            val = StringUtils.stripEnd(propertyString.toString(), SEPARATOR);
-                        }
-                        ReflectUtils.invokeSetter(entity, propertyName, val);
+                        propertyName = field.getName() + "." + attr.targetAttr();
                     }
+                    if (StringUtils.isNotEmpty(attr.readConverterExp()))
+                    {
+                        val = reverseByExp(Convert.toStr(val), attr.readConverterExp(), attr.separator());
+                    }
+                    else if (StringUtils.isNotEmpty(attr.dictType()))
+                    {
+                        if (!sysDictMap.containsKey(attr.dictType() + val))
+                        {
+                            String dictValue = reverseDictByExp(Convert.toStr(val), attr.dictType(), attr.separator());
+                            sysDictMap.put(attr.dictType() + val, dictValue);
+                        }
+                        val = sysDictMap.get(attr.dictType() + val);
+                    }
+                    else if (!attr.handler().equals(ExcelHandlerAdapter.class))
+                    {
+                        val = dataFormatHandlerAdapter(val, attr, null);
+                    }
+                    else if (ColumnType.IMAGE == attr.cellType() && StringUtils.isNotEmpty(pictures))
+                    {
+                        StringBuilder propertyString = new StringBuilder();
+                        List<PictureData> images = pictures.get(row.getRowNum() + "_" + entry.getKey());
+                        for (PictureData picture : images)
+                        {
+                            byte[] data = picture.getData();
+                            String fileName = FileUtils.writeImportBytes(data);
+                            propertyString.append(fileName).append(SEPARATOR);
+                        }
+                        val = StringUtils.stripEnd(propertyString.toString(), SEPARATOR);
+                    }
+                    ReflectUtils.invokeSetter(entity, propertyName, val);
                 }
                 list.add(entity);
             }

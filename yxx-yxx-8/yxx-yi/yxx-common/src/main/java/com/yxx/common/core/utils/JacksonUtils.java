@@ -4,14 +4,10 @@ import cn.hutool.core.lang.Dict;
 import cn.hutool.core.util.ArrayUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.json.JSONUtil;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.exc.MismatchedInputException;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.yxx.common.utils.StringUtils;
 import com.yxx.common.utils.spring.SpringUtils;
 
@@ -25,17 +21,6 @@ import java.util.List;
 public class JacksonUtils {
 
     private static ObjectMapper OBJECT_MAPPER = SpringUtils.getBean(ObjectMapper.class);
-
-    static {
-        // 尝试序列化（即转换为JSON）没有 getter 方法或公共字段的类（空bean），不会抛出异常
-        OBJECT_MAPPER.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
-        // 在反序列化（即从JSON转换为Java对象）过程中，如果遇到JSON中存在但目标Java对象中不存在的属性时，不会抛出异常，提高灵活性
-        OBJECT_MAPPER.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-        // 此配置指定在序列化时忽略所有值为 null 的属性，减少输出数据量并保持JSON简洁
-        OBJECT_MAPPER.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        // 注册 JavaTimeModule 是为了支持Java 8时间类型（如 LocalDateTime, ZonedDateTime 等）的序列化和反序列化
-        OBJECT_MAPPER.registerModules(new JavaTimeModule());
-    }
 
     public static ObjectMapper getObjectMapper() {
         return OBJECT_MAPPER;

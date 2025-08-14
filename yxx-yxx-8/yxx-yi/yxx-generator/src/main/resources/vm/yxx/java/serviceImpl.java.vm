@@ -9,7 +9,6 @@ import com.yxx.common.core.utils.StreamUtils;
 #end
 #foreach ($column in $columns)
 #if($column.javaField == 'createTime' || $column.javaField == 'updateTime')
-import com.yxx.common.utils.DateUtils;
 #break
 #end
 #end
@@ -152,7 +151,7 @@ public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper,
         ${classEditDto}.setCreateByName(getUserNameOrNotLogged());
 #end
 #if($column.javaField == 'createTime')
-        ${classEditDto}.setCreateTime(DateUtils.getNowDate());
+        ${classEditDto}.setCreateTime(getNowLocalDateTime());
 #end
 #end
 #if($table.sub)
@@ -184,7 +183,7 @@ public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper,
         ${classEditDto}.setUpdateByName(getUserNameOrNotLogged());
 #end
 #if($column.javaField == 'updateTime')
-        ${classEditDto}.setUpdateTime(DateUtils.getNowDate());
+        ${classEditDto}.setUpdateTime(getNowLocalDateTime());
 #end
 #end
 #if($table.sub)
@@ -258,7 +257,7 @@ public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper,
                 ${subclassName}.set${subTableFkClassName}(${pkColumn.javaField});
                 ${subclassName}.setCreateById(getUserIdOrNotLogged());
                 ${subclassName}.setCreateByName(getUserNameOrNotLogged());
-                ${subclassName}.setCreateTime(DateUtils.getNowDate());
+                ${subclassName}.setCreateTime(getNowLocalDateTime());
                 list.add(${subclassName});
             }
             if (list.size() > 0)
@@ -283,7 +282,7 @@ public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper,
             {
                 ${subclassName}.setUpdateById(getUserIdOrNotLogged());
                 ${subclassName}.setUpdateByName(getUserNameOrNotLogged());
-                ${subclassName}.setUpdateTime(DateUtils.getNowDate());
+                ${subclassName}.setUpdateTime(getNowLocalDateTime());
                 list.add(${subclassName});
             }
             if (list.size() > 0)

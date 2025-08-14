@@ -28,6 +28,7 @@
                 <el-option label="Double" value="Double" />
                 <el-option label="BigDecimal" value="BigDecimal" />
                 <el-option label="Date" value="Date" />
+                <el-option label="DateTime" value="DateTime" />
                 <el-option label="Boolean" value="Boolean" />
               </el-select>
             </template>

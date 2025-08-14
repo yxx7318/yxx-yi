@@ -3,6 +3,7 @@ package com.yxx.generator.util;
 import com.yxx.common.utils.StringUtils;
 import com.yxx.generator.config.GenConfig;
 import com.yxx.generator.constants.GenConstants;
+import com.yxx.generator.constants.GenVmTypeEnum;
 import com.yxx.generator.domain.GenTable;
 import com.yxx.generator.domain.GenTableColumn;
 import org.apache.commons.lang3.RegExUtils;
@@ -56,12 +57,30 @@ public class GenUtils
         }
         else if (arraysContains(GenConstants.COLUMNTYPE_TIME, dataType))
         {
-            column.setJavaType(GenConstants.TYPE_DATE);
             // 针对日期和时间进行二次判断
-            if (GenConstants.COLUMNTYPE_TIME[2].equals(dataType)) {
+            if (GenConstants.COLUMNTYPE_TIME[2].equals(dataType))
+            {
                 column.setHtmlType(GenConstants.HTML_DATE);
-            } else {
+                if (GenVmTypeEnum.YXX.equals(GenConfig.getVmType()))
+                {
+                    column.setJavaType(GenConstants.TYPE_LOCAL_DATE);
+                }
+                else
+                {
+                    column.setJavaType(GenConstants.TYPE_DATE);
+                }
+            }
+            else
+            {
                 column.setHtmlType(GenConstants.HTML_DATETIME);
+                if (GenVmTypeEnum.YXX.equals(GenConfig.getVmType()))
+                {
+                    column.setJavaType(GenConstants.TYPE_LOCAL_DATE_TIME);
+                }
+                else
+                {
+                    column.setJavaType(GenConstants.TYPE_DATE);
+                }
             }
         }
         else if (arraysContains(GenConstants.COLUMNTYPE_NUMBER, dataType))
