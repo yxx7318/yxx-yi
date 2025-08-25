@@ -48,13 +48,13 @@ export default defineConfig(({ mode, command }) => {
       proxy: {
         // https://cn.vitejs.dev/config/#server-proxy
         '/dev-api': {
-          target: baseUrl,
+          target: env.VITE_BASE_URL || baseUrl,
           changeOrigin: true,
           rewrite: (p) => p.replace(/^\/dev-api/, '')
         },
          // springdoc proxy
          '^/v3/api-docs(.*)': {
-          target: baseUrl,
+          target: env.VITE_BASE_URL || baseUrl,
           changeOrigin: true,
         }
       }
