@@ -23,6 +23,7 @@ import ${packageName}.entity.${ClassQueryDto};
 import ${packageName}.entity.${subClassName};
 #end
 import com.yxx.common.core.mapper.BaseMapperPlus;
+import org.springframework.stereotype.Repository;
 
 /**
  * ${functionName}Mapper接口
@@ -30,6 +31,7 @@ import com.yxx.common.core.mapper.BaseMapperPlus;
  * @author ${author}
  * @date ${datetime}
  */
+@Repository
 public interface ${ClassName}Mapper extends BaseMapperPlus<${ClassDo}> {
 
     /**
