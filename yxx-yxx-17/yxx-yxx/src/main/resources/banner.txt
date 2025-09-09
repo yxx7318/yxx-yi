@@ -1,6 +1,7 @@
-Application Version: ${yxx.version}
-Spring Boot Version: ${spring-boot.version}
-Profile Active : ${spring.profiles.active}
+JDK Version         : ${java.version}
+SpringBoot Version  : ${spring-boot.version}
+Profile Active      : ${spring.profiles.active}
+Application Version : ${yxx.version}
 ////////////////////////////////////////////////////////////////////
 //                          _ooOoo_                               //
 //                         o8888888o                              //
