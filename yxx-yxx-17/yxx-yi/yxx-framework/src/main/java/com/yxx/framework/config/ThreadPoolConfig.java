@@ -56,6 +56,8 @@ public class ThreadPoolConfig implements AsyncConfigurer
         // 线程池对拒绝任务(无线程可用)的处理策略
         executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
         executor.setThreadNamePrefix("thread-pool-task-");
+        // 传递线程上下文装饰器
+        executor.setTaskDecorator(new RequestContextDecorator());
         executor.initialize();
         return executor;
     }
@@ -64,7 +66,8 @@ public class ThreadPoolConfig implements AsyncConfigurer
      * 指定Async注解使用的线程池
      */
     @Override
-    public Executor getAsyncExecutor() {
+    public Executor getAsyncExecutor()
+    {
         return SpringUtils.getBean("threadPoolTaskExecutor");
     }
 
@@ -75,9 +78,10 @@ public class ThreadPoolConfig implements AsyncConfigurer
      */
     @Override
     public AsyncUncaughtExceptionHandler getAsyncUncaughtExceptionHandler() {
-        return (Throwable ex, Method method, Object... params)-> {
+        return (Throwable ex, Method method, Object... params) ->
+        {
             // 异步方法异常处理
-            logger.error(String.format("class#method#params: %s#%s#%s\nCaused: %s", method.getDeclaringClass().getName(), method.getName(), Arrays.toString(params), ExceptionUtil.getExceptionMessage(ex)));
+            logger.error("class#method#params : {}#{}#{}\nCaused: {}", method.getDeclaringClass().getName(), method.getName(), Arrays.toString(params), ExceptionUtil.getExceptionMessage(ex));
         };
     }
 
@@ -100,5 +104,24 @@ public class ThreadPoolConfig implements AsyncConfigurer
                 Threads.printException(r, t);
             }
         };
+    }
+
+    /**
+     * ThreadPoolTaskExecutor是Spring框架提供的线程池，实现了TaskExecutor接口
+     * Queue队列监听器使用此线程池
+     */
+    @Bean(name = "listenerExecutor")
+    public ThreadPoolTaskExecutor listenerExecutor()
+    {
+        ThreadPoolExecutorMDCWrapper executor = new ThreadPoolExecutorMDCWrapper();
+        executor.setMaxPoolSize(maxPoolSize);
+        executor.setCorePoolSize(corePoolSize);
+        executor.setQueueCapacity(queueCapacity);
+        executor.setKeepAliveSeconds(keepAliveSeconds);
+        // 线程池对拒绝任务(无线程可用)的处理策略
+        executor.setRejectedExecutionHandler(new ThreadPoolExecutor.CallerRunsPolicy());
+        executor.setThreadNamePrefix("queue-pool-task-");
+        executor.initialize();
+        return executor;
     }
 }
