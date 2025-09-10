@@ -8,31 +8,31 @@
     <springProfile name="dev">
         <!-- 日志输出格式 -->
         <property name="log.pattern"
-                  value="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} [%X{traceId}] ${PID:- } [%15.15t] %-60.60logger{59} - %-60.60(\(%file:%line\) [%method,%line]) : %msg%n"/>
+                  value="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} [%X{traceId}] ${PID:- } [%20.20t] %-60.60logger{59} - %-60.60(\(%file:%line\) [%method,%line]) : %msg%n"/>
 
         <!-- 日志输出格式(颜色) -->
         <property name="log.pattern.color"
-                  value="%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr([%X{traceId}]){yellow} %clr(${PID:- }){magenta} %clr([%15.15t]){faint} %clr(%-60.60logger{59}){cyan} - %clr(%-60.60(\(%file:%line\) [%method,%line])){faint} %clr(:) %msg%n"/>
+                  value="%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr([%X{traceId}]){yellow} %clr(${PID:- }){magenta} %clr([%20.20t]){faint} %clr(%-60.60logger{59}){cyan} - %clr(%-60.60(\(%file:%line\) [%method,%line])){faint} %clr(:) %msg%n"/>
     </springProfile>
 
     <springProfile name="test">
         <!-- 日志输出格式 -->
         <property name="log.pattern"
-                  value="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} [%X{traceId}] ${PID:- } [%15.15t] %-60.60logger{59} - %-60.60(\(%file:%line\) [%method,%line]) : %msg%n"/>
+                  value="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} [%X{traceId}] ${PID:- } [%20.20t] %-60.60logger{59} - %-60.60(\(%file:%line\) [%method,%line]) : %msg%n"/>
 
         <!-- 日志输出格式(颜色) -->
         <property name="log.pattern.color"
-                  value="%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr([%X{traceId}]){yellow} %clr(${PID:- }){magenta} %clr([%15.15t]){faint} %clr(%-60.60logger{59}){cyan} - %clr(%-60.60(\(%file:%line\) [%method,%line])){faint} %clr(:) %msg%n"/>
+                  value="%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr([%X{traceId}]){yellow} %clr(${PID:- }){magenta} %clr([%20.20t]){faint} %clr(%-60.60logger{59}){cyan} - %clr(%-60.60(\(%file:%line\) [%method,%line])){faint} %clr(:) %msg%n"/>
     </springProfile>
 
     <springProfile name="prod">
         <!-- 日志输出格式 -->
         <property name="log.pattern"
-                  value="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} [%X{traceId}] ${PID:- } [%15.15t] %-60.60logger{59} - %-60.60(\(%file:%line\) [%method,%line]) : %msg%n"/>
+                  value="%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}} ${LOG_LEVEL_PATTERN:-%5p} [%X{traceId}] ${PID:- } [%20.20t] %-60.60logger{59} - %-60.60(\(%file:%line\) [%method,%line]) : %msg%n"/>
 
         <!-- 日志输出格式(颜色) -->
         <property name="log.pattern.color"
-                  value="%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr([%X{traceId}]){yellow} %clr(${PID:- }){magenta} %clr([%15.15t]){faint} %clr(%-60.60logger{59}){cyan} - %clr(%-60.60(\(%file:%line\) [%method,%line])){faint} %clr(:) %msg%n"/>
+                  value="%clr(%d{${LOG_DATEFORMAT_PATTERN:-yyyy-MM-dd HH:mm:ss.SSS}}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr([%X{traceId}]){yellow} %clr(${PID:- }){magenta} %clr([%20.20t]){faint} %clr(%-60.60logger{59}){cyan} - %clr(%-60.60(\(%file:%line\) [%method,%line])){faint} %clr(:) %msg%n"/>
     </springProfile>
 
     <!-- 控制台输出 -->
