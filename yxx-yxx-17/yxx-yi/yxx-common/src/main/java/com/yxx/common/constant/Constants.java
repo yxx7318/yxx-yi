@@ -178,4 +178,9 @@ public class Constants
      * trackId 需要与日志配置中的 %X{traceId} 一致
      */
     public static final String TRACE_ID = "traceId";
+
+    /**
+     * 定义trackId的请求头
+     */
+    public static final String TRACE_HEADER = "X-Request-ID";
 }

@@ -21,11 +21,23 @@ public class MDCUtils {
     /**
      * 设置traceId如果不存在
      */
-    public static void setTraceIdIfAbsent() {
-        // 如果父线程没有则生成一个
-        if (MDC.get(Constants.TRACE_ID) == null) {
-            MDC.put(Constants.TRACE_ID, UUID.fastUUID().toString());
+    public static String setTraceIdIfAbsent() {
+        // 如果没有traceId则生成一个
+        String traceId = MDC.get(Constants.TRACE_ID);
+        if (traceId == null) {
+            traceId = DateUtils.dateTimeNow() + UUID.fastUUID().toString().substring(0, 6);
+            setTraceIdValue(traceId);
+            return traceId;
+        } else {
+            return traceId;
         }
+    }
+
+    /**
+     * 移除traceId
+     */
+    public static void removeTraceId() {
+        MDC.remove(Constants.TRACE_ID);
     }
 
     /**
