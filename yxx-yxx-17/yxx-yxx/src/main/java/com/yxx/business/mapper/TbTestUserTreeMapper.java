@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.yxx.business.entity.TbTestUserTree;
 import com.yxx.common.core.mapper.BaseMapperPlus;
+import org.springframework.stereotype.Repository;
 
 /**
  * 测试树表生成Mapper接口
@@ -11,6 +12,7 @@ import com.yxx.common.core.mapper.BaseMapperPlus;
  * @author yxx
  * @date 2025-08-14
  */
+@Repository
 public interface TbTestUserTreeMapper extends BaseMapperPlus<TbTestUserTree> {
 
     /**

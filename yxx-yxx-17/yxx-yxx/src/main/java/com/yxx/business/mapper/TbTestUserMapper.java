@@ -5,6 +5,7 @@ import java.util.List;
 import com.yxx.business.entity.TbTestUserDo;
 import com.yxx.business.entity.TbTestUserQueryDto;
 import com.yxx.common.core.mapper.BaseMapperPlus;
+import org.springframework.stereotype.Repository;
 
 /**
  * 测试单表生成Mapper接口
@@ -12,6 +13,7 @@ import com.yxx.common.core.mapper.BaseMapperPlus;
  * @author yxx
  * @date 2025-08-14
  */
+@Repository
 public interface TbTestUserMapper extends BaseMapperPlus<TbTestUserDo> {
 
     /**
