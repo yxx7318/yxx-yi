@@ -12,8 +12,8 @@ import com.yxx.common.core.domain.PageResult;
 import com.yxx.common.core.mapper.BaseMapperPlus;
 import com.yxx.common.core.utils.MpPageUtils;
 import com.yxx.common.core.utils.ObjectUtils;
-import com.yxx.common.core.utils.SingletonFactory;
 import com.yxx.common.utils.PageUtils;
+import com.yxx.common.utils.reflect.ReflectUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,7 +35,7 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseColumnEn
     @Override
     public <PO> PO convertBean(T t, Class<PO> voClass) {
         if (ObjectUtils.isEmpty(t)) {
-            return null;
+            return ReflectUtils.newInstance(voClass);
         }
         return BeanUtil.copyProperties(t, voClass);
     }

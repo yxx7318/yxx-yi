@@ -431,4 +431,22 @@ public class ReflectUtils
         }
         return new RuntimeException(msg, e);
     }
+
+    /**
+     * 通过无参构造方法创建bean
+     */
+    public static <PO> PO newInstance(Class<PO> voClass) {
+        if (voClass == null)
+        {
+            throw new RuntimeException("传入的class对象为空");
+        }
+        try
+        {
+            return voClass.getDeclaredConstructor().newInstance();
+        }
+        catch(InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e)
+        {
+            throw new RuntimeException("创建对象失败: " + voClass.getName(), e);
+        }
+    }
 }
