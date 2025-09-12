@@ -12,9 +12,23 @@ import java.util.Map;
 public class MDCUtils {
 
     /**
+     * 获取当前上下文的复制
+     */
+    public static Map<String, String> getContext() {
+        return MDC.getCopyOfContextMap();
+    }
+
+    /**
+     * 获取traceId
+     */
+    public static String getTraceId() {
+        return MDC.get(Constants.TRACE_ID);
+    }
+
+    /**
      * 设置traceId的值
      */
-    public static void setTraceIdValue(String value) {
+    public static void setTraceId(String value) {
         MDC.put(Constants.TRACE_ID, value);
     }
 
@@ -25,12 +39,10 @@ public class MDCUtils {
         // 如果没有traceId则生成一个
         String traceId = MDC.get(Constants.TRACE_ID);
         if (traceId == null) {
-            traceId = DateUtils.dateTimeNow() + UUID.fastUUID().toString().substring(0, 6);
-            setTraceIdValue(traceId);
-            return traceId;
-        } else {
-            return traceId;
+            traceId = DateUtils.dateTimeNow() + "-" + UUID.fastUUID().toString().substring(0, 6);
+            setTraceId(traceId);
         }
+        return traceId;
     }
 
     /**
@@ -38,6 +50,13 @@ public class MDCUtils {
      */
     public static void removeTraceId() {
         MDC.remove(Constants.TRACE_ID);
+    }
+
+    /**
+     * 清除上下文
+     */
+    public static void clean() {
+        MDC.clear();
     }
 
     /**

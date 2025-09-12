@@ -49,8 +49,8 @@ public class ThreadPoolConfig implements AsyncConfigurer
     public ThreadPoolTaskExecutor threadPoolTaskExecutor()
     {
         ThreadPoolExecutorMDCWrapper executor = new ThreadPoolExecutorMDCWrapper();
-        executor.setMaxPoolSize(maxPoolSize);
         executor.setCorePoolSize(corePoolSize);
+        executor.setMaxPoolSize(maxPoolSize);
         executor.setQueueCapacity(queueCapacity);
         executor.setKeepAliveSeconds(keepAliveSeconds);
         // 线程池对拒绝任务(无线程可用)的处理策略
@@ -114,8 +114,8 @@ public class ThreadPoolConfig implements AsyncConfigurer
     public ThreadPoolTaskExecutor listenerExecutor()
     {
         ThreadPoolExecutorMDCWrapper executor = new ThreadPoolExecutorMDCWrapper();
-        executor.setMaxPoolSize(maxPoolSize);
         executor.setCorePoolSize(corePoolSize);
+        executor.setMaxPoolSize(maxPoolSize);
         executor.setQueueCapacity(queueCapacity);
         executor.setKeepAliveSeconds(keepAliveSeconds);
         // 线程池对拒绝任务(无线程可用)的处理策略

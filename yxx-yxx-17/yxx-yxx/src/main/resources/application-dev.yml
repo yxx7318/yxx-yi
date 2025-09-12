@@ -70,8 +70,6 @@ spring:
   data:
     # redis 配置
     redis:
-      # 是否开启Redisson
-      redisson: false
       # 地址
       host: localhost
       # 端口，默认为6379
@@ -90,7 +88,7 @@ spring:
           max-idle: 8
           # 连接池的最大数据库连接数
           max-active: 8
-          # #连接池最大阻塞等待时间（使用负值表示没有限制）
+          # 连接池最大阻塞等待时间（使用负值表示没有限制）
           max-wait: -1ms
 
 # 服务配置
@@ -104,12 +102,12 @@ server:
     # tomcat的URI编码
     uri-encoding: UTF-8
     # 连接数满后的排队数，默认为100
-    accept-count: 100
+    accept-count: 50
     threads:
       # tomcat最大线程数，默认为200
-      max: 200
+      max: 50
       # Tomcat启动初始化的线程数，默认值10
-      min-spare: 20
+      min-spare: 5
 
 # token配置
 token:

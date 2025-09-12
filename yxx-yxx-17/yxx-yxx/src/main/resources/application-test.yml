@@ -70,8 +70,6 @@ spring:
   data:
     # redis 配置
     redis:
-      # 是否开启Redisson
-      redisson: false
       # 地址
       host: localhost
       # 端口，默认为6379

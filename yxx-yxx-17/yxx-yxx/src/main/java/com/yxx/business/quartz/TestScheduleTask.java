@@ -1,10 +1,8 @@
 package com.yxx.business.quartz;
 
-
-import com.yxx.common.utils.spring.SpringUtils;
 import org.quartz.JobExecutionException;
 
-public class TestTask {
+public class TestScheduleTask {
 
     public String success(String param) {
         return param;
