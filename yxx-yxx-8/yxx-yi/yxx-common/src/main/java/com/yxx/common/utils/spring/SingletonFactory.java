@@ -1,6 +1,4 @@
-package com.yxx.common.core.utils;
-
-import com.yxx.common.utils.spring.SpringUtils;
+package com.yxx.common.utils.spring;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

@@ -9,6 +9,9 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.util.IdUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FilenameUtils;
@@ -297,5 +300,58 @@ public class FileUtils
         }
         String baseName = FilenameUtils.getBaseName(fileName);
         return baseName;
+    }
+
+    /**
+     * 创建临时文件
+     * 该文件会在 JVM 退出时，进行删除
+     *
+     * @param data 文件内容
+     * @return 文件
+     */
+    public static File createTempFile(String data)
+    {
+        File file = createTempFile();
+        // 写入内容
+        FileUtil.writeUtf8String(data, file);
+        return file;
+    }
+
+    /**
+     * 创建临时文件
+     * 该文件会在 JVM 退出时，进行删除
+     *
+     * @param data 文件内容
+     * @return 文件
+     */
+    public static File createTempFile(byte[] data)
+    {
+        File file = createTempFile();
+        // 写入内容
+        FileUtil.writeBytes(data, file);
+        return file;
+    }
+
+    /**
+     * 创建临时文件，无内容
+     * 该文件会在 JVM 退出时，进行删除
+     *
+     * @return 文件
+     */
+    public static File createTempFile()
+    {
+        // 创建文件，通过 UUID 保证唯一
+        File file;
+        try
+        {
+            file = File.createTempFile(IdUtil.simpleUUID(), null);
+        }
+        catch (IOException e)
+        {
+            throw new RuntimeException(e);
+        }
+        // 标记 JVM 退出时，自动删除
+        file.deleteOnExit();
+        return file;
     }
 }
