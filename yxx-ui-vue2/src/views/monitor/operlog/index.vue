@@ -1,6 +1,15 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
+      <el-form-item label="追踪ID" prop="traceId">
+        <el-input
+          v-model="queryParams.traceId"
+          placeholder="请输入追踪ID"
+          clearable
+          style="width: 240px"
+          @keyup.enter.native="handleQuery"
+        />
+      </el-form-item>
       <el-form-item label="操作地址" prop="operIp">
         <el-input
           v-model="queryParams.operIp"
@@ -114,6 +123,7 @@
     <el-table ref="tables" v-loading="loading" :data="list" @selection-change="handleSelectionChange" :default-sort="defaultSort" @sort-change="handleSortChange">
       <el-table-column type="selection" width="50" align="center" />
       <el-table-column label="日志编号" align="center" prop="operId" />
+      <el-table-column label="追踪ID"  align="center" prop="traceId" :show-overflow-tooltip="true" />
       <el-table-column label="系统模块" align="center" prop="title" :show-overflow-tooltip="true" />
       <el-table-column label="操作类型" align="center" prop="businessType">
         <template slot-scope="scope">
@@ -172,6 +182,9 @@
           <el-col :span="12">
             <el-form-item label="请求地址：">{{ form.operUrl }}</el-form-item>
             <el-form-item label="请求方式：">{{ form.requestMethod }}</el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="追踪ID：">{{ form.traceId }}</el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="操作方法：">{{ form.method }}</el-form-item>
@@ -239,6 +252,7 @@ export default {
         pageNum: 1,
         pageSize: 10,
         operIp: undefined,
+        traceId: undefined,
         title: undefined,
         operName: undefined,
         businessType: undefined,
