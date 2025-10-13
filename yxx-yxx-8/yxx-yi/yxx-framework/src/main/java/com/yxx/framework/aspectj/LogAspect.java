@@ -23,6 +23,7 @@ import com.yxx.common.core.domain.model.LoginUser;
 import com.yxx.common.enums.BusinessStatus;
 import com.yxx.common.enums.HttpMethod;
 import com.yxx.common.filter.PropertyPreExcludeFilter;
+import com.yxx.common.utils.MDCUtils;
 import com.yxx.common.utils.SecurityUtils;
 import com.yxx.common.utils.ServletUtils;
 import com.yxx.common.utils.StringUtils;
@@ -87,6 +88,7 @@ public class LogAspect
 
             // *========数据库日志=========*//
             SysOperLog operLog = new SysOperLog();
+            operLog.setTraceId(MDCUtils.getTraceId());
             operLog.setStatus(BusinessStatus.SUCCESS.getCode());
             // 请求的地址
             String ip = IpUtils.getIpAddr();
@@ -117,6 +119,8 @@ public class LogAspect
             getControllerMethodDescription(joinPoint, controllerLog, operLog, jsonResult);
             // 设置消耗时间
             operLog.setCostTime(System.currentTimeMillis() - TIME_THREADLOCAL.get());
+            // 填充公共字段
+            operLog.fieldFillInsert();
             // 保存数据库
             AsyncManager.me().execute(AsyncFactory.recordOper(operLog));
         }

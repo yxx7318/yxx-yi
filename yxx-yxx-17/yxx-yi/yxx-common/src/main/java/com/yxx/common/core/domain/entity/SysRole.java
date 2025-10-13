@@ -1,5 +1,6 @@
 package com.yxx.common.core.domain.entity;
 
+import java.io.Serial;
 import java.util.Set;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -15,6 +16,7 @@ import com.yxx.common.core.domain.BaseEntity;
  */
 public class SysRole extends BaseEntity
 {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /** 角色ID */
@@ -229,13 +231,7 @@ public class SysRole extends BaseEntity
             .append("deptCheckStrictly", isDeptCheckStrictly())
             .append("status", getStatus())
             .append("delFlag", getDelFlag())
-            .append("createById", getCreateById())
-            .append("createByName", getCreateByName())
-            .append("createTime", getCreateTime())
-            .append("updateById", getUpdateById())
-            .append("updateByName", getUpdateByName())
-            .append("updateTime", getUpdateTime())
-            .append("remark", getRemark())
+            .append("super=>", super.toString())
             .toString();
     }
 }

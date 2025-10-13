@@ -94,7 +94,7 @@
           size="mini"
           :disabled="multiple"
           @click="handleDelete"
-          v-hasPermi="['monitor:operlog:remove']"
+          v-hasPermi="['monitor:operLog:remove']"
         >删除</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -104,7 +104,7 @@
           icon="el-icon-delete"
           size="mini"
           @click="handleClean"
-          v-hasPermi="['monitor:operlog:remove']"
+          v-hasPermi="['monitor:operLog:remove']"
         >清空</el-button>
       </el-col>
       <el-col :span="1.5">
@@ -114,7 +114,7 @@
           icon="el-icon-download"
           size="mini"
           @click="handleExport"
-          v-hasPermi="['monitor:operlog:export']"
+          v-hasPermi="['monitor:operLog:export']"
         >导出</el-button>
       </el-col>
       <right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
@@ -155,7 +155,7 @@
             type="text"
             icon="el-icon-view"
             @click="handleView(scope.row,scope.index)"
-            v-hasPermi="['monitor:operlog:query']"
+            v-hasPermi="['monitor:operLog:query']"
           >详细</el-button>
         </template>
       </el-table-column>
@@ -220,10 +220,10 @@
 </template>
 
 <script>
-import { list, delOperlog, cleanOperlog } from "@/api/monitor/operlog"
+import { list, delOperLog, cleanOperLog } from "@/api/monitor/operLog"
 
 export default {
-  name: "Operlog",
+  name: "OperLog",
   dicts: ['sys_oper_type', 'sys_common_status'],
   data() {
     return {
@@ -310,7 +310,7 @@ export default {
     handleDelete(row) {
       const operIds = row.operId || this.ids
       this.$modal.confirm('是否确认删除日志编号为"' + operIds + '"的数据项？').then(function() {
-        return delOperlog(operIds)
+        return delOperLog(operIds)
       }).then(() => {
         this.getList()
         this.$modal.msgSuccess("删除成功")
@@ -319,7 +319,7 @@ export default {
     /** 清空按钮操作 */
     handleClean() {
       this.$modal.confirm('是否确认清空所有操作日志数据项？').then(function() {
-        return cleanOperlog()
+        return cleanOperLog()
       }).then(() => {
         this.getList()
         this.$modal.msgSuccess("清空成功")
@@ -327,9 +327,9 @@ export default {
     },
     /** 导出按钮操作 */
     handleExport() {
-      this.download('monitor/operlog/export', {
+      this.download('monitor/operLog/export', {
         ...this.queryParams
-      }, `operlog_export_${this.parseTime(new Date())}.xlsx`)
+      }, `operLog_export_${this.parseTime(new Date())}.xlsx`)
     }
   }
 }

@@ -23,7 +23,7 @@ import com.yxx.business.service.ITbTestUserSubService;
  * 测试主表生成Service业务层处理
  *
  * @author yxx
- * @date 2025-08-14
+ * @date 2025-10-13
  */
 @Slf4j
 @Service
@@ -50,7 +50,7 @@ public class TbTestUserSubServiceImpl extends ServiceImplPlus<TbTestUserSubMappe
     }
 
     /**
-     * 查询测试主表生成Do列表
+     * 查询测试主表生成DO列表
      *
      * @param tbTestUserSub 测试主表生成查询实体
      * @return 测试主表生成集合
@@ -80,9 +80,7 @@ public class TbTestUserSubServiceImpl extends ServiceImplPlus<TbTestUserSubMappe
     @Transactional(rollbackFor = Exception.class)
     @Override
     public int insertTbTestUserSub(TbTestUserSub tbTestUserSub) {
-        tbTestUserSub.setCreateById(getUserIdOrNotLogged());
-        tbTestUserSub.setCreateByName(getUserNameOrNotLogged());
-        tbTestUserSub.setCreateTime(getNowLocalDateTime());
+    tbTestUserSub.fieldFillInsert();
         int rows = tbTestUserSubMapper.insertTbTestUserSub(tbTestUserSub);
         insertTbTestUser(tbTestUserSub.getSubId(), tbTestUserSub.getTbTestUserList());
         return rows;
@@ -98,9 +96,7 @@ public class TbTestUserSubServiceImpl extends ServiceImplPlus<TbTestUserSubMappe
     @Transactional(rollbackFor = Exception.class)
     @Override
     public int updateTbTestUserSub(Long subId, TbTestUserSub tbTestUserSub) {
-        tbTestUserSub.setUpdateById(getUserIdOrNotLogged());
-        tbTestUserSub.setUpdateByName(getUserNameOrNotLogged());
-        tbTestUserSub.setUpdateTime(getNowLocalDateTime());
+        tbTestUserSub.fieldFillUpdate();
         HashSet<Long> ids = new HashSet<>(tbTestUserSubMapper.selectUserIdsByParentId(subId));
         tbTestUserSub.getTbTestUserList().forEach(item -> ids.remove(item.getUserId()));
         // 需要删除的子表ids

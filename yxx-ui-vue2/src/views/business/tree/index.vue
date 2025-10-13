@@ -66,7 +66,7 @@
         ></el-date-picker>
       </el-form-item>
       <el-form-item>
-	    <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
@@ -330,8 +330,8 @@ export default {
         children: node.children
       }
     },
-	/** 查询测试树表生成下拉树结构 */
-    getTreeselect() {
+    /** 查询测试树表生成下拉树结构 */
+    getTreeSelect() {
       listTree().then(response => {
         this.treeOptions = []
         const data = { userId: 0, treeName: '顶级节点', children: [] }
@@ -379,7 +379,7 @@ export default {
     /** 新增按钮操作 */
     handleAdd(row) {
       this.reset()
-      this.getTreeselect()
+      this.getTreeSelect()
       if (row != null && row.userId) {
         this.form.treeId = row.userId
       } else {
@@ -399,7 +399,7 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset()
-      this.getTreeselect()
+      this.getTreeSelect()
       if (row != null) {
         this.form.treeId = row.treeId
       }

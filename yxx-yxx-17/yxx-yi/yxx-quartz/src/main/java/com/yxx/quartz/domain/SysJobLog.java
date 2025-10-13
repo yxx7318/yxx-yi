@@ -1,5 +1,6 @@
 package com.yxx.quartz.domain;
 
+import java.io.Serial;
 import java.util.Date;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -11,6 +12,7 @@ import com.yxx.common.core.domain.BaseEntity;
  */
 public class SysJobLog extends BaseEntity
 {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /** ID */
@@ -126,7 +128,7 @@ public class SysJobLog extends BaseEntity
     {
         this.startTime = startTime;
     }
-    
+
     public Date getStopTime()
     {
         return stopTime;

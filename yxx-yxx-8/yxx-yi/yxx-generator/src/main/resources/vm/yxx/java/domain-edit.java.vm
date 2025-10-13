@@ -34,7 +34,7 @@ import ${javax}.validation.constraints.NotBlank;
 #end
 
 /**
- * ${functionName}EditDto对象 ${tableName}
+ * ${functionName}EditDTO对象 ${tableName}
  *
  * @author ${author}
  * @date ${datetime}
@@ -51,7 +51,7 @@ import ${javax}.validation.constraints.NotBlank;
 @Accessors(chain = true)
 @Builder
 @Data
-public class ${ClassName}EditDto extends ${Entity} {
+public class ${ClassName}EditDTO extends ${Entity} {
 
 #if(${javaVersion} != "1.8")
     @Serial

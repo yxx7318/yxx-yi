@@ -1,5 +1,6 @@
 package com.yxx.common.core.domain.entity;
 
+import java.io.Serial;
 import java.util.Date;
 import java.util.List;
 import jakarta.validation.constraints.*;
@@ -17,6 +18,7 @@ import com.yxx.common.xss.Xss;
  */
 public class SysUser extends BaseEntity
 {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /** 用户ID */
@@ -325,13 +327,7 @@ public class SysUser extends BaseEntity
             .append("loginIp", getLoginIp())
             .append("loginDate", getLoginDate())
             .append("pwdUpdateDate", getPwdUpdateDate())
-            .append("createById", getCreateById())
-            .append("createByName", getCreateByName())
-            .append("createTime", getCreateTime())
-            .append("updateById", getUpdateById())
-            .append("updateByName", getUpdateByName())
-            .append("updateTime", getUpdateTime())
-            .append("remark", getRemark())
+            .append("super=>", super.toString())
             .append("dept", getDept())
             .toString();
     }

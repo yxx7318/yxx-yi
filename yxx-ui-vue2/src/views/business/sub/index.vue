@@ -416,7 +416,7 @@ export default {
         this.$modal.msgSuccess("删除成功")
       }).catch(() => {})
     },
-	/** 测试单表生成序号 */
+    /** 测试单表生成序号 */
     rowTbTestUserIndex({ row, rowIndex }) {
       row.index = rowIndex + 1
     },

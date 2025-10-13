@@ -3,15 +3,18 @@ package com.yxx.common.core.domain;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.yxx.common.core.utils.FieldFillUtils;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
 public class BaseColumnEntity implements Serializable
 {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**
@@ -64,4 +67,18 @@ public class BaseColumnEntity implements Serializable
     @TableField(value = "remark")
     @Schema(description = "备注")
     private String remark;
+
+    /**
+     * 填充插入时的公共字段
+     */
+    public void fieldFillInsert() {
+        FieldFillUtils.fieldFillInsert(this);
+    }
+
+    /**
+     * 填充插入时的公共字段
+     */
+    public void fieldFillUpdate() {
+        FieldFillUtils.fieldFillUpdate(this);
+    }
 }

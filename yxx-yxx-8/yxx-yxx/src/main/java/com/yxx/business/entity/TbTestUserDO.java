@@ -13,12 +13,12 @@ import lombok.experimental.Accessors;
 import lombok.*;
 
 /**
- * 测试单表生成Do对象 tb_test_user
+ * 测试单表生成DO对象 tb_test_user
  *
  * @author yxx
- * @date 2025-08-14
+ * @date 2025-10-13
  */
-@Schema(description = "测试单表生成Do实体")
+@Schema(description = "测试单表生成DO实体")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -26,7 +26,7 @@ import lombok.*;
 @Builder
 @Data
 @TableName(value = "tb_test_user", autoResultMap = true)
-public class TbTestUserDo extends BaseColumnEntity {
+public class TbTestUserDO extends BaseColumnEntity {
 
     private static final long serialVersionUID = 1L;
 

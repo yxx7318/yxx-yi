@@ -1,12 +1,13 @@
 package com.yxx.system.mapper;
 
 import java.util.List;
+import com.yxx.common.core.mapper.BaseMapperPlus;
 import com.yxx.system.domain.SysUserPost;
 
 /**
  * 用户与岗位关联表 数据层
  */
-public interface SysUserPostMapper
+public interface SysUserPostMapper extends BaseMapperPlus<SysUserPost>
 {
     /**
      * 通过用户ID删除用户和岗位关联

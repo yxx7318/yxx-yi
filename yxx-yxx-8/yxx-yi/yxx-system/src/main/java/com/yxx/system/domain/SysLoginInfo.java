@@ -7,9 +7,9 @@ import com.yxx.common.annotation.Excel.ColumnType;
 import com.yxx.common.core.domain.BaseEntity;
 
 /**
- * 系统访问记录表 sys_logininfor
+ * 系统访问记录表 sys_login_info
  */
-public class SysLogininfor extends BaseEntity
+public class SysLoginInfo extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
 

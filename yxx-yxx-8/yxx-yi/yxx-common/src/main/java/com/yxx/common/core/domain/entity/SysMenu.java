@@ -262,13 +262,7 @@ public class SysMenu extends BaseEntity
             .append("status ", getStatus())
             .append("perms", getPerms())
             .append("icon", getIcon())
-            .append("createById", getCreateById())
-            .append("createByName", getCreateByName())
-            .append("createTime", getCreateTime())
-            .append("updateById", getUpdateById())
-            .append("updateByName", getUpdateByName())
-            .append("updateTime", getUpdateTime())
-            .append("remark", getRemark())
+            .append("super=>", super.toString())
             .toString();
     }
 }

@@ -22,7 +22,7 @@ import lombok.experimental.Accessors;
 import lombok.*;
 
 /**
- * ${functionName}Vo对象 ${tableName}
+ * ${functionName}VO对象 ${tableName}
  *
  * @author ${author}
  * @date ${datetime}
@@ -32,14 +32,14 @@ import lombok.*;
 #elseif($table.tree)
 #set($Entity="TreeEntity")
 #end
-@Schema(description = "${functionName}Vo实体")
+@Schema(description = "${functionName}VO实体")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @Builder
 @Data
-public class ${ClassName}Vo extends ${Entity} {
+public class ${ClassName}VO extends ${Entity} {
 
 #if(${javaVersion} != "1.8")
     @Serial

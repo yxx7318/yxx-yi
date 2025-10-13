@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import io.swagger.v3.oas.annotations.media.Schema;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * Entity基类
@@ -50,5 +52,14 @@ public class BaseEntity extends BaseColumnEntity implements Serializable
     public void setParams(Map<String, Object> params)
     {
         this.params = params;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("searchValue", getSearchValue())
+                .append("params", getParams())
+                .append("super=>", super.toString())
+                .toString();
     }
 }

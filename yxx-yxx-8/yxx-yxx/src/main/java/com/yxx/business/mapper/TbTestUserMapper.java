@@ -2,8 +2,8 @@ package com.yxx.business.mapper;
 
 import java.util.List;
 
-import com.yxx.business.entity.TbTestUserDo;
-import com.yxx.business.entity.TbTestUserQueryDto;
+import com.yxx.business.entity.TbTestUserDO;
+import com.yxx.business.entity.TbTestUserQueryDTO;
 import com.yxx.common.core.mapper.BaseMapperPlus;
 import org.springframework.stereotype.Repository;
 
@@ -11,18 +11,18 @@ import org.springframework.stereotype.Repository;
  * 测试单表生成Mapper接口
  *
  * @author yxx
- * @date 2025-08-14
+ * @date 2025-10-13
  */
 @Repository
-public interface TbTestUserMapper extends BaseMapperPlus<TbTestUserDo> {
+public interface TbTestUserMapper extends BaseMapperPlus<TbTestUserDO> {
 
     /**
      * 查询测试单表生成列表
      *
-     * @param tbTestUserQueryDto 测试单表生成查询实体
+     * @param tbTestUserQueryDTO 测试单表生成查询实体
      * @return 测试单表生成集合
      */
-    public List<TbTestUserDo> selectTbTestUserList(TbTestUserQueryDto tbTestUserQueryDto);
+    public List<TbTestUserDO> selectTbTestUserList(TbTestUserQueryDTO tbTestUserQueryDTO);
 
     /**
      * 查询测试单表生成
@@ -30,23 +30,23 @@ public interface TbTestUserMapper extends BaseMapperPlus<TbTestUserDo> {
      * @param userId 测试单表生成主键
      * @return 测试单表生成单个
      */
-    public TbTestUserDo selectTbTestUserByUserId(Long userId);
+    public TbTestUserDO selectTbTestUserByUserId(Long userId);
 
     /**
      * 新增测试单表生成
      *
-     * @param tbTestUserDo 测试单表生成数据库实体
+     * @param tbTestUserDO 测试单表生成数据库实体
      * @return 结果
      */
-    public int insertTbTestUser(TbTestUserDo tbTestUserDo);
+    public int insertTbTestUser(TbTestUserDO tbTestUserDO);
 
     /**
      * 修改测试单表生成
      *
-     * @param tbTestUserDo 测试单表生成数据库实体
+     * @param tbTestUserDO 测试单表生成数据库实体
      * @return 结果
      */
-    public int updateTbTestUser(TbTestUserDo tbTestUserDo);
+    public int updateTbTestUser(TbTestUserDO tbTestUserDO);
 
     /**
      * 删除测试单表生成

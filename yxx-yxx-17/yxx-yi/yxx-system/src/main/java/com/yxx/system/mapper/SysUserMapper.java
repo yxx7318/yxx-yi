@@ -1,13 +1,14 @@
 package com.yxx.system.mapper;
 
 import java.util.List;
+import com.yxx.common.core.mapper.BaseMapperPlus;
 import org.apache.ibatis.annotations.Param;
 import com.yxx.common.core.domain.entity.SysUser;
 
 /**
  * 用户表 数据层
  */
-public interface SysUserMapper
+public interface SysUserMapper extends BaseMapperPlus<SysUser>
 {
     /**
      * 根据条件分页查询用户列表

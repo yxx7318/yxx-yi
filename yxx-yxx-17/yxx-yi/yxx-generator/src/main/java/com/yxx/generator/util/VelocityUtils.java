@@ -243,19 +243,19 @@ public class VelocityUtils
             }
             else if (template.contains("domain-do.java.vm"))
             {
-                fileName = StringUtils.format("{}/entity/{}.java", javaPath, className + "Do");
+                fileName = StringUtils.format("{}/entity/{}.java", javaPath, className + "DO");
             }
             else if (template.contains("domain-vo.java.vm"))
             {
-                fileName = StringUtils.format("{}/entity/{}.java", javaPath, className + "Vo");
+                fileName = StringUtils.format("{}/entity/{}.java", javaPath, className + "VO");
             }
             else if (template.contains("domain-query.java.vm"))
             {
-                fileName = StringUtils.format("{}/entity/{}.java", javaPath, className + "QueryDto");
+                fileName = StringUtils.format("{}/entity/{}.java", javaPath, className + "QueryDTO");
             }
             else if (template.contains("domain-edit.java.vm"))
             {
-                fileName = StringUtils.format("{}/entity/{}.java", javaPath, className + "EditDto");
+                fileName = StringUtils.format("{}/entity/{}.java", javaPath, className + "EditDTO");
             }
         }
         else if (GenVmTypeEnum.RUO_YI.equals(GenConfig.getVmType()))

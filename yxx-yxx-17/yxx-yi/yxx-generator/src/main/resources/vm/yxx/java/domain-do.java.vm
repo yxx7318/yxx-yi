@@ -18,7 +18,7 @@ import lombok.experimental.Accessors;
 import lombok.*;
 
 /**
- * ${functionName}Do对象 ${tableName}
+ * ${functionName}DO对象 ${tableName}
  *
  * @author ${author}
  * @date ${datetime}
@@ -28,7 +28,7 @@ import lombok.*;
 #elseif($table.tree)
 #set($Entity="TreeEntity")
 #end
-@Schema(description = "${functionName}Do实体")
+@Schema(description = "${functionName}DO实体")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
@@ -36,7 +36,7 @@ import lombok.*;
 @Builder
 @Data
 @TableName(value = "${tableName}", autoResultMap = true)
-public class ${ClassName}Do extends ${Entity} {
+public class ${ClassName}DO extends ${Entity} {
 
 #if(${javaVersion} != "1.8")
     @Serial

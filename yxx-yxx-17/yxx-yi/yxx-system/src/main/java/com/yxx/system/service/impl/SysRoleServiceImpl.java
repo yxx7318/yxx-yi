@@ -418,6 +418,7 @@ public class SysRoleServiceImpl implements ISysRoleService
             SysUserRole ur = new SysUserRole();
             ur.setUserId(userId);
             ur.setRoleId(roleId);
+            ur.fieldFillInsert();
             list.add(ur);
         }
         return userRoleMapper.batchUserRole(list);

@@ -12,10 +12,10 @@ import lombok.*;
 import jakarta.validation.constraints.NotBlank;
 
 /**
- * 测试单表生成EditDto对象 tb_test_user
+ * 测试单表生成EditDTO对象 tb_test_user
  *
  * @author yxx
- * @date 2025-08-14
+ * @date 2025-10-13
  */
 @Schema(description = "测试单表生成编辑实体")
 @NoArgsConstructor
@@ -24,7 +24,7 @@ import jakarta.validation.constraints.NotBlank;
 @Accessors(chain = true)
 @Builder
 @Data
-public class TbTestUserEditDto extends BaseEditDtoEntity {
+public class TbTestUserEditDTO extends BaseEditDtoEntity {
 
     @Serial
     private static final long serialVersionUID = 1L;

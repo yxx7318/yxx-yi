@@ -22,9 +22,9 @@ public class SysOperLogServiceImpl implements ISysOperLogService
      * @param operLog 操作日志对象
      */
     @Override
-    public void insertOperlog(SysOperLog operLog)
+    public void insertOperLog(SysOperLog operLog)
     {
-        operLogMapper.insertOperlog(operLog);
+        operLogMapper.insertOperLog(operLog);
     }
 
     /**

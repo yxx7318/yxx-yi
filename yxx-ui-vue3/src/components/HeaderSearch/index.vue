@@ -205,7 +205,7 @@ watch(searchPool, (list) => {
   }
 }
 
-.result-wrap {	
+.result-wrap {
   height: 280px;
   margin: 6px 0;
 

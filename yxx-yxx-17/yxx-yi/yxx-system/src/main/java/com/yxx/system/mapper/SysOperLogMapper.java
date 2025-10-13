@@ -1,19 +1,20 @@
 package com.yxx.system.mapper;
 
 import java.util.List;
+import com.yxx.common.core.mapper.BaseMapperPlus;
 import com.yxx.system.domain.SysOperLog;
 
 /**
  * 操作日志 数据层
  */
-public interface SysOperLogMapper
+public interface SysOperLogMapper extends BaseMapperPlus<SysOperLog>
 {
     /**
      * 新增操作日志
      * 
      * @param operLog 操作日志对象
      */
-    public void insertOperlog(SysOperLog operLog);
+    public void insertOperLog(SysOperLog operLog);
 
     /**
      * 查询系统操作日志集合

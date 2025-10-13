@@ -104,8 +104,7 @@ public class SysJobController extends BaseController
         {
             return error("新增任务'" + job.getJobName() + "'失败，目标字符串不在白名单内");
         }
-        job.setCreateById(getUserId());
-        job.setCreateByName(getUsername());
+        job.fieldFillInsert();
         return toAjax(jobService.insertJob(job));
     }
 
@@ -141,8 +140,7 @@ public class SysJobController extends BaseController
         {
             return error("修改任务'" + job.getJobName() + "'失败，目标字符串不在白名单内");
         }
-        job.setUpdateById(getUserId());
-        job.setCreateByName(getUsername());
+        job.fieldFillUpdate();
         return toAjax(jobService.updateJob(job));
     }
 

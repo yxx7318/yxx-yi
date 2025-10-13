@@ -88,7 +88,7 @@ public class ThreadPoolConfig implements AsyncConfigurer
     /**
      * ScheduledExecutorService是Java.util.concurrent包中的一个接口，扩展了ExecutorService接口
      * Scheduled注解使用此线程池，用于执行周期性或定时任务
-     * AsyncManager类使用其作为异步操作线程池
+     * AsyncManager类(异步延迟执行)使用其作为异步操作线程池
      */
     @Bean(name = "scheduledExecutorService")
     public ScheduledExecutorService scheduledExecutorService()
@@ -97,6 +97,36 @@ public class ThreadPoolConfig implements AsyncConfigurer
                 new BasicThreadFactory.Builder().namingPattern("schedule-pool-%d").daemon(true).build(),
                 new ThreadPoolExecutor.CallerRunsPolicy())
         {
+            @Override
+            public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit)
+            {
+                return super.schedule(ThreadPoolExecutorMDCWrapper.wrap(command), delay, unit);
+            }
+
+            @Override
+            public <V> ScheduledFuture<V> schedule(Callable<V> callable, long delay, TimeUnit unit)
+            {
+                return super.schedule(ThreadPoolExecutorMDCWrapper.wrap(callable), delay, unit);
+            }
+
+            @Override
+            public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit)
+            {
+                return super.scheduleAtFixedRate(ThreadPoolExecutorMDCWrapper.wrap(command), initialDelay, period, unit);
+            }
+
+            @Override
+            public ScheduledFuture<?> scheduleWithFixedDelay(Runnable command, long initialDelay, long delay, TimeUnit unit)
+            {
+                return super.scheduleWithFixedDelay(ThreadPoolExecutorMDCWrapper.wrap(command), initialDelay, delay, unit);
+            }
+
+            @Override
+            public void execute(Runnable command)
+            {
+                super.execute(ThreadPoolExecutorMDCWrapper.wrap(command));
+            }
+
             @Override
             protected void afterExecute(Runnable r, Throwable t)
             {

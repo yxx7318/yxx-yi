@@ -1,12 +1,13 @@
 package com.yxx.system.mapper;
 
 import java.util.List;
+import com.yxx.common.core.mapper.BaseMapperPlus;
 import com.yxx.system.domain.SysNotice;
 
 /**
  * 通知公告表 数据层
  */
-public interface SysNoticeMapper
+public interface SysNoticeMapper extends BaseMapperPlus<SysNotice>
 {
     /**
      * 查询公告信息

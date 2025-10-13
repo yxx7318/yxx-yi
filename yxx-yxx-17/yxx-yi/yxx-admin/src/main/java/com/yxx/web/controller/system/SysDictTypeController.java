@@ -73,8 +73,7 @@ public class SysDictTypeController extends BaseController
         {
             return error("新增字典'" + dict.getDictName() + "'失败，字典类型已存在");
         }
-        dict.setCreateById(getUserId());
-        dict.setCreateByName(getUsername());
+        dict.fieldFillInsert();
         return toAjax(dictTypeService.insertDictType(dict));
     }
 
@@ -90,8 +89,7 @@ public class SysDictTypeController extends BaseController
         {
             return error("修改字典'" + dict.getDictName() + "'失败，字典类型已存在");
         }
-        dict.setUpdateById(getUserId());
-        dict.setUpdateByName(getUsername());
+        dict.fieldFillUpdate();
         return toAjax(dictTypeService.updateDictType(dict));
     }
 

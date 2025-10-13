@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
  * 测试主表生成Mapper接口
  *
  * @author yxx
- * @date 2025-08-14
+ * @date 2025-10-13
  */
 @Repository
 public interface TbTestUserSubMapper extends BaseMapperPlus<TbTestUserSub> {

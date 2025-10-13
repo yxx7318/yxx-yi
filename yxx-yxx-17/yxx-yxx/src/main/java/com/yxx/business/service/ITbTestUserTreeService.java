@@ -10,7 +10,7 @@ import com.yxx.common.core.service.IServicePlus;
  * 测试树表生成Service接口
  *
  * @author yxx
- * @date 2025-08-14
+ * @date 2025-10-13
  */
 public interface ITbTestUserTreeService extends IServicePlus<TbTestUserTree> {
 
@@ -23,7 +23,7 @@ public interface ITbTestUserTreeService extends IServicePlus<TbTestUserTree> {
     public PageResult<TbTestUserTree> selectTbTestUserTreePage(TbTestUserTree tbTestUserTree);
 
     /**
-     * 查询测试树表生成Do列表
+     * 查询测试树表生成DO列表
      *
      * @param tbTestUserTree 测试树表生成查询实体
      * @return 测试树表生成集合

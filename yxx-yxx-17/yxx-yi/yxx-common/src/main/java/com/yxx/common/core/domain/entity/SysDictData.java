@@ -9,11 +9,14 @@ import com.yxx.common.annotation.Excel.ColumnType;
 import com.yxx.common.constant.UserConstants;
 import com.yxx.common.core.domain.BaseEntity;
 
+import java.io.Serial;
+
 /**
  * 字典数据表 sys_dict_data
  */
 public class SysDictData extends BaseEntity
 {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /** 字典编码 */
@@ -164,13 +167,7 @@ public class SysDictData extends BaseEntity
             .append("listClass", getListClass())
             .append("isDefault", getIsDefault())
             .append("status", getStatus())
-            .append("createById", getCreateById())
-            .append("createByName", getCreateByName())
-            .append("createTime", getCreateTime())
-            .append("updateById", getUpdateById())
-            .append("updateByName", getUpdateByName())
-            .append("updateTime", getUpdateTime())
-            .append("remark", getRemark())
+            .append("super=>", super.toString())
             .toString();
     }
 }

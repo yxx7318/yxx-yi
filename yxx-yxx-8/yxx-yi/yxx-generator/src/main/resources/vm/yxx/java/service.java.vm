@@ -4,27 +4,27 @@ import java.util.List;
 
 import com.yxx.common.core.domain.PageResult;
 #if($table.sub || $table.tree)
-#set($ClassDo=${ClassName})
-#set($ClassVo=${ClassName})
-#set($ClassQueryDto=${ClassName})
-#set($classQueryDto="${className}")
-#set($ClassEditDto="${ClassName}")
-#set($classEditDto="${className}")
+#set($ClassDO=${ClassName})
+#set($ClassVO=${ClassName})
+#set($ClassQueryDTO=${ClassName})
+#set($classQueryDTO="${className}")
+#set($ClassEditDTO="${ClassName}")
+#set($classEditDTO="${className}")
 #else
-#set($ClassDo="${ClassName}Do")
-#set($ClassVo="${ClassName}Vo")
-#set($ClassQueryDto="${ClassName}QueryDto")
-#set($classQueryDto="${className}QueryDto")
-#set($ClassEditDto="${ClassName}EditDto")
-#set($classEditDto="${className}EditDto")
+#set($ClassDO="${ClassName}DO")
+#set($ClassVO="${ClassName}VO")
+#set($ClassQueryDTO="${ClassName}QueryDTO")
+#set($classQueryDTO="${className}QueryDTO")
+#set($ClassEditDTO="${ClassName}EditDTO")
+#set($classEditDTO="${className}EditDTO")
 #end
 #if($table.sub || $table.tree)
-import ${packageName}.entity.${ClassDo};
+import ${packageName}.entity.${ClassDO};
 #else
-import ${packageName}.entity.${ClassDo};
-import ${packageName}.entity.${ClassVo};
-import ${packageName}.entity.${ClassQueryDto};
-import ${packageName}.entity.${ClassEditDto};
+import ${packageName}.entity.${ClassDO};
+import ${packageName}.entity.${ClassVO};
+import ${packageName}.entity.${ClassQueryDTO};
+import ${packageName}.entity.${ClassEditDTO};
 #end
 import com.yxx.common.core.service.IServicePlus;
 
@@ -34,34 +34,34 @@ import com.yxx.common.core.service.IServicePlus;
  * @author ${author}
  * @date ${datetime}
  */
-public interface I${ClassName}Service extends IServicePlus<${ClassDo}> {
+public interface I${ClassName}Service extends IServicePlus<${ClassDO}> {
 
     /**
      * 查询${functionName}分页结果
      *
-     * @param ${classQueryDto} ${functionName}查询实体
+     * @param ${classQueryDTO} ${functionName}查询实体
      * @return ${functionName}分页
      */
-    public PageResult<${ClassVo}> select${ClassVo}Page(${ClassQueryDto} ${classQueryDto});
+    public PageResult<${ClassVO}> select${ClassVO}Page(${ClassQueryDTO} ${classQueryDTO});
 #if($table.sub || $table.tree)
 #else
 
     /**
-     * 查询${functionName}Vo列表
+     * 查询${functionName}VO列表
      *
-     * @param ${classQueryDto} ${functionName}查询实体
+     * @param ${classQueryDTO} ${functionName}查询实体
      * @return ${functionName}集合
      */
-    public List<${ClassVo}> select${ClassVo}List(${ClassQueryDto} ${classQueryDto});
+    public List<${ClassVO}> select${ClassVO}List(${ClassQueryDTO} ${classQueryDTO});
 #end
 
     /**
-     * 查询${functionName}Do列表
+     * 查询${functionName}DO列表
      *
-     * @param ${classQueryDto} ${functionName}查询实体
+     * @param ${classQueryDTO} ${functionName}查询实体
      * @return ${functionName}集合
      */
-    public List<${ClassDo}> select${ClassDo}List(${ClassQueryDto} ${classQueryDto});
+    public List<${ClassDO}> select${ClassDO}List(${ClassQueryDTO} ${classQueryDTO});
 
     /**
      * 查询单个${functionName}
@@ -69,24 +69,24 @@ public interface I${ClassName}Service extends IServicePlus<${ClassDo}> {
      * @param ${pkColumn.javaField} ${functionName}主键
      * @return ${functionName}单个
      */
-    public ${ClassVo} select${ClassVo}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField});
+    public ${ClassVO} select${ClassVO}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField});
 
     /**
      * 新增${functionName}
      *
-     * @param ${classEditDto} ${functionName}编辑实体
+     * @param ${classEditDTO} ${functionName}编辑实体
      * @return 结果
      */
-    public int insert${ClassName}(${ClassEditDto} ${classEditDto});
+    public int insert${ClassName}(${ClassEditDTO} ${classEditDTO});
 
     /**
      * 修改${functionName}
      *
      * @param ${pkColumn.javaField} 主键
-     * @param ${classEditDto} ${functionName}编辑实体
+     * @param ${classEditDTO} ${functionName}编辑实体
      * @return 结果
      */
-    public int update${ClassName}(${pkColumn.javaType} ${pkColumn.javaField}, ${ClassEditDto} ${classEditDto});
+    public int update${ClassName}(${pkColumn.javaType} ${pkColumn.javaField}, ${ClassEditDTO} ${classEditDTO});
 
     /**
      * 批量删除${functionName}

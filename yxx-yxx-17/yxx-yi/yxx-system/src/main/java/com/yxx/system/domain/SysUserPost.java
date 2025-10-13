@@ -1,12 +1,13 @@
 package com.yxx.system.domain;
 
+import com.yxx.common.core.domain.BaseColumnEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * 用户和岗位关联 sys_user_post
  */
-public class SysUserPost
+public class SysUserPost extends BaseColumnEntity
 {
     /** 用户ID */
     private Long userId;
@@ -39,6 +40,7 @@ public class SysUserPost
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("userId", getUserId())
             .append("postId", getPostId())
+            .append("super=>", super.toString())
             .toString();
     }
 }

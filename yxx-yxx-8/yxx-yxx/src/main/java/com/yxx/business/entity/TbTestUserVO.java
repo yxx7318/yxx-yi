@@ -3,27 +3,26 @@ package com.yxx.business.entity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.yxx.common.core.domain.BaseEditDtoEntity;
+import com.yxx.common.annotation.Excel;
+import com.yxx.common.core.domain.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.experimental.Accessors;
 import lombok.*;
 
-import javax.validation.constraints.NotBlank;
-
 /**
- * 测试单表生成EditDto对象 tb_test_user
+ * 测试单表生成VO对象 tb_test_user
  *
  * @author yxx
- * @date 2025-08-14
+ * @date 2025-10-13
  */
-@Schema(description = "测试单表生成编辑实体")
+@Schema(description = "测试单表生成VO实体")
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
 @Builder
 @Data
-public class TbTestUserEditDto extends BaseEditDtoEntity {
+public class TbTestUserVO extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
@@ -31,24 +30,29 @@ public class TbTestUserEditDto extends BaseEditDtoEntity {
     private Long userId;
 
     @Schema(description = "主表ID")
+    @Excel(name = "主表ID")
     private Long parentId;
 
     @Schema(description = "用户账号")
-    @NotBlank(message = "用户账号不能为空")
+    @Excel(name = "用户账号")
     private String userName;
 
     @Schema(description = "密码")
+    @Excel(name = "密码")
     private String password;
 
     @Schema(description = "账号状态（0正常 1停用）")
+    @Excel(name = "账号状态", readConverterExp = "0=正常,1=停用")
     private String status;
 
     @Schema(description = "注册日期")
     @JsonFormat(pattern = "yyyy-MM-dd")
+    @Excel(name = "注册日期", width = 20, dateFormat = "yyyy-MM-dd")
     private LocalDate registerDate;
 
     @Schema(description = "注册时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @Excel(name = "注册时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime registerTime;
 
 }

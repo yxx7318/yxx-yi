@@ -136,8 +136,7 @@ public class SysUserController extends BaseController
         {
             return error("新增用户'" + user.getUserName() + "'失败，邮箱账号已存在");
         }
-        user.setCreateById(getUserId());
-        user.setCreateByName(getUsername());
+        user.fieldFillInsert();
         user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
         return toAjax(userService.insertUser(user));
     }
@@ -166,8 +165,7 @@ public class SysUserController extends BaseController
         {
             return error("修改用户'" + user.getUserName() + "'失败，邮箱账号已存在");
         }
-        user.setUpdateById(getUserId());
-        user.setUpdateByName(getUsername());
+        user.fieldFillUpdate();
         return toAjax(userService.updateUser(user));
     }
 
@@ -197,8 +195,7 @@ public class SysUserController extends BaseController
         userService.checkUserAllowed(user);
         userService.checkUserDataScope(user.getUserId());
         user.setPassword(SecurityUtils.encryptPassword(user.getPassword()));
-        user.setUpdateById(getUserId());
-        user.setUserName(getUsername());
+        user.fieldFillUpdate();
         return toAjax(userService.resetPwd(user));
     }
 
@@ -212,8 +209,7 @@ public class SysUserController extends BaseController
     {
         userService.checkUserAllowed(user);
         userService.checkUserDataScope(user.getUserId());
-        user.setUpdateById(getUserId());
-        user.setUpdateByName(getUsername());
+        user.fieldFillUpdate();
         return toAjax(userService.updateUserStatus(user));
     }
 

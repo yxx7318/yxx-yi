@@ -101,6 +101,7 @@ public abstract class AbstractQuartzJob implements Job
             String successMsg = StringUtils.substring(successInfo, 0, 2000);
             sysJobLog.setJobInfo(successMsg);
         }
+        sysJobLog.fieldFillInsert();
 
         // 写入数据库当中
         SpringUtils.getBean(ISysJobLogService.class).addJobLog(sysJobLog);

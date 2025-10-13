@@ -1,12 +1,13 @@
 package com.yxx.system.mapper;
 
 import java.util.List;
+import com.yxx.common.core.mapper.BaseMapperPlus;
 import com.yxx.common.core.domain.entity.SysDictType;
 
 /**
  * 字典表 数据层
  */
-public interface SysDictTypeMapper
+public interface SysDictTypeMapper extends BaseMapperPlus<SysDictType>
 {
     /**
      * 根据条件分页查询字典类型

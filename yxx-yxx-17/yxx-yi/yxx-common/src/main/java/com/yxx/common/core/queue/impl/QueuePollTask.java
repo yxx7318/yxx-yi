@@ -58,7 +58,7 @@ public class QueuePollTask implements Task {
                     this.executor.execute(HandleJobTask.create(listener, (Job) job));
                 }
                 // 短暂休眠，避免CPU空转
-                Thread.sleep(100);
+                Thread.sleep(700);
             } catch (InterruptedException e) {
                 this.cancel();
                 Thread.currentThread().interrupt();

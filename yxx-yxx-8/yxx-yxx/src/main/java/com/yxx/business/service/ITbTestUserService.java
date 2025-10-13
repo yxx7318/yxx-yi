@@ -3,43 +3,43 @@ package com.yxx.business.service;
 import java.util.List;
 
 import com.yxx.common.core.domain.PageResult;
-import com.yxx.business.entity.TbTestUserDo;
-import com.yxx.business.entity.TbTestUserVo;
-import com.yxx.business.entity.TbTestUserQueryDto;
-import com.yxx.business.entity.TbTestUserEditDto;
+import com.yxx.business.entity.TbTestUserDO;
+import com.yxx.business.entity.TbTestUserVO;
+import com.yxx.business.entity.TbTestUserQueryDTO;
+import com.yxx.business.entity.TbTestUserEditDTO;
 import com.yxx.common.core.service.IServicePlus;
 
 /**
  * 测试单表生成Service接口
  *
  * @author yxx
- * @date 2025-08-14
+ * @date 2025-10-13
  */
-public interface ITbTestUserService extends IServicePlus<TbTestUserDo> {
+public interface ITbTestUserService extends IServicePlus<TbTestUserDO> {
 
     /**
      * 查询测试单表生成分页结果
      *
-     * @param tbTestUserQueryDto 测试单表生成查询实体
+     * @param tbTestUserQueryDTO 测试单表生成查询实体
      * @return 测试单表生成分页
      */
-    public PageResult<TbTestUserVo> selectTbTestUserVoPage(TbTestUserQueryDto tbTestUserQueryDto);
+    public PageResult<TbTestUserVO> selectTbTestUserVOPage(TbTestUserQueryDTO tbTestUserQueryDTO);
 
     /**
-     * 查询测试单表生成Vo列表
+     * 查询测试单表生成VO列表
      *
-     * @param tbTestUserQueryDto 测试单表生成查询实体
+     * @param tbTestUserQueryDTO 测试单表生成查询实体
      * @return 测试单表生成集合
      */
-    public List<TbTestUserVo> selectTbTestUserVoList(TbTestUserQueryDto tbTestUserQueryDto);
+    public List<TbTestUserVO> selectTbTestUserVOList(TbTestUserQueryDTO tbTestUserQueryDTO);
 
     /**
-     * 查询测试单表生成Do列表
+     * 查询测试单表生成DO列表
      *
-     * @param tbTestUserQueryDto 测试单表生成查询实体
+     * @param tbTestUserQueryDTO 测试单表生成查询实体
      * @return 测试单表生成集合
      */
-    public List<TbTestUserDo> selectTbTestUserDoList(TbTestUserQueryDto tbTestUserQueryDto);
+    public List<TbTestUserDO> selectTbTestUserDOList(TbTestUserQueryDTO tbTestUserQueryDTO);
 
     /**
      * 查询单个测试单表生成
@@ -47,24 +47,24 @@ public interface ITbTestUserService extends IServicePlus<TbTestUserDo> {
      * @param userId 测试单表生成主键
      * @return 测试单表生成单个
      */
-    public TbTestUserVo selectTbTestUserVoByUserId(Long userId);
+    public TbTestUserVO selectTbTestUserVOByUserId(Long userId);
 
     /**
      * 新增测试单表生成
      *
-     * @param tbTestUserEditDto 测试单表生成编辑实体
+     * @param tbTestUserEditDTO 测试单表生成编辑实体
      * @return 结果
      */
-    public int insertTbTestUser(TbTestUserEditDto tbTestUserEditDto);
+    public int insertTbTestUser(TbTestUserEditDTO tbTestUserEditDTO);
 
     /**
      * 修改测试单表生成
      *
      * @param userId 主键
-     * @param tbTestUserEditDto 测试单表生成编辑实体
+     * @param tbTestUserEditDTO 测试单表生成编辑实体
      * @return 结果
      */
-    public int updateTbTestUser(Long userId, TbTestUserEditDto tbTestUserEditDto);
+    public int updateTbTestUser(Long userId, TbTestUserEditDTO tbTestUserEditDTO);
 
     /**
      * 批量删除测试单表生成

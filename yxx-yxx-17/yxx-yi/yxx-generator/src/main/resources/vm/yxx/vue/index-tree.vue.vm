@@ -83,7 +83,7 @@
 #end
 #end
       <el-form-item>
-	    <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
+        <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
         <el-button icon="el-icon-refresh" size="mini" @click="resetQuery">重置</el-button>
       </el-form-item>
     </el-form>
@@ -492,8 +492,8 @@ export default {
         children: node.children
       }
     },
-	/** 查询${functionName}下拉树结构 */
-    getTreeselect() {
+    /** 查询${functionName}下拉树结构 */
+    getTreeSelect() {
       list${BusinessName}().then(response => {
         this.${businessName}Options = []
         const data = { ${treeCode}: 0, ${treeName}: '顶级节点', children: [] }
@@ -541,7 +541,7 @@ export default {
     /** 新增按钮操作 */
     handleAdd(row) {
       this.reset()
-      this.getTreeselect()
+      this.getTreeSelect()
       if (row != null && row.${treeCode}) {
         this.form.${treeParentCode} = row.${treeCode}
       } else {
@@ -561,7 +561,7 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       this.reset()
-      this.getTreeselect()
+      this.getTreeSelect()
       if (row != null) {
         this.form.${treeParentCode} = row.${treeParentCode}
       }

@@ -1,12 +1,13 @@
 package com.yxx.system.mapper;
 
 import java.util.List;
+import com.yxx.common.core.mapper.BaseMapperPlus;
 import com.yxx.common.core.domain.entity.SysRole;
 
 /**
  * 角色表 数据层
  */
-public interface SysRoleMapper
+public interface SysRoleMapper extends BaseMapperPlus<SysRole>
 {
     /**
      * 根据条件分页查询角色数据

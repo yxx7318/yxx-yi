@@ -16,13 +16,16 @@ import com.yxx.common.core.text.StrFormatter;
 public class StringUtils extends org.apache.commons.lang3.StringUtils
 {
     /** 空字符串 */
-    private static final String NULLSTR = "";
+    public static final String NULLSTR = "";
+
+    /** 逗号 */
+    public static final String COMMA = ",";
 
     /** 下划线 */
-    private static final char SEPARATOR = '_';
+    public static final char SEPARATOR = '_';
 
     /** 星号 */
-    private static final char ASTERISK = '*';
+    public static final char ASTERISK = '*';
 
     /**
      * 获取参数不为空值

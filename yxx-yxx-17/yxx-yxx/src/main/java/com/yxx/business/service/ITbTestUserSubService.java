@@ -10,7 +10,7 @@ import com.yxx.common.core.service.IServicePlus;
  * 测试主表生成Service接口
  *
  * @author yxx
- * @date 2025-08-14
+ * @date 2025-10-13
  */
 public interface ITbTestUserSubService extends IServicePlus<TbTestUserSub> {
 
@@ -23,7 +23,7 @@ public interface ITbTestUserSubService extends IServicePlus<TbTestUserSub> {
     public PageResult<TbTestUserSub> selectTbTestUserSubPage(TbTestUserSub tbTestUserSub);
 
     /**
-     * 查询测试主表生成Do列表
+     * 查询测试主表生成DO列表
      *
      * @param tbTestUserSub 测试主表生成查询实体
      * @return 测试主表生成集合

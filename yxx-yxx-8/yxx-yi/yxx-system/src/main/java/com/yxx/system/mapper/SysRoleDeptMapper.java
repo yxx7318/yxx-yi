@@ -1,12 +1,13 @@
 package com.yxx.system.mapper;
 
 import java.util.List;
+import com.yxx.common.core.mapper.BaseMapperPlus;
 import com.yxx.system.domain.SysRoleDept;
 
 /**
  * 角色与部门关联表 数据层
  */
-public interface SysRoleDeptMapper
+public interface SysRoleDeptMapper extends BaseMapperPlus<SysRoleDept>
 {
     /**
      * 通过角色ID删除角色和部门关联

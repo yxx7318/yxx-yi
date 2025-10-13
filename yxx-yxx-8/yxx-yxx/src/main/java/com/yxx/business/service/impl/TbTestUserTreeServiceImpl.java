@@ -16,7 +16,7 @@ import com.yxx.business.service.ITbTestUserTreeService;
  * 测试树表生成Service业务层处理
  *
  * @author yxx
- * @date 2025-08-14
+ * @date 2025-10-13
  */
 @Slf4j
 @Service
@@ -43,7 +43,7 @@ public class TbTestUserTreeServiceImpl extends ServiceImplPlus<TbTestUserTreeMap
     }
 
     /**
-     * 查询测试树表生成Do列表
+     * 查询测试树表生成DO列表
      *
      * @param tbTestUserTree 测试树表生成查询实体
      * @return 测试树表生成集合
@@ -72,9 +72,7 @@ public class TbTestUserTreeServiceImpl extends ServiceImplPlus<TbTestUserTreeMap
      */
     @Override
     public int insertTbTestUserTree(TbTestUserTree tbTestUserTree) {
-        tbTestUserTree.setCreateById(getUserIdOrNotLogged());
-        tbTestUserTree.setCreateByName(getUserNameOrNotLogged());
-        tbTestUserTree.setCreateTime(getNowLocalDateTime());
+    tbTestUserTree.fieldFillInsert();
         return tbTestUserTreeMapper.insertTbTestUserTree(super.convertT(tbTestUserTree));
     }
 
@@ -87,9 +85,7 @@ public class TbTestUserTreeServiceImpl extends ServiceImplPlus<TbTestUserTreeMap
      */
     @Override
     public int updateTbTestUserTree(Long userId, TbTestUserTree tbTestUserTree) {
-        tbTestUserTree.setUpdateById(getUserIdOrNotLogged());
-        tbTestUserTree.setUpdateByName(getUserNameOrNotLogged());
-        tbTestUserTree.setUpdateTime(getNowLocalDateTime());
+        tbTestUserTree.fieldFillUpdate();
         return tbTestUserTreeMapper.updateTbTestUserTree(super.convertT(tbTestUserTree).setUserId(userId));
     }
 

@@ -1,12 +1,13 @@
 package com.yxx.system.mapper;
 
 import java.util.List;
+import com.yxx.common.core.mapper.BaseMapperPlus;
 import com.yxx.system.domain.SysRoleMenu;
 
 /**
  * 角色与菜单关联表 数据层
  */
-public interface SysRoleMenuMapper
+public interface SysRoleMenuMapper extends BaseMapperPlus<SysRoleMenu>
 {
     /**
      * 查询菜单使用数量

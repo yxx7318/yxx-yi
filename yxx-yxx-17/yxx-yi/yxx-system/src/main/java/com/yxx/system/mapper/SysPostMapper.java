@@ -1,12 +1,13 @@
 package com.yxx.system.mapper;
 
 import java.util.List;
+import com.yxx.common.core.mapper.BaseMapperPlus;
 import com.yxx.system.domain.SysPost;
 
 /**
  * 岗位信息 数据层
  */
-public interface SysPostMapper
+public interface SysPostMapper extends BaseMapperPlus<SysPost>
 {
     /**
      * 查询岗位数据集合

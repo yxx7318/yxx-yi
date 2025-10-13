@@ -85,8 +85,7 @@ public class SysConfigController extends BaseController
         {
             return error("新增参数'" + config.getConfigName() + "'失败，参数键名已存在");
         }
-        config.setCreateById(getUserId());
-        config.setCreateByName(getUsername());
+        config.fieldFillInsert();
         return toAjax(configService.insertConfig(config));
     }
 
@@ -102,8 +101,7 @@ public class SysConfigController extends BaseController
         {
             return error("修改参数'" + config.getConfigName() + "'失败，参数键名已存在");
         }
-        config.setUpdateById(getUserId());
-        config.setUpdateByName(getUsername());
+        config.fieldFillUpdate();
         return toAjax(configService.updateConfig(config));
     }
 

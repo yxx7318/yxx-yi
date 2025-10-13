@@ -1,13 +1,14 @@
 package com.yxx.system.mapper;
 
 import java.util.List;
+import com.yxx.common.core.mapper.BaseMapperPlus;
 import org.apache.ibatis.annotations.Param;
 import com.yxx.common.core.domain.entity.SysMenu;
 
 /**
  * 菜单表 数据层
  */
-public interface SysMenuMapper
+public interface SysMenuMapper extends BaseMapperPlus<SysMenu>
 {
     /**
      * 查询系统菜单列表

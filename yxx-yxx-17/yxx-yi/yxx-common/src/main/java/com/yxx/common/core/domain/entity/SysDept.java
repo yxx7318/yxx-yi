@@ -1,5 +1,6 @@
 package com.yxx.common.core.domain.entity;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 import jakarta.validation.constraints.Email;
@@ -15,6 +16,7 @@ import com.yxx.common.core.domain.BaseEntity;
  */
 public class SysDept extends BaseEntity
 {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /** 部门ID */
@@ -192,12 +194,7 @@ public class SysDept extends BaseEntity
             .append("email", getEmail())
             .append("status", getStatus())
             .append("delFlag", getDelFlag())
-            .append("createById", getCreateById())
-            .append("createByName", getCreateByName())
-            .append("createTime", getCreateTime())
-            .append("updateById", getUpdateById())
-            .append("updateByName", getUpdateByName())
-            .append("updateTime", getUpdateTime())
+            .append("super=>", super.toString())
             .toString();
     }
 }

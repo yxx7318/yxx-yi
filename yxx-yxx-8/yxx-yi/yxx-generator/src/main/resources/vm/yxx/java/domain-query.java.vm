@@ -30,7 +30,7 @@ import lombok.*;
 @Accessors(chain = true)
 @Builder
 @Data
-public class ${ClassName}QueryDto extends ${Entity} {
+public class ${ClassName}QueryDTO extends ${Entity} {
 
 #if(${javaVersion} != "1.8")
     @Serial

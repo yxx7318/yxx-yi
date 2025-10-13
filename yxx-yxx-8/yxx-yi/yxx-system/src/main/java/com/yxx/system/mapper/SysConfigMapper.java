@@ -1,12 +1,13 @@
 package com.yxx.system.mapper;
 
 import java.util.List;
+import com.yxx.common.core.mapper.BaseMapperPlus;
 import com.yxx.system.domain.SysConfig;
 
 /**
  * 参数配置 数据层
  */
-public interface SysConfigMapper
+public interface SysConfigMapper extends BaseMapperPlus<SysConfig>
 {
     /**
      * 查询参数配置信息

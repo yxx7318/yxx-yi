@@ -1,13 +1,14 @@
 package com.yxx.system.mapper;
 
 import java.util.List;
+import com.yxx.common.core.mapper.BaseMapperPlus;
 import org.apache.ibatis.annotations.Param;
 import com.yxx.system.domain.SysUserRole;
 
 /**
  * 用户与角色关联表 数据层
  */
-public interface SysUserRoleMapper
+public interface SysUserRoleMapper extends BaseMapperPlus<SysUserRole>
 {
     /**
      * 通过用户ID删除用户和角色关联

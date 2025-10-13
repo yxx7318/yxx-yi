@@ -80,8 +80,7 @@ public class SysPostController extends BaseController
         {
             return error("新增岗位'" + post.getPostName() + "'失败，岗位编码已存在");
         }
-        post.setCreateById(getUserId());
-        post.setCreateByName(getUsername());
+        post.fieldFillInsert();
         return toAjax(postService.insertPost(post));
     }
 
@@ -101,8 +100,7 @@ public class SysPostController extends BaseController
         {
             return error("修改岗位'" + post.getPostName() + "'失败，岗位编码已存在");
         }
-        post.setUpdateById(getUserId());
-        post.setUpdateByName(getUsername());
+        post.fieldFillUpdate();
         return toAjax(postService.updatePost(post));
     }
 

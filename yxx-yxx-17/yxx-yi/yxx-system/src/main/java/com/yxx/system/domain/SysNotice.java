@@ -7,11 +7,14 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.yxx.common.core.domain.BaseEntity;
 import com.yxx.common.xss.Xss;
 
+import java.io.Serial;
+
 /**
  * 通知公告表 sys_notice
  */
 public class SysNotice extends BaseEntity
 {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /** 公告ID */
@@ -90,13 +93,7 @@ public class SysNotice extends BaseEntity
             .append("noticeType", getNoticeType())
             .append("noticeContent", getNoticeContent())
             .append("status", getStatus())
-            .append("createById", getCreateById())
-            .append("createByName", getCreateByName())
-            .append("createTime", getCreateTime())
-            .append("updateById", getUpdateById())
-            .append("updateByName", getUpdateByName())
-            .append("updateTime", getUpdateTime())
-            .append("remark", getRemark())
+            .append("super=>", super.toString())
             .toString();
     }
 }

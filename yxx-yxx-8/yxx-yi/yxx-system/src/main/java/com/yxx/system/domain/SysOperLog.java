@@ -17,6 +17,10 @@ public class SysOperLog extends BaseEntity
     @Excel(name = "操作序号", cellType = ColumnType.NUMERIC)
     private Long operId;
 
+    /** 追踪ID */
+    @Excel(name = "追踪ID")
+    private String traceId;
+
     /** 操作模块 */
     @Excel(name = "操作模块")
     private String title;
@@ -93,6 +97,16 @@ public class SysOperLog extends BaseEntity
     public void setOperId(Long operId)
     {
         this.operId = operId;
+    }
+
+    public String getTraceId()
+    {
+        return traceId;
+    }
+
+    public void setTraceId(String traceId)
+    {
+        this.traceId = traceId;
     }
 
     public String getTitle()

@@ -8,11 +8,14 @@ import com.yxx.common.annotation.Excel;
 import com.yxx.common.annotation.Excel.ColumnType;
 import com.yxx.common.core.domain.BaseEntity;
 
+import java.io.Serial;
+
 /**
  * 参数配置表 sys_config
  */
 public class SysConfig extends BaseEntity
 {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /** 参数主键 */
@@ -99,13 +102,7 @@ public class SysConfig extends BaseEntity
             .append("configKey", getConfigKey())
             .append("configValue", getConfigValue())
             .append("configType", getConfigType())
-            .append("createById", getCreateById())
-            .append("createByName", getCreateByName())
-            .append("createTime", getCreateTime())
-            .append("updateById", getUpdateById())
-            .append("updateByName", getUpdateByName())
-            .append("updateTime", getUpdateTime())
-            .append("remark", getRemark())
+            .append("super=>", super.toString())
             .toString();
     }
 }

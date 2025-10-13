@@ -1,5 +1,6 @@
 package com.yxx.common.core.domain.entity;
 
+import java.io.Serial;
 import java.util.ArrayList;
 import java.util.List;
 import jakarta.validation.constraints.NotBlank;
@@ -14,6 +15,7 @@ import com.yxx.common.core.domain.BaseEntity;
  */
 public class SysMenu extends BaseEntity
 {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /** 菜单ID */
@@ -262,13 +264,7 @@ public class SysMenu extends BaseEntity
             .append("status ", getStatus())
             .append("perms", getPerms())
             .append("icon", getIcon())
-            .append("createById", getCreateById())
-            .append("createByName", getCreateByName())
-            .append("createTime", getCreateTime())
-            .append("updateById", getUpdateById())
-            .append("updateByName", getUpdateByName())
-            .append("updateTime", getUpdateTime())
-            .append("remark", getRemark())
+            .append("super=>", super.toString())
             .toString();
     }
 }

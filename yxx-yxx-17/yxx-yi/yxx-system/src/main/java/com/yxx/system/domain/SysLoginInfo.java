@@ -1,16 +1,20 @@
 package com.yxx.system.domain;
 
+import java.io.Serial;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yxx.common.annotation.Excel;
 import com.yxx.common.annotation.Excel.ColumnType;
 import com.yxx.common.core.domain.BaseEntity;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
- * 系统访问记录表 sys_logininfor
+ * 系统访问记录表 sys_login_info
  */
-public class SysLogininfor extends BaseEntity
+public class SysLoginInfo extends BaseEntity
 {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /** ID */
@@ -138,5 +142,17 @@ public class SysLogininfor extends BaseEntity
     public void setLoginTime(Date loginTime)
     {
         this.loginTime = loginTime;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
+                .append("infoId", getInfoId())
+                .append("userName", getUserName())
+                .append("status", getStatus())
+                .append("ipaddr", getIpaddr())
+                .append("loginLocation", getLoginLocation())
+                .append("super=>", super.toString())
+                .toString();
     }
 }

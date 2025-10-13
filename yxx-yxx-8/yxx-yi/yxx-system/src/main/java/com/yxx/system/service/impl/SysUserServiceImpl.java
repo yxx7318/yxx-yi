@@ -505,8 +505,7 @@ public class SysUserServiceImpl implements ISysUserService
                     deptService.checkDeptDataScope(user.getDeptId());
                     String password = configService.selectConfigByKey("sys.user.initPassword");
                     user.setPassword(SecurityUtils.encryptPassword(password));
-                    user.setCreateById(getUserId());
-                    user.setCreateByName(operName);
+                    user.fieldFillInsert();
                     userMapper.insertUser(user);
                     successNum++;
                     successMsg.append("<br/>" + successNum + "、账号 " + user.getUserName() + " 导入成功");
@@ -518,8 +517,7 @@ public class SysUserServiceImpl implements ISysUserService
                     checkUserDataScope(u.getUserId());
                     deptService.checkDeptDataScope(user.getDeptId());
                     user.setUserId(u.getUserId());
-                    user.setCreateById(getUserId());
-                    user.setCreateByName(operName);
+                    user.fieldFillUpdate();
                     userMapper.updateUser(user);
                     successNum++;
                     successMsg.append("<br/>" + successNum + "、账号 " + user.getUserName() + " 更新成功");

@@ -1,5 +1,6 @@
 package com.yxx.quartz.domain;
 
+import java.io.Serial;
 import java.util.Date;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -18,6 +19,7 @@ import com.yxx.quartz.util.CronUtils;
  */
 public class SysJob extends BaseEntity
 {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /** 任务ID */
@@ -159,13 +161,7 @@ public class SysJob extends BaseEntity
                 .append("misfirePolicy", getMisfirePolicy())
                 .append("concurrent", getConcurrent())
                 .append("status", getStatus())
-                .append("createById", getCreateById())
-                .append("createByName", getCreateByName())
-                .append("createTime", getCreateTime())
-                .append("updateById", getUpdateById())
-                .append("updateByName", getUpdateByName())
-                .append("updateTime", getUpdateTime())
-                .append("remark", getRemark())
+                .append("super=>", super.toString())
                 .toString();
     }
 }

@@ -1,13 +1,14 @@
 package com.yxx.system.mapper;
 
 import java.util.List;
+import com.yxx.common.core.mapper.BaseMapperPlus;
 import org.apache.ibatis.annotations.Param;
 import com.yxx.common.core.domain.entity.SysDictData;
 
 /**
  * 字典表 数据层
  */
-public interface SysDictDataMapper
+public interface SysDictDataMapper extends BaseMapperPlus<SysDictData>
 {
     /**
      * 根据条件分页查询字典数据

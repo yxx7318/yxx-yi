@@ -1,5 +1,6 @@
 package com.yxx.system.domain;
 
+import java.io.Serial;
 import java.util.Date;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yxx.common.annotation.Excel;
@@ -11,11 +12,16 @@ import com.yxx.common.core.domain.BaseEntity;
  */
 public class SysOperLog extends BaseEntity
 {
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /** 日志主键 */
     @Excel(name = "操作序号", cellType = ColumnType.NUMERIC)
     private Long operId;
+
+    /** 追踪ID */
+    @Excel(name = "追踪ID")
+    private String traceId;
 
     /** 操作模块 */
     @Excel(name = "操作模块")
@@ -93,6 +99,16 @@ public class SysOperLog extends BaseEntity
     public void setOperId(Long operId)
     {
         this.operId = operId;
+    }
+
+    public String getTraceId()
+    {
+        return traceId;
+    }
+
+    public void setTraceId(String traceId)
+    {
+        this.traceId = traceId;
     }
 
     public String getTitle()

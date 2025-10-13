@@ -2,6 +2,8 @@ package com.yxx.framework.aspectj;
 
 import java.util.Collection;
 import java.util.Map;
+
+import com.yxx.common.utils.MDCUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.ArrayUtils;
@@ -87,6 +89,7 @@ public class LogAspect
 
             // *========数据库日志=========*//
             SysOperLog operLog = new SysOperLog();
+            operLog.setTraceId(MDCUtils.getTraceId());
             operLog.setStatus(BusinessStatus.SUCCESS.getCode());
             // 请求的地址
             String ip = IpUtils.getIpAddr();

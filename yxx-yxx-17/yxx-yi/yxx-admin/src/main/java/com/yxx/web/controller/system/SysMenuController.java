@@ -1,6 +1,8 @@
 package com.yxx.web.controller.system;
 
 import java.util.List;
+
+import com.yxx.common.core.utils.FieldFillUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
@@ -91,8 +93,7 @@ public class SysMenuController extends BaseController
         {
             return error("新增菜单'" + menu.getMenuName() + "'失败，地址必须以http(s)://开头");
         }
-        menu.setCreateById(getUserId());
-        menu.setCreateByName(getUsername());
+        menu.fieldFillInsert();
         return toAjax(menuService.insertMenu(menu));
     }
 
@@ -116,8 +117,7 @@ public class SysMenuController extends BaseController
         {
             return error("修改菜单'" + menu.getMenuName() + "'失败，上级菜单不能选择自己");
         }
-        menu.setUpdateById(getUserId());
-        menu.setUpdateByName(getUsername());
+        menu.fieldFillUpdate();
         return toAjax(menuService.updateMenu(menu));
     }
 

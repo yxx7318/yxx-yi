@@ -9,22 +9,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import com.yxx.common.core.service.impl.ServiceImplPlus;
 import com.yxx.business.mapper.TbTestUserMapper;
-import com.yxx.business.entity.TbTestUserDo;
-import com.yxx.business.entity.TbTestUserVo;
-import com.yxx.business.entity.TbTestUserQueryDto;
-import com.yxx.business.entity.TbTestUserEditDto;
+import com.yxx.business.entity.TbTestUserDO;
+import com.yxx.business.entity.TbTestUserVO;
+import com.yxx.business.entity.TbTestUserQueryDTO;
+import com.yxx.business.entity.TbTestUserEditDTO;
 import com.yxx.business.service.ITbTestUserService;
 
 /**
  * 测试单表生成Service业务层处理
  *
  * @author yxx
- * @date 2025-08-14
+ * @date 2025-10-13
  */
 @Slf4j
 @Service
 @RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
-public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbTestUserDo> implements ITbTestUserService {
+public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbTestUserDO> implements ITbTestUserService {
 
     private final ITbTestUserService self;
 
@@ -33,38 +33,38 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
     /**
      * 查询测试单表生成分页结果
      *
-     * @param tbTestUserQueryDto 测试单表生成查询实体
+     * @param tbTestUserQueryDTO 测试单表生成查询实体
      * @return 测试单表生成分页
      */
     @Override
-    public PageResult<TbTestUserVo> selectTbTestUserVoPage(TbTestUserQueryDto tbTestUserQueryDto) {
+    public PageResult<TbTestUserVO> selectTbTestUserVOPage(TbTestUserQueryDTO tbTestUserQueryDTO) {
         startPage();
-        PageResult<TbTestUserVo> page
-                = super.getMyBatisPageResult(self.selectTbTestUserDoList(tbTestUserQueryDto), TbTestUserVo.class);
+        PageResult<TbTestUserVO> page
+                = super.getMyBatisPageResult(self.selectTbTestUserDOList(tbTestUserQueryDTO), TbTestUserVO.class);
         clearPage();
         return page;
     }
 
     /**
-     * 查询测试单表生成Vo列表
+     * 查询测试单表生成VO列表
      *
-     * @param tbTestUserQueryDto 测试单表生成查询实体
+     * @param tbTestUserQueryDTO 测试单表生成查询实体
      * @return 测试单表生成集合
      */
     @Override
-    public List<TbTestUserVo> selectTbTestUserVoList(TbTestUserQueryDto tbTestUserQueryDto) {
-        return super.convertList(tbTestUserMapper.selectTbTestUserList(tbTestUserQueryDto), TbTestUserVo.class);
+    public List<TbTestUserVO> selectTbTestUserVOList(TbTestUserQueryDTO tbTestUserQueryDTO) {
+        return super.convertList(tbTestUserMapper.selectTbTestUserList(tbTestUserQueryDTO), TbTestUserVO.class);
     }
 
     /**
-     * 查询测试单表生成Do列表
+     * 查询测试单表生成DO列表
      *
-     * @param tbTestUserQueryDto 测试单表生成查询实体
+     * @param tbTestUserQueryDTO 测试单表生成查询实体
      * @return 测试单表生成集合
      */
     @Override
-    public List<TbTestUserDo> selectTbTestUserDoList(TbTestUserQueryDto tbTestUserQueryDto) {
-        return tbTestUserMapper.selectTbTestUserList(tbTestUserQueryDto);
+    public List<TbTestUserDO> selectTbTestUserDOList(TbTestUserQueryDTO tbTestUserQueryDTO) {
+        return tbTestUserMapper.selectTbTestUserList(tbTestUserQueryDTO);
     }
 
     /**
@@ -74,37 +74,33 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
      * @return 测试单表生成单个
      */
     @Override
-    public TbTestUserVo selectTbTestUserVoByUserId(Long userId) {
-        return super.convertBean(tbTestUserMapper.selectTbTestUserByUserId(userId), TbTestUserVo.class);
+    public TbTestUserVO selectTbTestUserVOByUserId(Long userId) {
+        return super.convertBean(tbTestUserMapper.selectTbTestUserByUserId(userId), TbTestUserVO.class);
     }
 
     /**
      * 新增测试单表生成
      *
-     * @param tbTestUserEditDto 测试单表生成编辑实体
+     * @param tbTestUserEditDTO 测试单表生成编辑实体
      * @return 结果
      */
     @Override
-    public int insertTbTestUser(TbTestUserEditDto tbTestUserEditDto) {
-        tbTestUserEditDto.setCreateById(getUserIdOrNotLogged());
-        tbTestUserEditDto.setCreateByName(getUserNameOrNotLogged());
-        tbTestUserEditDto.setCreateTime(getNowLocalDateTime());
-        return tbTestUserMapper.insertTbTestUser(super.convertT(tbTestUserEditDto));
+    public int insertTbTestUser(TbTestUserEditDTO tbTestUserEditDTO) {
+    tbTestUserEditDTO.fieldFillInsert();
+        return tbTestUserMapper.insertTbTestUser(super.convertT(tbTestUserEditDTO));
     }
 
     /**
      * 修改测试单表生成
      *
      * @param userId 测试单表生成主键
-     * @param tbTestUserEditDto 测试单表生成编辑实体
+     * @param tbTestUserEditDTO 测试单表生成编辑实体
      * @return 结果
      */
     @Override
-    public int updateTbTestUser(Long userId, TbTestUserEditDto tbTestUserEditDto) {
-        tbTestUserEditDto.setUpdateById(getUserIdOrNotLogged());
-        tbTestUserEditDto.setUpdateByName(getUserNameOrNotLogged());
-        tbTestUserEditDto.setUpdateTime(getNowLocalDateTime());
-        return tbTestUserMapper.updateTbTestUser(super.convertT(tbTestUserEditDto).setUserId(userId));
+    public int updateTbTestUser(Long userId, TbTestUserEditDTO tbTestUserEditDTO) {
+        tbTestUserEditDTO.fieldFillUpdate();
+        return tbTestUserMapper.updateTbTestUser(super.convertT(tbTestUserEditDTO).setUserId(userId));
     }
 
     /**

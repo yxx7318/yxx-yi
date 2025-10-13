@@ -1,12 +1,13 @@
 package com.yxx.system.domain;
 
+import com.yxx.common.core.domain.BaseColumnEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 /**
  * 角色和部门关联 sys_role_dept
  */
-public class SysRoleDept
+public class SysRoleDept extends BaseColumnEntity
 {
     /** 角色ID */
     private Long roleId;
@@ -39,6 +40,7 @@ public class SysRoleDept
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("roleId", getRoleId())
             .append("deptId", getDeptId())
+            .append("super=>", super.toString())
             .toString();
     }
 }

@@ -16,22 +16,22 @@ public class ThreadPoolExecutorMDCWrapper extends ThreadPoolTaskExecutor {
     @Override
     public void execute(Runnable task)
     {
-        super.execute(wrap(task, MDCUtils.getContext()));
+        super.execute(wrap(task, MDC.getCopyOfContextMap()));
     }
 
     @Override
     public <T> Future<T> submit(Callable<T> task)
     {
-        return super.submit(wrap(task, MDCUtils.getContext()));
+        return super.submit(wrap(task, MDC.getCopyOfContextMap()));
     }
 
     @Override
     public Future<?> submit(Runnable task)
     {
-        return super.submit(wrap(task, MDCUtils.getContext()));
+        return super.submit(wrap(task, MDC.getCopyOfContextMap()));
     }
 
-    private <T> Callable<T> wrap(final Callable<T> callable, final Map<String, String> context)
+    public static <T> Callable<T> wrap(final Callable<T> callable, final Map<String, String> context)
     {
         return () ->
         {
@@ -43,12 +43,12 @@ public class ThreadPoolExecutorMDCWrapper extends ThreadPoolTaskExecutor {
             }
             finally
             {
-                MDCUtils.clean();
+                MDC.clear();
             }
         };
     }
 
-    private Runnable wrap(final Runnable runnable, final Map<String, String> context)
+    public static Runnable wrap(final Runnable runnable, final Map<String, String> context)
     {
         return () ->
         {
@@ -60,7 +60,43 @@ public class ThreadPoolExecutorMDCWrapper extends ThreadPoolTaskExecutor {
             }
             finally
             {
-                MDCUtils.clean();
+                MDC.clear();
+            }
+        };
+    }
+
+    public static <T> Callable<T> wrap(final Callable<T> callable)
+    {
+        final Map<String, String> context = MDC.getCopyOfContextMap();
+        return () ->
+        {
+            MDCUtils.setContextIfExist(context);
+            MDCUtils.setTraceIdIfAbsent();
+            try
+            {
+                return callable.call();
+            }
+            finally
+            {
+                MDC.clear();
+            }
+        };
+    }
+
+    public static Runnable wrap(final Runnable runnable)
+    {
+        final Map<String, String> context = MDC.getCopyOfContextMap();
+        return () ->
+        {
+            MDCUtils.setContextIfExist(context);
+            MDCUtils.setTraceIdIfAbsent();
+            try
+            {
+                runnable.run();
+            }
+            finally
+            {
+                MDC.clear();
             }
         };
     }

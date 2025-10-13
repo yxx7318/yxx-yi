@@ -1,13 +1,14 @@
 package com.yxx.system.mapper;
 
 import java.util.List;
+import com.yxx.common.core.mapper.BaseMapperPlus;
 import org.apache.ibatis.annotations.Param;
 import com.yxx.common.core.domain.entity.SysDept;
 
 /**
  * 部门管理 数据层
  */
-public interface SysDeptMapper
+public interface SysDeptMapper extends BaseMapperPlus<SysDept>
 {
     /**
      * 查询部门管理数据

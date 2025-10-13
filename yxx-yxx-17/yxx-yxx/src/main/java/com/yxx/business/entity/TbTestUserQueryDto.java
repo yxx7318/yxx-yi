@@ -12,7 +12,7 @@ import lombok.*;
  * 测试单表生成QueryDto对象 tb_test_user
  *
  * @author yxx
- * @date 2025-08-14
+ * @date 2025-10-13
  */
 @Schema(description = "测试单表生成查询条件实体")
 @NoArgsConstructor
@@ -21,7 +21,7 @@ import lombok.*;
 @Accessors(chain = true)
 @Builder
 @Data
-public class TbTestUserQueryDto extends BaseQueryDtoEntity {
+public class TbTestUserQueryDTO extends BaseQueryDtoEntity {
 
     @Serial
     private static final long serialVersionUID = 1L;

@@ -1,12 +1,14 @@
 package com.yxx.quartz.mapper;
 
 import java.util.List;
+
+import com.yxx.common.core.mapper.BaseMapperPlus;
 import com.yxx.quartz.domain.SysJob;
 
 /**
  * 调度任务信息 数据层
  */
-public interface SysJobMapper
+public interface SysJobMapper extends BaseMapperPlus<SysJob>
 {
     /**
      * 查询调度任务日志集合

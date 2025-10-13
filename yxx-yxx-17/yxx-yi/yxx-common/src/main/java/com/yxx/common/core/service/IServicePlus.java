@@ -9,6 +9,7 @@ import com.yxx.common.core.domain.PageQueryEntity;
 import com.yxx.common.core.domain.model.LoginUser;
 import com.yxx.common.core.page.PageDomain;
 import com.yxx.common.core.page.TableSupport;
+import com.yxx.common.core.utils.FieldFillUtils;
 import com.yxx.common.utils.DateUtils;
 import com.yxx.common.utils.LocalDateUtils;
 import com.yxx.common.utils.PageUtils;
@@ -113,6 +114,20 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
     }
 
     /**
+     * 填充插入时的公共字段
+     */
+    default T fieldFillInsert(T t) {
+        return FieldFillUtils.fieldFillInsert(t);
+    }
+
+    /**
+     * 填充插入时的公共字段
+     */
+    default T fieldFillUpdate(T t) {
+        return FieldFillUtils.fieldFillUpdate(t);
+    }
+
+    /**
      * 获取转化后的Po结果
      */
     public <PO> PO convertBean(T t, Class<PO> voClass);
@@ -143,8 +158,8 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
      *
      * @param list      数据库查询结果
      * @param convertor 自定义转换方法
-     * @param <PO>    PO对象
-     * @param <VO>    VO对象
+     * @param <PO>      PO对象
+     * @param <VO>      VO对象
      * @return VoList
      */
     public <PO, VO> List<VO> convertList(List<PO> list, Function<PO, VO> convertor);
@@ -188,8 +203,8 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
     /**
      * 获取到MyBatis分页结果
      *
-     * @param list    分页插件查询数据
-     * @param <PO>    PO对象
+     * @param list 分页插件查询数据
+     * @param <PO> PO对象
      * @return PageResult<PO>分页结果
      */
     public <PO> PageResult<PO> getMyBatisPageResult(List<PO> list);
@@ -271,7 +286,7 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
     /**
      * 根据对象获取分页结果
      *
-     * @param dto  分页对象
+     * @param dto 分页对象
      * @return 基本T对象的分页结果 PageResult<T>
      */
     public <DTO extends PageQueryEntity> PageResult<T> getMpDoPageResult(DTO dto);

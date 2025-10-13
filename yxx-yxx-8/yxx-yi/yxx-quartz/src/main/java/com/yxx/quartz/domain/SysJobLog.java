@@ -126,7 +126,7 @@ public class SysJobLog extends BaseEntity
     {
         this.startTime = startTime;
     }
-    
+
     public Date getStopTime()
     {
         return stopTime;

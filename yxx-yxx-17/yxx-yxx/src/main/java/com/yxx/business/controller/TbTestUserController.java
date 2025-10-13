@@ -20,10 +20,10 @@ import org.springframework.context.annotation.Lazy;
 import com.yxx.common.annotation.Log;
 import com.yxx.common.core.controller.BaseControllerPlus;
 import com.yxx.common.enums.BusinessType;
-import com.yxx.business.entity.TbTestUserDo;
-import com.yxx.business.entity.TbTestUserVo;
-import com.yxx.business.entity.TbTestUserQueryDto;
-import com.yxx.business.entity.TbTestUserEditDto;
+import com.yxx.business.entity.TbTestUserDO;
+import com.yxx.business.entity.TbTestUserVO;
+import com.yxx.business.entity.TbTestUserQueryDTO;
+import com.yxx.business.entity.TbTestUserEditDTO;
 import com.yxx.business.service.ITbTestUserService;
 import com.yxx.common.utils.poi.ExcelUtil;
 import com.yxx.common.core.domain.R;
@@ -39,7 +39,7 @@ import org.springframework.validation.annotation.Validated;
  * 测试单表生成Controller
  *
  * @author yxx
- * @date 2025-08-14
+ * @date 2025-10-13
  */
 @Tag(name = "测试单表生成管理-TbTestUser")
 @RestController
@@ -52,31 +52,31 @@ public class TbTestUserController extends BaseControllerPlus {
     @Operation(summary = "查询--测试单表生成列表")
     @PreAuthorize("@ss.hasPermi('business:user:list')")
     @GetMapping("/list")
-    public PageResult<TbTestUserVo> list(@ParameterObject TbTestUserQueryDto tbTestUserQueryDto) {
-        return tbTestUserService.selectTbTestUserVoPage(tbTestUserQueryDto);
+    public PageResult<TbTestUserVO> list(@ParameterObject TbTestUserQueryDTO tbTestUserQueryDTO) {
+        return tbTestUserService.selectTbTestUserVOPage(tbTestUserQueryDTO);
     }
 
     @Operation(summary = "查询--测试单表生成单个")
     @PreAuthorize("@ss.hasPermi('business:user:query')")
     @GetMapping(value = "/{userId}")
-    public R<TbTestUserVo> getInfo(@PathVariable Long userId) {
-        return R.ok(tbTestUserService.selectTbTestUserVoByUserId(userId));
+    public R<TbTestUserVO> getInfo(@PathVariable Long userId) {
+        return R.ok(tbTestUserService.selectTbTestUserVOByUserId(userId));
     }
 
     @Operation(summary = "新增--测试单表生成")
     @PreAuthorize("@ss.hasPermi('business:user:add')")
     @Log(title = "测试单表生成", businessType = BusinessType.INSERT)
     @PostMapping
-    public R<String> add(@RequestBody @Validated TbTestUserEditDto tbTestUserEditDto) {
-        return toResult(tbTestUserService.insertTbTestUser(tbTestUserEditDto));
+    public R<String> add(@RequestBody @Validated TbTestUserEditDTO tbTestUserEditDTO) {
+        return toResult(tbTestUserService.insertTbTestUser(tbTestUserEditDTO));
     }
 
     @Operation(summary = "修改--测试单表生成")
     @PreAuthorize("@ss.hasPermi('business:user:edit')")
     @Log(title = "测试单表生成", businessType = BusinessType.UPDATE)
     @PutMapping("/{userId}")
-    public R<String> update(@PathVariable Long userId, @RequestBody @Validated TbTestUserEditDto tbTestUserEditDto) {
-        return toResult(tbTestUserService.updateTbTestUser(userId, tbTestUserEditDto));
+    public R<String> update(@PathVariable Long userId, @RequestBody @Validated TbTestUserEditDTO tbTestUserEditDTO) {
+        return toResult(tbTestUserService.updateTbTestUser(userId, tbTestUserEditDTO));
     }
 
     @Operation(summary = "删除--测试单表生成")
@@ -91,9 +91,9 @@ public class TbTestUserController extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('business:user:export')")
     @Log(title = "测试单表生成", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
-    public void export(HttpServletResponse response, @ParameterObject TbTestUserQueryDto tbTestUserQueryDto) {
-        List<TbTestUserDo> list = tbTestUserService.selectTbTestUserDoList(tbTestUserQueryDto);
-        ExcelUtil<TbTestUserDo> util = new ExcelUtil<>(TbTestUserDo.class);
+    public void export(HttpServletResponse response, @ParameterObject TbTestUserQueryDTO tbTestUserQueryDTO) {
+        List<TbTestUserDO> list = tbTestUserService.selectTbTestUserDOList(tbTestUserQueryDTO);
+        ExcelUtil<TbTestUserDO> util = new ExcelUtil<>(TbTestUserDO.class);
         util.exportExcel(response, list, "测试单表生成数据");
     }
 
@@ -101,7 +101,7 @@ public class TbTestUserController extends BaseControllerPlus {
     @PreAuthorize("@ss.hasPermi('business:user:import')")
     @PostMapping("/importTemplate")
     public void exportTemplate(HttpServletResponse response) {
-        ExcelUtil<TbTestUserDo> util = new ExcelUtil<>(TbTestUserDo.class);
+        ExcelUtil<TbTestUserDO> util = new ExcelUtil<>(TbTestUserDO.class);
         util.importTemplateExcel(response, "导入测试单表生成模板数据");
     }
 
@@ -110,8 +110,8 @@ public class TbTestUserController extends BaseControllerPlus {
     @Log(title = "测试单表生成", businessType = BusinessType.IMPORT)
     @PostMapping("/importData")
     public R<Boolean> importData(MultipartFile file) throws IOException {
-        ExcelUtil<TbTestUserDo> util = new ExcelUtil<>(TbTestUserDo.class);
-        List<TbTestUserDo> list = util.importExcel(file.getInputStream());
+        ExcelUtil<TbTestUserDO> util = new ExcelUtil<>(TbTestUserDO.class);
+        List<TbTestUserDO> list = util.importExcel(file.getInputStream());
         return R.ok(tbTestUserService.saveBatch(list), "成功导入 " + list.size() + " 条记录");
     }
 }

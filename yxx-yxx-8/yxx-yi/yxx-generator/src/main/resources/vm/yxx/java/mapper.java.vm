@@ -3,21 +3,21 @@ package ${packageName}.mapper;
 import java.util.List;
 
 #if($table.sub || $table.tree)
-#set($ClassDo=${ClassName})
-#set($classDo=${className})
-#set($ClassQueryDto=${ClassName})
-#set($classQueryDto=${className})
+#set($ClassDO=${ClassName})
+#set($classDO=${className})
+#set($ClassQueryDTO=${ClassName})
+#set($classQueryDTO=${className})
 #else
-#set($ClassDo="${ClassName}Do")
-#set($classDo="${className}Do")
-#set($ClassQueryDto="${ClassName}QueryDto")
-#set($classQueryDto="${className}QueryDto")
+#set($ClassDO="${ClassName}DO")
+#set($classDO="${className}DO")
+#set($ClassQueryDTO="${ClassName}QueryDTO")
+#set($classQueryDTO="${className}QueryDTO")
 #end
 #if($table.sub || $table.tree)
-import ${packageName}.entity.${ClassDo};
+import ${packageName}.entity.${ClassDO};
 #else
-import ${packageName}.entity.${ClassDo};
-import ${packageName}.entity.${ClassQueryDto};
+import ${packageName}.entity.${ClassDO};
+import ${packageName}.entity.${ClassQueryDTO};
 #end
 #if($table.sub)
 import ${packageName}.entity.${subClassName};
@@ -32,15 +32,15 @@ import org.springframework.stereotype.Repository;
  * @date ${datetime}
  */
 @Repository
-public interface ${ClassName}Mapper extends BaseMapperPlus<${ClassDo}> {
+public interface ${ClassName}Mapper extends BaseMapperPlus<${ClassDO}> {
 
     /**
      * 查询${functionName}列表
      *
-     * @param ${classQueryDto} ${functionName}查询实体
+     * @param ${classQueryDTO} ${functionName}查询实体
      * @return ${functionName}集合
      */
-    public List<${ClassDo}> select${ClassName}List(${ClassQueryDto} ${classQueryDto});
+    public List<${ClassDO}> select${ClassName}List(${ClassQueryDTO} ${classQueryDTO});
 
     /**
      * 查询${functionName}
@@ -48,23 +48,23 @@ public interface ${ClassName}Mapper extends BaseMapperPlus<${ClassDo}> {
      * @param ${pkColumn.javaField} ${functionName}主键
      * @return ${functionName}单个
      */
-    public ${ClassDo} select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField});
+    public ${ClassDO} select${ClassName}By${pkColumn.capJavaField}(${pkColumn.javaType} ${pkColumn.javaField});
 
     /**
      * 新增${functionName}
      *
-     * @param ${classDo} ${functionName}数据库实体
+     * @param ${classDO} ${functionName}数据库实体
      * @return 结果
      */
-    public int insert${ClassName}(${ClassDo} ${classDo});
+    public int insert${ClassName}(${ClassDO} ${classDO});
 
     /**
      * 修改${functionName}
      *
-     * @param ${classDo} ${functionName}数据库实体
+     * @param ${classDO} ${functionName}数据库实体
      * @return 结果
      */
-    public int update${ClassName}(${ClassDo} ${classDo});
+    public int update${ClassName}(${ClassDO} ${classDO});
 
     /**
      * 删除${functionName}

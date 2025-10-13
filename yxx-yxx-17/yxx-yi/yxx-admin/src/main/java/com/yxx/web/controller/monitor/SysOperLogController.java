@@ -23,13 +23,13 @@ import com.yxx.system.service.ISysOperLogService;
  * 操作日志记录
  */
 @RestController
-@RequestMapping("/monitor/operlog")
-public class SysOperlogController extends BaseController
+@RequestMapping("/monitor/operLog")
+public class SysOperLogController extends BaseController
 {
     @Autowired
     private ISysOperLogService operLogService;
 
-    @PreAuthorize("@ss.hasPermi('monitor:operlog:list')")
+    @PreAuthorize("@ss.hasPermi('monitor:operLog:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysOperLog operLog)
     {
@@ -39,7 +39,7 @@ public class SysOperlogController extends BaseController
     }
 
     @Log(title = "操作日志", businessType = BusinessType.EXPORT)
-    @PreAuthorize("@ss.hasPermi('monitor:operlog:export')")
+    @PreAuthorize("@ss.hasPermi('monitor:operLog:export')")
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysOperLog operLog)
     {
@@ -49,7 +49,7 @@ public class SysOperlogController extends BaseController
     }
 
     @Log(title = "操作日志", businessType = BusinessType.DELETE)
-    @PreAuthorize("@ss.hasPermi('monitor:operlog:remove')")
+    @PreAuthorize("@ss.hasPermi('monitor:operLog:remove')")
     @DeleteMapping("/{operIds}")
     public AjaxResult remove(@PathVariable Long[] operIds)
     {
@@ -57,7 +57,7 @@ public class SysOperlogController extends BaseController
     }
 
     @Log(title = "操作日志", businessType = BusinessType.CLEAN)
-    @PreAuthorize("@ss.hasPermi('monitor:operlog:remove')")
+    @PreAuthorize("@ss.hasPermi('monitor:operLog:remove')")
     @DeleteMapping("/clean")
     public AjaxResult clean()
     {
