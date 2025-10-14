@@ -42,9 +42,9 @@
   },
   "uni_modules": {
     "dependencies": [
-			"uni-icons",
-			"uni-scss"
-		],
+      "uni-icons",
+      "uni-scss"
+    ],
     "encrypt": [],
     "platforms": {
       "cloud": {

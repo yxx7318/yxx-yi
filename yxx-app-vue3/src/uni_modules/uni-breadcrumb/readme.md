@@ -17,28 +17,28 @@
 
 ```html
 <uni-breadcrumb separator="/">
-	<uni-breadcrumb-item v-for="(route,index) in routes" :key="index" :to="route.to">{{route.name}}</uni-breadcrumb-item>
+  <uni-breadcrumb-item v-for="(route,index) in routes" :key="index" :to="route.to">{{route.name}}</uni-breadcrumb-item>
 </uni-breadcrumb>
 ```
 
 ```js
 export default {
-		name: "uni-stat-breadcrumb",
-		data() {
-			return {
-				routes: [{
-					to: '/A',
-					name: 'A页面'
-				}, {
-					to: '/B',
-					name: 'B页面'
-				}, {
-					to: '/C',
-					name: 'C页面'
-				}]
-			};
-		}
-	}
+    name: "uni-stat-breadcrumb",
+    data() {
+      return {
+        routes: [{
+          to: '/A',
+          name: 'A页面'
+        }, {
+          to: '/B',
+          name: 'B页面'
+        }, {
+          to: '/C',
+          name: 'C页面'
+        }]
+      };
+    }
+  }
 ```
 
 
@@ -46,17 +46,17 @@ export default {
 
 ### Breadcrumb Props
 
-|属性名			|类型	|默认值	|说明				|
-|:-:			|:-:	|:-:	|:-:				|
-|separator		|String	|斜杠'/' |分隔符				|
-|separatorClass	|String	|		|图标分隔符 class	    |
+|属性名      |类型  |默认值  |说明        |
+|:-:      |:-:  |:-:  |:-:        |
+|separator    |String  |斜杠'/' |分隔符        |
+|separatorClass  |String  |    |图标分隔符 class      |
 
 ### Breadcrumb Item Props
 
-|属性名	|类型			|默认值	|说明																			|
-|:-:	|:-:			|:-:	|:-:																			|
-|to		|String     	|		|路由跳转页面路径           														|
-|replace|Boolean		|		|在使用 to 进行路由跳转时，启用 replace 将不会向 history 添加新记录(仅 h5 支持）         |
+|属性名  |类型      |默认值  |说明                                      |
+|:-:  |:-:      |:-:  |:-:                                      |
+|to    |String       |    |路由跳转页面路径                                       |
+|replace|Boolean    |    |在使用 to 进行路由跳转时，启用 replace 将不会向 history 添加新记录(仅 h5 支持）         |
 
 
 

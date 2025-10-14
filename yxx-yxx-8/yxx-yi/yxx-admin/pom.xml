@@ -52,8 +52,13 @@
         <dependency>
             <groupId>com.yxx</groupId>
             <artifactId>yxx-z-erp</artifactId>
-            <version>3.8.9</version>
         </dependency>
+
+        <!-- pay模块-->
+<!--        <dependency>-->
+<!--            <groupId>com.yxx</groupId>-->
+<!--            <artifactId>yxx-z-pay</artifactId>-->
+<!--        </dependency>-->
     </dependencies>
 
 </project>

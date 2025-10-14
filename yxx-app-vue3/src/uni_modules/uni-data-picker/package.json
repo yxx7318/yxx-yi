@@ -41,8 +41,8 @@
   "uni_modules": {
     "dependencies": [
       "uni-load-more",
-			"uni-icons",
-			"uni-scss"
+      "uni-icons",
+      "uni-scss"
     ],
     "encrypt": [],
     "platforms": {

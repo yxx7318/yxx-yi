@@ -38,9 +38,9 @@
   },
   "uni_modules": {
     "dependencies": [
-			"uni-scss",
-			"uni-icons"
-		],
+      "uni-scss",
+      "uni-icons"
+    ],
     "encrypt": [],
     "platforms": {
       "cloud": {

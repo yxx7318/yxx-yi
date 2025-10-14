@@ -28,13 +28,13 @@
 
 ```html
 <view>
-	<uni-calendar 
-	:insert="true"
-	:lunar="true" 
-	:start-date="'2019-3-2'"
-	:end-date="'2019-5-20'"
-	@change="change"
-	 />
+  <uni-calendar 
+  :insert="true"
+  :lunar="true" 
+  :start-date="'2019-3-2'"
+  :end-date="'2019-5-20'"
+  @change="change"
+   />
 </view>
 ```
 
@@ -44,29 +44,29 @@
 
 ```html
 <view>
-	<uni-calendar 
-	ref="calendar"
-	:insert="false"
-	@confirm="confirm"
-	 />
-	 <button @click="open">打开日历</button>
+  <uni-calendar 
+  ref="calendar"
+  :insert="false"
+  @confirm="confirm"
+   />
+   <button @click="open">打开日历</button>
 </view>
 ```
 
 ```javascript
 
 export default {
-	data() {
-		return {};
-	},
-	methods: {
-		open(){
-			this.$refs.calendar.open();
-		},
-		confirm(e) {
-			console.log(e);
-		}
-	}
+  data() {
+    return {};
+  },
+  methods: {
+    open(){
+      this.$refs.calendar.open();
+    },
+    confirm(e) {
+      console.log(e);
+    }
+  }
 };
 
 ```
@@ -76,23 +76,23 @@ export default {
 
 ### Calendar Props
 
-|  属性名	|    类型	| 默认值| 说明																													|
-| 		| 																													|
-| date		| String	|-		| 自定义当前时间，默认为今天																							|
-| lunar		| Boolean	| false	| 显示农历																												|
-| startDate	| String	|-		| 日期选择范围-开始日期																									|
-| endDate	| String	|-		| 日期选择范围-结束日期																									|
-| range		| Boolean	| false	| 范围选择																												|
-| insert	| Boolean	| false	| 插入模式,可选值，ture：插入模式；false：弹窗模式；默认为插入模式														|
-|clearDate	|Boolean	|true	|弹窗模式是否清空上次选择内容	|
-| selected	| Array		|-		| 打点，期待格式[{date: '2019-06-27', info: '签到', data: { custom: '自定义信息', name: '自定义消息头',xxx:xxx... }}]	|
-|showMonth	| Boolean	| true	| 是否显示月份为背景																									|
+|  属性名  |    类型  | 默认值| 说明                                                          |
+|     |                                                           |
+| date    | String  |-    | 自定义当前时间，默认为今天                                              |
+| lunar    | Boolean  | false  | 显示农历                                                        |
+| startDate  | String  |-    | 日期选择范围-开始日期                                                  |
+| endDate  | String  |-    | 日期选择范围-结束日期                                                  |
+| range    | Boolean  | false  | 范围选择                                                        |
+| insert  | Boolean  | false  | 插入模式,可选值，ture：插入模式；false：弹窗模式；默认为插入模式                            |
+|clearDate  |Boolean  |true  |弹窗模式是否清空上次选择内容  |
+| selected  | Array    |-    | 打点，期待格式[{date: '2019-06-27', info: '签到', data: { custom: '自定义信息', name: '自定义消息头',xxx:xxx... }}]  |
+|showMonth  | Boolean  | true  | 是否显示月份为背景                                                  |
 
 ### Calendar Events
 
-|  事件名		| 说明								|返回值|
-| 								|		| 									|
-| open	| 弹出日历组件，`insert :false` 时生效|- 	|
+|  事件名    | 说明                |返回值|
+|                 |    |                   |
+| open  | 弹出日历组件，`insert :false` 时生效|-   |
 
 
 

@@ -165,17 +165,17 @@
 </script>
 
 <style lang="scss">
-	$uni-primary: #007aff !default;
+  $uni-primary: #007aff !default;
 
-	.uni-data-pickerview {
-		flex: 1;
-		/* #ifndef APP-NVUE */
-		display: flex;
-		/* #endif */
-		flex-direction: column;
-		overflow: hidden;
-		height: 100%;
-	}
+  .uni-data-pickerview {
+    flex: 1;
+    /* #ifndef APP-NVUE */
+    display: flex;
+    /* #endif */
+    flex-direction: column;
+    overflow: hidden;
+    height: 100%;
+  }
 
   .error-text {
     color: #DD524D;
@@ -252,13 +252,13 @@
     /* #endif */
   }
 
-	.selected-item-active {
-		border-bottom: 2px solid $uni-primary;
-	}
+  .selected-item-active {
+    border-bottom: 2px solid $uni-primary;
+  }
 
-	.selected-item-text {
-		color: $uni-primary;
-	}
+  .selected-item-text {
+    color: $uni-primary;
+  }
 
   .tab-c {
     position: relative;
@@ -305,17 +305,17 @@
     /* #endif */
   }
 
-	.check {
-		margin-right: 5px;
-		border: 2px solid $uni-primary;
-		border-left: 0;
-		border-top: 0;
-		height: 12px;
-		width: 6px;
-		transform-origin: center;
-		/* #ifndef APP-NVUE */
-		transition: all 0.3s;
-		/* #endif */
-		transform: rotate(45deg);
-	}
+  .check {
+    margin-right: 5px;
+    border: 2px solid $uni-primary;
+    border-left: 0;
+    border-top: 0;
+    height: 12px;
+    width: 6px;
+    transform-origin: center;
+    /* #ifndef APP-NVUE */
+    transition: all 0.3s;
+    /* #endif */
+    transform: rotate(45deg);
+  }
 </style>

@@ -40,6 +40,6 @@ export default {
       document.removeEventListener('keyup', listener)
     })
   },
-	render: () => {}
+  render: () => {}
 }
 // #endif

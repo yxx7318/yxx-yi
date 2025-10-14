@@ -17,6 +17,8 @@
         <bitwalker.version>1.21</bitwalker.version>
         <swagger.version>3.0.0</swagger.version>
         <kaptcha.version>2.3.3</kaptcha.version>
+        <alipay.version>4.35.79.ALL</alipay.version>
+        <weixin-java.version>4.7.7-20250808.182223</weixin-java.version>
         <pagehelper.boot.version>1.4.7</pagehelper.boot.version>
         <fastjson.version>2.0.53</fastjson.version>
         <oshi.version>6.8.2</oshi.version>
@@ -151,6 +153,20 @@
                 <version>${kaptcha.version}</version>
             </dependency>
 
+            <!-- alipay服务相关 -->
+            <dependency>
+                <groupId>com.alipay.sdk</groupId>
+                <artifactId>alipay-sdk-java</artifactId>
+                <version>${alipay.version}</version>
+            </dependency>
+
+            <!-- wxpay服务相关 -->
+            <dependency>
+                <groupId>com.github.binarywang</groupId>
+                <artifactId>weixin-java-pay</artifactId>
+                <version>${weixin-java.version}</version>
+            </dependency>
+
             <!-- 定时任务-->
             <dependency>
                 <groupId>com.yxx</groupId>
@@ -192,6 +208,13 @@
                 <artifactId>yxx-z-erp</artifactId>
                 <version>${yxx.version}</version>
             </dependency>
+
+<!--            &lt;!&ndash; pay模块&ndash;&gt;-->
+<!--            <dependency>-->
+<!--                <groupId>com.yxx</groupId>-->
+<!--                <artifactId>yxx-z-pay</artifactId>-->
+<!--                <version>${yxx.version}</version>-->
+<!--            </dependency>-->
         </dependencies>
     </dependencyManagement>
 
@@ -203,6 +226,7 @@
         <module>yxx-quartz</module>
         <module>yxx-system</module>
         <module>yxx-z-erp</module>
+<!--        <module>yxx-z-pay</module>-->
     </modules>
 
 </project>

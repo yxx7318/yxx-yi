@@ -1,95 +1,95 @@
 <template>
   <view class="wyb-table-box">
     <view v-if="loading" class="wyb-table-loading-box" :style="{
-			width: width === 'auto' ? screenWidth : width,
-			height: height === 'auto' ? '300rpx' : height,
-			backgroundColor: loaderBgColor,
-			borderTop: '1px solid' + borderColor,
-			borderBottom: '1px solid' + borderColor,
-			borderLeft: showLeftAndRightBorder ? '1px solid' + borderColor : 'none',
-			borderRight: showLeftAndRightBorder ? '1px solid' + borderColor : 'none'}">
+      width: width === 'auto' ? screenWidth : width,
+      height: height === 'auto' ? '300rpx' : height,
+      backgroundColor: loaderBgColor,
+      borderTop: '1px solid' + borderColor,
+      borderBottom: '1px solid' + borderColor,
+      borderLeft: showLeftAndRightBorder ? '1px solid' + borderColor : 'none',
+      borderRight: showLeftAndRightBorder ? '1px solid' + borderColor : 'none'}">
       <view class="loader-one" :style="{
-				 width: loaderSize + 'rpx',
-				 height: loaderSize + 'rpx',
-				 borderTop: '3px solid ' + loadingColor.top,
-				 borderRight: '3px solid ' + loadingColor.right,
-				 borderBottom: '3px solid ' + loadingColor.bottom,
-				 borderLeft: '3px solid ' + loadingColor.left}"/>
+         width: loaderSize + 'rpx',
+         height: loaderSize + 'rpx',
+         borderTop: '3px solid ' + loadingColor.top,
+         borderRight: '3px solid ' + loadingColor.right,
+         borderBottom: '3px solid ' + loadingColor.bottom,
+         borderLeft: '3px solid ' + loadingColor.left}"/>
     </view>
     <view v-if="!loading" class="wyb-table-scroll-view" :style="{
-			width: width,
-			height: height,
-			borderTop: '1px solid' + borderColor,
-			borderLeft: showLeftAndRightBorder ? '1px solid' + borderColor : 'none',
-			borderRight: showLeftAndRightBorder ? '1px solid' + borderColor : 'none'}">
+      width: width,
+      height: height,
+      borderTop: '1px solid' + borderColor,
+      borderLeft: showLeftAndRightBorder ? '1px solid' + borderColor : 'none',
+      borderRight: showLeftAndRightBorder ? '1px solid' + borderColor : 'none'}">
       <view class="wyb-table-header" :style="{borderBottom: '1px solid' + borderColor}">
         <view class="wyb-table-header-item" v-if="enableCheck" :style="{
-					 minWidth: checkColWidth + 'rpx',
-					 maxWidth: checkColWidth + 'rpx',
-					 minHeight: minHeight[0] + 'rpx',
-					 textAlign: textAlign,
-					 justifyContent: textAlign === 'center' ? textAlign : (textAlign === 'left' ? 'flex-start' : 'flex-end'),
-					 fontSize: fontSize[0] + 'rpx',
-					 color: headerFtColor,
-					 padding: padding[0] + 'rpx ' + (padding[1] || padding[0]) + 'rpx',
-					 backgroundColor: headerBgColor,
-					 borderRight: '1px solid' + borderColor,
-					 zIndex: 30,
-					 left: 0,
-					 color: headerFtColor,
-					 backgroundColor: headerBgColor,
-					 position: 'sticky'}">
+           minWidth: checkColWidth + 'rpx',
+           maxWidth: checkColWidth + 'rpx',
+           minHeight: minHeight[0] + 'rpx',
+           textAlign: textAlign,
+           justifyContent: textAlign === 'center' ? textAlign : (textAlign === 'left' ? 'flex-start' : 'flex-end'),
+           fontSize: fontSize[0] + 'rpx',
+           color: headerFtColor,
+           padding: padding[0] + 'rpx ' + (padding[1] || padding[0]) + 'rpx',
+           backgroundColor: headerBgColor,
+           borderRight: '1px solid' + borderColor,
+           zIndex: 30,
+           left: 0,
+           color: headerFtColor,
+           backgroundColor: headerBgColor,
+           position: 'sticky'}">
           <view
             class="wyb-table-checkbox"
             v-if="enableCheck === 'multiple'"
             @tap.stop="onCheckAllTap"
             :style="{
-							width: checkColWidth * 0.5 + 'rpx',
-							height: checkColWidth * 0.5 + 'rpx',
-							backgroundColor: checkerBoxBgColor,
-							border: '1px solid ' + checkerBorderColor}">
+              width: checkColWidth * 0.5 + 'rpx',
+              height: checkColWidth * 0.5 + 'rpx',
+              backgroundColor: checkerBoxBgColor,
+              border: '1px solid ' + checkerBorderColor}">
             <text
               class="iconfont icon-check"
               v-show="checkAll"
               :style="{
-								color: checkerColor,
-								backgroundColor: checkerBgColor,
-								paddingTop: (fontSize[1] || fontSize[0]) * 0.15 + 'rpx',
-								fontSize: (fontSize[1] || fontSize[0]) + 'rpx'}"/>
+                color: checkerColor,
+                backgroundColor: checkerBgColor,
+                paddingTop: (fontSize[1] || fontSize[0]) * 0.15 + 'rpx',
+                fontSize: (fontSize[1] || fontSize[0]) + 'rpx'}"/>
           </view>
         </view>
         <view ref="iosBug" class="wyb-table-header-item" v-for="(item, index) in headers" :key="item.key"
               @tap="onHeaderItemTap(index)"
               :style="{
-					 minWidth: (item.width || defaultColWidth) + 'rpx',
-					 maxWidth: (item.width || defaultColWidth) + 'rpx',
-					 minHeight: minHeight[0] + 'rpx',
-					 textAlign: textAlign,
-					 justifyContent: textAlign === 'center' ? textAlign : (textAlign === 'left' ? 'flex-start' : 'flex-end'),
-					 fontSize: fontSize[0] + 'rpx',
-					 fontWeight: headerWeight ? 'bold' : 'normal',
-					 color: headerFtColor,
-					 padding: padding[0] + 'rpx ' + (padding[1] || padding[0]) + 'rpx',
-					 backgroundColor: headerBgColor,
-					 borderRight: index === headers.length - 1 || (!showVertBorder && index !== 0) ? 'none' : '1px solid' + borderColor,
-					 zIndex: index === 0 ? 20 : 0,
-					 left: index === 0 && firstLineFixed ? (enableCheck ? checkColWidth + 'rpx' : 0) : 'auto',
-					 position: index === 0 ? 'sticky' : 'static'}">
+           minWidth: (item.width || defaultColWidth) + 'rpx',
+           maxWidth: (item.width || defaultColWidth) + 'rpx',
+           minHeight: minHeight[0] + 'rpx',
+           textAlign: textAlign,
+           justifyContent: textAlign === 'center' ? textAlign : (textAlign === 'left' ? 'flex-start' : 'flex-end'),
+           fontSize: fontSize[0] + 'rpx',
+           fontWeight: headerWeight ? 'bold' : 'normal',
+           color: headerFtColor,
+           padding: padding[0] + 'rpx ' + (padding[1] || padding[0]) + 'rpx',
+           backgroundColor: headerBgColor,
+           borderRight: index === headers.length - 1 || (!showVertBorder && index !== 0) ? 'none' : '1px solid' + borderColor,
+           zIndex: index === 0 ? 20 : 0,
+           left: index === 0 && firstLineFixed ? (enableCheck ? checkColWidth + 'rpx' : 0) : 'auto',
+           position: index === 0 ? 'sticky' : 'static'}">
           <text :style="{marginLeft: autoSortShow(index) && textAlign !== 'left' ? fontSize[0] * 0.65 + 'rpx' : 0}">
             {{ item.label || emptyString }}
           </text>
           <view class="wyb-table-header-icon" v-if="autoSortShow(index)">
             <text class="iconfont icon-arrow-up" :style="{
-							color: sortWays[sortWay] === 'asc' && sortActiveKey === item.key ?
-								headerFtColor : RGBChange(headerFtColor, 0.7, 'light'),
-							fontWeight: 'normal',
-							marginBottom: '-12px',
-							transform: 'scale(0.4)'}"/>
+              color: sortWays[sortWay] === 'asc' && sortActiveKey === item.key ?
+                headerFtColor : RGBChange(headerFtColor, 0.7, 'light'),
+              fontWeight: 'normal',
+              marginBottom: '-12px',
+              transform: 'scale(0.4)'}"/>
             <text class="iconfont icon-arrow-down" :style="{
-							color: sortWays[sortWay] === 'inv' && sortActiveKey === item.key ?
-								headerFtColor : RGBChange(headerFtColor, 0.7, 'light'),
-							fontWeight: 'normal',
-							transform: 'scale(0.4)'}"/>
+              color: sortWays[sortWay] === 'inv' && sortActiveKey === item.key ?
+                headerFtColor : RGBChange(headerFtColor, 0.7, 'light'),
+              fontWeight: 'normal',
+              transform: 'scale(0.4)'}"/>
           </view>
         </view>
       </view>
@@ -98,35 +98,35 @@
               :key="contentLineKey(content, cIndex)"
               :style="{borderTop: cIndex === 0 ? 'none' : '1px solid' + borderColor}">
           <view class="wyb-table-content-item" v-if="enableCheck" :style="{
-						 minWidth: checkColWidth + 'rpx',
-						 maxWidth: checkColWidth + 'rpx',
-						 textAlign: textAlign,
-						 justifyContent: textAlign === 'center' ? textAlign : (textAlign === 'left' ? 'flex-start' : 'flex-end'),
-						 fontSize: (fontSize[1] || fontSize[0]) + 'rpx',
-						 minHeight: (minHeight[1] || minHeight[0]) + 'rpx',
-						 padding: padding[0] + 'rpx ' + (padding[1] || padding[0]) + 'rpx',
-						 borderRight: '1px solid' + borderColor,
-						 zIndex: 21,
-						 color: contentFtColor,
-						 backgroundColor: checkerCellBgColor,
-						 left: 0,
-						 position: 'sticky'}">
+             minWidth: checkColWidth + 'rpx',
+             maxWidth: checkColWidth + 'rpx',
+             textAlign: textAlign,
+             justifyContent: textAlign === 'center' ? textAlign : (textAlign === 'left' ? 'flex-start' : 'flex-end'),
+             fontSize: (fontSize[1] || fontSize[0]) + 'rpx',
+             minHeight: (minHeight[1] || minHeight[0]) + 'rpx',
+             padding: padding[0] + 'rpx ' + (padding[1] || padding[0]) + 'rpx',
+             borderRight: '1px solid' + borderColor,
+             zIndex: 21,
+             color: contentFtColor,
+             backgroundColor: checkerCellBgColor,
+             left: 0,
+             position: 'sticky'}">
             <view
               class="wyb-table-checkbox"
               @tap.stop="onCheckItemTap(cIndex)"
               :style="{
-								width: checkColWidth * 0.5 + 'rpx',
-								height: checkColWidth * 0.5 + 'rpx',
-								backgroundColor: checkerBoxBgColor,
-								border: '1px solid ' + checkerBorderColor}">
+                width: checkColWidth * 0.5 + 'rpx',
+                height: checkColWidth * 0.5 + 'rpx',
+                backgroundColor: checkerBoxBgColor,
+                border: '1px solid ' + checkerBorderColor}">
               <text
                 class="iconfont icon-check"
                 v-show="contentsSort[cIndex].checked"
                 :style="{
-									color: checkerColor,
-									backgroundColor: checkerBgColor,
-									paddingTop: (fontSize[1] || fontSize[0]) * 0.15 + 'rpx',
-									fontSize: (fontSize[1] || fontSize[0]) + 'rpx'}"/>
+                  color: checkerColor,
+                  backgroundColor: checkerBgColor,
+                  paddingTop: (fontSize[1] || fontSize[0]) * 0.15 + 'rpx',
+                  fontSize: (fontSize[1] || fontSize[0]) + 'rpx'}"/>
             </view>
           </view>
           <view
@@ -135,59 +135,59 @@
             @tap.stop="onContentItemTap(cIndex, hIndex)"
             :key="contentItemKey(header, hIndex)"
             :style="{
-						 minWidth: (header.width || defaultColWidth) + 'rpx',
-						 maxWidth: (header.width || defaultColWidth) + 'rpx',
-						 textAlign: textAlign,
-						 justifyContent: textAlign === 'center' ? textAlign : (textAlign === 'left' ? 'flex-start' : 'flex-end'),
-						 fontSize: (fontSize[1] || fontSize[0]) + 'rpx',
-						 textDecoration: autoTextDecoration(cIndex, hIndex),
-						 color: autoContentColor(cIndex, hIndex),
-						 backgroundColor: autoContentBgColor(cIndex, hIndex),
-						 minHeight: (minHeight[1] || minHeight[0]) + 'rpx',
-						 padding: padding[0] + 'rpx ' + (padding[1] || padding[0]) + 'rpx',
-						 borderBottom: cIndex === contents.length - 1 ? '1px solid' + borderColor : 'none',
-						 borderRight: hIndex === headers.length - 1 || (!showVertBorder && hIndex !== 0) ? 'none' : '1px solid' + borderColor,
-						 zIndex: hIndex === 0 ? 20 : 0,
-						 left: enableCheck ? checkColWidth + 'rpx' : 0,
-						 position: hIndex === 0 && firstLineFixed ? 'sticky' : 'static'}">{{ autoContentItem(cIndex, hIndex) }}
+             minWidth: (header.width || defaultColWidth) + 'rpx',
+             maxWidth: (header.width || defaultColWidth) + 'rpx',
+             textAlign: textAlign,
+             justifyContent: textAlign === 'center' ? textAlign : (textAlign === 'left' ? 'flex-start' : 'flex-end'),
+             fontSize: (fontSize[1] || fontSize[0]) + 'rpx',
+             textDecoration: autoTextDecoration(cIndex, hIndex),
+             color: autoContentColor(cIndex, hIndex),
+             backgroundColor: autoContentBgColor(cIndex, hIndex),
+             minHeight: (minHeight[1] || minHeight[0]) + 'rpx',
+             padding: padding[0] + 'rpx ' + (padding[1] || padding[0]) + 'rpx',
+             borderBottom: cIndex === contents.length - 1 ? '1px solid' + borderColor : 'none',
+             borderRight: hIndex === headers.length - 1 || (!showVertBorder && hIndex !== 0) ? 'none' : '1px solid' + borderColor,
+             zIndex: hIndex === 0 ? 20 : 0,
+             left: enableCheck ? checkColWidth + 'rpx' : 0,
+             position: hIndex === 0 && firstLineFixed ? 'sticky' : 'static'}">{{ autoContentItem(cIndex, hIndex) }}
           </view>
         </view>
         <view v-if="computedCol.length !== 0" class="wyb-table-content-line" :style="{
-					position: bottomComputedFixed ? 'sticky' : 'static',
-					bottom: 0,
-					zIndex: 25,
-					borderTop: '1px solid' + borderColor}">
+          position: bottomComputedFixed ? 'sticky' : 'static',
+          bottom: 0,
+          zIndex: 25,
+          borderTop: '1px solid' + borderColor}">
           <view class="wyb-table-content-item" v-if="enableCheck" :style="{
-						 minWidth: checkColWidth + 'rpx',
-						 maxWidth: checkColWidth + 'rpx',
-						 textAlign: textAlign,
-						 justifyContent: textAlign === 'center' ? textAlign : (textAlign === 'left' ? 'flex-start' : 'flex-end'),
-						 fontSize: (fontSize[1] || fontSize[0]) + 'rpx',
-						 minHeight: (minHeight[1] || minHeight[0]) + 'rpx',
-						 padding: padding[0] + 'rpx ' + (padding[1] || padding[0]) + 'rpx',
-						 borderBottom: '1px solid' + borderColor,
-						 borderRight: '1px solid' + borderColor,
-						 zIndex: 25,
-						 color: contentFtColor,
-						 backgroundColor: checkerCellBgColor,
-						 left: 0,
-						 position: 'sticky'}"></view>
+             minWidth: checkColWidth + 'rpx',
+             maxWidth: checkColWidth + 'rpx',
+             textAlign: textAlign,
+             justifyContent: textAlign === 'center' ? textAlign : (textAlign === 'left' ? 'flex-start' : 'flex-end'),
+             fontSize: (fontSize[1] || fontSize[0]) + 'rpx',
+             minHeight: (minHeight[1] || minHeight[0]) + 'rpx',
+             padding: padding[0] + 'rpx ' + (padding[1] || padding[0]) + 'rpx',
+             borderBottom: '1px solid' + borderColor,
+             borderRight: '1px solid' + borderColor,
+             zIndex: 25,
+             color: contentFtColor,
+             backgroundColor: checkerCellBgColor,
+             left: 0,
+             position: 'sticky'}"></view>
           <view class="wyb-table-content-item" v-for="(header, index) in headers" :key="index"
                 :style="{
-						 minWidth: (header.width || defaultColWidth) + 'rpx',
-						 maxWidth: (header.width || defaultColWidth) + 'rpx',
-						 textAlign: textAlign,
-						 justifyContent: textAlign === 'center' ? textAlign : (textAlign === 'left' ? 'flex-start' : 'flex-end'),
-						 fontSize: (fontSize[1] || fontSize[0]) + 'rpx',
-						 color: contentFtColor,
-						 minHeight: (minHeight[1] || minHeight[0]) + 'rpx',
-						 padding: padding[0] + 'rpx ' + (padding[1] || padding[0]) + 'rpx',
-						 backgroundColor: index === 0 ? firstColBgColor : contentBgColor,
-						 borderBottom: '1px solid' + borderColor,
-						 borderRight: index === headers.length - 1 || (!showVertBorder && index !== 0) ? 'none' : '1px solid' + borderColor,
-						 zIndex: index === 0 ? 20 : 0,
-						 left: enableCheck ? checkColWidth + 'rpx' : 0,
-						 position: index === 0 && firstLineFixed ? 'sticky' : 'static'}">
+             minWidth: (header.width || defaultColWidth) + 'rpx',
+             maxWidth: (header.width || defaultColWidth) + 'rpx',
+             textAlign: textAlign,
+             justifyContent: textAlign === 'center' ? textAlign : (textAlign === 'left' ? 'flex-start' : 'flex-end'),
+             fontSize: (fontSize[1] || fontSize[0]) + 'rpx',
+             color: contentFtColor,
+             minHeight: (minHeight[1] || minHeight[0]) + 'rpx',
+             padding: padding[0] + 'rpx ' + (padding[1] || padding[0]) + 'rpx',
+             backgroundColor: index === 0 ? firstColBgColor : contentBgColor,
+             borderBottom: '1px solid' + borderColor,
+             borderRight: index === headers.length - 1 || (!showVertBorder && index !== 0) ? 'none' : '1px solid' + borderColor,
+             zIndex: index === 0 ? 20 : 0,
+             left: enableCheck ? checkColWidth + 'rpx' : 0,
+             position: index === 0 && firstLineFixed ? 'sticky' : 'static'}">
             {{ autoBottomComputedItem(index) }}
           </view>
         </view>

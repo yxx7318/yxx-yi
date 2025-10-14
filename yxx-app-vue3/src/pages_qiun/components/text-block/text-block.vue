@@ -185,49 +185,49 @@ export default {
 }
 
 // .breathe-blue {
-// 	position:relative;
-// 	color:#fff;
-// 	text-align:center;
-// 	cursor:pointer;
-// 	box-shadow:0 1px 2px rgba(0,0,0,.3);
-// 	overflow:hidden;
-// 	-webkit-animation-timing-function:ease-in-out;
-// 	-webkit-animation-name:breatheblue;
-// 	-webkit-animation-duration:2000ms;
-// 	-webkit-animation-iteration-count:infinite;
-// 	-webkit-animation-direction:alternate;
+//   position:relative;
+//   color:#fff;
+//   text-align:center;
+//   cursor:pointer;
+//   box-shadow:0 1px 2px rgba(0,0,0,.3);
+//   overflow:hidden;
+//   -webkit-animation-timing-function:ease-in-out;
+//   -webkit-animation-name:breatheblue;
+//   -webkit-animation-duration:2000ms;
+//   -webkit-animation-iteration-count:infinite;
+//   -webkit-animation-direction:alternate;
 // }
 // @keyframes breatheblue {
-// 	0% {
-// 		opacity:.8;
-// 		box-shadow:0 1px 2px rgba(62,178,245,0.5);
-// 	}
-// 	100% {
-// 		opacity:1;
-// 		box-shadow:0 1px 30px rgba(147,116,247,0.6);
-// 	}
+//   0% {
+//     opacity:.8;
+//     box-shadow:0 1px 2px rgba(62,178,245,0.5);
+//   }
+//   100% {
+//     opacity:1;
+//     box-shadow:0 1px 30px rgba(147,116,247,0.6);
+//   }
 // }
 // .breathe-red {
-// 	position:relative;
-// 	color:#fff;
-// 	text-align:center;
-// 	cursor:pointer;
-// 	box-shadow:0 1px 2px rgba(0,0,0,.3);
-// 	overflow:hidden;
-// 	-webkit-animation-timing-function:ease-in-out;
-// 	-webkit-animation-name:breathered;
-// 	-webkit-animation-duration:2000ms;
-// 	-webkit-animation-iteration-count:infinite;
-// 	-webkit-animation-direction:alternate;
+//   position:relative;
+//   color:#fff;
+//   text-align:center;
+//   cursor:pointer;
+//   box-shadow:0 1px 2px rgba(0,0,0,.3);
+//   overflow:hidden;
+//   -webkit-animation-timing-function:ease-in-out;
+//   -webkit-animation-name:breathered;
+//   -webkit-animation-duration:2000ms;
+//   -webkit-animation-iteration-count:infinite;
+//   -webkit-animation-direction:alternate;
 // }
 // @keyframes breathered {
-// 	0% {
-// 		opacity:.8;
-// 		box-shadow:0 1px 2px rgba(247,126,137,0.5);
-// 	}
-// 	100% {
-// 		opacity:1;
-// 		box-shadow:0 1px 30px rgba(247,149,59,0.9);
-// 	}
+//   0% {
+//     opacity:.8;
+//     box-shadow:0 1px 2px rgba(247,126,137,0.5);
+//   }
+//   100% {
+//     opacity:1;
+//     box-shadow:0 1px 30px rgba(247,149,59,0.9);
+//   }
 // }
 </style>

@@ -346,10 +346,10 @@ class Calendar {
 
   //静态方法
   // static init(date) {
-  // 	if (!this.instance) {
-  // 		this.instance = new Calendar(date);
-  // 	}
-  // 	return this.instance;
+  //   if (!this.instance) {
+  //     this.instance = new Calendar(date);
+  //   }
+  //   return this.instance;
   // }
 }
 

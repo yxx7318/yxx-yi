@@ -75,13 +75,13 @@
     </view>
   </view>
   <!-- <view>
-	  <uni-popup ref="popup" type="dialog">
-	    <uni-popup-dialog type="info" cancelText="关闭" confirmText="退出"
-	                      title="通知" content="确定注销并退出系统吗"
-	    				  @confirm="dialogConfirm"
-	                      @close="dialogClose">
-	    </uni-popup-dialog>
-	  </uni-popup>
+    <uni-popup ref="popup" type="dialog">
+      <uni-popup-dialog type="info" cancelText="关闭" confirmText="退出"
+                        title="通知" content="确定注销并退出系统吗"
+                @confirm="dialogConfirm"
+                        @close="dialogClose">
+      </uni-popup-dialog>
+    </uni-popup>
   </view> -->
 </template>
 

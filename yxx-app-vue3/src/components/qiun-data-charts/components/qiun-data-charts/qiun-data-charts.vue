@@ -1397,12 +1397,12 @@ export default {
       }
       // 颜色渐变添加的方法
       if (option.series) {
-      	for (let i in option.series) {
-      		let linearGradient = option.series[i].linearGradient
-      		if (linearGradient) {
-      			option.series[i].color = new echarts.graphic.LinearGradient(linearGradient[0],linearGradient[1],linearGradient[2],linearGradient[3],linearGradient[4])
-      		}
-      	}
+        for (let i in option.series) {
+          let linearGradient = option.series[i].linearGradient
+          if (linearGradient) {
+            option.series[i].color = new echarts.graphic.LinearGradient(linearGradient[0],linearGradient[1],linearGradient[2],linearGradient[3],linearGradient[4])
+          }
+        }
       }
       cfe.instance[cid].setOption(option, option.notMerge)
       cfe.instance[cid].on('finished', function(){
@@ -1423,21 +1423,21 @@ export default {
     },
     tooltipPosition(){
       return (point, params, dom, rect, size) => {
-      	let x = point[0]
-      	let y = point[1]
-      	let viewWidth = size.viewSize[0]
-      	let viewHeight = size.viewSize[1]
-      	let boxWidth = size.contentSize[0]
-      	let boxHeight = size.contentSize[1]
-      	let posX = x + 30
-      	let posY = y + 30
-      	if (posX + boxWidth > viewWidth) {
-      		posX = x - boxWidth - 30
-      	}
-      	if (posY + boxHeight > viewHeight) {
-      		posY = y - boxHeight - 30
-      	}
-      	return [posX, posY]
+        let x = point[0]
+        let y = point[1]
+        let viewWidth = size.viewSize[0]
+        let viewHeight = size.viewSize[1]
+        let boxWidth = size.contentSize[0]
+        let boxHeight = size.contentSize[1]
+        let posX = x + 30
+        let posY = y + 30
+        if (posX + boxWidth > viewWidth) {
+          posX = x - boxWidth - 30
+        }
+        if (posY + boxHeight > viewHeight) {
+          posY = y - boxHeight - 30
+        }
+        return [posX, posY]
       }
     },
     //==============以下是uCharts的方法====================
