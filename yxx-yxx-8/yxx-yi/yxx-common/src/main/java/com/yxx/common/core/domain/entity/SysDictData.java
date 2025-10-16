@@ -2,6 +2,9 @@ package com.yxx.common.core.domain.entity;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.yxx.common.annotation.Excel;
@@ -18,7 +21,8 @@ public class SysDictData extends BaseEntity
 
     /** 字典编码 */
     @Excel(name = "字典编码", cellType = ColumnType.NUMERIC)
-    private Long dictCode;
+    @TableId(type = IdType.AUTO)
+    private Long dictDataId;
 
     /** 字典排序 */
     @Excel(name = "字典排序", cellType = ColumnType.NUMERIC)
@@ -50,14 +54,14 @@ public class SysDictData extends BaseEntity
     @Excel(name = "状态", readConverterExp = "0=正常,1=停用")
     private String status;
 
-    public Long getDictCode()
+    public Long getDictDataId()
     {
-        return dictCode;
+        return dictDataId;
     }
 
-    public void setDictCode(Long dictCode)
+    public void setDictDataId(Long dictDataId)
     {
-        this.dictCode = dictCode;
+        this.dictDataId = dictDataId;
     }
 
     public Long getDictSort()
@@ -155,7 +159,7 @@ public class SysDictData extends BaseEntity
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("dictCode", getDictCode())
+            .append("dictDataId", getDictDataId())
             .append("dictSort", getDictSort())
             .append("dictLabel", getDictLabel())
             .append("dictValue", getDictValue())

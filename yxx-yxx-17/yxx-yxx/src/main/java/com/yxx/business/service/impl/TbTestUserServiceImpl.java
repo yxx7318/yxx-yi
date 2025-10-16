@@ -64,6 +64,8 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
      */
     @Override
     public List<TbTestUserDO> selectTbTestUserDOList(TbTestUserQueryDTO tbTestUserQueryDTO) {
+        getEntityClass();
+        Class<TbTestUserMapper> mapperClass = this.getMapperClass();
         return tbTestUserMapper.selectTbTestUserList(tbTestUserQueryDTO);
     }
 

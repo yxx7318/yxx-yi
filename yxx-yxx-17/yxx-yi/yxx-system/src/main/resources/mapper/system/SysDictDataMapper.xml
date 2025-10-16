@@ -5,7 +5,7 @@
 <mapper namespace="com.yxx.system.mapper.SysDictDataMapper">
 
     <resultMap type="SysDictData" id="SysDictDataResult">
-        <id     property="dictCode"      column="dict_code"      />
+        <id     property="dictDataId"    column="dict_data_id"   />
         <result property="dictSort"      column="dict_sort"      />
         <result property="dictLabel"     column="dict_label"     />
         <result property="dictValue"     column="dict_value"     />
@@ -24,7 +24,7 @@
     </resultMap>
 
     <sql id="selectDictDataVo">
-        select dict_code, dict_sort, dict_label, dict_value, dict_type, css_class, list_class, is_default, status, create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark
+        select dict_data_id, dict_sort, dict_label, dict_value, dict_type, css_class, list_class, is_default, status, create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark
         from sys_dict_data
     </sql>
 
@@ -56,21 +56,21 @@
 
     <select id="selectDictDataById" parameterType="Long" resultMap="SysDictDataResult">
         <include refid="selectDictDataVo"/>
-        where dict_code = #{dictCode}
+        where dict_data_id = #{dictDataId}
     </select>
 
     <select id="countDictDataByType" resultType="Integer">
-        select count(1) from sys_dict_data where dict_type=#{dictType}  
+        select count(1) from sys_dict_data where dict_type=#{dictType}
     </select>
 
     <delete id="deleteDictDataById" parameterType="Long">
-        delete from sys_dict_data where dict_code = #{dictCode}
+        delete from sys_dict_data where dict_data_id = #{dictDataId}
     </delete>
 
     <delete id="deleteDictDataByIds" parameterType="Long">
-        delete from sys_dict_data where dict_code in
-        <foreach collection="array" item="dictCode" open="(" separator="," close=")">
-            #{dictCode}
+        delete from sys_dict_data where dict_data_id in
+        <foreach collection="array" item="dictDataId" open="(" separator="," close=")">
+            #{dictDataId}
         </foreach>
     </delete>
 
@@ -91,7 +91,7 @@
             <if test="updateTime != null">update_time = #{updateTime},</if>
             <if test="remark != null and remark != ''">remark = #{remark},</if>
         </trim>
-        where dict_code = #{dictCode}
+        where dict_data_id = #{dictDataId}
     </update>
 
     <update id="updateDictDataType" parameterType="String">

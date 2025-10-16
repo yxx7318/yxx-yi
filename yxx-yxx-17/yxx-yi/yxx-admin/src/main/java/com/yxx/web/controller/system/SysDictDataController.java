@@ -61,10 +61,10 @@ public class SysDictDataController extends BaseController
      * 查询字典数据详细
      */
     @PreAuthorize("@ss.hasPermi('system:dict:query')")
-    @GetMapping(value = "/{dictCode}")
-    public AjaxResult getInfo(@PathVariable Long dictCode)
+    @GetMapping(value = "/{dictDataId}")
+    public AjaxResult getInfo(@PathVariable Long dictDataId)
     {
-        return success(dictDataService.selectDictDataById(dictCode));
+        return success(dictDataService.selectDictDataById(dictDataId));
     }
 
     /**
@@ -110,10 +110,10 @@ public class SysDictDataController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('system:dict:remove')")
     @Log(title = "字典类型", businessType = BusinessType.DELETE)
-    @DeleteMapping("/{dictCodes}")
-    public AjaxResult remove(@PathVariable Long[] dictCodes)
+    @DeleteMapping("/{dictDataIds}")
+    public AjaxResult remove(@PathVariable Long[] dictDataIds)
     {
-        dictDataService.deleteDictDataByIds(dictCodes);
+        dictDataService.deleteDictDataByIds(dictDataIds);
         return success();
     }
 }

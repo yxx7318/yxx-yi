@@ -5,6 +5,7 @@
 <mapper namespace="com.yxx.system.mapper.SysRoleMenuMapper">
 
     <resultMap type="SysRoleMenu" id="SysRoleMenuResult">
+        <id     property="roleMenuId"     column="role_menu_id"   />
         <result property="roleId"         column="role_id"        />
         <result property="menuId"         column="menu_id"        />
         <result property="createById"     column="create_by_id"   />

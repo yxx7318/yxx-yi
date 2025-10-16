@@ -1,5 +1,7 @@
 package com.yxx.generator.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.yxx.common.core.domain.BaseEntity;
 import com.yxx.common.utils.StringUtils;
 import com.yxx.generator.constants.GenConstants;
@@ -17,6 +19,7 @@ public class GenTable extends BaseEntity
     private static final long serialVersionUID = 1L;
 
     /** 编号 */
+    @TableId(type = IdType.AUTO)
     private Long tableId;
 
     /** 表名称 */

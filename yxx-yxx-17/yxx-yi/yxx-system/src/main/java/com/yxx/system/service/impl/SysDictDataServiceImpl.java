@@ -45,27 +45,27 @@ public class SysDictDataServiceImpl implements ISysDictDataService
     /**
      * 根据字典数据ID查询信息
      * 
-     * @param dictCode 字典数据ID
+     * @param dictDataId 字典数据ID
      * @return 字典数据
      */
     @Override
-    public SysDictData selectDictDataById(Long dictCode)
+    public SysDictData selectDictDataById(Long dictDataId)
     {
-        return dictDataMapper.selectDictDataById(dictCode);
+        return dictDataMapper.selectDictDataById(dictDataId);
     }
 
     /**
      * 批量删除字典数据信息
      * 
-     * @param dictCodes 需要删除的字典数据ID
+     * @param dictDataIds 需要删除的字典数据ID
      */
     @Override
-    public void deleteDictDataByIds(Long[] dictCodes)
+    public void deleteDictDataByIds(Long[] dictDataIds)
     {
-        for (Long dictCode : dictCodes)
+        for (Long dictDataId : dictDataIds)
         {
-            SysDictData data = selectDictDataById(dictCode);
-            dictDataMapper.deleteDictDataById(dictCode);
+            SysDictData data = selectDictDataById(dictDataId);
+            dictDataMapper.deleteDictDataById(dictDataId);
             List<SysDictData> dictDatas = dictDataMapper.selectDictDataByType(data.getDictType());
             DictUtils.setDictCache(data.getDictType(), dictDatas);
         }

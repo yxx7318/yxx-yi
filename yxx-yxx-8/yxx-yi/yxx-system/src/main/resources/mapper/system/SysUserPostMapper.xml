@@ -5,6 +5,7 @@
 <mapper namespace="com.yxx.system.mapper.SysUserPostMapper">
 
     <resultMap type="SysUserPost" id="SysUserPostResult">
+        <id     property="userPostId"     column="user_post_id"   />
         <result property="userId"         column="user_id"        />
         <result property="postId"         column="post_id"        />
         <result property="createById"     column="create_by_id"   />

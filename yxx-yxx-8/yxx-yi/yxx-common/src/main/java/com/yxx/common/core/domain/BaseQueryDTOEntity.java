@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * Entity查询基类
  */
-public class BaseQueryDtoEntity extends PageQueryEntity implements Serializable {
+public class BaseQueryDTOEntity extends PageQueryEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

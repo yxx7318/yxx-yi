@@ -1,6 +1,8 @@
 package com.yxx.system.domain;
 
 import java.util.Date;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yxx.common.annotation.Excel;
 import com.yxx.common.annotation.Excel.ColumnType;
@@ -15,6 +17,7 @@ public class SysLoginInfo extends BaseEntity
 
     /** ID */
     @Excel(name = "序号", cellType = ColumnType.NUMERIC)
+    @TableId(type = IdType.AUTO)
     private Long infoId;
 
     /** 用户账号 */

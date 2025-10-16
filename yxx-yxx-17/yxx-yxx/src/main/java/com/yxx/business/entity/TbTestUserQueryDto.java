@@ -3,7 +3,7 @@ package com.yxx.business.entity;
 import java.io.Serial;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import com.yxx.common.core.domain.BaseQueryDtoEntity;
+import com.yxx.common.core.domain.BaseQueryDTOEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.experimental.Accessors;
 import lombok.*;
@@ -21,7 +21,7 @@ import lombok.*;
 @Accessors(chain = true)
 @Builder
 @Data
-public class TbTestUserQueryDTO extends BaseQueryDtoEntity {
+public class TbTestUserQueryDTO extends BaseQueryDTOEntity {
 
     @Serial
     private static final long serialVersionUID = 1L;

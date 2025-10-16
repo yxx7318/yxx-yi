@@ -1,6 +1,9 @@
 package com.yxx.quartz.domain;
 
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.yxx.common.annotation.Excel;
@@ -15,6 +18,7 @@ public class SysJobLog extends BaseEntity
 
     /** ID */
     @Excel(name = "日志序号")
+    @TableId(type = IdType.AUTO)
     private Long jobLogId;
 
     /** 任务名称 */

@@ -5,6 +5,7 @@
 <mapper namespace="com.yxx.system.mapper.SysUserRoleMapper">
 
     <resultMap type="SysUserRole" id="SysUserRoleResult">
+        <id     property="userRoleId"     column="user_role_id"   />
         <result property="userId"         column="user_id"        />
         <result property="roleId"         column="role_id"        />
         <result property="createById"     column="create_by_id"   />

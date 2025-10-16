@@ -28,17 +28,17 @@ public interface ISysDictDataService
     /**
      * 根据字典数据ID查询信息
      * 
-     * @param dictCode 字典数据ID
+     * @param dictDataId 字典数据ID
      * @return 字典数据
      */
-    public SysDictData selectDictDataById(Long dictCode);
+    public SysDictData selectDictDataById(Long dictDataId);
 
     /**
      * 批量删除字典数据信息
      * 
-     * @param dictCodes 需要删除的字典数据ID
+     * @param dictDataIds 需要删除的字典数据ID
      */
-    public void deleteDictDataByIds(Long[] dictCodes);
+    public void deleteDictDataByIds(Long[] dictDataIds);
 
     /**
      * 新增保存字典数据信息

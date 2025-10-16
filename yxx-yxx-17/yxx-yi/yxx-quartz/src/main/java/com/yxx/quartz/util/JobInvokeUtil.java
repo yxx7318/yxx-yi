@@ -37,13 +37,17 @@ public class JobInvokeUtil
             bean = Class.forName(beanName).getDeclaredConstructor().newInstance();
         }
         String result;
-        try {
+        try
+        {
             result = invokeMethod(bean, methodName, methodParams);
-        } catch (InvocationTargetException e) {
+        }
+        catch (InvocationTargetException e)
+        {
             // 获取原始的异常
             Throwable targetException = e.getTargetException();
             // 如果是自定义的任务异常，则进行异常二次抛出方便日志的写入
-            if (targetException instanceof JobExecutionException) {
+            if (targetException instanceof JobExecutionException)
+            {
                 throw new JobExecutionException(ExceptionUtil.getRootErrorMessage(e));
             }
             throw new Exception(e);

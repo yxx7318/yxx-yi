@@ -2,6 +2,9 @@ package com.yxx.common.core.domain.entity;
 
 import java.io.Serial;
 import java.util.Set;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -21,6 +24,7 @@ public class SysRole extends BaseEntity
 
     /** 角色ID */
     @Excel(name = "角色序号", cellType = ColumnType.NUMERIC)
+    @TableId(type = IdType.AUTO)
     private Long roleId;
 
     /** 角色名称 */

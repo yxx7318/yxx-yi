@@ -2,6 +2,9 @@ package com.yxx.system.domain;
 
 import java.io.Serial;
 import java.util.Date;
+
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.yxx.common.annotation.Excel;
 import com.yxx.common.annotation.Excel.ColumnType;
@@ -17,6 +20,7 @@ public class SysOperLog extends BaseEntity
 
     /** 日志主键 */
     @Excel(name = "操作序号", cellType = ColumnType.NUMERIC)
+    @TableId(type = IdType.AUTO)
     private Long operId;
 
     /** 追踪ID */

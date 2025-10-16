@@ -3,7 +3,7 @@ package com.yxx.framework.aspectj;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.yxx.common.core.domain.BaseQueryDtoEntity;
+import com.yxx.common.core.domain.BaseQueryDTOEntity;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -166,9 +166,9 @@ public class DataScopeAspect
                 BaseEntity baseEntity = (BaseEntity) params;
                 baseEntity.getParams().put(DATA_SCOPE, " AND (" + sqlString.substring(4) + ")");
             }
-            else if (StringUtils.isNotNull(params) && params instanceof BaseQueryDtoEntity)
+            else if (StringUtils.isNotNull(params) && params instanceof BaseQueryDTOEntity)
             {
-                BaseQueryDtoEntity baseQueryDtoEntity = (BaseQueryDtoEntity) params;
+                BaseQueryDTOEntity baseQueryDtoEntity = (BaseQueryDTOEntity) params;
                 baseQueryDtoEntity.getParams().put(DATA_SCOPE, " AND (" + sqlString.substring(4) + ")");
             }
         }

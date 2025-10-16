@@ -1,5 +1,7 @@
 package com.yxx.system.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.yxx.common.core.domain.BaseColumnEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
@@ -9,11 +11,25 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  */
 public class SysUserPost extends BaseColumnEntity
 {
+    /** 用户岗位ID */
+    @TableId(type = IdType.AUTO)
+    private Long userPostId;
+
     /** 用户ID */
     private Long userId;
     
     /** 岗位ID */
     private Long postId;
+
+    public Long getUserPostId()
+    {
+        return userPostId;
+    }
+
+    public void setUserPostId(Long userPostId)
+    {
+        this.userPostId = userPostId;
+    }
 
     public Long getUserId()
     {
@@ -38,6 +54,7 @@ public class SysUserPost extends BaseColumnEntity
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
+            .append("userPostId", getUserPostId())
             .append("userId", getUserId())
             .append("postId", getPostId())
             .toString();
