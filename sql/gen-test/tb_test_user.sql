@@ -2,23 +2,25 @@
 -- 代码生成测试单表
 -- ----------------------------
 drop table if exists `tb_test_user`;
-create table `tb_test_user` (
-  user_id           bigint(20)      not null auto_increment      comment '用户ID',
-  parent_id         bigint(20)                                   comment '主表ID',
-  user_name         varchar(30)     not null                     comment '用户账号',
-  password          varchar(100)    default ''                   comment '密码',
-  status            char(1)         default '0'                  comment '账号状态（0正常 1停用）',
-  register_date     date                                         comment '注册日期',
-  register_time     datetime                                     comment '注册时间',
-  create_by_id      bigint(20)      default 0                    comment '创建者Id',
-  create_by_name    varchar(64)     default ''                   comment '创建者名称',
-  create_time       datetime NOT NULL DEFAULT CURRENT_TIMESTAMP  comment '创建时间',
-  update_by_id      bigint(20)      default 0                    comment '创建者Id',
-  update_by_name    varchar(64)     default ''                   comment '更新者名称',
-  update_time       datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP comment '更新时间',
-  remark            varchar(500)    default null                 comment '备注',
+create table `tb_test_user`
+(
+  user_id           bigint(20)        not null auto_increment   comment '用户ID',
+  parent_id         bigint(20)                                  comment '主表ID',
+  user_name         varchar(30)       not null                  comment '用户账号',
+  password          varchar(100)      default ''                comment '密码',
+  status            char(1)           default '0'               comment '账号状态（0正常 1停用）',
+  register_date     date                                        comment '注册日期',
+  register_time     datetime                                    comment '注册时间',
+  create_by_id      bigint(20)        default 0                 comment '创建者Id',
+  create_by_name    varchar(64)       default ''                comment '创建者名称',
+  create_time       datetime not null default current_timestamp comment '创建时间',
+  update_by_id      bigint(20)        default 0                 comment '创建者Id',
+  update_by_name    varchar(64)       default ''                comment '更新者名称',
+  update_time       datetime not null default current_timestamp on update current_timestamp comment '更新时间',
+  remark            varchar(500)      default null              comment '备注',
   primary key (user_id)
 ) engine=innodb auto_increment=100 comment = '测试单表生成';
+
 
 -- 菜单 SQL
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark)
