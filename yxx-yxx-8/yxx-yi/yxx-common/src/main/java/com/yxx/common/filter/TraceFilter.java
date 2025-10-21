@@ -2,6 +2,8 @@ package com.yxx.common.filter;
 
 import com.yxx.common.constant.Constants;
 import com.yxx.common.utils.MDCUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +15,8 @@ import java.io.IOException;
  */
 public class TraceFilter implements Filter
 {
+
+    private final static Logger logger = LoggerFactory.getLogger(TraceFilter.class);
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException
@@ -33,6 +37,7 @@ public class TraceFilter implements Filter
             traceId = MDCUtils.setTraceIdIfAbsent();
         }
         resp.setHeader(Constants.TRACE_HEADER, traceId);
+        logger.info("access: [{}] {} {}", req.getRemoteAddr(), req.getMethod(), req.getRequestURI());
         try
         {
             chain.doFilter(request, response);

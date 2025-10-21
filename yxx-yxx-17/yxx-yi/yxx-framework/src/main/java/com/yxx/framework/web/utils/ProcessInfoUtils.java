@@ -2,7 +2,7 @@ package com.yxx.framework.web.utils;
 
 import com.yxx.common.utils.spring.SpringUtils;
 import com.yxx.common.core.utils.StreamUtils;
-import com.yxx.framework.web.domain.ServerProperties;
+import com.yxx.framework.web.domain.MonitorProperties;
 import com.yxx.framework.web.domain.ProcessInfo;
 import com.yxx.framework.utils.ProcessMonitor;
 
@@ -10,9 +10,9 @@ import java.util.*;
 
 public class ProcessInfoUtils {
 
-    private static final List<Integer> ports = SpringUtils.getBean(ServerProperties.class).getPorts();
+    private static final List<Integer> ports = SpringUtils.getBean(MonitorProperties.class).getPorts();
 
-    private static final List<String> appNames = SpringUtils.getBean(ServerProperties.class).getAppNames();
+    private static final List<String> appNames = SpringUtils.getBean(MonitorProperties.class).getAppNames();
 
     /**
      * 去重

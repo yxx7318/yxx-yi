@@ -125,8 +125,55 @@
         </plugins>
         <resources>
             <resource>
+                <!-- 对静态文件进行过滤 -->
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
+                <excludes>
+                    <exclude>dist/**</exclude>
+                    <exclude>static/**</exclude>
+                    <exclude>**/*.html</exclude>
+                    <exclude>**/*.css</exclude>
+                    <exclude>**/*.js</exclude>
+                    <exclude>**/*.js.map</exclude>
+                    <exclude>**/*.md</exclude>
+                    <exclude>**/*.txt</exclude>
+                    <exclude>**/*.woff</exclude>
+                    <exclude>**/*.woff</exclude>
+                    <exclude>**/*.woff2</exclude>
+                    <exclude>**/*.ttf</exclude>
+                    <exclude>**/*.eot</exclude>
+                    <exclude>**/*.svg</exclude>
+                    <exclude>**/*.gz</exclude>
+                    <exclude>**/*.zpi</exclude>
+                    <exclude>**/*.pdf</exclude>
+                    <exclude>**/*.xlsx</exclude>
+                    <exclude>**/*.docs</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <!-- 包含静态文件，但不进行过滤 -->
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <includes>
+                    <include>dist/**</include>
+                    <include>static/**</include>
+                    <include>**/*.html</include>
+                    <include>**/*.css</include>
+                    <include>**/*.js</include>
+                    <include>**/*.js.map</include>
+                    <include>**/*.md</include>
+                    <include>**/*.txt</include>
+                    <include>**/*.woff</include>
+                    <include>**/*.woff2</include>
+                    <include>**/*.ttf</include>
+                    <include>**/*.eot</include>
+                    <include>**/*.svg</include>
+                    <include>**/*.gz</include>
+                    <include>**/*.zip</include>
+                    <include>**/*.pdf</include>
+                    <include>**/*.xlsx</include>
+                    <include>**/*.docs</include>
+                </includes>
             </resource>
         </resources>
     </build>

@@ -58,6 +58,34 @@ public class StreamUtils {
     }
 
     /**
+     * 是否有一个元素满足条件
+     *
+     * @param collection 需要查询的集合
+     * @param function   过滤方法
+     * @return 找到符合条件的第一个元素，没有则返回null
+     */
+    public static <E> boolean anyMatch(Collection<E> collection, Predicate<E> function) {
+        if (CollUtil.isEmpty(collection)) {
+            return false;
+        }
+        return collection.stream().filter(Objects::nonNull).anyMatch(function);
+    }
+
+    /**
+     * 是否所有元素满足条件
+     *
+     * @param collection 需要查询的集合
+     * @param function   过滤方法
+     * @return 找到符合条件的第一个元素，没有则返回null
+     */
+    public static <E> boolean allMatch(Collection<E> collection, Predicate<E> function) {
+        if (CollUtil.isEmpty(collection)) {
+            return false;
+        }
+        return collection.stream().filter(Objects::nonNull).allMatch(function);
+    }
+
+    /**
      * 将collection拼接
      *
      * @param collection 需要转化的集合

@@ -27,7 +27,8 @@ public class ServerController
     @GetMapping
     public R<Server> getInfo(ServerDto serverDto) throws Exception
     {
-        if (serverDto.getServerId() == null) {
+        if (serverDto.getServerId() == null)
+        {
             Server server = new Server();
             ServerUtils.copyTo(server);
             // 获取应用运行情况

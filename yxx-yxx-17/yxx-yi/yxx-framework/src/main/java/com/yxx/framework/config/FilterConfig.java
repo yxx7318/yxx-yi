@@ -1,9 +1,14 @@
 package com.yxx.framework.config;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import jakarta.servlet.DispatcherType;
+
+import com.yxx.common.core.domain.properties.ResourceProperties;
+import com.yxx.common.filter.PathRewriteFilter;
 import com.yxx.common.filter.TraceFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
@@ -12,6 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import com.yxx.common.filter.RepeatableFilter;
 import com.yxx.common.filter.XssFilter;
 import com.yxx.common.utils.StringUtils;
+import org.springframework.core.Ordered;
 
 /**
  * Filter配置
@@ -24,6 +30,35 @@ public class FilterConfig
 
     @Value("${xss.urlPatterns}")
     private String urlPatterns;
+
+    @Autowired
+    private ResourceProperties resourceProperties;
+
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @Bean
+    public FilterRegistrationBean traceFilterRegistration()
+    {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(new TraceFilter());
+        registration.addUrlPatterns("/*");
+        registration.setName("traceFilter");
+        registration.setOrder(FilterRegistrationBean.HIGHEST_PRECEDENCE);
+        return registration;
+    }
+
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @Bean
+    @ConditionalOnProperty(value = "resource.enabled", havingValue = "true")
+    public FilterRegistrationBean pathRewriteFilter()
+    {
+        FilterRegistrationBean registration = new FilterRegistrationBean<>();
+        registration.setDispatcherTypes(DispatcherType.REQUEST);
+        registration.setFilter(new PathRewriteFilter());
+        List<String> apiPrefix = resourceProperties.getApiPrefix();
+        registration.setName("pathRewriteFilter");
+        registration.setOrder(Ordered.HIGHEST_PRECEDENCE);
+        return registration;
+    }
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Bean
@@ -50,18 +85,6 @@ public class FilterConfig
         registration.setFilter(new RepeatableFilter());
         registration.addUrlPatterns("/*");
         registration.setName("repeatableFilter");
-        registration.setOrder(FilterRegistrationBean.LOWEST_PRECEDENCE);
-        return registration;
-    }
-
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    @Bean
-    public FilterRegistrationBean traceFilterRegistration()
-    {
-        FilterRegistrationBean registration = new FilterRegistrationBean();
-        registration.setFilter(new TraceFilter());
-        registration.addUrlPatterns("/*");
-        registration.setName("traceFilter");
         registration.setOrder(FilterRegistrationBean.LOWEST_PRECEDENCE);
         return registration;
     }

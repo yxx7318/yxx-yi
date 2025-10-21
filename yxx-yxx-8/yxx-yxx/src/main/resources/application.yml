@@ -99,6 +99,19 @@ xss:
   urlPatterns: /system/*,/monitor/*,/tool/*
 
 # 监听服务
-server:
+monitor:
   ports: [ 3306, 3308, 444, 80, 443, 6379 ]
   appNames: [ "mysql", "nginx", "java", "php-fpm", "python", "node", "redis" ]
+
+# 前端资源代理
+resource:
+  # 是否开启
+  enabled: false
+  # 静态资源目录，与请求前缀一致
+  resources: [ "static" ]
+  # 前端公共路径(请求资源前缀、路由前缀)
+  public-path: "/yxx-yi"
+  # 前端打包后的目录
+  ui-resource: "dist"
+  # 需要重写的请求
+  api-prefix: [ "/dev-api", "/test-api", "/prod-api" ]

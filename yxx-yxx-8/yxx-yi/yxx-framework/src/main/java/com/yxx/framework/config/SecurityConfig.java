@@ -1,5 +1,6 @@
 package com.yxx.framework.config;
 
+import com.yxx.common.core.domain.properties.ResourceProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -65,6 +66,12 @@ public class SecurityConfig
     private PermitAllUrlProperties permitAllUrl;
 
     /**
+     * 静态资源配置
+     */
+    @Autowired
+    private ResourceProperties resourceProperties;
+
+    /**
      * 身份验证实现
      */
     @Bean
@@ -113,6 +120,8 @@ public class SecurityConfig
                     // 静态资源，可匿名访问
                     .antMatchers(HttpMethod.GET, "/", "/*.html", "/**/*.html", "/**/*.css", "/**/*.js", "/profile/**").permitAll()
                     .antMatchers("/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs**", "/v3/api-docs/**",  "/*/api-docs", "/webjars/**", "/druid/**").permitAll()
+                    .antMatchers(HttpMethod.GET, resourceProperties.getResourcesMatchers()).permitAll()
+                    .antMatchers(resourceProperties.getApiMatchers()).permitAll()
                     // 除上面外的所有请求全部需要鉴权认证
                     .anyRequest().authenticated();
             })
