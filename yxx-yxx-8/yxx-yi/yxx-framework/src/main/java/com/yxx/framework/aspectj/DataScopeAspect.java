@@ -3,7 +3,6 @@ package com.yxx.framework.aspectj;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.yxx.common.core.domain.BaseQueryDTOEntity;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
@@ -14,6 +13,7 @@ import com.yxx.common.core.domain.BaseEntity;
 import com.yxx.common.core.domain.entity.SysRole;
 import com.yxx.common.core.domain.entity.SysUser;
 import com.yxx.common.core.domain.model.LoginUser;
+import com.yxx.common.core.domain.BaseQueryDTOEntity;
 import com.yxx.common.core.text.Convert;
 import com.yxx.common.utils.SecurityUtils;
 import com.yxx.common.utils.StringUtils;
