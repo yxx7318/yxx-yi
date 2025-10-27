@@ -77,6 +77,11 @@ export default {
   }
 }
 
+.main-container:has(.fixed-header) {
+  height: 100vh;
+  overflow: hidden;
+}
+
 .drawer-bg {
   background: #000;
   opacity: 0.3;
@@ -108,3 +113,4 @@ export default {
   width: 100%;
 }
 </style>
+

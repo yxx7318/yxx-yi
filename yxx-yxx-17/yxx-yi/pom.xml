@@ -19,8 +19,8 @@
 
         <kaptcha.version>2.3.3</kaptcha.version>
         <pagehelper.boot.version>2.1.1</pagehelper.boot.version>
-        <fastjson.version>2.0.57</fastjson.version>
-        <oshi.version>6.8.2</oshi.version>
+        <fastjson.version>2.0.58</fastjson.version>
+        <oshi.version>6.8.3</oshi.version>
         <!-- 接口文档 -->
         <knife4j.version>4.5.0</knife4j.version>
         <commons.io.version>2.19.0</commons.io.version>

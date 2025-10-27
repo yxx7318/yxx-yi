@@ -54,6 +54,16 @@ public class Constants
     public static final String WARN = "2";
 
     /**
+     * 未登录标识字符串
+     */
+    public static final String NOT_LOGGED_NAME = "NotLogged";
+
+    /**
+     * 未登录ID值
+     */
+    public static final Long NOT_LOGGED_ID = 0L;
+
+    /**
      * 登录成功
      */
     public static final String LOGIN_SUCCESS = "Success";
@@ -161,7 +171,7 @@ public class Constants
     /**
      * 自动识别json对象白名单配置（仅允许解析的包名，范围越小越安全）
      */
-    public static final String[] JSON_WHITELIST_STR = { "org.springframework", "com.yxx" };
+    public static final String[] JSON_WHITELIST_STR = { "com.yxx" };
 
     /**
      * 定时任务白名单配置（仅允许访问的包名，如其他需要可以自行添加）

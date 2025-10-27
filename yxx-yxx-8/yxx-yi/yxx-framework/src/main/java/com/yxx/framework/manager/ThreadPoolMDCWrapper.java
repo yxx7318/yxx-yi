@@ -9,9 +9,9 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
 /**
- * 线程池MDC上下文配置
+ * 线程池MDC上下文装饰器
  */
-public class ThreadPoolExecutorMDCWrapper extends ThreadPoolTaskExecutor {
+public class ThreadPoolMDCWrapper extends ThreadPoolTaskExecutor {
 
     @Override
     public void execute(Runnable task)

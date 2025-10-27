@@ -24,7 +24,7 @@ const service = axios.create({
 service.interceptors.request.use(config => {
   // 是否需要设置 token
   const isToken = (config.headers || {}).isToken === false
-  // 是否需要防止数据重复提交
+  // 是否需要防止数据重复提交(默认开启，repeatSubmit值为false时关闭)
   const isRepeatSubmit = (config.headers || {}).repeatSubmit === false
   // 间隔时间(ms)，小于此时间视为重复提交
   const interval = (config.headers || {}).interval || 1000

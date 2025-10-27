@@ -1,5 +1,6 @@
 <template>
   <el-dialog :title="title" :visible.sync="open" width="400px" :before-close="uploadClose" append-to-body>
+    <!-- 导入对话框 -->
     <el-upload ref="upload" :limit="1" accept=".xlsx, .xls" :headers="headers" :action="action" :disabled="isUploading" :on-progress="handleFileUploadProgress" :on-success="handleFileSuccess" :auto-upload="false" drag>
       <i class="el-icon-upload"></i>
       <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
@@ -88,7 +89,7 @@ export default {
     }
   },
   methods: {
-    /** 下载模板操作 */
+    // 下载模板操作
     importTemplate() {
       this.download(this.fullTemplateUrl, {
       }, this.templateName)
@@ -109,6 +110,11 @@ export default {
     },
     // 提交上传文件
     submitFileForm() {
+      const file = this.$refs.upload.uploadFiles
+      if (!file || file.length === 0 || !file[0].name.toLowerCase().endsWith('.xls') && !file[0].name.toLowerCase().endsWith('.xlsx')) {
+        this.$modal.msgError("请选择后缀为 “xls”或“xlsx”的文件。")
+        return
+      }
       this.$refs.upload.submit()
     },
     // 通知父组件关闭窗口

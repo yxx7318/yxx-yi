@@ -1,6 +1,7 @@
 package com.yxx.system.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import jakarta.validation.Validator;
@@ -326,7 +327,8 @@ public class SysUserServiceImpl implements ISysUserService
     @Override
     public int updateUserStatus(SysUser user)
     {
-        return userMapper.updateUser(user);
+        user.fieldFillUpdate();
+        return userMapper.updateUserStatus(user.getUserId(), user.getStatus(), user.getUpdateById(), user.getUpdateByName(), user.getUpdateTime());
     }
 
     /**
@@ -351,7 +353,28 @@ public class SysUserServiceImpl implements ISysUserService
     @Override
     public boolean updateUserAvatar(Long userId, String avatar)
     {
-        return userMapper.updateUserAvatar(userId, avatar) > 0;
+        SysUser user = new SysUser();
+        user.setUserId(userId);
+        user.setAvatar(avatar);
+        user.fieldFillUpdate();
+        return userMapper.updateUserAvatar(user.getUserId(), user.getAvatar(), user.getUpdateById(), user.getUpdateByName(), user.getUpdateTime()) > 0;
+    }
+
+    /**
+     * 更新用户登录信息（IP和登录时间）
+     *
+     * @param userId 用户ID
+     * @param loginIp 登录IP地址
+     * @param loginDate 登录时间
+     */
+    public void updateLoginInfo(Long userId, String loginIp, Date loginDate)
+    {
+        SysUser user = new SysUser();
+        user.setUserId(userId);
+        user.setLoginIp(loginIp);
+        user.setLoginDate(loginDate);
+        user.fieldFillUpdate();
+        userMapper.updateLoginInfo(user.getUserId(), user.getLoginIp(), user.getLoginDate(), user.getUpdateById(), user.getUpdateByName(), user.getUpdateTime());
     }
 
     /**
@@ -363,7 +386,8 @@ public class SysUserServiceImpl implements ISysUserService
     @Override
     public int resetPwd(SysUser user)
     {
-        return userMapper.updateUser(user);
+        user.fieldFillUpdate();
+        return userMapper.resetUserPwd(user.getUserId(), user.getPassword(), user.getUpdateById(), user.getUpdateByName(), user.getUpdateTime());
     }
 
     /**
@@ -376,7 +400,11 @@ public class SysUserServiceImpl implements ISysUserService
     @Override
     public int resetUserPwd(Long userId, String password)
     {
-        return userMapper.resetUserPwd(userId, password);
+        SysUser user = new SysUser();
+        user.setUserId(userId);
+        user.setPassword(password);
+        user.fieldFillUpdate();
+        return userMapper.resetUserPwd(user.getUserId(), user.getPassword(), user.getUpdateById(), user.getUpdateByName(), user.getUpdateTime());
     }
 
     /**
@@ -517,6 +545,7 @@ public class SysUserServiceImpl implements ISysUserService
                     checkUserDataScope(u.getUserId());
                     deptService.checkDeptDataScope(user.getDeptId());
                     user.setUserId(u.getUserId());
+                    user.setDeptId(u.getDeptId());
                     user.fieldFillUpdate();
                     userMapper.updateUser(user);
                     successNum++;

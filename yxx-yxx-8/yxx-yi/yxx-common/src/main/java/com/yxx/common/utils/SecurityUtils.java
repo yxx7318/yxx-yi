@@ -14,6 +14,9 @@ import com.yxx.common.core.domain.entity.SysRole;
 import com.yxx.common.core.domain.model.LoginUser;
 import com.yxx.common.exception.ServiceException;
 
+import static com.yxx.common.constant.Constants.NOT_LOGGED_NAME;
+import static com.yxx.common.constant.Constants.NOT_LOGGED_ID;
+
 /**
  * 安全服务工具类
  */
@@ -173,12 +176,6 @@ public class SecurityUtils
         return roles.stream().filter(StringUtils::hasText)
                 .anyMatch(x -> Constants.SUPER_ADMIN.equals(x) || PatternMatchUtils.simpleMatch(x, role));
     }
-
-    /** 未登录标识字符串 */
-    private static final String NOT_LOGGED_NAME = "NotLogged";
-
-    /** 未登录ID值 */
-    private static final Long NOT_LOGGED_ID = 0L;
 
     /**
      * 判断用户是否已经登录

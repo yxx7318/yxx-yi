@@ -72,6 +72,7 @@ public class AsyncFactory
                 {
                     loginInfo.setStatus(Constants.FAIL);
                 }
+                // 填充公共字段(系统访问日志没有创建人)
                 loginInfo.fieldFillInsert();
                 // 插入数据
                 SpringUtils.getBean(ISysLoginInfoService.class).insertLoginInfo(loginInfo);

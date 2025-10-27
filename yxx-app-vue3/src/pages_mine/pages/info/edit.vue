@@ -5,8 +5,8 @@
         <uni-forms-item label="用户昵称" name="nickName">
           <uni-easyinput v-model="user.nickName" placeholder="请输入昵称"/>
         </uni-forms-item>
-        <uni-forms-item label="手机号码" name="phonenumber">
-          <uni-easyinput v-model="user.phonenumber" placeholder="请输入手机号码"/>
+        <uni-forms-item label="手机号码" name="phoneNumber">
+          <uni-easyinput v-model="user.phoneNumber" placeholder="请输入手机号码"/>
         </uni-forms-item>
         <uni-forms-item label="邮箱" name="email">
           <uni-easyinput v-model="user.email" placeholder="请输入邮箱"/>
@@ -29,7 +29,7 @@ export default {
     return {
       user: {
         nickName: "",
-        phonenumber: "",
+        phoneNumber: "",
         email: "",
         sex: ""
       },
@@ -47,7 +47,7 @@ export default {
             errorMessage: '用户昵称不能为空'
           }]
         },
-        phonenumber: {
+        phoneNumber: {
           rules: [{
             required: true,
             errorMessage: '手机号码不能为空'

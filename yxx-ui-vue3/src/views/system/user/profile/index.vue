@@ -21,7 +21,7 @@
               <li class="list-group-item">
                 <svg-icon icon-class="phone"/>
                 手机号码
-                <div class="pull-right">{{ state.user.phonenumber }}</div>
+                <div class="pull-right">{{ state.user.phoneNumber }}</div>
               </li>
               <li class="list-group-item">
                 <svg-icon icon-class="email"/>

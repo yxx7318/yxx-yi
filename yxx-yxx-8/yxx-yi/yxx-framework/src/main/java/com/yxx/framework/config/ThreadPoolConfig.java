@@ -3,7 +3,7 @@ package com.yxx.framework.config;
 import com.yxx.common.utils.ExceptionUtil;
 import com.yxx.common.utils.Threads;
 import com.yxx.common.utils.spring.SpringUtils;
-import com.yxx.framework.manager.ThreadPoolExecutorMDCWrapper;
+import com.yxx.framework.manager.ThreadPoolMDCWrapper;
 import org.apache.commons.lang3.concurrent.BasicThreadFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,7 +48,7 @@ public class ThreadPoolConfig implements AsyncConfigurer
     @Bean(name = "threadPoolTaskExecutor")
     public ThreadPoolTaskExecutor threadPoolTaskExecutor()
     {
-        ThreadPoolExecutorMDCWrapper executor = new ThreadPoolExecutorMDCWrapper();
+        ThreadPoolMDCWrapper executor = new ThreadPoolMDCWrapper();
         executor.setCorePoolSize(corePoolSize);
         executor.setMaxPoolSize(maxPoolSize);
         executor.setQueueCapacity(queueCapacity);
@@ -97,34 +97,49 @@ public class ThreadPoolConfig implements AsyncConfigurer
                 new BasicThreadFactory.Builder().namingPattern("schedule-pool-%d").daemon(true).build(),
                 new ThreadPoolExecutor.CallerRunsPolicy())
         {
-            @Override
-            public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit)
-            {
-                return super.schedule(ThreadPoolExecutorMDCWrapper.wrap(command), delay, unit);
-            }
-
-            @Override
-            public <V> ScheduledFuture<V> schedule(Callable<V> callable, long delay, TimeUnit unit)
-            {
-                return super.schedule(ThreadPoolExecutorMDCWrapper.wrap(callable), delay, unit);
-            }
-
-            @Override
-            public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit)
-            {
-                return super.scheduleAtFixedRate(ThreadPoolExecutorMDCWrapper.wrap(command), initialDelay, period, unit);
-            }
-
-            @Override
-            public ScheduledFuture<?> scheduleWithFixedDelay(Runnable command, long initialDelay, long delay, TimeUnit unit)
-            {
-                return super.scheduleWithFixedDelay(ThreadPoolExecutorMDCWrapper.wrap(command), initialDelay, delay, unit);
-            }
-
+            /**
+             * 执行任务
+             */
             @Override
             public void execute(Runnable command)
             {
-                super.execute(ThreadPoolExecutorMDCWrapper.wrap(command));
+                super.execute(RequestContextDecorator.decorateRunnable(ThreadPoolMDCWrapper.wrap(command)));
+            }
+
+            /**
+             * 一次性延迟任务
+             */
+            @Override
+            public ScheduledFuture<?> schedule(Runnable command, long delay, TimeUnit unit)
+            {
+                return super.schedule(RequestContextDecorator.decorateRunnable(ThreadPoolMDCWrapper.wrap(command)), delay, unit);
+            }
+
+            /**
+             * 一次性延迟任务
+             */
+            @Override
+            public <V> ScheduledFuture<V> schedule(Callable<V> callable, long delay, TimeUnit unit)
+            {
+                return super.schedule(RequestContextDecorator.decorateCallable(ThreadPoolMDCWrapper.wrap(callable)), delay, unit);
+            }
+
+            /**
+             * 固定速率执行
+             */
+            @Override
+            public ScheduledFuture<?> scheduleAtFixedRate(Runnable command, long initialDelay, long period, TimeUnit unit)
+            {
+                return super.scheduleAtFixedRate(ThreadPoolMDCWrapper.wrap(command), initialDelay, period, unit);
+            }
+
+            /**
+             * 固定延迟执行
+             */
+            @Override
+            public ScheduledFuture<?> scheduleWithFixedDelay(Runnable command, long initialDelay, long delay, TimeUnit unit)
+            {
+                return super.scheduleWithFixedDelay(ThreadPoolMDCWrapper.wrap(command), initialDelay, delay, unit);
             }
 
             @Override
@@ -143,7 +158,7 @@ public class ThreadPoolConfig implements AsyncConfigurer
     @Bean(name = "listenerExecutor")
     public ThreadPoolTaskExecutor listenerExecutor()
     {
-        ThreadPoolExecutorMDCWrapper executor = new ThreadPoolExecutorMDCWrapper();
+        ThreadPoolMDCWrapper executor = new ThreadPoolMDCWrapper();
         executor.setCorePoolSize(corePoolSize);
         executor.setMaxPoolSize(maxPoolSize);
         executor.setQueueCapacity(queueCapacity);

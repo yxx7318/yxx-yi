@@ -5,9 +5,8 @@ import java.util.List;
 import java.util.Map;
 import jakarta.servlet.DispatcherType;
 
+import com.yxx.common.constant.Constants;
 import com.yxx.common.core.domain.properties.ResourceProperties;
-import com.yxx.common.filter.PathRewriteFilter;
-import com.yxx.common.filter.TraceFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
@@ -15,6 +14,9 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import com.yxx.common.filter.RepeatableFilter;
+import com.yxx.common.filter.PathRewriteFilter;
+import com.yxx.common.filter.TraceFilter;
+import com.yxx.common.filter.RefererFilter;
 import com.yxx.common.filter.XssFilter;
 import com.yxx.common.utils.StringUtils;
 import org.springframework.core.Ordered;
@@ -30,6 +32,9 @@ public class FilterConfig
 
     @Value("${xss.urlPatterns}")
     private String urlPatterns;
+
+    @Value("${referer.allowed-domains}")
+    private String allowedDomains;
 
     @Autowired
     private ResourceProperties resourceProperties;
@@ -55,6 +60,7 @@ public class FilterConfig
         registration.setDispatcherTypes(DispatcherType.REQUEST);
         registration.setFilter(new PathRewriteFilter());
         List<String> apiPrefix = resourceProperties.getApiPrefix();
+        apiPrefix.forEach(prefix -> registration.addUrlPatterns(String.format("/%s/*", prefix)));
         registration.setName("pathRewriteFilter");
         registration.setOrder(Ordered.HIGHEST_PRECEDENCE);
         return registration;
@@ -73,6 +79,23 @@ public class FilterConfig
         registration.setOrder(FilterRegistrationBean.HIGHEST_PRECEDENCE);
         Map<String, String> initParameters = new HashMap<String, String>();
         initParameters.put("excludes", excludes);
+        registration.setInitParameters(initParameters);
+        return registration;
+    }
+
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    @Bean
+    @ConditionalOnProperty(value = "referer.enabled", havingValue = "true")
+    public FilterRegistrationBean refererFilterRegistration()
+    {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setDispatcherTypes(DispatcherType.REQUEST);
+        registration.setFilter(new RefererFilter());
+        registration.addUrlPatterns(Constants.RESOURCE_PREFIX + "/*");
+        registration.setName("refererFilter");
+        registration.setOrder(FilterRegistrationBean.HIGHEST_PRECEDENCE);
+        Map<String, String> initParameters = new HashMap<String, String>();
+        initParameters.put("allowedDomains", allowedDomains);
         registration.setInitParameters(initParameters);
         return registration;
     }

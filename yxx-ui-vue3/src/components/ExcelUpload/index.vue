@@ -1,7 +1,7 @@
 <template>
   <el-dialog :title="title" v-model="dialogVisible" width="400px" :before-close="uploadClose" append-to-body>
-    <!-- 用户导入对话框 -->
-    <el-upload ref="uploadRef" :limit="1" accept=".xlsx, .xls" :headers="headers" :action="action" :disabled="isUploading" :on-progress="handleFileUploadProgress" :on-success="handleFileSuccess" :auto-upload="false" drag>
+    <!-- 导入对话框 -->
+    <el-upload ref="uploadRef" :limit="1" accept=".xlsx, .xls" :headers="headers" :action="action" :disabled="isUploading" :on-progress="handleFileUploadProgress" :on-success="handleFileSuccess" :on-change="handleFileChange" :on-remove="handleFileRemove" :auto-upload="false" drag>
       <el-icon class="el-icon--upload"><upload-filled /></el-icon>
       <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
       <template #tip>
@@ -78,7 +78,7 @@ const fullTemplateUrl = computed(() => {
 const templateName = computed(() => `${props.uploadUrl.split("/").join("_")}_${proxy.parseTime(new Date())}.xlsx`)
 
 // 方法定义
-/** 下载模板操作 */
+// 下载模板操作
 function importTemplate() {
   proxy.download(fullTemplateUrl.value, {}, templateName.value)
 }
@@ -87,6 +87,16 @@ function importTemplate() {
 function handleFileUploadProgress(event, file, fileList) {
   proxy.$modal.loading("正在上传文件中，请稍候！")
   isUploading.value = true
+}
+
+// 文件选择处理
+const handleFileChange = (file, fileList) => {
+  upload.selectedFile = file
+}
+
+// 文件删除处理
+const handleFileRemove = (file, fileList) => {
+  upload.selectedFile = null
 }
 
 // 文件上传成功处理
@@ -101,6 +111,11 @@ function handleFileSuccess(response, file, fileList) {
 
 // 提交上传文件
 function submitFileForm() {
+  const file = upload.selectedFile
+  if (!file || file.length === 0 || !file.name.toLowerCase().endsWith('.xls') && !file.name.toLowerCase().endsWith('.xlsx')) {
+    proxy.$modal.msgError('请选择后缀为"xls"或"xlsx"的文件。')
+    return
+  }
   proxy.$refs["uploadRef"].submit()
 }
 

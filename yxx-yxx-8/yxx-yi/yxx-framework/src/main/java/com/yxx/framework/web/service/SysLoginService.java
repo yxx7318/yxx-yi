@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import com.yxx.common.constant.CacheConstants;
 import com.yxx.common.constant.Constants;
 import com.yxx.common.constant.UserConstants;
-import com.yxx.common.core.domain.entity.SysUser;
 import com.yxx.common.core.domain.model.LoginUser;
 import com.yxx.common.core.redis.RedisCache;
 import com.yxx.common.exception.ServiceException;
@@ -170,10 +169,6 @@ public class SysLoginService
      */
     public void recordLoginInfo(Long userId)
     {
-        SysUser sysUser = new SysUser();
-        sysUser.setUserId(userId);
-        sysUser.setLoginIp(IpUtils.getIpAddr());
-        sysUser.setLoginDate(DateUtils.getNowDate());
-        userService.updateUserProfile(sysUser);
+        userService.updateLoginInfo(userId, IpUtils.getIpAddr(), DateUtils.getNowDate());
     }
 }
