@@ -47,6 +47,12 @@ const props = defineProps({
   baseUrl: { type: String, default: import.meta.env.VITE_APP_BASE_API }
 })
 
+// 定义上传
+const upload = reactive({
+  // 选中的文件
+  selectedFile: null
+})
+
 // 定义emits
 const emit = defineEmits(['update:open', 'uploadClose', 'handleFileSuccess'])
 
