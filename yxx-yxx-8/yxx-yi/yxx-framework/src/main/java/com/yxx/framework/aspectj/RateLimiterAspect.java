@@ -1,7 +1,6 @@
 package com.yxx.framework.aspectj;
 
 import com.yxx.common.utils.ServletUtils;
-import com.yxx.common.utils.spring.SpringUtils;
 import com.yxx.framework.interfaces.RateLimitInterface;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.Aspect;
@@ -45,6 +44,7 @@ public class RateLimiterAspect
         }
         catch (Exception e)
         {
+            log.error("服务器限流异常", e);
             throw new RuntimeException("服务器限流异常，请稍候再试");
         }
     }

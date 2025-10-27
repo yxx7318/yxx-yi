@@ -193,4 +193,14 @@ public class Constants
      * 定义trackId的请求头
      */
     public static final String TRACE_HEADER = "X-Request-ID";
+
+    /**
+     * 通用的redisTemplate操作对象
+     */
+    public static final String REDIS_TEMPLATE = "redisTemplate";
+
+    /**
+     * lua脚本的luaRedisTemplate对象
+     */
+    public static final String LUA_REDIS_TEMPLATE = "luaRedisTemplate";
 }

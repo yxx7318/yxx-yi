@@ -6,12 +6,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import com.yxx.common.utils.spring.SpringUtils;
 import org.springframework.data.redis.core.BoundSetOperations;
 import org.springframework.data.redis.core.HashOperations;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
+
+import static com.yxx.common.constant.Constants.REDIS_TEMPLATE;
 
 /**
  * spring redis 工具类
@@ -20,8 +23,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RedisCache
 {
-    @Autowired
-    public RedisTemplate redisTemplate;
+    public RedisTemplate redisTemplate = SpringUtils.getBean(REDIS_TEMPLATE);
 
     /**
      * 缓存基本的对象，Integer、String、实体类等

@@ -50,7 +50,7 @@ public @interface RateLimiter
     /**
      * 令牌桶最大容量
      */
-    public int capacity() default 100;
+    public int capacity() default 30;
 
     /**
      * 访问消耗令牌数

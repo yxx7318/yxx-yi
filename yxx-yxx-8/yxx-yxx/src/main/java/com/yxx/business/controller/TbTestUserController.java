@@ -4,8 +4,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import com.yxx.common.annotation.RateLimiter;
-import com.yxx.common.enums.LimitImpl;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -47,7 +45,6 @@ import org.springframework.validation.annotation.Validated;
 @RestController
 @RequestMapping("/business/user")
 @RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
-@RateLimiter
 public class TbTestUserController extends BaseControllerPlus {
 
     private final ITbTestUserService tbTestUserService;
