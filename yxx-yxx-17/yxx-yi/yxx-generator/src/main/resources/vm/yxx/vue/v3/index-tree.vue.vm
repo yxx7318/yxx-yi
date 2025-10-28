@@ -39,7 +39,8 @@
       </el-form-item>
 #elseif($column.htmlType == "date" && $column.queryType != "BETWEEN")
       <el-form-item label="${comment}" prop="${column.javaField}">
-        <el-date-picker clearable
+        <el-date-picker
+          clearable
           v-model="queryParams.${column.javaField}"
           type="date"
           value-format="YYYY-MM-DD"
@@ -59,7 +60,8 @@
       </el-form-item>
 #elseif($column.htmlType == "datetime" && $column.queryType != "BETWEEN")
       <el-form-item label="${comment}" prop="${column.javaField}">
-        <el-date-picker clearable
+        <el-date-picker
+          clearable
           v-model="queryParams.${column.javaField}"
           type="datetime"
           value-format="YYYY-MM-DD HH:mm:ss"
@@ -145,21 +147,21 @@
 #end
 #if($column.pk)
 #elseif($column.list && $column.htmlType == "date")
-      <el-table-column label="${comment}" align="center" prop="${javaField}" width="180" v-if="columns[$index].visible">#set($index = $index + 1)
+      <el-table-column label="${comment}" align="center" prop="${javaField}" width="180" v-if="columns.${javaField}.visible">#set($index = $index + 1)
         <template #default="scope">
           <span>{{ parseTime(scope.row.${javaField}, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
 #elseif($column.list && $column.htmlType == "datetime")
-      <el-table-column label="${comment}" align="center" prop="${javaField}" width="240" v-if="columns[$index].visible" />#set($index = $index + 1)
+      <el-table-column label="${comment}" align="center" prop="${javaField}" width="240" v-if="columns.${javaField}.visible" />#set($index = $index + 1)
 #elseif($column.list && $column.htmlType == "imageUpload")
-      <el-table-column label="${comment}" align="center" prop="${javaField}" width="100" v-if="columns[$index].visible">#set($index = $index + 1)
+      <el-table-column label="${comment}" align="center" prop="${javaField}" width="100" v-if="columns.${javaField}.visible">#set($index = $index + 1)
         <template #default="scope">
           <image-preview :src="scope.row.${javaField}" :width="50" :height="50"/>
         </template>
       </el-table-column>
 #elseif($column.list && "" != $column.dictType)
-      <el-table-column label="${comment}" align="center" prop="${javaField}" v-if="columns[$index].visible">#set($index = $index + 1)
+      <el-table-column label="${comment}" align="center" prop="${javaField}" v-if="columns.${javaField}.visible">#set($index = $index + 1)
         <template #default="scope">
 #if($column.htmlType == "checkbox")
           <dict-tag :options="${column.dictType}" :value="scope.row.${javaField} ? scope.row.${javaField}.split(',') : []"/>
@@ -170,9 +172,9 @@
       </el-table-column>
 #elseif($column.list && "" != $javaField)
 #if(${foreach.index} == 1)
-      <el-table-column label="${comment}" prop="${javaField}" v-if="columns[$index].visible" />#set($index = $index + 1)
+      <el-table-column label="${comment}" prop="${javaField}" v-if="columns.${javaField}.visible" />#set($index = $index + 1)
 #else
-      <el-table-column label="${comment}" align="center" prop="${javaField}" v-if="columns[$index].visible" />#set($index = $index + 1)
+      <el-table-column label="${comment}" align="center" prop="${javaField}" v-if="columns.${javaField}.visible" />#set($index = $index + 1)
 #end
 #end
 #end
@@ -286,7 +288,8 @@
         </el-form-item>
 #elseif($column.htmlType == "date")
         <el-form-item label="${comment}" prop="${field}">
-          <el-date-picker clearable
+          <el-date-picker
+            clearable
             v-model="form.${field}"
             type="date"
             value-format="YYYY-MM-DD"
@@ -295,7 +298,8 @@
         </el-form-item>
 #elseif($column.htmlType == "datetime")
         <el-form-item label="${comment}" prop="${field}">
-          <el-date-picker clearable
+          <el-date-picker
+            clearable
             v-model="form.${field}"
             type="datetime"
             value-format="YYYY-MM-DD HH:mm:ss"
@@ -362,7 +366,7 @@ const upload = ref({
 })
 
 // 显隐列
-const columns = reactive([
+const columns = reactive({
 ## 初始化计数器
 #set($index = 1)
 #foreach($column in $columns)
@@ -375,12 +379,12 @@ const columns = reactive([
 #end
 ## 仅针对主键和展示的列
 #if($column.pk || $column.list)
-  { key: $index, label: `$comment`, visible: true },
+  ${javaField}: {label: `$comment`, visible: true},
 ## 更新计数器
 #set($index = $index + 1)
 #end
 #end
-])
+})
 
 const data = reactive({
   form: {},

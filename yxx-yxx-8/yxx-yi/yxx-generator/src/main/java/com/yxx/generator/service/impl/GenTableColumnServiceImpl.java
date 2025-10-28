@@ -1,6 +1,8 @@
-package com.yxx.generator.service;
+package com.yxx.generator.service.impl;
 
 import java.util.List;
+
+import com.yxx.generator.service.IGenTableColumnService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.yxx.common.core.text.Convert;
@@ -11,7 +13,7 @@ import com.yxx.generator.mapper.GenTableColumnMapper;
  * 业务字段 服务层实现
  */
 @Service
-public class GenTableColumnServiceImpl implements IGenTableColumnService 
+public class GenTableColumnServiceImpl implements IGenTableColumnService
 {
     @Autowired
     private GenTableColumnMapper genTableColumnMapper;

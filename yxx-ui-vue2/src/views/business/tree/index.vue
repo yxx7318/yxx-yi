@@ -122,21 +122,21 @@
       :default-expand-all="isExpandAll"
       :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
     >
-      <el-table-column label="节点ID" prop="treeId" v-if="columns[0].visible" />
-      <el-table-column label="节点名称" align="center" prop="treeName" v-if="columns[1].visible" />
-      <el-table-column label="用户账号" align="center" prop="userName" v-if="columns[2].visible" />
-      <el-table-column label="密码" align="center" prop="password" v-if="columns[3].visible" />
-      <el-table-column label="账号状态" align="center" prop="status" v-if="columns[4].visible">
+      <el-table-column label="节点ID" prop="treeId" v-if="columns.treeId.visible" />
+      <el-table-column label="节点名称" align="center" prop="treeName" v-if="columns.treeName.visible" />
+      <el-table-column label="用户账号" align="center" prop="userName" v-if="columns.userName.visible" />
+      <el-table-column label="密码" align="center" prop="password" v-if="columns.password.visible" />
+      <el-table-column label="账号状态" align="center" prop="status" v-if="columns.status.visible">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_normal_disable" :value="scope.row.status"/>
         </template>
       </el-table-column>
-      <el-table-column label="注册日期" align="center" prop="registerDate" v-if="columns[5].visible">
+      <el-table-column label="注册日期" align="center" prop="registerDate" v-if="columns.registerDate.visible">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.registerDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="注册时间" align="center" prop="registerTime" v-if="columns[6].visible" />
+      <el-table-column label="注册时间" align="center" prop="registerTime" v-if="columns.registerTime.visible" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -189,7 +189,8 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="注册日期" prop="registerDate">
-          <el-date-picker clearable
+          <el-date-picker
+            clearable
             v-model="form.registerDate"
             type="date"
             value-format="yyyy-MM-dd"
@@ -197,7 +198,8 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item label="注册时间" prop="registerTime">
-          <el-date-picker clearable
+          <el-date-picker
+            clearable
             v-model="form.registerTime"
             type="datetime"
             value-format="yyyy-MM-dd HH:mm:ss"
@@ -265,16 +267,16 @@ export default {
         url: "/business/tree/importData"
       },
       // 显隐列
-      columns: [
-          { key: 1, label: `用户ID`, visible: true },
-          { key: 2, label: `节点ID`, visible: true },
-          { key: 3, label: `节点名称`, visible: true },
-          { key: 4, label: `用户账号`, visible: true },
-          { key: 5, label: `密码`, visible: true },
-          { key: 6, label: `账号状态`, visible: true },
-          { key: 7, label: `注册日期`, visible: true },
-          { key: 8, label: `注册时间`, visible: true },
-      ],
+      columns: {
+        userId: { label: `用户ID`, visible: true },
+        treeId: { label: `节点ID`, visible: true },
+        treeName: { label: `节点名称`, visible: true },
+        userName: { label: `用户账号`, visible: true },
+        password: { label: `密码`, visible: true },
+        status: { label: `账号状态`, visible: true },
+        registerDate: { label: `注册日期`, visible: true },
+        registerTime: { label: `注册时间`, visible: true },
+      },
       // 查询参数
       queryParams: {
         treeId: null,

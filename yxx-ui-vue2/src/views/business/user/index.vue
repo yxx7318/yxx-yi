@@ -121,21 +121,21 @@
 
     <el-table v-loading="loading" :data="userList" @selection-change="handleSelectionChange">
       <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="用户ID" align="center" prop="userId" v-if="columns[0].visible" />
-      <el-table-column label="主表ID" align="center" prop="parentId" v-if="columns[1].visible" />
-      <el-table-column label="用户账号" align="center" prop="userName" v-if="columns[2].visible" />
-      <el-table-column label="密码" align="center" prop="password" v-if="columns[3].visible" />
-      <el-table-column label="账号状态" align="center" prop="status" v-if="columns[4].visible">
+      <el-table-column label="用户ID" align="center" prop="userId" v-if="columns.userId.visible" />
+      <el-table-column label="主表ID" align="center" prop="parentId" v-if="columns.parentId.visible" />
+      <el-table-column label="用户账号" align="center" prop="userName" v-if="columns.userName.visible" />
+      <el-table-column label="密码" align="center" prop="password" v-if="columns.password.visible" />
+      <el-table-column label="账号状态" align="center" prop="status" v-if="columns.status.visible">
         <template slot-scope="scope">
           <dict-tag :options="dict.type.sys_normal_disable" :value="scope.row.status"/>
         </template>
       </el-table-column>
-      <el-table-column label="注册日期" align="center" prop="registerDate" v-if="columns[5].visible">
+      <el-table-column label="注册日期" align="center" prop="registerDate" v-if="columns.registerDate.visible">
         <template slot-scope="scope">
           <span>{{ parseTime(scope.row.registerDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="注册时间" align="center" prop="registerTime" v-if="columns[6].visible" />
+      <el-table-column label="注册时间" align="center" prop="registerTime" v-if="columns.registerTime.visible" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
@@ -186,7 +186,8 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="注册日期" prop="registerDate">
-          <el-date-picker clearable
+          <el-date-picker
+            clearable
             v-model="form.registerDate"
             type="date"
             value-format="yyyy-MM-dd"
@@ -194,7 +195,8 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item label="注册时间" prop="registerTime">
-          <el-date-picker clearable
+          <el-date-picker
+            clearable
             v-model="form.registerTime"
             type="datetime"
             value-format="yyyy-MM-dd HH:mm:ss"
@@ -259,15 +261,15 @@ export default {
         url: "/business/user/importData"
       },
       // 显隐列
-      columns: [
-          { key: 1, label: `用户ID`, visible: true },
-          { key: 2, label: `主表ID`, visible: true },
-          { key: 3, label: `用户账号`, visible: true },
-          { key: 4, label: `密码`, visible: true },
-          { key: 5, label: `账号状态`, visible: true },
-          { key: 6, label: `注册日期`, visible: true },
-          { key: 7, label: `注册时间`, visible: true },
-      ],
+      columns: {
+        userId: { label: `用户ID`, visible: true },
+        parentId: { label: `主表ID`, visible: true },
+        userName: { label: `用户账号`, visible: true },
+        password: { label: `密码`, visible: true },
+        status: { label: `账号状态`, visible: true },
+        registerDate: { label: `注册日期`, visible: true },
+        registerTime: { label: `注册时间`, visible: true },
+      },
       // 查询参数
       queryParams: {
         pageNum: 1,

@@ -116,21 +116,21 @@
       :default-expand-all="isExpandAll"
       :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
     >
-      <el-table-column label="节点ID" prop="treeId" v-if="columns[0].visible" />
-      <el-table-column label="节点名称" align="center" prop="treeName" v-if="columns[1].visible" />
-      <el-table-column label="用户账号" align="center" prop="userName" v-if="columns[2].visible" />
-      <el-table-column label="密码" align="center" prop="password" v-if="columns[3].visible" />
-      <el-table-column label="账号状态" align="center" prop="status" v-if="columns[4].visible">
+      <el-table-column label="节点ID" prop="treeId" v-if="columns.treeId.visible" />
+      <el-table-column label="节点名称" align="center" prop="treeName" v-if="columns.treeName.visible" />
+      <el-table-column label="用户账号" align="center" prop="userName" v-if="columns.userName.visible" />
+      <el-table-column label="密码" align="center" prop="password" v-if="columns.password.visible" />
+      <el-table-column label="账号状态" align="center" prop="status" v-if="columns.status.visible">
         <template #default="scope">
           <dict-tag :options="sys_normal_disable" :value="scope.row.status"/>
         </template>
       </el-table-column>
-      <el-table-column label="注册日期" align="center" prop="registerDate" width="180" v-if="columns[5].visible">
+      <el-table-column label="注册日期" align="center" prop="registerDate" width="180" v-if="columns.registerDate.visible">
         <template #default="scope">
           <span>{{ parseTime(scope.row.registerDate, '{y}-{m}-{d}') }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="注册时间" align="center" prop="registerTime" width="240" v-if="columns[6].visible" />
+      <el-table-column label="注册时间" align="center" prop="registerTime" width="240" v-if="columns.registerTime.visible" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
           <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['business:tree:edit']">修改</el-button>
@@ -172,7 +172,8 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="注册日期" prop="registerDate">
-          <el-date-picker clearable
+          <el-date-picker
+            clearable
             v-model="form.registerDate"
             type="date"
             value-format="YYYY-MM-DD"
@@ -180,7 +181,8 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item label="注册时间" prop="registerTime">
-          <el-date-picker clearable
+          <el-date-picker
+            clearable
             v-model="form.registerTime"
             type="datetime"
             value-format="YYYY-MM-DD HH:mm:ss"
@@ -228,16 +230,16 @@ const upload = ref({
 })
 
 // 显隐列
-const columns = reactive([
-  { key: 1, label: `用户ID`, visible: true },
-  { key: 2, label: `节点ID`, visible: true },
-  { key: 3, label: `节点名称`, visible: true },
-  { key: 4, label: `用户账号`, visible: true },
-  { key: 5, label: `密码`, visible: true },
-  { key: 6, label: `账号状态`, visible: true },
-  { key: 7, label: `注册日期`, visible: true },
-  { key: 8, label: `注册时间`, visible: true },
-])
+const columns = reactive({
+  userId: {label: `用户ID`, visible: true},
+  treeId: {label: `节点ID`, visible: true},
+  treeName: {label: `节点名称`, visible: true},
+  userName: {label: `用户账号`, visible: true},
+  password: {label: `密码`, visible: true},
+  status: {label: `账号状态`, visible: true},
+  registerDate: {label: `注册日期`, visible: true},
+  registerTime: {label: `注册时间`, visible: true},
+})
 
 const data = reactive({
   form: {},
@@ -281,7 +283,7 @@ function getList() {
 }
 
 /** 查询测试树表生成下拉树结构 */
-function getTreeselect() {
+function getTreeSelect() {
   listTree().then(response => {
     treeOptions.value = []
     const data = { userId: 0, treeName: '顶级节点', children: [] }
@@ -334,7 +336,7 @@ function resetQuery() {
 /** 新增按钮操作 */
 function handleAdd(row) {
   reset()
-  getTreeselect()
+  getTreeSelect()
   if (row != null && row.userId) {
     form.value.treeId = row.userId
   } else {
@@ -356,7 +358,7 @@ function toggleExpandAll() {
 /** 修改按钮操作 */
 async function handleUpdate(row) {
   reset()
-  await getTreeselect()
+  await getTreeSelect()
   if (row != null) {
     form.value.treeId = row.treeId
   }
