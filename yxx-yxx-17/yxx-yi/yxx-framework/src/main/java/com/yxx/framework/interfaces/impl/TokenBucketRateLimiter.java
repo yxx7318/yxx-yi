@@ -31,7 +31,6 @@ import java.util.List;
 @Component
 public class TokenBucketRateLimiter implements RateLimitInterface
 {
-
     private static final Logger log = LoggerFactory.getLogger(TokenBucketRateLimiter.class);
 
     private final RedisTemplate<String, String> redisTemplate = getRedisTemplate();
