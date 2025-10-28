@@ -80,7 +80,7 @@ public class TbTestUserSubServiceImpl extends ServiceImplPlus<TbTestUserSubMappe
     @Transactional(rollbackFor = Exception.class)
     @Override
     public int insertTbTestUserSub(TbTestUserSub tbTestUserSub) {
-    tbTestUserSub.fieldFillInsert();
+        tbTestUserSub.fieldFillInsert();
         int rows = tbTestUserSubMapper.insertTbTestUserSub(tbTestUserSub);
         insertTbTestUser(tbTestUserSub.getSubId(), tbTestUserSub.getTbTestUserList());
         return rows;

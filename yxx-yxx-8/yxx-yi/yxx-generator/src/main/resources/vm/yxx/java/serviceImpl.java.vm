@@ -145,7 +145,7 @@ public class ${ClassName}ServiceImpl extends ServiceImplPlus<${ClassName}Mapper,
     public int insert${ClassName}(${ClassEditDTO} ${classEditDTO}) {
 #foreach ($column in $columns)
 #if($column.javaField == 'createById')
-    ${classEditDTO}.fieldFillInsert();
+        ${classEditDTO}.fieldFillInsert();
 #break
 #end
 ###if($column.javaField == 'createById')

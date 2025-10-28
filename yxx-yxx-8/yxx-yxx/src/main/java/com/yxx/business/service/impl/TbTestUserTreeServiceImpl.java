@@ -72,7 +72,7 @@ public class TbTestUserTreeServiceImpl extends ServiceImplPlus<TbTestUserTreeMap
      */
     @Override
     public int insertTbTestUserTree(TbTestUserTree tbTestUserTree) {
-    tbTestUserTree.fieldFillInsert();
+        tbTestUserTree.fieldFillInsert();
         return tbTestUserTreeMapper.insertTbTestUserTree(super.convertT(tbTestUserTree));
     }
 

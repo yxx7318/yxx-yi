@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseColumnEntity> extends ServiceImpl<M, T> implements IServicePlus<T> {
 
     /**
-     * 获取转化后的Po结果
+     * 获取转化后的Po结果(如果为空则返回属性值全为空的对象，而不是null)
      */
     @Override
     public <PO> PO convertBean(T t, Class<PO> voClass) {

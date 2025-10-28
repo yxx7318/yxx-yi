@@ -86,7 +86,7 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
      */
     @Override
     public int insertTbTestUser(TbTestUserEditDTO tbTestUserEditDTO) {
-    tbTestUserEditDTO.fieldFillInsert();
+        tbTestUserEditDTO.fieldFillInsert();
         return tbTestUserMapper.insertTbTestUser(super.convertT(tbTestUserEditDTO));
     }
 
