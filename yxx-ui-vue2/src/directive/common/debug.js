@@ -4,7 +4,7 @@
  *   <div v-debug>默认边框</div>
  *   <div v-debug:green>绿色边框</div>
  *   <div v-debug="'blue'">蓝色边框</div>
- *   <div v-debug.gird.label.size>组合功能</div>
+ *   <div v-debug.grid.label.size>组合功能</div>
  */
 export default {
   beforeMount: applyDebug,
@@ -18,7 +18,7 @@ export default {
 function applyDebug(el, binding) {
   if (import.meta.env.VITE_APP_ENV === 'production') return
 
-  cleanDebug(el) // 清理之前的调试元素
+  cleanDebug(el)
 
   const { value, arg, modifiers } = binding
   const config = parseConfig(value, arg, modifiers)
@@ -52,32 +52,34 @@ function applyBaseStyle(el, config) {
   el.style.border = `${config.width} ${config.style} ${config.color}`
   if (config.background) el.style.background = config.background
   el.style.zIndex = config.zIndex
+
+  // 确保元素有相对定位，以便绝对定位的子元素正确显示
+  if (getComputedStyle(el).position === 'static') {
+    el.style.position = 'relative'
+  }
 }
 
 /**
  * 处理修饰符功能
  */
 function handleModifiers(el, modifiers, config) {
-  // 网格背景
   if (modifiers.grid) {
     el.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.1) 1px, transparent 1px),
                                linear-gradient(90deg, rgba(0,0,0,0.1) 1px, transparent 1px)`
     el.style.backgroundSize = '20px 20px'
   }
 
-  // 调试标签
   if (modifiers.label || config.label) {
     createDebugElement(el, config, 'label')
   }
 
-  // 尺寸显示
   if (modifiers.size) {
     createDebugElement(el, config, 'size')
   }
 }
 
 /**
- * 创建调试元素（标签/尺寸显示）
+ * 创建调试元素
  */
 function createDebugElement(el, config, type) {
   const debugEl = document.createElement('div')
@@ -91,7 +93,8 @@ function createDebugElement(el, config, type) {
     padding: '2px 6px',
     fontFamily: 'monospace',
     fontWeight: 'bold',
-    zIndex: config.zIndex + 1
+    zIndex: config.zIndex + 1,
+    pointerEvents: 'none' // 防止遮挡交互
   }
 
   if (type === 'label') {
@@ -103,13 +106,22 @@ function createDebugElement(el, config, type) {
     const updateSize = () => {
       const { width, height } = el.getBoundingClientRect()
       debugEl.textContent = `${Math.round(width)}×${Math.round(height)}`
+
+      // 确保尺寸显示在可视区域内
+      const rect = debugEl.getBoundingClientRect()
+      if (rect.bottom > window.innerHeight) {
+        debugEl.style.bottom = '0'
+        debugEl.style.top = 'auto'
+      }
     }
 
     Object.assign(debugEl.style, baseStyle, {
-      bottom: '-20px', right: '0', borderRadius: '2px'
+      bottom: '0',
+      right: '0',
+      borderRadius: '2px',
+      top: 'auto' // 明确设置
     })
 
-    // 监听尺寸变化
     const observer = new ResizeObserver(updateSize)
     observer.observe(el)
     el._debugResizeObserver = observer
@@ -128,18 +140,16 @@ function getElementLabel(el) {
 }
 
 /**
- * 清理调试元素和样式
+ * 清理调试元素
  */
 function cleanDebug(el) {
-  // 清理调试元素
   el.querySelectorAll('.v-debug-label, .v-debug-size').forEach(node => node.remove())
 
-  // 清理观察器
   if (el._debugResizeObserver) {
     el._debugResizeObserver.disconnect()
     delete el._debugResizeObserver
   }
 
-  // 重置样式
   el.style.border = el.style.backgroundImage = el.style.zIndex = ''
+  el.style.position = '' // 恢复原始定位
 }
