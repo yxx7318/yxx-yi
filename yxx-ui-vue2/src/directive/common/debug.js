@@ -7,7 +7,7 @@
  *   <div v-debug.grid.label.size>组合功能</div>
  */
 export default {
-  beforeMount: applyDebug,
+  mounted: applyDebug,
   updated: applyDebug,
   beforeUnmount: cleanDebug
 }
@@ -40,7 +40,6 @@ function parseConfig(value, arg, modifiers) {
     style: (isObject && value.style) || 'solid',
     background: (isObject && value.background) || null,
     label: (isObject && value.label) || null,
-    zIndex: 9999,
     ...(isObject ? value : {})
   }
 }
@@ -51,7 +50,6 @@ function parseConfig(value, arg, modifiers) {
 function applyBaseStyle(el, config) {
   el.style.border = `${config.width} ${config.style} ${config.color}`
   if (config.background) el.style.background = config.background
-  el.style.zIndex = config.zIndex
 
   // 确保元素有相对定位，以便绝对定位的子元素正确显示
   if (getComputedStyle(el).position === 'static') {
@@ -93,7 +91,6 @@ function createDebugElement(el, config, type) {
     padding: '2px 6px',
     fontFamily: 'monospace',
     fontWeight: 'bold',
-    zIndex: config.zIndex + 1,
     pointerEvents: 'none' // 防止遮挡交互
   }
 
@@ -119,7 +116,7 @@ function createDebugElement(el, config, type) {
       bottom: '0',
       right: '0',
       borderRadius: '2px',
-      top: 'auto' // 明确设置
+      top: 'auto'
     })
 
     const observer = new ResizeObserver(updateSize)
@@ -150,6 +147,6 @@ function cleanDebug(el) {
     delete el._debugResizeObserver
   }
 
-  el.style.border = el.style.backgroundImage = el.style.zIndex = ''
-  el.style.position = '' // 恢复原始定位
+  el.style.border = el.style.backgroundImage = ''
+  el.style.position = ''
 }
