@@ -87,7 +87,7 @@ import SystemBackground from '@/components/SystemBackground'
 import Logo from "@/components/Logo"
 import { getCodeImg, register } from "@/api/login"
 import { mobileFlag } from "@/utils/yxx"
-import settings from "@/settings"
+import settings from "@/config/settings"
 
 export default {
   name: 'Register',

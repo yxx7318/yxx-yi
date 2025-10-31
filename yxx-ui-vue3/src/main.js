@@ -23,7 +23,7 @@ import 'virtual:svg-icons-register'
 import SvgIcon from '@/components/SvgIcon'
 import elementIcons from '@/components/SvgIcon/svgicon'
 
-import './permission' // permission control
+import '@/config/permission.js' // permission control
 
 import { useDict } from '@/utils/dict'
 import { getConfigKey } from "@/api/system/config"

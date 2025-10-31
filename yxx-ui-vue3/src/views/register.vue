@@ -90,7 +90,7 @@ import SystemBackground from '@/components/SystemBackground'
 import Logo from "@/components/Logo"
 import { ElMessageBox } from "element-plus"
 import { getCodeImg, register } from "@/api/login"
-import settings from "@/settings.js"
+import settings from "@/config/settings.js"
 import { mobileFlag } from "@/utils/yxx.js"
 
 const title = import.meta.env.VITE_APP_TITLE

@@ -81,7 +81,7 @@ import Logo from '@/components/Logo'
 import { getCodeImg, registerEnabled } from "@/api/login"
 import Cookies from "js-cookie"
 import { encrypt, decrypt } from "@/utils/jsencrypt"
-import settings from "@/settings"
+import settings from "@/config/settings.js"
 import { mobileFlag } from "@/utils/yxx"
 import useUserStore from '@/store/modules/user'
 
