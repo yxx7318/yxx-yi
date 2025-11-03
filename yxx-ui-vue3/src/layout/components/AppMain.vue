@@ -37,7 +37,7 @@ function addIframe() {
 
 <style lang="scss" scoped>
 .app-main {
-  /* 顶部标签导航栏 */
+  /* 去掉顶部标签导航栏 */
   height: calc(100% - 84px);
   /* 50= navbar  50  */
   min-height: calc(100vh - 50px);
