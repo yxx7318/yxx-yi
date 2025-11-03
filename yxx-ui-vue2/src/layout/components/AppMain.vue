@@ -46,7 +46,7 @@ export default {
 
 <style lang="scss" scoped>
 .app-main {
-  /* 去掉顶部标签导航栏 */
+  /* 84 = navbar + tags-view = 50 + 34 */
   height: calc(100% - 84px);
   /* 50= navbar  50  */
   min-height: calc(100vh - 50px);
