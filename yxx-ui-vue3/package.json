@@ -44,7 +44,8 @@
     "unplugin-vue-setup-extend-plus": "1.0.1",
     "vite": "6.3.5",
     "vite-plugin-compression": "0.5.1",
-    "vite-plugin-svg-icons": "2.0.1"
+    "vite-plugin-svg-icons": "2.0.1",
+    "vite-plugin-vue-devtools": "8.0.3"
   },
   "overrides": {
     "quill": "2.0.2"

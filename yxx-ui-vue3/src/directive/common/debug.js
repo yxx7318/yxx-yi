@@ -104,19 +104,18 @@ function createDebugElement(el, config, type) {
       const { width, height } = el.getBoundingClientRect()
       debugEl.textContent = `${Math.round(width)}×${Math.round(height)}`
 
-      // 确保尺寸显示在可视区域内
-      const rect = debugEl.getBoundingClientRect()
-      if (rect.bottom > window.innerHeight) {
-        debugEl.style.bottom = '0'
-        debugEl.style.top = 'auto'
-      }
+      // 显示在右上角
+      debugEl.style.top = '0'
+      debugEl.style.right = '0'
+      debugEl.style.bottom = 'auto'
+      debugEl.style.left = 'auto'
     }
 
     Object.assign(debugEl.style, baseStyle, {
-      bottom: '0',
+      top: '0',
       right: '0',
-      borderRadius: '2px',
-      top: 'auto'
+      bottom: 'auto',
+      borderRadius: '2px'
     })
 
     const observer = new ResizeObserver(updateSize)
