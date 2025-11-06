@@ -3,7 +3,7 @@ package com.yxx.business.entity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.yxx.common.core.domain.BaseEditDtoEntity;
+import com.yxx.common.core.domain.BaseEditDTOEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.experimental.Accessors;
 import lombok.*;
@@ -23,7 +23,7 @@ import javax.validation.constraints.NotBlank;
 @Accessors(chain = true)
 @Builder
 @Data
-public class TbTestUserEditDTO extends BaseEditDtoEntity {
+public class TbTestUserEditDTO extends BaseEditDTOEntity {
 
     private static final long serialVersionUID = 1L;
 
