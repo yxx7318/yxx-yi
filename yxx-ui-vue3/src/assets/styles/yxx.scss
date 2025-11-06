@@ -112,7 +112,8 @@
   position: static !important;
   margin: 10px 0 0 0;
   padding: 0 !important;
-  
+  width: 100% !important;
+
   .el-pagination {
     position: static;
   }
@@ -274,8 +275,8 @@
 /* 拖拽列样式 */
 .sortable-ghost{
   opacity: .8;
-  color: #fff!important;
-  background: #42b983!important;
+  color: #fff !important;
+  background: #42b983 !important;
 }
 
 /* 表格右侧工具栏样式 */

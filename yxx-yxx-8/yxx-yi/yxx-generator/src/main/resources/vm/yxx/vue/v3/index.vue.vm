@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
+    <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px" class="el-form-flex">
 #foreach($column in $columns)
 #if($column.query)
 #set($dictType=$column.dictType)
@@ -22,7 +22,7 @@
       </el-form-item>
 #elseif(($column.htmlType == "select" || $column.htmlType == "radio") && "" != $dictType)
       <el-form-item label="${comment}" prop="${column.javaField}">
-        <el-select v-model="queryParams.${column.javaField}" placeholder="请选择${comment}" clearable style="width: 180px">
+        <el-select v-model="queryParams.${column.javaField}" placeholder="请选择${comment}" clearable>
           <el-option
             v-for="dict in ${dictType}"
             :key="dict.value"
@@ -33,13 +33,14 @@
       </el-form-item>
 #elseif(($column.htmlType == "select" || $column.htmlType == "radio") && $dictType)
       <el-form-item label="${comment}" prop="${column.javaField}">
-        <el-select v-model="queryParams.${column.javaField}" placeholder="请选择${comment}" clearable style="width: 180px">
+        <el-select v-model="queryParams.${column.javaField}" placeholder="请选择${comment}" clearable>
           <el-option label="请选择字典生成" value="" />
         </el-select>
       </el-form-item>
 #elseif($column.htmlType == "date" && $column.queryType != "BETWEEN")
       <el-form-item label="${comment}" prop="${column.javaField}">
         <el-date-picker
+          style="width: 100%"
           clearable
           v-model="queryParams.${column.javaField}"
           type="date"
@@ -50,6 +51,7 @@
 #elseif($column.htmlType == "date" && $column.queryType == "BETWEEN")
       <el-form-item label="${comment}">
         <el-date-picker
+          style="width: 100%"
           v-model="daterange${AttrName}"
           value-format="YYYY-MM-DD"
           type="daterange"
@@ -61,6 +63,7 @@
 #elseif($column.htmlType == "datetime" && $column.queryType != "BETWEEN")
       <el-form-item label="${comment}" prop="${column.javaField}">
         <el-date-picker
+          style="width: 100%"
           clearable
           v-model="queryParams.${column.javaField}"
           type="datetime"
@@ -71,6 +74,7 @@
 #elseif($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
       <el-form-item label="${comment}">
         <el-date-picker
+          style="width: 100%"
           v-model="datetimerange${AttrName}"
           value-format="YYYY-MM-DD HH:mm:ss"
           type="datetimerange"

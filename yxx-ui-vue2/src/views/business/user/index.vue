@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
+    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px" class="el-form-flex">
       <el-form-item label="主表ID" prop="parentId">
         <el-input
           v-model="queryParams.parentId"
@@ -37,8 +37,8 @@
       </el-form-item>
       <el-form-item label="注册日期">
         <el-date-picker
+          style="width: 100%"
           v-model="daterangeRegisterDate"
-          style="width: 240px"
           value-format="yyyy-MM-dd"
           type="daterange"
           range-separator="-"
@@ -48,8 +48,8 @@
       </el-form-item>
       <el-form-item label="注册时间">
         <el-date-picker
+          style="width: 100%"
           v-model="datetimerangeRegisterTime"
-          style="width: 340px"
           value-format="yyyy-MM-dd HH:mm:ss"
           type="datetimerange"
           range-separator="-"

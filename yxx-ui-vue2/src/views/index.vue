@@ -25,7 +25,7 @@
       </el-col>
     </el-row>
 
-    <div class="app-container home">
+    <div class="welcome home">
       <img alt="welcome" src="@/assets/images/welcome.png"/>
     </div>
   </div>
@@ -100,7 +100,7 @@ export default {
   }
 }
 
-.app-container {
+.welcome {
   background-color: white;
   display: flex; /* 启用Flex布局 */
   justify-content: center; /* 水平居中 */
@@ -108,7 +108,7 @@ export default {
   height: 100vh; /* 设置容器高度为视口高度 */
 }
 
-.app-container img {
+.welcome img {
   max-width: 100%; /* 图片最大宽度不超过容器 */
   max-height: 80vh; /* 图片最大高度不超过视口80% */
 }

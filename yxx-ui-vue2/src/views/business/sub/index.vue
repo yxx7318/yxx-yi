@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
+    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px" class="el-form-flex">
       <el-form-item label="用户账号" prop="userName">
         <el-input
           v-model="queryParams.userName"
@@ -38,6 +38,7 @@
       </el-form-item>
       <el-form-item label="注册时间" prop="registerTime">
         <el-date-picker
+          style="width: 100%"
           clearable
           v-model="queryParams.registerTime"
           type="datetime"

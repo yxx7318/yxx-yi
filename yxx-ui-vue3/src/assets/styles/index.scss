@@ -120,10 +120,23 @@ aside {
   }
 }
 
-//main-container全局样式
+// main-container全局样式
 .app-container {
   height: 100%;
   padding: 20px;
+  overflow: auto;
+}
+
+// el-form-flex样式
+.el-form-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+// el-form-item-flex样式
+.el-form-flex .el-form-item {
+  max-width: 240px;
+  flex: 1;
 }
 
 .components-container {

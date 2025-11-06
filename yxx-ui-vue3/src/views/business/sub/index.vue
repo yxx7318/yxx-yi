@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px">
+    <el-form :model="queryParams" ref="queryRef" :inline="true" v-show="showSearch" label-width="68px" class="el-form-flex">
       <el-form-item label="用户账号" prop="userName">
         <el-input
           v-model="queryParams.userName"
@@ -18,7 +18,7 @@
         />
       </el-form-item>
       <el-form-item label="账号状态" prop="status">
-        <el-select v-model="queryParams.status" placeholder="请选择账号状态" clearable style="width: 180px">
+        <el-select v-model="queryParams.status" placeholder="请选择账号状态" clearable>
           <el-option
             v-for="dict in sys_normal_disable"
             :key="dict.value"
@@ -29,6 +29,7 @@
       </el-form-item>
       <el-form-item label="注册日期" prop="registerDate">
         <el-date-picker
+          style="width: 100%"
           clearable
           v-model="queryParams.registerDate"
           type="date"
@@ -38,6 +39,7 @@
       </el-form-item>
       <el-form-item label="注册时间" prop="registerTime">
         <el-date-picker
+          style="width: 100%"
           clearable
           v-model="queryParams.registerTime"
           type="datetime"

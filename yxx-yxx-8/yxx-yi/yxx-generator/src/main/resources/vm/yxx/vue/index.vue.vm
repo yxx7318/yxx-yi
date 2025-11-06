@@ -1,6 +1,6 @@
 <template>
   <div class="app-container">
-    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px">
+    <el-form :model="queryParams" ref="queryForm" size="small" :inline="true" v-show="showSearch" label-width="68px" class="el-form-flex">
 #foreach($column in $columns)
 #if($column.query)
 #set($dictType=$column.dictType)
@@ -50,8 +50,8 @@
 #elseif($column.htmlType == "date" && $column.queryType == "BETWEEN")
       <el-form-item label="${comment}">
         <el-date-picker
+          style="width: 100%"
           v-model="daterange${AttrName}"
-          style="width: 240px"
           value-format="yyyy-MM-dd"
           type="daterange"
           range-separator="-"
@@ -62,6 +62,7 @@
 #elseif($column.htmlType == "datetime" && $column.queryType != "BETWEEN")
       <el-form-item label="${comment}" prop="${column.javaField}">
         <el-date-picker
+          style="width: 100%"
           clearable
           v-model="queryParams.${column.javaField}"
           type="datetime"
@@ -72,8 +73,8 @@
 #elseif($column.htmlType == "datetime" && $column.queryType == "BETWEEN")
       <el-form-item label="${comment}">
         <el-date-picker
+          style="width: 100%"
           v-model="datetimerange${AttrName}"
-          style="width: 340px"
           value-format="yyyy-MM-dd HH:mm:ss"
           type="datetimerange"
           range-separator="-"
