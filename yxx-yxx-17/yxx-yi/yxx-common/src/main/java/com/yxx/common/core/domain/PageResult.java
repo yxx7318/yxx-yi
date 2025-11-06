@@ -2,8 +2,6 @@ package com.yxx.common.core.domain;
 
 import com.yxx.common.constant.HttpStatus;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import lombok.experimental.Accessors;
 
 import java.util.List;
 
@@ -13,8 +11,6 @@ import java.util.List;
  * @param <T> 实际的数据类型
  */
 @Schema(description = "分页结果实体类")
-@Accessors(chain = true)
-@Data
 public class PageResult<T> {
 
     @Schema(description = "总记录数")
@@ -37,4 +33,67 @@ public class PageResult<T> {
 
     @Schema(description = "是否查询全部", example = "false")
     private Boolean allData;
+
+    public Long getTotal() {
+        return total;
+    }
+
+    public PageResult<T> setTotal(Long total) {
+        this.total = total;
+        return this;
+    }
+
+    public List<T> getRows() {
+        return rows;
+    }
+
+    public PageResult<T> setRows(List<T> rows) {
+        this.rows = rows;
+        return this;
+    }
+
+    public Integer getCode() {
+        return code;
+    }
+
+    public PageResult<T> setCode(Integer code) {
+        this.code = code;
+        return this;
+    }
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public PageResult<T> setMsg(String msg) {
+        this.msg = msg;
+        return this;
+    }
+
+    public Integer getPageNum() {
+        return pageNum;
+    }
+
+    public PageResult<T> setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+        return this;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public PageResult<T> setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+        return this;
+    }
+
+    public Boolean getAllData() {
+        return allData;
+    }
+
+    public PageResult<T> setAllData(Boolean allData) {
+        this.allData = allData;
+        return this;
+    }
 }

@@ -4,16 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yxx.common.core.utils.PageDomainUtils;
 import io.swagger.v3.oas.annotations.media.Schema;
 import com.baomidou.mybatisplus.annotation.TableField;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
 /**
  * 分页查询条件对象，用于封装分页请求中的参数
  */
-@EqualsAndHashCode(callSuper = true)
-@Data
 public class PageQueryEntity extends BaseColumnEntity implements Serializable
 {
 
@@ -73,5 +69,48 @@ public class PageQueryEntity extends BaseColumnEntity implements Serializable
 
     public void setIsAsc(String isAsc) {
         this.isAsc = PageDomainUtils.getIsAscValue(isAsc);
+    }
+
+    @JsonIgnore
+    public Integer getLimit() {
+        return getPageSize();
+    }
+
+    @JsonIgnore
+    public Integer getOffset() {
+        return (getPageNum() - 1) * getPageSize();
+    }
+
+    @JsonIgnore
+    public String getLimitSql() {
+        return String.format(" LIMIT %s OFFSET %s", getLimit(), getOffset());
+    }
+
+    public Integer getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public String getOrderByColumn() {
+        return orderByColumn;
+    }
+
+    public void setOrderByColumn(String orderByColumn) {
+        this.orderByColumn = orderByColumn;
+    }
+
+    public String getIsAsc() {
+        return isAsc;
+    }
+
+    public Boolean getAllData() {
+        return allData;
     }
 }

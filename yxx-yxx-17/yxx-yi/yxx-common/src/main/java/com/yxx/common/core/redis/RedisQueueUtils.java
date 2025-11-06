@@ -1,7 +1,5 @@
 package com.yxx.common.core.redis;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import com.yxx.common.utils.spring.SpringUtils;
 import org.redisson.api.*;
 
@@ -14,8 +12,10 @@ import java.util.function.Function;
  * 轻量级队列 重量级数据量 请使用 MQ
  * 要求 redis 5.X 以上
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RedisQueueUtils {
+
+    private RedisQueueUtils() {
+    }
 
     private static final RedissonClient CLIENT = SpringUtils.getBean(RedissonClient.class);
 

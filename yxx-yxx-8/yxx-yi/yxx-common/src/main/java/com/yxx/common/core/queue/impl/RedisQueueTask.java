@@ -1,14 +1,12 @@
 package com.yxx.common.core.queue.impl;
 
 import com.yxx.common.core.queue.Task;
-import lombok.Getter;
 
 /**
  * Redis队列任务
  *
  * @author yxx
  */
-@Getter
 public class RedisQueueTask implements Task {
 
     private final Task task;
@@ -37,4 +35,7 @@ public class RedisQueueTask implements Task {
         task.run();
     }
 
+    public Task getTask() {
+        return task;
+    }
 }

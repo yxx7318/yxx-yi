@@ -540,7 +540,11 @@ public class ExcelUtil<T>
                     }
                     ReflectUtils.invokeSetter(entity, propertyName, val);
                 }
-                list.add(entity);
+                // 忽略null值
+                if (entity != null)
+                {
+                    list.add(entity);
+                }
             }
         }
         return list;

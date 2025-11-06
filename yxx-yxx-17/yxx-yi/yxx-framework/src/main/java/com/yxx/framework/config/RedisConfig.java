@@ -1,10 +1,12 @@
 package com.yxx.framework.config;
 
+import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Role;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -14,6 +16,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
  * redis配置
  */
 @Configuration
+@Role(BeanDefinition.ROLE_INFRASTRUCTURE)
 @EnableCaching
 public class RedisConfig extends CachingConfigurerSupport
 {

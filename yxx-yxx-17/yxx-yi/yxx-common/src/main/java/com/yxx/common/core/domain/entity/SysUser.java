@@ -3,10 +3,10 @@ package com.yxx.common.core.domain.entity;
 import java.io.Serial;
 import java.util.Date;
 import java.util.List;
+import jakarta.validation.constraints.*;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import jakarta.validation.constraints.*;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.yxx.common.annotation.Excel;
@@ -332,7 +332,6 @@ public class SysUser extends BaseEntity
             .append("loginDate", getLoginDate())
             .append("pwdUpdateDate", getPwdUpdateDate())
             .append("super=>", super.toString())
-            .append("dept", getDept())
             .toString();
     }
 }

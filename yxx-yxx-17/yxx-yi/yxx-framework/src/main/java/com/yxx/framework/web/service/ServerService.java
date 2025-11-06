@@ -3,7 +3,7 @@ package com.yxx.framework.web.service;
 import com.yxx.common.core.domain.R;
 import com.yxx.common.core.utils.SerializationUtils;
 import com.yxx.framework.web.domain.Server;
-import com.yxx.framework.web.domain.ServerDto;
+import com.yxx.framework.web.domain.ServerDTO;
 import com.yxx.framework.web.utils.ProcessInfoUtils;
 import com.yxx.framework.utils.ServerUtils;
 import org.springframework.stereotype.Component;
@@ -16,7 +16,7 @@ public class ServerService {
     /**
      * 获取序列化内容，依据条件获取
      */
-    public R<byte[]> getByteInfo(ServerDto serverDto) throws IOException {
+    public R<byte[]> getByteInfo(ServerDTO serverDto) throws IOException {
         return getByteInfo();
     }
 

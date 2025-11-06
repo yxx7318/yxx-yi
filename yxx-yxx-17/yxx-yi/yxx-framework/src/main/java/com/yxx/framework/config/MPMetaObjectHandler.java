@@ -5,10 +5,14 @@ import com.yxx.common.utils.LocalDateUtils;
 import com.yxx.common.utils.SecurityUtils;
 import org.apache.ibatis.reflection.MetaObject;
 import org.springframework.stereotype.Component;
+
 import java.time.LocalDateTime;
 
 /**
- * 自定义元数据对象处理器
+ * 自定义元数据对象处理器(影响MyBatis)
+ * <p>
+ * metaObject.setValue() 固定填充
+ * strictInsertFill()或 strictUpdateFill()方法可以根据注解 FieldFill.xxx、字段名、属性值和字段类型来区分填充逻辑
  */
 @Component
 public class MPMetaObjectHandler implements MetaObjectHandler {
@@ -20,24 +24,9 @@ public class MPMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void insertFill(MetaObject metaObject) {
-        if (metaObject.hasSetter("createTime")) {
-            this.strictInsertFill(metaObject, "createTime", LocalDateUtils::getNowLocalDateTime, LocalDateTime.class);
-        }
-        if (metaObject.hasSetter("updateTime")) {
-            this.strictInsertFill(metaObject, "updateTime", LocalDateUtils::getNowLocalDateTime, LocalDateTime.class);
-        }
-        if (metaObject.hasSetter("createById")) {
-            this.strictInsertFill(metaObject, "createById", SecurityUtils::getUsernameOrNotLogged, String.class);
-        }
-        if (metaObject.hasSetter("updateById")) {
-            this.strictInsertFill(metaObject, "updateById", SecurityUtils::getUsernameOrNotLogged, String.class);
-        }
-        if (metaObject.hasSetter("createByName")) {
-            this.strictInsertFill(metaObject, "createByName", SecurityUtils::getUserIdOrNotLogged, Long.class);
-        }
-        if (metaObject.hasSetter("updateByName")) {
-            this.strictInsertFill(metaObject, "updateByName", SecurityUtils::getUserIdOrNotLogged, Long.class);
-        }
+        this.strictInsertFill(metaObject, "createTime", LocalDateUtils::getNowLocalDateTime, LocalDateTime.class);
+        this.strictInsertFill(metaObject, "createById", SecurityUtils::getUserIdOrNotLogged, Long.class);
+        this.strictInsertFill(metaObject, "createByName", SecurityUtils::getUsernameOrNotLogged, String.class);
     }
 
     /**
@@ -47,14 +36,8 @@ public class MPMetaObjectHandler implements MetaObjectHandler {
      */
     @Override
     public void updateFill(MetaObject metaObject) {
-        if (metaObject.hasSetter("updateTime")) {
-            this.strictUpdateFill(metaObject, "updateTime", LocalDateUtils::getNowLocalDateTime, LocalDateTime.class);
-        }
-        if (metaObject.hasSetter("updateById")) {
-            this.strictUpdateFill(metaObject, "updateById", SecurityUtils::getUsernameOrNotLogged, String.class);
-        }
-        if (metaObject.hasSetter("updateByName")) {
-            this.strictUpdateFill(metaObject, "updateByName", SecurityUtils::getUserIdOrNotLogged, Long.class);
-        }
+        this.strictUpdateFill(metaObject, "updateTime", LocalDateUtils::getNowLocalDateTime, LocalDateTime.class);
+        this.strictUpdateFill(metaObject, "updateById", SecurityUtils::getUserIdOrNotLogged, Long.class);
+        this.strictUpdateFill(metaObject, "updateByName", SecurityUtils::getUsernameOrNotLogged, String.class);
     }
 }

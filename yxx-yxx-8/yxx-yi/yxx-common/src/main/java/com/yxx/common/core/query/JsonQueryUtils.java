@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
 import com.yxx.common.core.utils.WrapperUtils;
 import com.yxx.common.utils.StringUtils;
-import lombok.extern.slf4j.Slf4j;
 
 import static com.yxx.common.constant.MySqlConstats.QUERY_JSON_SQL;
 
@@ -12,7 +11,6 @@ import static com.yxx.common.constant.MySqlConstats.QUERY_JSON_SQL;
 /**
  * Mysql的JSON字段查询工具类
  */
-@Slf4j
 public class JsonQueryUtils<T> extends LambdaQueryWrapper<T> {
 
     /**

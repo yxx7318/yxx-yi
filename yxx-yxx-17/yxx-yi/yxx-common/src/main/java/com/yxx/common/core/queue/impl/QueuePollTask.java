@@ -1,8 +1,12 @@
 package com.yxx.common.core.queue.impl;
 
-import com.yxx.common.core.queue.*;
-import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
+import com.yxx.common.core.queue.Job;
+import com.yxx.common.core.queue.Queue;
+import com.yxx.common.core.queue.QueueDispatcher;
+import com.yxx.common.core.queue.QueueListener;
+import com.yxx.common.core.queue.Task;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
 /**
@@ -10,9 +14,9 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
  *
  * @author yxx
  */
-@Slf4j
-@Setter
 public class QueuePollTask implements Task {
+
+    private static final Logger log = LoggerFactory.getLogger(QueuePollTask.class);
 
     private boolean active;
 
@@ -66,5 +70,33 @@ public class QueuePollTask implements Task {
                 log.error("队列监听期间发生异常", e);
             }
         } while (this.isActive());
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public QueueDispatcher getDispatcher() {
+        return dispatcher;
+    }
+
+    public ThreadPoolTaskExecutor getExecutor() {
+        return executor;
+    }
+
+    public String getQueueName() {
+        return queueName;
+    }
+
+    public void setQueueName(String queueName) {
+        this.queueName = queueName;
+    }
+
+    public QueueListener<?> getListener() {
+        return listener;
+    }
+
+    public void setListener(QueueListener<?> listener) {
+        this.listener = listener;
     }
 }

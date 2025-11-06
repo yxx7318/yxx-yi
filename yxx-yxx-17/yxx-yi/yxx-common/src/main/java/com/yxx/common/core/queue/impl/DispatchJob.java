@@ -2,8 +2,6 @@ package com.yxx.common.core.queue.impl;
 
 import cn.hutool.core.util.IdUtil;
 import com.yxx.common.core.queue.Job;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.util.Objects;
 
@@ -12,8 +10,6 @@ import java.util.Objects;
  *
  * @author yxx
  */
-@Getter
-@Setter
 public class DispatchJob<T> implements Job<T> {
 
     private String jobId;
@@ -45,5 +41,32 @@ public class DispatchJob<T> implements Job<T> {
     @Override
     public int hashCode() {
         return Objects.hash(jobId);
+    }
+
+    @Override
+    public String getJobId() {
+        return jobId;
+    }
+
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
+    }
+
+    @Override
+    public T getPayload() {
+        return payload;
+    }
+
+    public void setPayload(T payload) {
+        this.payload = payload;
+    }
+
+    @Override
+    public String getQueue() {
+        return queue;
+    }
+
+    public void setQueue(String queue) {
+        this.queue = queue;
     }
 }

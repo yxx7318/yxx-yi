@@ -4,8 +4,9 @@ import com.yxx.common.core.queue.QueueDispatcher;
 import com.yxx.common.core.queue.QueueListener;
 import com.yxx.common.core.queue.impl.RedisQueueDispatcher;
 import com.yxx.common.core.queue.impl.RedisQueueListenerContainer;
-import lombok.extern.slf4j.Slf4j;
 import org.redisson.api.RedissonClient;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.ObjectProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -19,9 +20,11 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
  *
  * @author yxx
  */
-@Slf4j
 @Configuration
 public class RedisQueueConfig {
+
+
+    private static final Logger log = LoggerFactory.getLogger(RedisQueueConfig.class);
 
     @Value("${spring.queue.name:queueName}")
     private String prefix;

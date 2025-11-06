@@ -1,7 +1,5 @@
 package com.yxx.common.core.redis;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import com.yxx.common.utils.spring.SpringUtils;
 import org.redisson.api.*;
 import org.redisson.api.options.KeysScanOptions;
@@ -18,9 +16,11 @@ import java.util.stream.Stream;
 /**
  * redis 工具类
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 @SuppressWarnings(value = {"unchecked", "rawtypes"})
 public class RedisUtils {
+
+    private RedisUtils() {
+    }
 
     private static final RedissonClient CLIENT = SpringUtils.getBean(RedissonClient.class);
 

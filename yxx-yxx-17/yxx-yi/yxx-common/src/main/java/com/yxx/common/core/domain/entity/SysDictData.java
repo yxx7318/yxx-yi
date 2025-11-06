@@ -1,5 +1,6 @@
 package com.yxx.common.core.domain.entity;
 
+import java.io.Serial;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
@@ -11,8 +12,6 @@ import com.yxx.common.annotation.Excel;
 import com.yxx.common.annotation.Excel.ColumnType;
 import com.yxx.common.constant.UserConstants;
 import com.yxx.common.core.domain.BaseEntity;
-
-import java.io.Serial;
 
 /**
  * 字典数据表 sys_dict_data

@@ -6,7 +6,6 @@ import com.yxx.common.core.domain.BaseColumnEntity;
 import com.yxx.common.core.mapper.BaseMapperPlus;
 import com.yxx.common.core.utils.WrapperUtils;
 import com.yxx.common.utils.spring.SpringUtils;
-import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
@@ -14,7 +13,6 @@ import java.util.List;
 /**
  * Mysql的分组查询最新记录工具类
  */
-@Slf4j
 public class TopGroupQueryUtils<T> extends LambdaQueryWrapper<T> {
 
     /**
@@ -57,26 +55,4 @@ public class TopGroupQueryUtils<T> extends LambdaQueryWrapper<T> {
                         WrapperUtils.getDBColumn(groupCol),
                         WrapperUtils.getDBColumn(orderCol));
     }
-
-//    /**
-//     * Mysql8.0支持窗口函数
-//     * @param wrapper LambdaQueryWrapper对象，必须初始化实体类字节码，这里如果有where条件，应该已经构建
-//     * @param groupCol 分组的字段
-//     * @param orderCol 最新的字段
-//     * @return 分组后最新的列
-//     */
-//    public static <K extends BaseColumnEntity> List<K> topGroupFunc(LambdaQueryWrapper<K> wrapper, BaseMapperPlus<K> mapperPlus, SFunction<K, ?> groupCol, SFunction<K, ?> orderCol) {
-//        return topGroupFunc(wrapper, mapperPlus, wrapper.getEntityClass(), groupCol, orderCol);
-//    }
-//
-//    /**
-//     * Mysql8.0支持窗口函数
-//     * @param wrapper LambdaQueryWrapper对象，必须初始化实体类字节码，这里如果有where条件，应该已经构建
-//     * @param groupCol 分组的字段
-//     * @param orderCol 最新的字段
-//     * @return 分组后最新的列
-//     */
-//    public static <K extends BaseColumnEntity> List<K> topGroupFunc(LambdaQueryWrapper<K> wrapper, BaseMapperPlus<K> mapperPlus, SFunction<K, ?> groupCol, SFunction<K, ?> orderCol) {
-//        return topGroupFunc(new LambdaQueryWrapper<K>(), wrapper.getEntityClass(), groupCol, orderCol);
-//    }
 }

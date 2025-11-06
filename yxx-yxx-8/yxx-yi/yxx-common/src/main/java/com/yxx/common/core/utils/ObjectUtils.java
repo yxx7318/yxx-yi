@@ -1,8 +1,6 @@
 package com.yxx.common.core.utils;
 
 import cn.hutool.core.util.ObjectUtil;
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 
 import java.util.Arrays;
 import java.util.function.Function;
@@ -10,8 +8,10 @@ import java.util.function.Function;
 /**
  * 对象工具类
  */
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ObjectUtils extends ObjectUtil {
+
+    private ObjectUtils() {
+    }
 
     /**
      * 如果对象不为空，则获取对象中的某个字段 ObjectUtils.notNullGetter(user, User::getName);

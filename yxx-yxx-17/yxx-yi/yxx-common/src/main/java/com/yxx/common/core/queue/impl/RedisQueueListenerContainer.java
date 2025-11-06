@@ -3,7 +3,8 @@ package com.yxx.common.core.queue.impl;
 import com.yxx.common.core.queue.QueueListener;
 import com.yxx.common.core.queue.QueueListenerContainer;
 import com.yxx.common.core.queue.Task;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.SmartLifecycle;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 
@@ -15,8 +16,9 @@ import java.util.Collection;
  *
  * @author yxx
  */
-@Slf4j
 public class RedisQueueListenerContainer implements QueueListenerContainer, SmartLifecycle {
+
+    private static final Logger log = LoggerFactory.getLogger(RedisQueueListenerContainer.class);
 
     private volatile boolean running;
 

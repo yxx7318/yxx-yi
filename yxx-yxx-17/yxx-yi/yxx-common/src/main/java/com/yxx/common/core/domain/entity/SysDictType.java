@@ -1,5 +1,6 @@
 package com.yxx.common.core.domain.entity;
 
+import java.io.Serial;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -11,8 +12,6 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 import com.yxx.common.annotation.Excel;
 import com.yxx.common.annotation.Excel.ColumnType;
 import com.yxx.common.core.domain.BaseEntity;
-
-import java.io.Serial;
 
 /**
  * 字典类型表 sys_dict_type
@@ -91,7 +90,7 @@ public class SysDictType extends BaseEntity
             .append("dictName", getDictName())
             .append("dictType", getDictType())
             .append("status", getStatus())
-            .append("super=>", super.toString())
+            .append("super=>",  super.toString())
             .toString();
     }
 }
