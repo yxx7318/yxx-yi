@@ -122,7 +122,13 @@ function submitFileForm() {
     proxy.$modal.msgError('请选择后缀为"xls"或"xlsx"的文件。')
     return
   }
-  proxy.$refs["uploadRef"].submit()
+  try {
+    proxy.$refs["uploadRef"].submit()
+  } catch (e) {
+    console.error("uploadExcel error", e)
+  } finally {
+    isUploading.value = false
+  }
 }
 
 // 通知父组件关闭窗口
