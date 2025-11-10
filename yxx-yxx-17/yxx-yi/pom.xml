@@ -177,6 +177,13 @@
                 <artifactId>yxx-z-erp</artifactId>
                 <version>${yxx.version}</version>
             </dependency>
+
+            <!-- ai模块-->
+            <dependency>
+                <groupId>com.yxx</groupId>
+                <artifactId>yxx-z-ai</artifactId>
+                <version>${yxx.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 
@@ -188,6 +195,7 @@
         <module>yxx-quartz</module>
         <module>yxx-system</module>
         <module>yxx-z-erp</module>
+        <module>yxx-z-ai</module>
     </modules>
 
 </project>

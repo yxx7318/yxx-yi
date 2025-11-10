@@ -108,7 +108,7 @@ public class SecurityConfig
                 requests.requestMatchers("/login", "/register", "/captchaImage").permitAll()
                     // 静态资源，可匿名访问
                     .requestMatchers(HttpMethod.GET, "/", "/*.html", "/**.html", "/**.css", "/**.js", "/profile/**").permitAll()
-                    .requestMatchers("/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs**", "/v3/api-docs/**",  "/*/api-docs", "/webjars/**", "/druid/**").permitAll()
+                    .requestMatchers("/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs**", "/v3/api-docs/**",  "/*/api-docs", "/webjars/**", "/druid/**", "/ai/**").permitAll()
                     .requestMatchers(HttpMethod.GET, resourceProperties.getResourcesMatchers()).permitAll()
                     .requestMatchers(resourceProperties.getApiMatchers()).permitAll()
                     // 除上面外的所有请求全部需要鉴权认证
