@@ -28,6 +28,11 @@ service.interceptors.request.use(config => {
   const isRepeatSubmit = (config.headers || {}).repeatSubmit === false
   // 间隔时间(ms)，小于此时间视为重复提交
   const interval = (config.headers || {}).interval || 1000
+
+  // Axios 在创建请求时通常会确保 config.headers存在，即使没有显式设置
+  config.headers = config.headers || {}
+
+  // 添加 token
   if (getToken() && !isToken) {
     config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
   }
@@ -68,12 +73,13 @@ service.interceptors.request.use(config => {
   }
   return config
 }, error => {
-    console.log(error)
-    Promise.reject(error)
+  console.error("request err:", error)
+  Promise.reject(error)
 })
 
 // 响应拦截器
-service.interceptors.response.use(res => {
+service.interceptors.response.use(
+  res => {
     // 未设置状态码则默认成功状态
     const code = res.data.code || 200
     // 获取错误信息
@@ -109,8 +115,10 @@ service.interceptors.response.use(res => {
     }
   },
   error => {
-    console.log('err' + error)
+    console.error('request err:', error)
     let { message } = error
+
+    // Axios 特有的错误类型处理
     if (message === "Network Error") {
       message = "后端接口连接异常"
     } else if (message.includes("timeout")) {
