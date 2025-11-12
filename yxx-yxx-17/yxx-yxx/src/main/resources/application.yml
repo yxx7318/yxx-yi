@@ -74,7 +74,7 @@ mybatis-plus:
     db-config:
       # 定义属性为delFlag的代表为逻辑删除
       logic-delete-field: delFlag
-      logic-delete-value: 1
+      logic-delete-value: 2
       logic-not-delete-value: 0
   # 搜索指定包别名
   typeAliasesPackage: com.yxx.**.domain, com.yxx.**.entity
