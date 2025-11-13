@@ -345,6 +345,24 @@ public class SysMenuServiceImpl implements ISysMenuService
     }
 
     /**
+     * 校验路由地址是否唯一
+     *
+     * @param menu 菜单信息
+     * @return 结果
+     */
+    @Override
+    public boolean checkMenuPathUnique(SysMenu menu)
+    {
+        Long menuId = StringUtils.isNull(menu.getMenuId()) ? -1L : menu.getMenuId();
+        SysMenu info = menuMapper.checkMenuPathUnique(menu.getPath());
+        if (StringUtils.isNotNull(info) && info.getMenuId().longValue() != menuId.longValue())
+        {
+            return UserConstants.NOT_UNIQUE;
+        }
+        return UserConstants.UNIQUE;
+    }
+
+    /**
      * 获取路由名称
      * 
      * @param menu 菜单信息
@@ -367,10 +385,9 @@ public class SysMenuServiceImpl implements ISysMenuService
      * @param path 路由地址
      * @return 路由名称（驼峰格式）
      */
-    public String getRouteName(String name, String path)
+    public String getRouteName(String routerName, String path)
     {
-        String routerName = StringUtils.isNotEmpty(name) ? name : path;
-        return StringUtils.capitalize(routerName);
+        return StringUtils.capitalize(StringUtils.isNotEmpty(routerName) ? routerName : path);
     }
 
     /**

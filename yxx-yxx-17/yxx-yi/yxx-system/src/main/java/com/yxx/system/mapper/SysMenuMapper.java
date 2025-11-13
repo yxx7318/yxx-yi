@@ -121,4 +121,12 @@ public interface SysMenuMapper extends BaseMapperPlus<SysMenu>
      * @return 结果
      */
     public SysMenu checkMenuNameUnique(@Param("menuName") String menuName, @Param("parentId") Long parentId);
+
+    /**
+     * 校验路由地址是否唯一
+     *
+     * @param path 路由地址
+     * @return 结果
+     */
+    public SysMenu checkMenuPathUnique(@Param("path") String path);
 }

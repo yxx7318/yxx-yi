@@ -139,4 +139,12 @@ public interface ISysMenuService
      * @return 结果
      */
     public boolean checkMenuNameUnique(SysMenu menu);
+
+    /**
+     * 校验路由地址是否唯一
+     *
+     * @param menu 菜单信息
+     * @return 结果
+     */
+    public boolean checkMenuPathUnique(SysMenu menu);
 }
