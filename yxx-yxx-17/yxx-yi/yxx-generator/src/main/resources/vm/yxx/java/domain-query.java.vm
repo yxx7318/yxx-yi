@@ -13,13 +13,13 @@ import lombok.experimental.Accessors;
 import lombok.*;
 
 /**
- * ${functionName}QueryDto对象 ${tableName}
+ * ${functionName}QueryDTO对象 ${tableName}
  *
  * @author ${author}
  * @date ${datetime}
  */
 #if($table.crud || $table.sub)
-#set($Entity="BaseQueryDtoEntity")
+#set($Entity="BaseQueryDTOEntity")
 #elseif($table.tree)
 #set($Entity="TreeEntity")
 #end

@@ -168,8 +168,8 @@ public class DataScopeAspect
             }
             else if (StringUtils.isNotNull(params) && params instanceof BaseQueryDTOEntity)
             {
-                BaseQueryDTOEntity baseQueryDtoEntity = (BaseQueryDTOEntity) params;
-                baseQueryDtoEntity.getParams().put(DATA_SCOPE, " AND (" + sqlString.substring(4) + ")");
+                BaseQueryDTOEntity baseQueryDTOEntity = (BaseQueryDTOEntity) params;
+                baseQueryDTOEntity.getParams().put(DATA_SCOPE, " AND (" + sqlString.substring(4) + ")");
             }
         }
     }

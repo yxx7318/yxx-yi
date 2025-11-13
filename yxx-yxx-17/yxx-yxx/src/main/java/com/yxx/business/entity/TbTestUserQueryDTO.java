@@ -9,7 +9,7 @@ import lombok.experimental.Accessors;
 import lombok.*;
 
 /**
- * 测试单表生成QueryDto对象 tb_test_user
+ * 测试单表生成QueryDTO对象 tb_test_user
  *
  * @author yxx
  * @date 2025-10-13

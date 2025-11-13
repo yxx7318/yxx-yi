@@ -16,7 +16,7 @@ public class ServerService {
     /**
      * 获取序列化内容，依据条件获取
      */
-    public R<byte[]> getByteInfo(ServerDTO serverDto) throws IOException {
+    public R<byte[]> getByteInfo(ServerDTO serverDTO) throws IOException {
         return getByteInfo();
     }
 

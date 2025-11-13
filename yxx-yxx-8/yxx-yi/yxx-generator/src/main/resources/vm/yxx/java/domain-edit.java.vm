@@ -38,7 +38,7 @@ import ${javax}.validation.constraints.NotBlank;
  * @date ${datetime}
  */
 #if($table.crud || $table.sub)
-#set($Entity="BaseEditDtoEntity")
+#set($Entity="BaseEditDTOEntity")
 #elseif($table.tree)
 #set($Entity="TreeEntity")
 #end
