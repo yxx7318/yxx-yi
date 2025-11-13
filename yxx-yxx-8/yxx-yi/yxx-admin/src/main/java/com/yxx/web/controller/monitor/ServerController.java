@@ -27,9 +27,9 @@ public class ServerController
 
     @PreAuthorize("@ss.hasPermi('monitor:server:list')")
     @GetMapping
-    public R<Server> getInfo(ServerDTO serverDto) throws Exception
+    public R<Server> getInfo(ServerDTO serverDTO) throws Exception
     {
-        if (serverDto.getServerId() == null)
+        if (serverDTO.getServerId() == null)
         {
             Server server = new Server();
             ServerUtils.copyTo(server);
@@ -37,7 +37,7 @@ public class ServerController
             ProcessInfoUtils.setDefault(server.getProcessInfoList());
             return R.ok(server);
         }
-        return R.ok(SerializationUtils.deserializeFromByteArray(serverService.getByteInfo(serverDto).getData(), Server.class));
+        return R.ok(SerializationUtils.deserializeFromByteArray(serverService.getByteInfo(serverDTO).getData(), Server.class));
     }
 
     @PreAuthorize("@ss.hasPermi('monitor:server:list')")
