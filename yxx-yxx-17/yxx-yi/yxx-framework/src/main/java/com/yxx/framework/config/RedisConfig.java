@@ -1,5 +1,6 @@
 package com.yxx.framework.config;
 
+import com.yxx.common.constant.Constants;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
@@ -20,7 +21,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @EnableCaching
 public class RedisConfig extends CachingConfigurerSupport
 {
-    @Bean
+    @Bean(name = Constants.REDIS_TEMPLATE)
     @Primary
     @SuppressWarnings(value = { "unchecked", "rawtypes" })
     public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory connectionFactory)
@@ -43,7 +44,7 @@ public class RedisConfig extends CachingConfigurerSupport
         return template;
     }
 
-    @Bean
+    @Bean(name = Constants.LUA_REDIS_TEMPLATE)
     @SuppressWarnings({ "rawtypes", "unchecked" })
     public RedisTemplate<String, String> luaRedisTemplate(RedisConnectionFactory redisFactory)
     {
