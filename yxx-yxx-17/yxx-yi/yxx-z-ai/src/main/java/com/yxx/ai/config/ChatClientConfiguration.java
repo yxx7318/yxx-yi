@@ -31,17 +31,17 @@ public class ChatClientConfiguration {
         return SimpleVectorStore.builder(embeddingModel).build();
     }
 
-    @Bean
-    public ChatClient pdfChatClient(OpenAiChatModel model, ChatMemory chatMemory, VectorStore vectorStore) {
-        return ChatClient
-                .builder(model)
-                .defaultSystem("你是一个热心、可爱的YXX智能助手")
-                .defaultAdvisors(
-                        new SimpleLoggerAdvisor(),
-                        new MessageChatMemoryAdvisor(chatMemory)
-                )
-                .build();
-    }
+//    @Bean
+//    public ChatClient pdfChatClient(OpenAiChatModel model, ChatMemory chatMemory, VectorStore vectorStore) {
+//        return ChatClient
+//                .builder(model)
+//                .defaultSystem("你是一个热心、可爱的YXX智能助手")
+//                .defaultAdvisors(
+//                        new SimpleLoggerAdvisor(),
+//                        new MessageChatMemoryAdvisor(chatMemory)
+//                )
+//                .build();
+//    }
 
 //    @Bean
 //    public ChatClient pdfChatClient(OllamaChatModel model, ChatMemory chatMemory, VectorStore vectorStore) {
@@ -95,24 +95,24 @@ public class ChatClientConfiguration {
 //                .build();
 //    }
 
-//    @Bean
-//    public ChatClient pdfChatClient(OpenAiChatModel model, ChatMemory chatMemory, VectorStore vectorStore) {
-//        return ChatClient
-//                .builder(model)
-//                .defaultSystem("请根据上下文回答问题，遇到上下文没有的问题，不要随意编造。")
-//                .defaultAdvisors(
-//                        new SimpleLoggerAdvisor(),
-//                        new MessageChatMemoryAdvisor(chatMemory),
-//                        new QuestionAnswerAdvisor(
-//                                vectorStore,
-//                                SearchRequest.builder()
-//                                        .similarityThreshold(0.6)
-//                                        .topK(2)
-//                                        .build()
-//                        )
-//                )
-//                .build();
-//    }
+    @Bean
+    public ChatClient pdfChatClient(OpenAiChatModel model, ChatMemory chatMemory, VectorStore vectorStore) {
+        return ChatClient
+                .builder(model)
+                .defaultSystem("请根据上下文回答问题，遇到上下文没有的问题，不要随意编造。")
+                .defaultAdvisors(
+                        new SimpleLoggerAdvisor(),
+                        new MessageChatMemoryAdvisor(chatMemory),
+                        new QuestionAnswerAdvisor(
+                                vectorStore,
+                                SearchRequest.builder()
+                                        .similarityThreshold(0.6)
+                                        .topK(10)
+                                        .build()
+                        )
+                )
+                .build();
+    }
 
 //    @Bean
 //    public AlibabaOpenAiChatModel alibabaOpenAiChatModel(OpenAiConnectionProperties commonProperties, OpenAiChatProperties chatProperties, ObjectProvider<RestClient.Builder> restClientBuilderProvider, ObjectProvider<WebClient.Builder> webClientBuilderProvider, ToolCallingManager toolCallingManager, RetryTemplate retryTemplate, ResponseErrorHandler responseErrorHandler, ObjectProvider<ObservationRegistry> observationRegistry, ObjectProvider<ChatModelObservationConvention> observationConvention) {

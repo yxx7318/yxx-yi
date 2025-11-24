@@ -45,6 +45,13 @@ import { getToken } from "@/utils/auth"
 import Sortable from 'sortablejs'
 
 const props = defineProps({
+  /**
+   * 字符串形式：file1.txt,file2.pdf
+   * 数组形式：[
+   *   { name: 'file1.txt', url: 'http://example.com/file1.txt' },
+   *   { name: 'file2.pdf', url: 'http://example.com/file2.pdf' }
+   * ]
+   */
   modelValue: [String, Object, Array],
   // 上传接口地址
   action: {
@@ -164,19 +171,22 @@ function handleUploadSuccess(res, file) {
   if (res.code === 200) {
     uploadList.value.push({ name: res.fileName, url: res.fileName })
     uploadedSuccessfully()
+    emit("uploadedSuccess")
   } else {
     number.value--
     proxy.$modal.closeLoading()
     proxy.$modal.msgError(res.msg)
     proxy.$refs.fileUpload.handleRemove(file)
     uploadedSuccessfully()
+    emit("uploadedFail")
   }
 }
 
 // 删除文件
 function handleDelete(index) {
   fileList.value.splice(index, 1)
-  emit("update:modelValue", listToString(fileList.value))
+  emit("update:modelValue", convertData())
+  emit("deleteSuccess")
 }
 
 // 上传结束处理
@@ -185,7 +195,7 @@ function uploadedSuccessfully() {
     fileList.value = fileList.value.filter(f => f.url !== undefined).concat(uploadList.value)
     uploadList.value = []
     number.value = 0
-    emit("update:modelValue", listToString(fileList.value))
+    emit("update:modelValue", convertData())
     proxy.$modal.closeLoading()
   }
 }
@@ -212,6 +222,16 @@ function listToString(list, separator) {
   return strs != '' ? strs.substr(0, strs.length - 1) : ''
 }
 
+// 转化成需要类型的数据
+function convertData() {
+  if (typeof props.modelValue === "string") {
+    return listToString(fileList.value)
+  } else if (Array.isArray(props.modelValue)) {
+    return fileList.value
+  }
+  return ""
+}
+
 // 初始化拖拽排序
 onMounted(() => {
   if (props.drag && !props.disabled) {
@@ -222,7 +242,7 @@ onMounted(() => {
         onEnd: (evt) => {
           const movedItem = fileList.value.splice(evt.oldIndex, 1)[0]
           fileList.value.splice(evt.newIndex, 0, movedItem)
-          emit('update:modelValue', listToString(fileList.value))
+          emit('update:modelValue', convertData())
         }
       })
     })

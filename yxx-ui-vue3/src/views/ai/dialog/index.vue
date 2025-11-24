@@ -1,6 +1,15 @@
 <template>
-  <div style="height: 100%; margin: 5px">
-    <div style="height: 100%; display: flex; justify-content: space-between;">
+  <div style="height: 100%; margin: 5px" @dragenter="isFilesUpload = true" @dragleave="handleDragLeave">
+    <div style="height: 100%; display: flex; align-items: center; justify-content: center" v-show="isFilesUpload">
+      <drag-upload
+        ref="dragUpload"
+        style="height: 92%; width: 80%"
+        v-model:modelValue="filesValue"
+        @uploadedSuccess="uploadedSuccess"
+      >
+      </drag-upload>
+    </div>
+    <div style="height: 100%; display: flex; justify-content: space-between;" v-show="!isFilesUpload">
       <el-container
         style="height: 100%; flex: 2; min-width: 320px; max-width: 320px; background-color: #f3f4f6"
         v-show="!isMobile">
@@ -23,12 +32,28 @@
         </el-main>
         <el-footer style="width: 100%">Footer</el-footer>
       </el-container>
-      <div style="height: 100%; flex: 7;">
+      <div style="height: 100%; flex: 7; max-width: 100%;">
         <div
           style="height: 95%; margin-top: 5%; display: flex; align-items: center;"
           :class="hasBubble ? 'justifyContentSpaceBetween' : 'justifyContentCenter'">
           <BubbleList v-show="hasBubble" :list="chatList" max-height="70%" style="width: 90%; margin-bottom: 50px">
             <template #content="{ item }">
+              <!-- 文件列表 -->
+              <div style="display: flex; flex-wrap: wrap; gap: 12px" v-if="item.role === 'user'">
+                <div v-for="(i, index) in item.files" :key="index" style="flex: 1">
+                  <el-tooltip
+                    placement="top"
+                    :content="i.name"
+                  >
+                    <files-card
+                      :uid="i.uid"
+                      :name="i.name"
+                    >
+                    </files-card>
+                  </el-tooltip>
+                </div>
+              </div>
+              <!-- md格式解析 -->
               <XMarkdown
                 :allowHtml="true"
                 :enableLatex="true"
@@ -37,11 +62,14 @@
                 default-theme-mode="light"
               />
             </template>
+            <template #header="{ item }">
+              <el-text>{{ item.role === 'ai' ? 'YXX智能体' : userStore.nickName }}</el-text>
+            </template>
           </BubbleList>
-          <div style="width: 90%; margin-bottom: 100px">
+          <div style="width: 90%; margin-bottom: 4%">
             <Typewriter
               v-show="!hasBubble"
-              :content="`你好，我是 yxx 智能体`"
+              :content="`你好，我是 YXX 智能体`"
               :typing="{
                 step: 1,
                 interval: 80,
@@ -50,18 +78,66 @@
             >
             </Typewriter>
             <Sender
-              style="height: 30%; flex: 1;"
+              style="height: 30%; flex: 1; width: 100%"
               ref="senderRef"
               v-model="senderValue"
               :auto-size="{
                 maxRows: 10,
-                minRows: 3,
+                minRows: 5,
               }"
               variant="updown"
               clearable
               allow-speech
               @submit="handleSend"
             >
+              <template #header>
+                <div style="display: flex; overflow-x: auto; gap: 20px; flex-wrap: nowrap; padding: 20px; max-width: 100%">
+                  <div v-for="(item, index) in filesValue" :key="index">
+                    <el-tooltip
+                      placement="top"
+                      :content="item.name"
+                    >
+                      <files-card
+                        :uid="item.uid"
+                        :name="item.name"
+                        show-del-icon
+                        @delete="deleteCard(item.uid)"
+                      >
+                      </files-card>
+                    </el-tooltip>
+                  </div>
+
+                </div>
+              </template>
+
+              <template #prefix>
+                <div
+                  style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; height: 100%"
+                >
+                  <!-- 文件选择按钮 -->
+                  <el-button round plain color="#626aef" @click="clickSelectFile">
+                    <el-icon><Paperclip /></el-icon>
+                  </el-button>
+
+                  <!-- 深度思考按钮 -->
+                  <div
+                    :class="{ isSelect }"
+                    class="noSelect"
+                    @click="isSelect = !isSelect"
+                  >
+                    <el-icon><ElementPlus /></el-icon>
+                    <span>深度思考</span>
+                  </div>
+                </div>
+              </template>
+
+              <template #action-list>
+                <div style="display: flex; align-items: center; gap: 8px">
+                  <el-button round color="#626aef">
+                    <el-icon><Promotion /></el-icon>
+                  </el-button>
+                </div>
+              </template>
             </Sender>
           </div>
         </div>
@@ -71,7 +147,10 @@
 </template>
 
 <script setup>
-import { Welcome, Conversations, Typewriter, Sender, BubbleList, XMarkdown } from 'vue-element-plus-x'
+import { Welcome, Conversations, Typewriter, Sender, BubbleList, XMarkdown, FilesCard } from 'vue-element-plus-x'
+import { ElementPlus, Paperclip, Promotion } from '@element-plus/icons-vue'
+import DragUpload from '@/components/DragUpload'
+import chatGpt from '@/assets/icons/svg/chat-gpt.svg'
 import useUserStore from '@/store/modules/user'
 import { startChat, getSessionList, getSession, addSession, updateSession, delSession } from '@/api/ai/session'
 import { mobileFlag } from "@/utils/yxx"
@@ -79,6 +158,58 @@ import { mobileFlag } from "@/utils/yxx"
 const { proxy } = getCurrentInstance()
 
 const userStore = useUserStore()
+
+// 鼠标移动开处理
+const handleDragLeave = (e) => {
+  e.preventDefault();
+
+  // 检查鼠标是否离开了整个拖拽区域（而不仅仅是进入子元素）
+  const currentTarget = e.currentTarget; // 监听事件的元素
+  const relatedTarget = e.relatedTarget; // 鼠标进入的新元素
+
+  // 如果 relatedTarget 是 null 或者不是当前元素的子节点，则认为真正离开
+  if (!relatedTarget || !currentTarget.contains(relatedTarget)) {
+    isFilesUpload.value = false;
+  }
+  // 否则，鼠标只是在该容器内部元素间移动，不处理
+}
+
+// 是否上转文件状态
+const isFilesUpload = ref(false)
+
+// 文件内容值
+const filesValue = ref([])
+
+// 点击的方式选择文件
+const clickSelectFile = () => {
+  proxy.$refs.dragUpload.triggerFileSelect()
+}
+
+// 删除开篇
+const deleteCard = (uid) => {
+  filesValue.value = filesValue.value.filter(i => uid !== i.uid)
+  refreshSenderHeader()
+}
+
+// 刷新输入框头打开状态
+const refreshSenderHeader = () => {
+  if (filesValue.value.length === 0) {
+    proxy.$refs.senderRef.closeHeader()
+  } else {
+    proxy.$refs.senderRef.openHeader()
+  }
+}
+
+// 上传成功回调
+const uploadedSuccess = () => {
+  isFilesUpload.value = false
+  refreshSenderHeader()
+}
+
+
+onMounted(() => {
+  refreshSenderHeader()
+})
 
 // ****************************
 const isMobile = ref()
@@ -187,27 +318,36 @@ const hasBubble = ref()
 // 输入框绑定的值
 const senderValue = ref()
 
+// 是否选中深度思考
+const isSelect = ref(false)
+
 /**
  * 开启会话
  * @param value
  */
 const handleSend = (value) => {
   let currentAiText = ref("")
+
   // 有对话
   hasBubble.value = true
   // 添加对话
   chatList.value.push(getFakeItem(1, "user", value))
   chatList.value.push(getFakeItem(2, "ai", currentAiText))
+
+
   // 流式响应
   startChat({
     chatId: userStore.id,
-    prompt: value
+    prompt: value,
+    files: filesValue.value
   }, (chunk) => {
     currentAiText.value = currentAiText.value + chunk
-    console.log(chunk)
   })
   // 清除输入框
   proxy.$refs.senderRef.clear()
+
+  filesValue.value = []
+  refreshSenderHeader()
 }
 
 // 生成一个会话结果对象
@@ -218,10 +358,7 @@ function getFakeItem(key, role, content) {
   const variant = role === 'ai' ? 'outlined' : 'filled'
   const isMarkdown = true
   const typing = true
-  const avatar =
-    role === 'ai'
-      ? 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'
-      : userStore.avatar
+  const avatar = role === 'ai' ? chatGpt : userStore.avatar
 
   return {
     key, // 唯一标识
@@ -238,7 +375,13 @@ function getFakeItem(key, role, content) {
     // 控制Bubble组件样式，这里增加最大宽度
     maxWidth: "80%",
     avatarSize: '24px', // 头像占位大小
-    avatarGap: '12px' // 头像与气泡之间的距离
+    avatarGap: '12px', // 头像与气泡之间的距离
+    files: filesValue.value.map(i => {
+      return {
+        uid: i.uid,
+        name: i.name
+      }
+    })
   }
 }
 
@@ -252,5 +395,27 @@ function getFakeItem(key, role, content) {
 
 .justifyContentCenter {
   justify-content: center;
+}
+
+/* 深度思考未选中状态样式 */
+.noSelect {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 12px;
+  border: 1px solid silver;
+  border-radius: 15px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+/* 深度思考选中后增加的样式 */
+.isSelect {
+  color: #626aef;
+  border: 1px solid #626aef !important;
+  border-radius: 15px;
+  padding: 3px 12px;
+  font-weight: 700;
 }
 </style>
