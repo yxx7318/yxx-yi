@@ -1,44 +1,44 @@
 import request from '@/utils/request'
 
 // 查询测试树表生成列表
-export function listTree(query) {
+export function listUserTree(query) {
   return request({
-    url: '/business/tree/list',
+    url: '/business/userTree/list',
     method: 'get',
     params: query
   })
 }
 
 // 查询测试树表生成详细
-export function getTree(userId) {
+export function getUserTree(userId) {
   return request({
-    url: '/business/tree/' + userId,
+    url: '/business/userTree/' + userId,
     method: 'get'
   })
 }
 
 // 新增测试树表生成
-export function addTree(data) {
+export function addUserTree(data) {
   return request({
-    url: '/business/tree',
+    url: '/business/userTree',
     method: 'post',
     data: data
   })
 }
 
 // 修改测试树表生成
-export function updateTree(userId, data) {
+export function updateUserTree(userId, data) {
   return request({
-    url: '/business/tree/' + userId,
+    url: '/business/userTree/' + userId,
     method: 'put',
     data: data
   })
 }
 
 // 删除测试树表生成
-export function delTree(userId) {
+export function delUserTree(userId) {
   return request({
-    url: '/business/tree/' + userId,
+    url: '/business/userTree/' + userId,
     method: 'delete'
   })
 }
