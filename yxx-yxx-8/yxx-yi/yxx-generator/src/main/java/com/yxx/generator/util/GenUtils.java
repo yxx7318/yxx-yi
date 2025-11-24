@@ -188,9 +188,23 @@ public class GenUtils
      */
     public static String getBusinessName(String tableName)
     {
-        int lastIndex = tableName.lastIndexOf("_");
-        int nameLength = tableName.length();
-        return StringUtils.substring(tableName, lastIndex + 1, nameLength);
+        if (tableName == null || tableName.isEmpty()) {
+            return "";
+        }
+
+        String[] parts = tableName.split("_");
+        if (parts.length < 2) {
+            return tableName; // 如果没有或只有一部分，返回原字符串
+        }
+
+        // 获取最后两个部分
+        String firstPart = parts[parts.length - 2];
+        String secondPart = parts[parts.length - 1];
+
+        // 组合为驼峰命名
+        return firstPart +
+                secondPart.substring(0, 1).toUpperCase() +
+                secondPart.substring(1);
     }
 
     /**

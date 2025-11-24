@@ -39,32 +39,32 @@ import org.springframework.validation.annotation.Validated;
  * 测试单表生成Controller
  *
  * @author yxx
- * @date 2025-10-13
+ * @date 2025-11-24
  */
 @Tag(name = "测试单表生成管理-TbTestUser")
 @RestController
-@RequestMapping("/business/user")
+@RequestMapping("/business/testUser")
 @RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
 public class TbTestUserController extends BaseControllerPlus {
 
     private final ITbTestUserService tbTestUserService;
 
     @Operation(summary = "查询--测试单表生成列表")
-    @PreAuthorize("@ss.hasPermi('business:user:list')")
+    @PreAuthorize("@ss.hasPermi('business:testUser:list')")
     @GetMapping("/list")
     public PageResult<TbTestUserVO> list(@ParameterObject TbTestUserQueryDTO tbTestUserQueryDTO) {
         return tbTestUserService.selectTbTestUserVOPage(tbTestUserQueryDTO);
     }
 
     @Operation(summary = "查询--测试单表生成单个")
-    @PreAuthorize("@ss.hasPermi('business:user:query')")
+    @PreAuthorize("@ss.hasPermi('business:testUser:query')")
     @GetMapping(value = "/{userId}")
     public R<TbTestUserVO> getInfo(@PathVariable Long userId) {
         return R.ok(tbTestUserService.selectTbTestUserVOByUserId(userId));
     }
 
     @Operation(summary = "新增--测试单表生成")
-    @PreAuthorize("@ss.hasPermi('business:user:add')")
+    @PreAuthorize("@ss.hasPermi('business:testUser:add')")
     @Log(title = "测试单表生成", businessType = BusinessType.INSERT)
     @PostMapping
     public R<String> add(@RequestBody @Validated TbTestUserEditDTO tbTestUserEditDTO) {
@@ -72,7 +72,7 @@ public class TbTestUserController extends BaseControllerPlus {
     }
 
     @Operation(summary = "修改--测试单表生成")
-    @PreAuthorize("@ss.hasPermi('business:user:edit')")
+    @PreAuthorize("@ss.hasPermi('business:testUser:edit')")
     @Log(title = "测试单表生成", businessType = BusinessType.UPDATE)
     @PutMapping("/{userId}")
     public R<String> update(@PathVariable Long userId, @RequestBody @Validated TbTestUserEditDTO tbTestUserEditDTO) {
@@ -80,7 +80,7 @@ public class TbTestUserController extends BaseControllerPlus {
     }
 
     @Operation(summary = "删除--测试单表生成")
-    @PreAuthorize("@ss.hasPermi('business:user:remove')")
+    @PreAuthorize("@ss.hasPermi('business:testUser:remove')")
     @Log(title = "测试单表生成", businessType = BusinessType.DELETE)
     @DeleteMapping("/{userIds}")
     public R<String> delete(@PathVariable List<Long> userIds) {
@@ -88,7 +88,7 @@ public class TbTestUserController extends BaseControllerPlus {
     }
 
     @Operation(summary = "导出--测试单表生成列表")
-    @PreAuthorize("@ss.hasPermi('business:user:export')")
+    @PreAuthorize("@ss.hasPermi('business:testUser:export')")
     @Log(title = "测试单表生成", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, @ParameterObject TbTestUserQueryDTO tbTestUserQueryDTO) {
@@ -98,7 +98,7 @@ public class TbTestUserController extends BaseControllerPlus {
     }
 
     @Operation(summary = "导出--测试单表生成模板")
-    @PreAuthorize("@ss.hasPermi('business:user:import')")
+    @PreAuthorize("@ss.hasPermi('business:testUser:import')")
     @PostMapping("/importTemplate")
     public void exportTemplate(HttpServletResponse response) {
         ExcelUtil<TbTestUserDO> util = new ExcelUtil<>(TbTestUserDO.class);
@@ -106,7 +106,7 @@ public class TbTestUserController extends BaseControllerPlus {
     }
 
     @Operation(summary = "导入--测试单表生成列表")
-    @PreAuthorize("@ss.hasPermi('business:user:import')")
+    @PreAuthorize("@ss.hasPermi('business:testUser:import')")
     @Log(title = "测试单表生成", businessType = BusinessType.IMPORT)
     @PostMapping("/importData")
     public R<Boolean> importData(MultipartFile file) throws IOException {

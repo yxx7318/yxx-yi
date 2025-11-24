@@ -25,26 +25,26 @@ create table `tb_test_user_tree`
 
 -- 菜单 SQL
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark)
-values('测试树表生成', '0', '1', 'businessTree', 'business/tree/index', 1, 0, 'C', '0', '0', 'business:tree:list', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '测试树表生成菜单');
+values('测试树表生成', '0', '1', 'businessUserTree', 'business/userTree/index', 1, 0, 'C', '0', '0', 'business:userTree:list', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '测试树表生成菜单');
 
 -- 按钮父菜单ID
 SELECT @parentId := LAST_INSERT_ID();
 
 -- 按钮 SQL
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark)
-values('测试树表生成查询', @parentId, '1',  '#', '', 1, 1, 'F', '0', '0', 'business:tree:query', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');
+values('测试树表生成查询', @parentId, '1',  '#', '', 1, 1, 'F', '0', '0', 'business:userTree:query', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');
 
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark)
-values('测试树表生成新增', @parentId, '2',  '#', '', 1, 1, 'F', '0', '0', 'business:tree:add', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');
+values('测试树表生成新增', @parentId, '2',  '#', '', 1, 1, 'F', '0', '0', 'business:userTree:add', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');
 
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark)
-values('测试树表生成修改', @parentId, '3',  '#', '', 1, 1, 'F', '0', '0', 'business:tree:edit', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');
+values('测试树表生成修改', @parentId, '3',  '#', '', 1, 1, 'F', '0', '0', 'business:userTree:edit', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');
 
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark)
-values('测试树表生成删除', @parentId, '4',  '#', '', 1, 1, 'F', '0', '0', 'business:tree:remove', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');
+values('测试树表生成删除', @parentId, '4',  '#', '', 1, 1, 'F', '0', '0', 'business:userTree:remove', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');
 
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark)
-values('测试树表生成导出', @parentId, '5',  '#', '', 1, 1, 'F', '0', '0', 'business:tree:export', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');
+values('测试树表生成导出', @parentId, '5',  '#', '', 1, 1, 'F', '0', '0', 'business:userTree:export', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');
 
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark)
-values('测试树表生成导入', @parentId, '6',  '#', '', 1, 1, 'F', '0', '0', 'business:tree:import', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');
+values('测试树表生成导入', @parentId, '6',  '#', '', 1, 1, 'F', '0', '0', 'business:userTree:import', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');

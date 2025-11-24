@@ -14,7 +14,7 @@ import lombok.*;
  * 测试单表生成VO对象 tb_test_user
  *
  * @author yxx
- * @date 2025-10-13
+ * @date 2025-11-24
  */
 @Schema(description = "测试单表生成VO实体")
 @NoArgsConstructor

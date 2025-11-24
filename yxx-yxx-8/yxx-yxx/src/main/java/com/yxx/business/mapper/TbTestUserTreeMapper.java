@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * 测试树表生成Mapper接口
  *
  * @author yxx
- * @date 2025-10-13
+ * @date 2025-11-24
  */
 @Repository
 public interface TbTestUserTreeMapper extends BaseMapperPlus<TbTestUserTree> {
