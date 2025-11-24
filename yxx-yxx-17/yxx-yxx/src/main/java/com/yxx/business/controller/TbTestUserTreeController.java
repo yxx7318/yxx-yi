@@ -35,18 +35,18 @@ import org.springframework.validation.annotation.Validated;
  * 测试树表生成Controller
  *
  * @author yxx
- * @date 2025-10-13
+ * @date 2025-11-24
  */
 @Tag(name = "测试树表生成管理-TbTestUserTree")
 @RestController
-@RequestMapping("/business/tree")
+@RequestMapping("/business/userTree")
 @RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
 public class TbTestUserTreeController extends BaseControllerPlus {
 
     private final ITbTestUserTreeService tbTestUserTreeService;
 
     @Operation(summary = "查询--测试树表生成列表")
-    @PreAuthorize("@ss.hasPermi('business:tree:list')")
+    @PreAuthorize("@ss.hasPermi('business:userTree:list')")
     @GetMapping("/list")
     public R<List<TbTestUserTree>> list(@ParameterObject TbTestUserTree tbTestUserTree) {
         List<TbTestUserTree> list = tbTestUserTreeService.selectTbTestUserTreeList(tbTestUserTree);
@@ -54,14 +54,14 @@ public class TbTestUserTreeController extends BaseControllerPlus {
     }
 
     @Operation(summary = "查询--测试树表生成单个")
-    @PreAuthorize("@ss.hasPermi('business:tree:query')")
+    @PreAuthorize("@ss.hasPermi('business:userTree:query')")
     @GetMapping(value = "/{userId}")
     public R<TbTestUserTree> getInfo(@PathVariable Long userId) {
         return R.ok(tbTestUserTreeService.selectTbTestUserTreeByUserId(userId));
     }
 
     @Operation(summary = "新增--测试树表生成")
-    @PreAuthorize("@ss.hasPermi('business:tree:add')")
+    @PreAuthorize("@ss.hasPermi('business:userTree:add')")
     @Log(title = "测试树表生成", businessType = BusinessType.INSERT)
     @PostMapping
     public R<String> add(@RequestBody @Validated TbTestUserTree tbTestUserTree) {
@@ -69,7 +69,7 @@ public class TbTestUserTreeController extends BaseControllerPlus {
     }
 
     @Operation(summary = "修改--测试树表生成")
-    @PreAuthorize("@ss.hasPermi('business:tree:edit')")
+    @PreAuthorize("@ss.hasPermi('business:userTree:edit')")
     @Log(title = "测试树表生成", businessType = BusinessType.UPDATE)
     @PutMapping("/{userId}")
     public R<String> update(@PathVariable Long userId, @RequestBody @Validated TbTestUserTree tbTestUserTree) {
@@ -77,7 +77,7 @@ public class TbTestUserTreeController extends BaseControllerPlus {
     }
 
     @Operation(summary = "删除--测试树表生成")
-    @PreAuthorize("@ss.hasPermi('business:tree:remove')")
+    @PreAuthorize("@ss.hasPermi('business:userTree:remove')")
     @Log(title = "测试树表生成", businessType = BusinessType.DELETE)
     @DeleteMapping("/{userIds}")
     public R<String> delete(@PathVariable List<Long> userIds) {
@@ -85,7 +85,7 @@ public class TbTestUserTreeController extends BaseControllerPlus {
     }
 
     @Operation(summary = "导出--测试树表生成列表")
-    @PreAuthorize("@ss.hasPermi('business:tree:export')")
+    @PreAuthorize("@ss.hasPermi('business:userTree:export')")
     @Log(title = "测试树表生成", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, @ParameterObject TbTestUserTree tbTestUserTree) {
@@ -95,7 +95,7 @@ public class TbTestUserTreeController extends BaseControllerPlus {
     }
 
     @Operation(summary = "导出--测试树表生成模板")
-    @PreAuthorize("@ss.hasPermi('business:tree:import')")
+    @PreAuthorize("@ss.hasPermi('business:userTree:import')")
     @PostMapping("/importTemplate")
     public void exportTemplate(HttpServletResponse response) {
         ExcelUtil<TbTestUserTree> util = new ExcelUtil<>(TbTestUserTree.class);
@@ -103,7 +103,7 @@ public class TbTestUserTreeController extends BaseControllerPlus {
     }
 
     @Operation(summary = "导入--测试树表生成列表")
-    @PreAuthorize("@ss.hasPermi('business:tree:import')")
+    @PreAuthorize("@ss.hasPermi('business:userTree:import')")
     @Log(title = "测试树表生成", businessType = BusinessType.IMPORT)
     @PostMapping("/importData")
     public R<Boolean> importData(MultipartFile file) throws IOException {

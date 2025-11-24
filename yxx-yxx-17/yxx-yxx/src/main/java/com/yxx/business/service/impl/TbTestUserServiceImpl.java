@@ -19,7 +19,7 @@ import com.yxx.business.service.ITbTestUserService;
  * 测试单表生成Service业务层处理
  *
  * @author yxx
- * @date 2025-10-13
+ * @date 2025-11-24
  */
 @Slf4j
 @Service
@@ -64,8 +64,6 @@ public class TbTestUserServiceImpl extends ServiceImplPlus<TbTestUserMapper, TbT
      */
     @Override
     public List<TbTestUserDO> selectTbTestUserDOList(TbTestUserQueryDTO tbTestUserQueryDTO) {
-        getEntityClass();
-        Class<TbTestUserMapper> mapperClass = this.getMapperClass();
         return tbTestUserMapper.selectTbTestUserList(tbTestUserQueryDTO);
     }
 

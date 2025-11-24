@@ -24,26 +24,26 @@ create table `tb_test_user`
 
 -- 菜单 SQL
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark)
-values('测试单表生成', '0', '1', 'businessUser', 'business/user/index', 1, 0, 'C', '0', '0', 'business:user:list', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '测试单表生成菜单');
+values('测试单表生成', '0', '1', 'businessTestUser', 'business/testUser/index', 1, 0, 'C', '0', '0', 'business:testUser:list', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '测试单表生成菜单');
 
 -- 按钮父菜单ID
 SELECT @parentId := LAST_INSERT_ID();
 
 -- 按钮 SQL
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark)
-values('测试单表生成查询', @parentId, '1',  '#', '', 1, 1, 'F', '0', '0', 'business:user:query', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');
+values('测试单表生成查询', @parentId, '1',  '#', '', 1, 1, 'F', '0', '0', 'business:testUser:query', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');
 
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark)
-values('测试单表生成新增', @parentId, '2',  '#', '', 1, 1, 'F', '0', '0', 'business:user:add', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');
+values('测试单表生成新增', @parentId, '2',  '#', '', 1, 1, 'F', '0', '0', 'business:testUser:add', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');
 
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark)
-values('测试单表生成修改', @parentId, '3',  '#', '', 1, 1, 'F', '0', '0', 'business:user:edit', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');
+values('测试单表生成修改', @parentId, '3',  '#', '', 1, 1, 'F', '0', '0', 'business:testUser:edit', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');
 
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark)
-values('测试单表生成删除', @parentId, '4',  '#', '', 1, 1, 'F', '0', '0', 'business:user:remove', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');
+values('测试单表生成删除', @parentId, '4',  '#', '', 1, 1, 'F', '0', '0', 'business:testUser:remove', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');
 
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark)
-values('测试单表生成导出', @parentId, '5',  '#', '', 1, 1, 'F', '0', '0', 'business:user:export', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');
+values('测试单表生成导出', @parentId, '5',  '#', '', 1, 1, 'F', '0', '0', 'business:testUser:export', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');
 
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark)
-values('测试单表生成导入', @parentId, '6',  '#', '', 1, 1, 'F', '0', '0', 'business:user:import', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');
+values('测试单表生成导入', @parentId, '6',  '#', '', 1, 1, 'F', '0', '0', 'business:testUser:import', '#', 1, 'admin', sysdate(), 1, 'admin', sysdate(), '');

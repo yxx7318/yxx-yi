@@ -20,7 +20,7 @@ import jakarta.validation.constraints.NotBlank;
  * 测试单表生成对象 tb_test_user
  *
  * @author yxx
- * @date 2025-10-13
+ * @date 2025-11-24
  */
 @Schema(description = "测试主表生成实体")
 @NoArgsConstructor

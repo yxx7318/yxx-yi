@@ -36,32 +36,32 @@ import org.springframework.validation.annotation.Validated;
  * 测试主表生成Controller
  *
  * @author yxx
- * @date 2025-10-13
+ * @date 2025-11-24
  */
 @Tag(name = "测试主表生成管理-TbTestUserSub")
 @RestController
-@RequestMapping("/business/sub")
+@RequestMapping("/business/userSub")
 @RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
 public class TbTestUserSubController extends BaseControllerPlus {
 
     private final ITbTestUserSubService tbTestUserSubService;
 
     @Operation(summary = "查询--测试主表生成列表")
-    @PreAuthorize("@ss.hasPermi('business:sub:list')")
+    @PreAuthorize("@ss.hasPermi('business:userSub:list')")
     @GetMapping("/list")
     public PageResult<TbTestUserSub> list(@ParameterObject TbTestUserSub tbTestUserSub) {
         return tbTestUserSubService.selectTbTestUserSubPage(tbTestUserSub);
     }
 
     @Operation(summary = "查询--测试主表生成单个")
-    @PreAuthorize("@ss.hasPermi('business:sub:query')")
+    @PreAuthorize("@ss.hasPermi('business:userSub:query')")
     @GetMapping(value = "/{subId}")
     public R<TbTestUserSub> getInfo(@PathVariable Long subId) {
         return R.ok(tbTestUserSubService.selectTbTestUserSubBySubId(subId));
     }
 
     @Operation(summary = "新增--测试主表生成")
-    @PreAuthorize("@ss.hasPermi('business:sub:add')")
+    @PreAuthorize("@ss.hasPermi('business:userSub:add')")
     @Log(title = "测试主表生成", businessType = BusinessType.INSERT)
     @PostMapping
     public R<String> add(@RequestBody @Validated TbTestUserSub tbTestUserSub) {
@@ -69,7 +69,7 @@ public class TbTestUserSubController extends BaseControllerPlus {
     }
 
     @Operation(summary = "修改--测试主表生成")
-    @PreAuthorize("@ss.hasPermi('business:sub:edit')")
+    @PreAuthorize("@ss.hasPermi('business:userSub:edit')")
     @Log(title = "测试主表生成", businessType = BusinessType.UPDATE)
     @PutMapping("/{subId}")
     public R<String> update(@PathVariable Long subId, @RequestBody @Validated TbTestUserSub tbTestUserSub) {
@@ -77,7 +77,7 @@ public class TbTestUserSubController extends BaseControllerPlus {
     }
 
     @Operation(summary = "删除--测试主表生成")
-    @PreAuthorize("@ss.hasPermi('business:sub:remove')")
+    @PreAuthorize("@ss.hasPermi('business:userSub:remove')")
     @Log(title = "测试主表生成", businessType = BusinessType.DELETE)
     @DeleteMapping("/{subIds}")
     public R<String> delete(@PathVariable List<Long> subIds) {
@@ -85,7 +85,7 @@ public class TbTestUserSubController extends BaseControllerPlus {
     }
 
     @Operation(summary = "导出--测试主表生成列表")
-    @PreAuthorize("@ss.hasPermi('business:sub:export')")
+    @PreAuthorize("@ss.hasPermi('business:userSub:export')")
     @Log(title = "测试主表生成", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, @ParameterObject TbTestUserSub tbTestUserSub) {
@@ -95,7 +95,7 @@ public class TbTestUserSubController extends BaseControllerPlus {
     }
 
     @Operation(summary = "导出--测试主表生成模板")
-    @PreAuthorize("@ss.hasPermi('business:sub:import')")
+    @PreAuthorize("@ss.hasPermi('business:userSub:import')")
     @PostMapping("/importTemplate")
     public void exportTemplate(HttpServletResponse response) {
         ExcelUtil<TbTestUserSub> util = new ExcelUtil<>(TbTestUserSub.class);
@@ -103,7 +103,7 @@ public class TbTestUserSubController extends BaseControllerPlus {
     }
 
     @Operation(summary = "导入--测试主表生成列表")
-    @PreAuthorize("@ss.hasPermi('business:sub:import')")
+    @PreAuthorize("@ss.hasPermi('business:userSub:import')")
     @Log(title = "测试主表生成", businessType = BusinessType.IMPORT)
     @PostMapping("/importData")
     public R<Boolean> importData(MultipartFile file) throws IOException {

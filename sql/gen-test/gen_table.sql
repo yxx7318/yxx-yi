@@ -1,5 +1,5 @@
 -- 单表
-INSERT INTO `gen_table` (`table_name`, `table_comment`, `sub_table_name`, `sub_table_fk_name`, `class_name`, `tpl_category`, `tpl_web_type`, `package_name`, `module_name`, `business_name`, `function_name`, `function_author`, `gen_type`, `gen_path`, `options`, `create_by_id`, `create_by_name`, `create_time`, `update_by_id`, `update_by_name`, `update_time`, `remark`) VALUES ('tb_test_user', '测试单表生成', NULL, NULL, 'TbTestUser', 'crud', 'element-plus', 'com.yxx.business', 'business', 'user', '测试单表生成', 'yxx', '0', '/', '{\"parentMenuId\":0}', 1, 'admin', '2025-08-08 18:00:21', 0, '', '2025-08-08 21:58:57', '');
+INSERT INTO `gen_table` (`table_name`, `table_comment`, `sub_table_name`, `sub_table_fk_name`, `class_name`, `tpl_category`, `tpl_web_type`, `package_name`, `module_name`, `business_name`, `function_name`, `function_author`, `gen_type`, `gen_path`, `options`, `create_by_id`, `create_by_name`, `create_time`, `update_by_id`, `update_by_name`, `update_time`, `remark`) VALUES ('tb_test_user', '测试单表生成', NULL, NULL, 'TbTestUser', 'crud', 'element-plus', 'com.yxx.business', 'business', 'testUser', '测试单表生成', 'yxx', '0', '/', '{\"parentMenuId\":0}', 1, 'admin', '2025-08-08 18:00:21', 0, '', '2025-08-08 21:58:57', '');
 
 -- table_id
 SELECT @parentId := LAST_INSERT_ID();
@@ -23,7 +23,7 @@ INSERT INTO `gen_table_column` (`table_id`, `column_name`, `column_comment`, `co
 
 
 -- 树表
-INSERT INTO `gen_table` (`table_name`, `table_comment`, `sub_table_name`, `sub_table_fk_name`, `class_name`, `tpl_category`, `tpl_web_type`, `package_name`, `module_name`, `business_name`, `function_name`, `function_author`, `gen_type`, `gen_path`, `options`, `create_by_id`, `create_by_name`, `create_time`, `update_by_id`, `update_by_name`, `update_time`, `remark`) VALUES ('tb_test_user_tree', '测试树表', '', '', 'TbTestUserTree', 'tree', 'element-plus', 'com.yxx.business', 'business', 'tree', '测试树表生成', 'yxx', '0', '/', '{\"treeCode\":\"user_id\",\"treeName\":\"tree_name\",\"treeParentCode\":\"tree_id\",\"parentMenuId\":0}', 1, 'admin', '2025-08-08 18:03:53', 0, '', '2025-08-08 18:08:51', '');
+INSERT INTO `gen_table` (`table_name`, `table_comment`, `sub_table_name`, `sub_table_fk_name`, `class_name`, `tpl_category`, `tpl_web_type`, `package_name`, `module_name`, `business_name`, `function_name`, `function_author`, `gen_type`, `gen_path`, `options`, `create_by_id`, `create_by_name`, `create_time`, `update_by_id`, `update_by_name`, `update_time`, `remark`) VALUES ('tb_test_user_tree', '测试树表', '', '', 'TbTestUserTree', 'tree', 'element-plus', 'com.yxx.business', 'business', 'userTree', '测试树表生成', 'yxx', '0', '/', '{\"treeCode\":\"user_id\",\"treeName\":\"tree_name\",\"treeParentCode\":\"tree_id\",\"parentMenuId\":0}', 1, 'admin', '2025-08-08 18:03:53', 0, '', '2025-08-08 18:08:51', '');
 
 -- table_id
 SELECT @parentId := LAST_INSERT_ID();
@@ -48,7 +48,7 @@ INSERT INTO `gen_table_column` (`table_id`, `column_name`, `column_comment`, `co
 
 
 -- 主子表
-INSERT INTO `gen_table` (`table_name`, `table_comment`, `sub_table_name`, `sub_table_fk_name`, `class_name`, `tpl_category`, `tpl_web_type`, `package_name`, `module_name`, `business_name`, `function_name`, `function_author`, `gen_type`, `gen_path`, `options`, `create_by_id`, `create_by_name`, `create_time`, `update_by_id`, `update_by_name`, `update_time`, `remark`) VALUES ('tb_test_user_sub', '测试主表', 'tb_test_user', 'parent_id', 'TbTestUserSub', 'sub', 'element-plus', 'com.yxx.business', 'business', 'sub', '测试主表生成', 'yxx', '0', '/', '{\"parentMenuId\":0}', 1, 'admin', '2025-08-08 18:03:57', 0, '', '2025-08-08 18:09:15', '');
+INSERT INTO `gen_table` (`table_name`, `table_comment`, `sub_table_name`, `sub_table_fk_name`, `class_name`, `tpl_category`, `tpl_web_type`, `package_name`, `module_name`, `business_name`, `function_name`, `function_author`, `gen_type`, `gen_path`, `options`, `create_by_id`, `create_by_name`, `create_time`, `update_by_id`, `update_by_name`, `update_time`, `remark`) VALUES ('tb_test_user_sub', '测试主表', 'tb_test_user', 'parent_id', 'TbTestUserSub', 'sub', 'element-plus', 'com.yxx.business', 'business', 'userSub', '测试主表生成', 'yxx', '0', '/', '{\"parentMenuId\":0}', 1, 'admin', '2025-08-08 18:03:57', 0, '', '2025-08-08 18:09:15', '');
 
 -- table_id
 SELECT @parentId := LAST_INSERT_ID();
