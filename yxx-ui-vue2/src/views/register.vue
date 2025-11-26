@@ -86,11 +86,12 @@
 import SystemBackground from '@/components/SystemBackground'
 import Logo from "@/components/Logo"
 import { getCodeImg, register } from "@/api/login"
-import { mobileFlag } from "@/utils/yxx"
+import mobileDetectorMixin from "@/utils/mobileDetector"
 import settings from "@/config/settings"
 
 export default {
   name: 'Register',
+  mixins: [ mobileDetectorMixin ],
   components: { SystemBackground, Logo },
   data() {
     const equalToPassword = (rule, value, callback) => {
@@ -102,7 +103,6 @@ export default {
     }
 
     return {
-      isMobile: false,
       heightTooLow: false,
       codeUrl: "",
       registerForm: {
@@ -134,18 +134,9 @@ export default {
     }
   },
   mounted() {
-    this.checkScreenSize()
-    window.addEventListener('resize', this.checkScreenSize)
     this.getCode()
   },
-  beforeDestroy() {
-    window.removeEventListener('resize', this.checkScreenSize)
-  },
   methods: {
-    checkScreenSize() {
-      this.isMobile = mobileFlag()
-      this.heightTooLow = window.innerHeight <= 660
-    },
     getCode() {
       getCodeImg().then(res => {
         this.captchaEnabled = res.captchaEnabled === undefined ? true : res.captchaEnabled

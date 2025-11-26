@@ -82,11 +82,10 @@ import { getCodeImg, registerEnabled } from "@/api/login"
 import Cookies from "js-cookie"
 import { encrypt, decrypt } from "@/utils/jsencrypt"
 import settings from "@/config/settings.js"
-import { mobileFlag } from "@/utils/yxx"
+import { useMobileDetector } from "@/utils/mobileDetector"
 import useUserStore from '@/store/modules/user'
 
 
-const title = import.meta.env.VITE_APP_TITLE
 const userStore = useUserStore()
 const route = useRoute()
 const router = useRouter()
@@ -106,7 +105,7 @@ const loginRules = {
   code: [{ required: true, trigger: "change", message: "请输入验证码" }]
 }
 
-const isMobile = ref(false)
+const isMobile = useMobileDetector()
 const heightTooLow = ref(false)
 const codeUrl = ref("")
 const loading = ref(false)
@@ -158,11 +157,6 @@ function handleLogin() {
   })
 }
 
-function checkScreenSize() {
-  isMobile.value = mobileFlag()
-  heightTooLow.value = window.innerHeight <= 660
-}
-
 function getCode() {
   getCodeImg().then(res => {
     captchaEnabled.value = res.captchaEnabled === undefined ? true : res.captchaEnabled
@@ -190,15 +184,10 @@ function getCookie() {
   }
 }
 
-checkScreenSize()
-window.addEventListener('resize', checkScreenSize)
 getCode()
 getRegister()
 getCookie()
 
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', checkScreenSize)
-})
 </script>
 
 <style scoped>

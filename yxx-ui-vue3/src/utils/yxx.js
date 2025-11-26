@@ -225,10 +225,3 @@ export function getNormalPath(p) {
 export function blobValidate(data) {
   return data.type !== 'application/json'
 }
-
-// 判断是否是移动端
-export function mobileFlag() {
-  // 另一种检测是 768px
-  const maxWidth = 992;
-  return window.innerWidth < maxWidth
-}

@@ -91,9 +91,8 @@ import Logo from "@/components/Logo"
 import { ElMessageBox } from "element-plus"
 import { getCodeImg, register } from "@/api/login"
 import settings from "@/config/settings.js"
-import { mobileFlag } from "@/utils/yxx.js"
+import { useMobileDetector } from "@/utils/mobileDetector"
 
-const title = import.meta.env.VITE_APP_TITLE
 const router = useRouter()
 const { proxy } = getCurrentInstance()
 
@@ -132,7 +131,7 @@ const registerRules = {
   code: [{ required: true, trigger: "change", message: "请输入验证码" }]
 }
 
-const isMobile = ref(false)
+const isMobile = useMobileDetector()
 const heightTooLow = ref(false)
 const codeUrl = ref("")
 const loading = ref(false)
@@ -160,11 +159,6 @@ function handleRegister() {
   })
 }
 
-function checkScreenSize() {
-  isMobile.value = mobileFlag()
-  heightTooLow.value = window.innerHeight <= 660
-}
-
 function getCode() {
   getCodeImg().then(res => {
     captchaEnabled.value = res.captchaEnabled === undefined ? true : res.captchaEnabled
@@ -175,13 +169,8 @@ function getCode() {
   })
 }
 
-checkScreenSize()
-window.addEventListener('resize', checkScreenSize)
 getCode()
 
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', checkScreenSize)
-})
 </script>
 
 <style scoped>

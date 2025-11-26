@@ -1,8 +1,9 @@
 <template>
-  <div style="height: 100%; margin: 5px" @dragenter="isFilesUpload = true" @dragleave="handleDragLeave">
+  <div style="height: 100%; margin: 5px" @dragenter="isFilesUpload = true" @dragleave="handleDragLeave($event, () => isFilesUpload = false)">
     <div style="height: 100%; display: flex; align-items: center; justify-content: center" v-show="isFilesUpload">
       <drag-upload
         ref="dragUpload"
+        :fileType="['pdf']"
         style="height: 92%; width: 80%"
         v-model:modelValue="filesValue"
         @uploadedSuccess="uploadedSuccess"
@@ -91,7 +92,7 @@
               @submit="handleSend"
             >
               <template #header>
-                <div style="display: flex; overflow-x: auto; gap: 20px; flex-wrap: nowrap; padding: 20px; max-width: 100%">
+                <div style="display: flex; overflow-x: auto; gap: 20px; flex-wrap: nowrap; padding: 20px;">
                   <div v-for="(item, index) in filesValue" :key="index">
                     <el-tooltip
                       placement="top"
@@ -153,26 +154,12 @@ import DragUpload from '@/components/DragUpload'
 import chatGpt from '@/assets/icons/svg/chat-gpt.svg'
 import useUserStore from '@/store/modules/user'
 import { startChat, getSessionList, getSession, addSession, updateSession, delSession } from '@/api/ai/session'
-import { mobileFlag } from "@/utils/yxx"
+import { useMobileDetector } from "@/utils/mobileDetector"
+import { handleDragLeave } from "@/utils/handleDrag"
 
 const { proxy } = getCurrentInstance()
 
 const userStore = useUserStore()
-
-// 鼠标移动开处理
-const handleDragLeave = (e) => {
-  e.preventDefault();
-
-  // 检查鼠标是否离开了整个拖拽区域（而不仅仅是进入子元素）
-  const currentTarget = e.currentTarget; // 监听事件的元素
-  const relatedTarget = e.relatedTarget; // 鼠标进入的新元素
-
-  // 如果 relatedTarget 是 null 或者不是当前元素的子节点，则认为真正离开
-  if (!relatedTarget || !currentTarget.contains(relatedTarget)) {
-    isFilesUpload.value = false;
-  }
-  // 否则，鼠标只是在该容器内部元素间移动，不处理
-}
 
 // 是否上转文件状态
 const isFilesUpload = ref(false)
@@ -206,26 +193,14 @@ const uploadedSuccess = () => {
   refreshSenderHeader()
 }
 
-
+// 完成挂载刷新
 onMounted(() => {
+  console.log("--------")
   refreshSenderHeader()
 })
 
-// ****************************
-const isMobile = ref()
-
-function checkScreenSize() {
-  // isMobile.value = mobileFlag()
-  isMobile.value = true
-}
-
-checkScreenSize()
-
-window.addEventListener('resize', checkScreenSize)
-onBeforeUnmount(() => {
-  window.removeEventListener('resize', checkScreenSize)
-})
-// ****************************
+// 是否是手机端
+const isMobile = useMobileDetector()
 
 // id, label, group
 const menuItems = ref([
@@ -280,6 +255,7 @@ getSession(userStore.id).then(res => {
   }
 })
 
+// 选中会话
 function handleChange(item) {
   proxy.$modal.msgSuccess(`选中了: ${item.label}`)
 }

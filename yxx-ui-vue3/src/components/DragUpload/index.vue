@@ -87,11 +87,6 @@ const props = defineProps({
     type: Array,
     default: () => ["doc", "docx", "xls", "xlsx", "ppt", "pptx", "txt", "pdf"]
   },
-  // 是否显示提示
-  isShowTip: {
-    type: Boolean,
-    default: true
-  },
   // 禁用组件（仅查看文件）
   disabled: {
     type: Boolean,
@@ -117,9 +112,6 @@ const baseUrl = import.meta.env.VITE_APP_BASE_API
 const uploadFileUrl = ref(import.meta.env.VITE_APP_BASE_API + props.action) // 上传文件服务器地址
 const headers = ref({ Authorization: "Bearer " + getToken() })
 const fileList = ref([])
-const showTip = computed(
-  () => props.isShowTip && (props.fileType || props.fileSize)
-)
 
 watch(() => props.modelValue, val => {
   if (val) {

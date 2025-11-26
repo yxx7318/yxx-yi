@@ -79,14 +79,14 @@ import { getCodeImg, registerEnabled } from "@/api/login"
 import Cookies from "js-cookie"
 import { encrypt, decrypt } from '@/utils/jsencrypt'
 import settings from '@/config/settings'
-import { mobileFlag } from "@/utils/yxx"
+import mobileDetectorMixin from "@/utils/mobileDetector"
 
 export default {
   name: 'Login',
+  mixins: [ mobileDetectorMixin ],
   components: { SystemBackground, Logo },
   data() {
     return {
-      isMobile: false,
       heightTooLow: false,
       codeUrl: "",
       loginForm: {
@@ -121,20 +121,11 @@ export default {
     }
   },
   mounted() {
-    this.checkScreenSize()
-    window.addEventListener('resize', this.checkScreenSize)
     this.getCode()
     this.getRegister()
     this.getCookie()
   },
-  beforeDestroy() {
-    window.removeEventListener('resize', this.checkScreenSize)
-  },
   methods: {
-    checkScreenSize() {
-      this.isMobile = mobileFlag()
-      this.heightTooLow = window.innerHeight <= 660
-    },
     getCode() {
       getCodeImg().then(res => {
         this.captchaEnabled = res.captchaEnabled === undefined ? true : res.captchaEnabled
