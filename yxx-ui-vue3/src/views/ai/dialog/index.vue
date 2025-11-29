@@ -195,7 +195,6 @@ const uploadedSuccess = () => {
 
 // 完成挂载刷新
 onMounted(() => {
-  console.log("--------")
   refreshSenderHeader()
 })
 
