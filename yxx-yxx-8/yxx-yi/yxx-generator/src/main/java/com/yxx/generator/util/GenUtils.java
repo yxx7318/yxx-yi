@@ -188,13 +188,12 @@ public class GenUtils
      */
     public static String getBusinessName(String tableName)
     {
-        if (tableName == null || tableName.isEmpty()) {
-            return "";
-        }
-
         String[] parts = tableName.split("_");
-        if (parts.length < 2) {
-            return tableName; // 如果没有或只有一部分，返回原字符串
+        if (parts.length < 2)
+        {
+            int lastIndex = tableName.lastIndexOf("_");
+            int nameLength = tableName.length();
+            return StringUtils.substring(tableName, lastIndex + 1, nameLength);
         }
 
         // 获取最后两个部分

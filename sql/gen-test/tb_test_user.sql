@@ -14,7 +14,7 @@ create table `tb_test_user`
   create_by_id      bigint(20)        default 0                 comment '创建者Id',
   create_by_name    varchar(64)       default ''                comment '创建者名称',
   create_time       datetime not null default current_timestamp comment '创建时间',
-  update_by_id      bigint(20)        default 0                 comment '创建者Id',
+  update_by_id      bigint(20)        default 0                 comment '更新者Id',
   update_by_name    varchar(64)       default ''                comment '更新者名称',
   update_time       datetime not null default current_timestamp on update current_timestamp comment '更新时间',
   remark            varchar(500)      default null              comment '备注',
