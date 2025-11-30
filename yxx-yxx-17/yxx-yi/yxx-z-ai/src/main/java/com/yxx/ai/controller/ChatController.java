@@ -2,6 +2,8 @@ package com.yxx.ai.controller;
 
 import com.yxx.ai.config.storage.ChatHistoryRepository;
 import com.yxx.ai.domain.ChatDTO;
+import com.yxx.ai.domain.DocumentInfoDTO;
+import com.yxx.ai.manager.VectorDocumentManager;
 import com.yxx.common.core.domain.dto.FileUploadDTO;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -36,6 +38,8 @@ import static org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor.F
 @RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
 public class ChatController {
 
+    private final VectorDocumentManager vectorDocumentManager;
+
     private final ChatHistoryRepository chatHistoryRepository;
 
     private final ChatClient chatClient;
@@ -54,28 +58,12 @@ public class ChatController {
         }
     }
 
-    private final VectorStore vectorStore;
-
-    private void writeToVectorStore(Resource resource) {
-        // 1.创建PDF的读取器
-        PagePdfDocumentReader reader = new PagePdfDocumentReader(
-                resource, // 文件源
-                PdfDocumentReaderConfig.builder()
-                        .withPageExtractedTextFormatter(ExtractedTextFormatter.defaults())
-                        .withPagesPerDocument(1) // 每1页PDF作为一个Document
-                        .build()
-        );
-        // 2.读取PDF文档，拆分为Document
-        List<Document> documents = reader.read();
-        // 3.写入向量库
-        vectorStore.add(documents);
-    }
-
     private Flux<String> resourceModalChat(String prompt, String chatId, List<FileUploadDTO> files) {
         List<Resource> resources = files.stream().map(i -> new FileSystemResource(i.getLocalPath())).collect(Collectors.toList());
 
-        resources.forEach(this::writeToVectorStore);
-        // 2.请求模型
+        List<DocumentInfoDTO> documentInfoDTOS =
+                resources.stream().map(vectorDocumentManager::writeToVectorStore).collect(Collectors.toList());
+        // 请求模型
         return chatClient.prompt()
                 .user(prompt)
                 .user(p -> resources.forEach(r -> p.media(MimeType.valueOf("application/pdf"), r)))

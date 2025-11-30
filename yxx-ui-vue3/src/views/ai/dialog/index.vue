@@ -134,7 +134,7 @@
 
               <template #action-list>
                 <div style="display: flex; align-items: center; gap: 8px">
-                  <el-button round color="#626aef">
+                  <el-button round color="#626aef" @click="handleSend">
                     <el-icon><Promotion /></el-icon>
                   </el-button>
                 </div>
@@ -198,8 +198,8 @@ onMounted(() => {
   refreshSenderHeader()
 })
 
-// 是否是手机端
-const isMobile = useMobileDetector()
+// 是否是手机端 useMobileDetector()
+const isMobile = ref(true)
 
 // id, label, group
 const menuItems = ref([

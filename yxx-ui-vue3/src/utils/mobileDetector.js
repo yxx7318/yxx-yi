@@ -28,7 +28,6 @@ export function useMobileDetector() {
 
   // 在组件卸载前，移除 resize 事件监听，以防止内存泄漏
   onBeforeUnmount(() => {
-    console.log(checkScreenSize, checkScreenSize, checkScreenSize)
     window.removeEventListener('resize', checkScreenSize)
   })
 

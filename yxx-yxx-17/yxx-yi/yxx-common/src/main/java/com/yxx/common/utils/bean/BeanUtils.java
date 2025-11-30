@@ -1,10 +1,16 @@
 package com.yxx.common.utils.bean;
 
+import org.springframework.util.CollectionUtils;
+
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * Bean 工具类
@@ -36,6 +42,111 @@ public class BeanUtils extends org.springframework.beans.BeanUtils
         {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 高性能的单个Bean转换方法
+     * @param jo 源对象
+     * @param poClass 目标类类型
+     * @param <PO> 源对象类型
+     * @param <JO> 目标对象类型
+     * @return 转换后的目标对象
+     */
+    public static <PO, JO> PO convertBean(JO jo, Class<PO> poClass)
+    {
+        if (jo == null)
+        {
+            return null;
+        }
+
+        try
+        {
+            // 使用Spring BeanUtils进行属性拷贝
+            PO vo = poClass.getDeclaredConstructor().newInstance();
+            copyProperties(jo, vo);
+            return vo;
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("Bean convert error:", e);
+        }
+    }
+
+    /**
+     * 高性能的List转换方法
+     * @param list 源对象列表
+     * @param joClass 目标类类型
+     * @param <PO> 源列表元素类型
+     * @param <JO> 目标列表元素类型
+     * @return 转换后的目标对象列表
+     */
+    public static <PO, JO> List<JO> convertList(List<PO> list, Class<JO> joClass)
+    {
+        if (CollectionUtils.isEmpty(list))
+        {
+            return new ArrayList<>();
+        }
+
+        // 使用Stream API进行转换
+        return list.stream()
+                .map(item -> convertBean(item, joClass))
+                .collect(Collectors.toList());
+    }
+
+    // 使用缓存来存储已创建的构造器
+    private static final Map<Class<?>, Constructor<?>> constructorCache = new ConcurrentHashMap<>();
+
+    /**
+     * 带缓存的高性能Bean转换
+     */
+    public static <PO, JO> JO convertBeanWithCache(PO po, Class<JO> voClass)
+    {
+        if (po == null)
+        {
+            return null;
+        }
+
+        try
+        {
+            // 从缓存获取构造器，避免重复反射调用
+            Constructor<JO> constructor = (Constructor<JO>) constructorCache.get(voClass);
+            if (constructor == null)
+            {
+                constructor = voClass.getDeclaredConstructor();
+                constructor.setAccessible(true);
+                constructorCache.put(voClass, constructor);
+            }
+
+            JO jo = constructor.newInstance();
+            copyProperties(po, jo);
+            return jo;
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("Bean convert error:", e);
+        }
+    }
+
+    /**
+     * 批量转换的优化版本，减少stream开销
+     */
+    public static <PO, JO> List<JO> convertListBatch(List<PO> list, Class<JO> joClass)
+    {
+        if (CollectionUtils.isEmpty(list))
+        {
+            return new ArrayList<>();
+        }
+
+        // 对于小规模数据，使用传统循环可能更快
+        List<JO> result = new ArrayList<>(list.size());
+        for (PO item : list)
+        {
+            if (item != null)
+            {
+                result.add(convertBean(item, joClass));
+            }
+        }
+        return result;
     }
 
     /**

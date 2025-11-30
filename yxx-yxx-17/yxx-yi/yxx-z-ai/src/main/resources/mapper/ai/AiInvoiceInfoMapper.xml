@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxx.ai.mapper.AiInvoiceInfoMapper">
+
+    <resultMap type="AiInvoiceInfoDO" id="AiInvoiceInfoResult">
+        <result property="invoiceInfoId"    column="invoice_info_id"    />
+        <result property="invoiceNumber"    column="invoice_number"    />
+        <result property="amount"    column="amount"    />
+        <result property="invoiceDate"    column="invoice_date"    />
+        <result property="createById"    column="create_by_id"    />
+        <result property="createByName"    column="create_by_name"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateById"    column="update_by_id"    />
+        <result property="updateByName"    column="update_by_name"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectAiInvoiceInfoVo">
+        select invoice_info_id, invoice_number, amount, invoice_date, create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark from ai_invoice_info
+    </sql>
+
+    <select id="selectAiInvoiceInfoList" parameterType="AiInvoiceInfoQueryDTO" resultMap="AiInvoiceInfoResult">
+        <include refid="selectAiInvoiceInfoVo"/>
+        <where>
+            <if test="invoiceNumber != null and invoiceNumber != ''"> and invoice_number = #{invoiceNumber}</if>
+            <if test="amount != null"> and amount = #{amount}</if>
+            <if test="params.beginInvoiceDate != null and params.beginInvoiceDate != '' and params.endInvoiceDate != null and params.endInvoiceDate != ''"> and invoice_date between #{params.beginInvoiceDate} and #{params.endInvoiceDate}</if>
+            <if test="createByName != null and createByName != ''"> and create_by_name like concat('%', #{createByName}, '%')</if>
+            <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''"> and create_time between #{params.beginCreateTime} and #{params.endCreateTime}</if>
+        </where>
+        <if test="orderByColumn != null and orderByColumn != ''">order by #{orderByColumn} #{isAsc}</if>
+    </select>
+
+    <select id="selectAiInvoiceInfoByInvoiceInfoId" parameterType="Long" resultMap="AiInvoiceInfoResult">
+        <include refid="selectAiInvoiceInfoVo"/>
+        where invoice_info_id = #{invoiceInfoId}
+    </select>
+
+    <insert id="insertAiInvoiceInfo" parameterType="AiInvoiceInfoDO" useGeneratedKeys="true" keyProperty="invoiceInfoId">
+        insert into ai_invoice_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="invoiceNumber != null">invoice_number,</if>
+            <if test="amount != null">amount,</if>
+            <if test="invoiceDate != null">invoice_date,</if>
+            <if test="createById != null">create_by_id,</if>
+            <if test="createByName != null">create_by_name,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateById != null">update_by_id,</if>
+            <if test="updateByName != null">update_by_name,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="invoiceNumber != null">#{invoiceNumber},</if>
+            <if test="amount != null">#{amount},</if>
+            <if test="invoiceDate != null">#{invoiceDate},</if>
+            <if test="createById != null">#{createById},</if>
+            <if test="createByName != null">#{createByName},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateById != null">#{updateById},</if>
+            <if test="updateByName != null">#{updateByName},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateAiInvoiceInfo" parameterType="AiInvoiceInfoDO">
+        update ai_invoice_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="invoiceNumber != null">invoice_number = #{invoiceNumber},</if>
+            <if test="amount != null">amount = #{amount},</if>
+            <if test="invoiceDate != null">invoice_date = #{invoiceDate},</if>
+            <if test="createById != null">create_by_id = #{createById},</if>
+            <if test="createByName != null">create_by_name = #{createByName},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateById != null">update_by_id = #{updateById},</if>
+            <if test="updateByName != null">update_by_name = #{updateByName},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where invoice_info_id = #{invoiceInfoId}
+    </update>
+
+    <delete id="deleteAiInvoiceInfoByInvoiceInfoId" parameterType="Long">
+        delete from ai_invoice_info where invoice_info_id = #{invoiceInfoId}
+    </delete>
+
+    <delete id="deleteAiInvoiceInfoByInvoiceInfoIds" parameterType="List">
+        delete from ai_invoice_info where invoice_info_id in
+        <foreach item="invoiceInfoId" collection="list" open="(" separator="," close=")">
+            #{invoiceInfoId}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,14 +1,13 @@
 package com.yxx.ai.config;
 
+import com.yxx.ai.config.model.AlibabaOpenAiChatModel;
 import com.yxx.ai.config.storage.RedisChatMemory;
-import com.yxx.ai.constant.SystemPromptConstants;
+import com.yxx.ai.config.tools.InvoiceTool;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
-import org.springframework.ai.chat.prompt.ChatOptions;
-import org.springframework.ai.ollama.OllamaChatModel;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiEmbeddingModel;
 import org.springframework.ai.vectorstore.SearchRequest;
@@ -96,10 +95,31 @@ public class ChatClientConfiguration {
 //    }
 
     @Bean
+    public ChatClient ragClient(AlibabaOpenAiChatModel model, ChatMemory chatMemory, VectorStore vectorStore) {
+        return ChatClient
+                .builder(model)
+                .defaultSystem("你是一个热情的YXX智能体，如果有知识库，请理解引用知识库内容回答，如果没有知识库，正常回答即可。")
+                .defaultAdvisors(
+                        new SimpleLoggerAdvisor(),
+                        new MessageChatMemoryAdvisor(chatMemory),
+                        new QuestionAnswerAdvisor(
+                                vectorStore,
+                                SearchRequest.builder()
+                                        .similarityThreshold(0.6)
+                                        .topK(10)
+                                        .build()
+                        )
+                )
+                .defaultTools(new InvoiceTool())
+                .build();
+    }
+
+//    @Bean
     public ChatClient pdfChatClient(OpenAiChatModel model, ChatMemory chatMemory, VectorStore vectorStore) {
         return ChatClient
                 .builder(model)
-                .defaultSystem("请根据上下文回答问题，遇到上下文没有的问题，不要随意编造。")
+                .defaultSystem("你是一个热情的YXX智能体，如果有知识库，请理解引用知识库内容回答，如果没有知识库，正常回答即可。" +
+                        "除此之外，你每次进行函数调用，只需要选择和调用一个函数即可")
                 .defaultAdvisors(
                         new SimpleLoggerAdvisor(),
                         new MessageChatMemoryAdvisor(chatMemory),
