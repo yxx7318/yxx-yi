@@ -10,6 +10,7 @@ import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiEmbeddingModel;
+import org.springframework.ai.tool.ToolCallbackProvider;
 import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.ai.vectorstore.SimpleVectorStore;
 import org.springframework.ai.vectorstore.VectorStore;
@@ -95,7 +96,7 @@ public class ChatClientConfiguration {
 //    }
 
     @Bean
-    public ChatClient ragClient(AlibabaOpenAiChatModel model, ChatMemory chatMemory, VectorStore vectorStore) {
+    public ChatClient ragClient(AlibabaOpenAiChatModel model, ChatMemory chatMemory, VectorStore vectorStore, ToolCallbackProvider mcpTools) {
         return ChatClient
                 .builder(model)
                 .defaultSystem("你是一个热情的YXX智能体，如果有知识库，请理解引用知识库内容回答，如果没有知识库，正常回答即可。")
@@ -111,6 +112,7 @@ public class ChatClientConfiguration {
                         )
                 )
                 .defaultTools(new InvoiceTool())
+                .defaultTools(mcpTools)
                 .build();
     }
 

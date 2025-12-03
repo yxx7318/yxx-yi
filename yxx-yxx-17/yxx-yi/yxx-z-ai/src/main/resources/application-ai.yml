@@ -36,3 +36,9 @@ spring:
           model: text-embedding-v3
           # 维度
           dimensions: 1024
+
+    mcp:
+      client:
+        stdio:
+          # 指定MCP服务器配置文件
+          servers-configuration: classpath:drawio-mcp-server.json
