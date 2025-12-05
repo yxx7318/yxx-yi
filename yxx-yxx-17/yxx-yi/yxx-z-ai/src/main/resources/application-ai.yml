@@ -41,4 +41,4 @@ spring:
       client:
         stdio:
           # 指定MCP服务器配置文件
-          servers-configuration: classpath:drawio-mcp-server.json
+#          servers-configuration: classpath:drawio-mcp-server.json

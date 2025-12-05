@@ -120,6 +120,11 @@ export default {
       immediate: true
     }
   },
+  beforeMount() {
+    this.checkScreenSize((innerHeight) => {
+      this.heightTooLow = innerHeight <= 660
+    })
+  },
   mounted() {
     this.getCode()
     this.getRegister()

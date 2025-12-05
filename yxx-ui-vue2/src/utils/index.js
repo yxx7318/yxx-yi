@@ -210,10 +210,13 @@ export function getTime(type) {
 }
 
 /**
- * @param {Function} func
- * @param {number} wait
- * @param {boolean} immediate
- * @return {*}
+ * 防抖函数
+ * @param {Function} func - 需要进行防抖处理的目标函数
+ * @param {number} wait - 等待时间（毫秒），事件停止触发后多久执行函数
+ * @param {boolean} immediate - 是否立即执行，true表示首次触发立即执行，false表示延迟执行
+ *  true - 函数在首次触发时立即执行，然后在等待期内忽略后续调用
+ *  false - 函数只在事件停止触发并等待指定时间后执行
+ * @return {Function} 经过防抖处理的新函数
  */
 export function debounce(func, wait, immediate) {
   let timeout, args, context, timestamp, result
@@ -247,6 +250,20 @@ export function debounce(func, wait, immediate) {
     }
 
     return result
+  }
+}
+
+/**
+ * 节流函数
+ */
+export function throttle(callback, limit) {
+  let lastRan = null
+  return (...args) => {
+    const now = Date.now()
+    if (!lastRan || now - lastRan >= limit) {
+      callback(...args)
+      lastRan = now
+    }
   }
 }
 

@@ -131,8 +131,10 @@ const registerRules = {
   code: [{ required: true, trigger: "change", message: "请输入验证码" }]
 }
 
-const isMobile = useMobileDetector()
 const heightTooLow = ref(false)
+const isMobile = useMobileDetector((innerHeight) => {
+  heightTooLow.value = innerHeight <= 660
+})
 const codeUrl = ref("")
 const loading = ref(false)
 const captchaEnabled = ref(true)
