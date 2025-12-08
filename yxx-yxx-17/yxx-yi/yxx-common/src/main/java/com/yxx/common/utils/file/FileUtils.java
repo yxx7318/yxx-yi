@@ -9,6 +9,9 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+
+import com.yxx.common.core.domain.dto.FileUploadDTO;
+import com.yxx.common.utils.spring.SpringUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -22,6 +25,10 @@ import com.yxx.common.constant.Constants;
 import com.yxx.common.utils.DateUtils;
 import com.yxx.common.utils.StringUtils;
 import com.yxx.common.utils.uuid.IdUtils;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.web.util.UriComponentsBuilder;
 
 /**
  * 文件处理工具类
@@ -353,5 +360,63 @@ public class FileUtils
         // 标记 JVM 退出时，自动删除
         file.deleteOnExit();
         return file;
+    }
+
+    /**
+     * 获取Resource对象，先匹配本地路径，再匹配url
+     * @param uploadDTO 文件UploadDTO对象
+     * @return  Resource 对象
+     */
+    public static Resource getResource(FileUploadDTO uploadDTO)
+    {
+        String localPath = uploadDTO.getFilePath().replaceFirst("/profile/upload", YxxConfig.getUploadPath());
+        if (new File(localPath).exists())
+        {
+            return getResourceByPath(localPath);
+        }
+        else
+        {
+            return getResourceByUrl(uploadDTO.getUrl());
+        }
+    }
+
+    /**
+     * 支持匹配本地格式：
+     *   /profile/upload/20xx/xx/xx/xxx_xxxx180031A066.pdf
+     * @param path 路径
+     * @return Resource 对象
+     */
+    public static Resource getResourceByPath(String path)
+    {
+        return new FileSystemResource(path);
+    }
+
+    /**
+     * 支持多种URL格式：
+     *   file:/path/to/file.txt
+     *   classpath:config/application.yml
+     *   http://example.com/file.txt
+     *   https://example.com/file.txt
+     * @param url 地址
+     * @return Resource 对象
+     */
+    public static Resource getResourceByUrl(String url)
+    {
+        if (StringUtils.isBlank(url))
+        {
+            return null;
+        }
+        ResourceLoader resourceLoader = SpringUtils.getBean(ResourceLoader.class);
+        String location = url;
+        if (url.startsWith("http"))
+        {
+            location = UriComponentsBuilder.fromHttpUrl(url).toUriString();
+        }
+        Resource resource = resourceLoader.getResource(location);
+        if (resource.exists())
+        {
+            return resource;
+        }
+        return null;
     }
 }

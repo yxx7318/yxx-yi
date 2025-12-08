@@ -3,7 +3,6 @@ package com.yxx.common.core.domain.dto;
 import com.yxx.common.utils.file.FileUtils;
 import org.springframework.core.io.Resource;
 
-import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -13,7 +12,6 @@ import java.io.Serializable;
 public class FileUploadDTO implements Serializable
 {
 
-    @Serial
     private static final long serialVersionUID = 1L;
 
     /**

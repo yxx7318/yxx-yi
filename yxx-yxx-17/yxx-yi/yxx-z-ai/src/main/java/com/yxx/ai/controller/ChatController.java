@@ -59,7 +59,7 @@ public class ChatController {
     }
 
     private Flux<String> resourceModalChat(String prompt, String chatId, List<FileUploadDTO> files) {
-        List<Resource> resources = files.stream().map(i -> new FileSystemResource(i.getLocalPath())).collect(Collectors.toList());
+        List<Resource> resources = files.stream().map(FileUploadDTO::extractResource).collect(Collectors.toList());
 
         List<DocumentInfoDTO> documentInfoDTOS =
                 resources.stream().map(vectorDocumentManager::writeToVectorStore).collect(Collectors.toList());
@@ -68,13 +68,7 @@ public class ChatController {
                 .user(prompt)
                 .user(p -> resources.forEach(r -> p.media(MimeType.valueOf("application/pdf"), r)))
                 .advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId))
-                .advisors(a -> resources.forEach(r -> {
-                    try {
-                        a.param(FILTER_EXPRESSION, String.format("file_name == '%s'", r.getFile().getName()));
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }))
+                .advisors(a -> resources.forEach(r -> a.param(FILTER_EXPRESSION, String.format("file_name == '%s'", r.getFilename()))))
                 .stream()
                 .content();
     }
