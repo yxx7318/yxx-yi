@@ -171,13 +171,6 @@
                 <version>${yxx.version}</version>
             </dependency>
 
-            <!-- erp模块-->
-            <dependency>
-                <groupId>com.yxx</groupId>
-                <artifactId>yxx-z-erp</artifactId>
-                <version>${yxx.version}</version>
-            </dependency>
-
             <!-- ai模块-->
             <dependency>
                 <groupId>com.yxx</groupId>
@@ -194,7 +187,6 @@
         <module>yxx-generator</module>
         <module>yxx-quartz</module>
         <module>yxx-system</module>
-        <module>yxx-z-erp</module>
         <module>yxx-z-ai</module>
     </modules>
 
