@@ -27,6 +27,18 @@ MCP能力：
 
 <video src="img/README/spring ai example.mp4"></video>
 
+发票录入：
+
+![image-20251217210831363](img/README/image-20251217210831363.png)
+
+发票查询：
+
+![image-20251217210858856](img/README/image-20251217210858856.png)
+
+RAG知识库：
+
+![image-20251217210938936](img/README/image-20251217210938936.png)
+
 ## 功能优化
 
 - 优化代码生成器
