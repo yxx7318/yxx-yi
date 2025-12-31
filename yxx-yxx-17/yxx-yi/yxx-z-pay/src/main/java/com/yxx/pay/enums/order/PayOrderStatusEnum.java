@@ -1,0 +1,76 @@
+package com.yxx.pay.enums.order;
+
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+import java.util.Objects;
+
+/**
+ * 支付订单的状态枚举
+ *
+ * @author yxx
+ */
+@Getter
+@AllArgsConstructor
+public enum PayOrderStatusEnum {
+
+    WAITING(0, "未支付"),
+    SUCCESS(10, "支付成功"),
+    REFUND(20, "已退款"),
+    CLOSED(30, "支付关闭"), // 注意：全部退款后，还是 REFUND 状态
+    ;
+
+    private final Integer status;
+    private final String name;
+
+    /**
+     * 判断是否等待支付
+     *
+     * @param status 状态
+     * @return 是否等待支付
+     */
+    public static boolean isWaiting(Integer status) {
+        return Objects.equals(status, WAITING.getStatus());
+    }
+
+    /**
+     * 判断是否支付成功
+     *
+     * @param status 状态
+     * @return 是否支付成功
+     */
+    public static boolean isSuccess(Integer status) {
+        return Objects.equals(status, SUCCESS.getStatus());
+    }
+
+    /**
+     * 判断是否已退款
+     *
+     * @param status 状态
+     * @return 是否已退款
+     */
+    public static boolean isRefund(Integer status) {
+        return Objects.equals(status, REFUND.getStatus());
+    }
+
+    /**
+     * 判断是否支付成功或者已退款
+     *
+     * @param status 状态
+     * @return 是否支付成功或者已退款
+     */
+    public static boolean isSuccessOrRefund(Integer status) {
+        return SUCCESS.getStatus().equals(status) || REFUND.getStatus().equals(status);
+    }
+
+    /**
+     * 判断是否支付关闭
+     *
+     * @param status 状态
+     * @return 是否支付关闭
+     */
+    public static boolean isClosed(Integer status) {
+        return Objects.equals(status, CLOSED.getStatus());
+    }
+
+}

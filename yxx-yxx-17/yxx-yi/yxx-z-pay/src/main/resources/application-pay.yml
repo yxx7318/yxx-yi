@@ -1,0 +1,11 @@
+# pay模块
+pay:
+  # 作者
+  author: yxx
+
+# 回调配置
+yxx:
+  pay:
+    order-notify-url: http://yxx7318.com/dev-api/pay/notify/order # 支付渠道的【支付】回调地址
+    refund-notify-url: http://yxx7318.com/dev-api/pay/notify/refund # 支付渠道的【退款】回调地址
+    transfer-notify-url: https://yxx7318.com/dev-api/pay/notify/transfer # 支付渠道的【转账】回调地址

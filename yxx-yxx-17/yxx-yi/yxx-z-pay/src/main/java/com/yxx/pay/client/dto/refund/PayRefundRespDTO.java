@@ -1,0 +1,116 @@
+package com.yxx.pay.client.dto.refund;
+
+import com.yxx.pay.core.exception.PayClientException;
+import com.yxx.pay.enums.refund.PayRefundStatusEnum;
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
+/**
+ * 渠道退款订单 Response DTO
+ *
+ * @author yxx
+ */
+@Data
+public class PayRefundRespDTO {
+
+    /**
+     * 退款状态
+     * <p>
+     * 枚举 {@link PayRefundStatusEnum}
+     */
+    private Integer status;
+
+    /**
+     * 外部退款号
+     * <p>
+     * 对应 PayRefundDO 的 no 字段
+     */
+    private String outRefundNo;
+
+    /**
+     * 渠道退款单号
+     * <p>
+     * 对应 PayRefundDO.channelRefundNo 字段
+     */
+    private String channelRefundNo;
+
+    /**
+     * 退款成功时间
+     */
+    private LocalDateTime successTime;
+
+    /**
+     * 原始的异步通知结果
+     */
+    private Object rawData;
+
+    /**
+     * 调用渠道的错误码
+     * <p>
+     * 注意：这里返回的是业务异常，而是不系统异常。
+     * 如果是系统异常，则会抛出 {@link PayClientException}
+     */
+    private String channelErrorCode;
+
+    /**
+     * 调用渠道报错时，错误信息
+     */
+    private String channelErrorMsg;
+
+    private PayRefundRespDTO() {
+    }
+
+    /**
+     * 创建【WAITING】状态的退款返回
+     */
+    public static PayRefundRespDTO waitingOf(String channelRefundNo,
+                                             String outRefundNo, Object rawData) {
+        PayRefundRespDTO respDTO = new PayRefundRespDTO();
+        respDTO.status = PayRefundStatusEnum.WAITING.getStatus();
+        respDTO.channelRefundNo = channelRefundNo;
+        // 相对通用的字段
+        respDTO.outRefundNo = outRefundNo;
+        respDTO.rawData = rawData;
+        return respDTO;
+    }
+
+    /**
+     * 创建【SUCCESS】状态的退款返回
+     */
+    public static PayRefundRespDTO successOf(String channelRefundNo, LocalDateTime successTime,
+                                             String outRefundNo, Object rawData) {
+        PayRefundRespDTO respDTO = new PayRefundRespDTO();
+        respDTO.status = PayRefundStatusEnum.SUCCESS.getStatus();
+        respDTO.channelRefundNo = channelRefundNo;
+        respDTO.successTime = successTime;
+        // 相对通用的字段
+        respDTO.outRefundNo = outRefundNo;
+        respDTO.rawData = rawData;
+        return respDTO;
+    }
+
+    /**
+     * 创建【FAILURE】状态的退款返回
+     */
+    public static PayRefundRespDTO failureOf(String outRefundNo, Object rawData) {
+        return failureOf(null, null,
+                outRefundNo, rawData);
+    }
+
+    /**
+     * 创建【FAILURE】状态的退款返回
+     */
+    public static PayRefundRespDTO failureOf(String channelErrorCode, String channelErrorMsg,
+                                             String outRefundNo, Object rawData) {
+        PayRefundRespDTO respDTO = new PayRefundRespDTO();
+        respDTO.status = PayRefundStatusEnum.FAILURE.getStatus();
+        respDTO.channelErrorCode = channelErrorCode;
+        respDTO.channelErrorMsg = channelErrorMsg;
+        // 相对通用的字段
+        respDTO.outRefundNo = outRefundNo;
+        respDTO.rawData = rawData;
+        return respDTO;
+    }
+
+}
