@@ -1,5 +1,6 @@
 import request from '@/utils/request'
 import { streamRequest } from '@/utils/fetch'
+import { SSERequest } from '@/utils/sse'
 
 // 查询会话列表
 export function getSessionList(query) {
@@ -51,6 +52,15 @@ export function startChat(data, onData, onError, onComplete) {
     method: 'post',
     data: data,
   }, onData, onError, onComplete)
+}
+
+// 开始对话(SSE协议)
+export function startChatSSE(data) {
+  return SSERequest({
+    url: '/ai/session/chat',
+    method: 'post',
+    data: data,
+  })
 }
 
 

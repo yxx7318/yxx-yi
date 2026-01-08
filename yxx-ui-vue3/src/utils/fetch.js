@@ -13,13 +13,13 @@ const BASE_URL = import.meta.env.VITE_APP_BASE_API
 const TIMEOUT = import.meta.env.VITE_APP_ENV === 'development' ? -1 : 10000
 
 // 获取请求地址
-const getUrl = (config) => {
+export const getUrl = (config) => {
   let currentUrl = config.url || config
   return currentUrl.startsWith('http') ? currentUrl : BASE_URL + currentUrl
 }
 
 // 请求拦截器
-const requestInterceptor = (config) => {
+export const requestInterceptor = (config) => {
   // 是否需要设置 token
   const isToken = (config.headers || {}).isToken === false
   // 是否需要防止数据重复提交(默认开启，repeatSubmit值为false时关闭)

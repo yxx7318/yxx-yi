@@ -153,7 +153,7 @@ import { ElementPlus, Paperclip, Promotion } from '@element-plus/icons-vue'
 import DragUpload from '@/components/DragUpload'
 import chatGpt from '@/assets/icons/svg/chat-gpt.svg'
 import useUserStore from '@/store/modules/user'
-import { startChat, getSessionList, getSession, addSession, updateSession, delSession } from '@/api/ai/session'
+import { startChatSSE, getSessionList, getSession, addSession, updateSession, delSession } from '@/api/ai/session'
 import { useMobileDetector } from "@/utils/mobileDetector"
 import { handleDragLeave } from "@/utils/handleDrag"
 
@@ -311,12 +311,10 @@ const handleSend = (value) => {
 
 
   // 流式响应
-  startChat({
+  startChatSSE({
     chatId: userStore.id,
     prompt: value,
     files: filesValue.value
-  }, (chunk) => {
-    currentAiText.value = currentAiText.value + chunk
   })
   // 清除输入框
   proxy.$refs.senderRef.clear()
