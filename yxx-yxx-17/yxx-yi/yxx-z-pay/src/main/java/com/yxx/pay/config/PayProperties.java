@@ -24,7 +24,7 @@ public class PayProperties {
      * <p>
      * 实际上，对应的 PayNotifyController 的 notifyOrder 方法的 URL
      * <p>
-     * 回调顺序：支付渠道（支付宝支付、微信支付） => yudao-module-pay 的 orderNotifyUrl 地址 => 业务的 PayAppDO.orderNotifyUrl 地址
+     * 回调顺序：支付渠道（支付宝支付、微信支付） => yxx-z-pay 的 orderNotifyUrl 地址 => 业务的 PayAppDO.orderNotifyUrl 地址
      */
     @NotEmpty(message = "支付回调地址不能为空")
     @URL(message = "支付回调地址的格式必须是 URL")
@@ -35,7 +35,7 @@ public class PayProperties {
      * <p>
      * 实际上，对应的 PayNotifyController 的 notifyRefund 方法的 URL
      * <p>
-     * 回调顺序：支付渠道（支付宝支付、微信支付） => yudao-module-pay 的 refundNotifyUrl 地址 => 业务的 PayAppDO.notifyRefundUrl 地址
+     * 回调顺序：支付渠道（支付宝支付、微信支付） => yxx-z-pay 的 refundNotifyUrl 地址 => 业务的 PayAppDO.notifyRefundUrl 地址
      */
     @NotEmpty(message = "支付回调地址不能为空")
     @URL(message = "支付回调地址的格式必须是 URL")
@@ -46,7 +46,7 @@ public class PayProperties {
      * <p>
      * 实际上，对应的 PayNotifyController 的 notifyTransfer 方法的 URL
      * <p>
-     * 回调顺序：支付渠道（支付宝支付、微信支付） => yudao-module-pay 的 transferNotifyUrl 地址 => 业务的 PayAppDO.transferNotifyUrl 地址
+     * 回调顺序：支付渠道（支付宝支付、微信支付） => yxx-z-pay 的 transferNotifyUrl 地址 => 业务的 PayAppDO.transferNotifyUrl 地址
      */
     private String transferNotifyUrl;
 
