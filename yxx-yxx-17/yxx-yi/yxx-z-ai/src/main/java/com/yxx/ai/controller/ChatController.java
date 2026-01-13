@@ -5,7 +5,10 @@ import com.yxx.ai.domain.ChatDTO;
 import com.yxx.ai.domain.DocumentInfoDTO;
 import com.yxx.ai.manager.VectorDocumentManager;
 import com.yxx.common.core.domain.dto.FileUploadDTO;
+import com.yxx.common.core.utils.JacksonUtils;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.document.Document;
@@ -19,14 +22,18 @@ import org.springframework.boot.autoconfigure.web.ServerProperties;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.MediaType;
 import org.springframework.util.MimeType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import reactor.core.publisher.Flux;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
@@ -44,8 +51,8 @@ public class ChatController {
 
     private final ChatClient chatClient;
 
-    @PostMapping(value = "/chat", produces = "text/html;charset=utf-8")
-    public Flux<String> chat(@RequestBody ChatDTO chatDTO) {
+    @PostMapping(value = "/chatStream", produces = "text/html;charset=utf-8")
+    public Flux<String> chatStream(@RequestBody ChatDTO chatDTO) {
         // 1.保存会话id
         chatHistoryRepository.save("chat", chatDTO.getChatId());
         // 2.请求模型
@@ -56,6 +63,38 @@ public class ChatController {
             // 有附件，多模态聊天
             return resourceModalChat(chatDTO.getPrompt(), chatDTO.getChatId(), chatDTO.getFiles());
         }
+    }
+
+    private String wrapChunk(int id, String content, boolean finished) {
+        Map<String, Object> jsonMap = new HashMap<>();
+        jsonMap.put("id", id);
+        jsonMap.put("content", content);
+        return JacksonUtils.toJsonString(jsonMap);
+    }
+
+    // "text/html;charset=utf-8"纯文本响应，"text/event-stream"SSE协议响应
+    @PostMapping(value = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public Flux<String> chatSSE(@RequestBody ChatDTO chatDTO) {
+        Flux<String> responseFlux;
+
+        // 1.保存会话id
+        chatHistoryRepository.save("chat", chatDTO.getChatId());
+        // 2.请求模型
+        if (chatDTO.getFiles() == null || chatDTO.getFiles().isEmpty()) {
+            // 没有附件，纯文本聊天
+            responseFlux =  textChat(chatDTO.getPrompt(), chatDTO.getChatId());
+        } else {
+            // 有附件，多模态聊天
+            responseFlux =  resourceModalChat(chatDTO.getPrompt(), chatDTO.getChatId(), chatDTO.getFiles());
+        }
+        AtomicInteger idCounter = new AtomicInteger(1);
+        // 包装响应为 JSON 格式
+        Flux<String> wrappedStream = responseFlux
+                .map(chunk -> wrapChunk(idCounter.getAndIncrement(), chunk, false));
+
+        String doneChunk = wrapChunk(0, "[DONE]", true);
+        // 在响应流末尾添加结束标记
+        return Flux.concat(wrappedStream, Flux.just(doneChunk));
     }
 
     private Flux<String> resourceModalChat(String prompt, String chatId, List<FileUploadDTO> files) {

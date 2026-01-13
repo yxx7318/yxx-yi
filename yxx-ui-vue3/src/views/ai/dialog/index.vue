@@ -153,6 +153,7 @@ import { ElementPlus, Paperclip, Promotion } from '@element-plus/icons-vue'
 import DragUpload from '@/components/DragUpload'
 import chatGpt from '@/assets/icons/svg/chat-gpt.svg'
 import useUserStore from '@/store/modules/user'
+import { content } from '@/utils/sse'
 import { startChatSSE, getSessionList, getSession, addSession, updateSession, delSession } from '@/api/ai/session'
 import { useMobileDetector } from "@/utils/mobileDetector"
 import { handleDragLeave } from "@/utils/handleDrag"
@@ -172,7 +173,7 @@ const clickSelectFile = () => {
   proxy.$refs.dragUpload.triggerFileSelect()
 }
 
-// 删除开篇
+// 删除卡片
 const deleteCard = (uid) => {
   filesValue.value = filesValue.value.filter(i => uid !== i.uid)
   refreshSenderHeader()
@@ -296,29 +297,42 @@ const senderValue = ref()
 // 是否选中深度思考
 const isSelect = ref(false)
 
+let stopWatchEffect = () => {}
+
 /**
  * 开启会话
  * @param value
  */
 const handleSend = (value) => {
+  // 停止上一个
+  if (stopWatchEffect) {
+    content.value = ""
+    stopWatchEffect()
+  }
+
+  // 当前AI对话内容
   let currentAiText = ref("")
 
   // 有对话
   hasBubble.value = true
   // 添加对话
-  chatList.value.push(getFakeItem(1, "user", value))
-  chatList.value.push(getFakeItem(2, "ai", currentAiText))
+  chatList.value.push(getFakeItem(new Date().getTime(), "user", value))
+  chatList.value.push(getFakeItem(new Date().getTime() + 1, "ai", currentAiText))
 
+  // 当content变化时自动更新
+  stopWatchEffect = watchEffect(() => {
+    currentAiText.value = content.value
+  })
 
-  // 流式响应
+  // SSE请求
   startChatSSE({
     chatId: userStore.id,
     prompt: value,
     files: filesValue.value
   })
-  // 清除输入框
-  proxy.$refs.senderRef.clear()
 
+  // 清除操作
+  proxy.$refs.senderRef.clear()
   filesValue.value = []
   refreshSenderHeader()
 }
