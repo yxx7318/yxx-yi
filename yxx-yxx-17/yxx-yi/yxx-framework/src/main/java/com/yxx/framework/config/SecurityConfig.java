@@ -1,6 +1,7 @@
 package com.yxx.framework.config;
 
 import com.yxx.common.core.domain.properties.ResourceProperties;
+import jakarta.servlet.DispatcherType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -108,9 +109,11 @@ public class SecurityConfig
                 requests.requestMatchers("/login", "/register", "/captchaImage").permitAll()
                     // 静态资源，可匿名访问
                     .requestMatchers(HttpMethod.GET, "/", "/*.html", "/**.html", "/**.css", "/**.js", "/profile/**").permitAll()
-                    .requestMatchers("/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs**", "/v3/api-docs/**",  "/*/api-docs", "/webjars/**", "/druid/**", "/ai/**").permitAll()
+                    .requestMatchers("/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs**", "/v3/api-docs/**",  "/*/api-docs", "/webjars/**", "/druid/**").permitAll()
                     .requestMatchers(HttpMethod.GET, resourceProperties.getResourcesMatchers()).permitAll()
                     .requestMatchers(resourceProperties.getApiMatchers()).permitAll()
+                    // 允许异步分发请求，避免流式响应结束后二次鉴权冲突
+                    .dispatcherTypeMatchers(DispatcherType.ASYNC).permitAll()
                     // 除上面外的所有请求全部需要鉴权认证
                     .anyRequest().authenticated();
             })

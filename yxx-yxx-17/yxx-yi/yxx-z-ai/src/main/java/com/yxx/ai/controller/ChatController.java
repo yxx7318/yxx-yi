@@ -69,6 +69,7 @@ public class ChatController {
         Map<String, Object> jsonMap = new HashMap<>();
         jsonMap.put("id", id);
         jsonMap.put("content", content);
+        jsonMap.put("finished", finished);
         return JacksonUtils.toJsonString(jsonMap);
     }
 
