@@ -1,6 +1,7 @@
 package com.yxx.framework.config;
 
 import com.yxx.common.core.domain.properties.ResourceProperties;
+import jakarta.annotation.PostConstruct;
 import jakarta.servlet.DispatcherType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -63,6 +65,14 @@ public class SecurityConfig
      */
     @Autowired
     private ResourceProperties resourceProperties;
+
+    @PostConstruct
+    public void init() {
+        // 允许子线程继承父线程的安全上下文(流式响应是异步上下文)
+        SecurityContextHolder.setStrategyName(
+                SecurityContextHolder.MODE_INHERITABLETHREADLOCAL
+        );
+    }
 
     /**
      * 身份验证实现

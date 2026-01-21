@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxx.ai.mapper.AiChatConversationMapper">
+
+    <resultMap type="AiChatConversationDO" id="AiChatConversationResult">
+        <result property="chatConversationId"    column="chat_conversation_id"    />
+        <result property="chatGroup"    column="chat_group"    />
+        <result property="chatTitle"    column="chat_title"    />
+        <result property="createById"    column="create_by_id"    />
+        <result property="createByName"    column="create_by_name"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateById"    column="update_by_id"    />
+        <result property="updateByName"    column="update_by_name"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectAiChatConversationVo">
+        select chat_conversation_id, chat_group, chat_title, create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark from ai_chat_conversation
+    </sql>
+
+    <select id="selectAiChatConversationList" parameterType="AiChatConversationQueryDTO" resultMap="AiChatConversationResult">
+        <include refid="selectAiChatConversationVo"/>
+        <where>
+            <if test="chatGroup != null and chatGroup != ''"> and chat_group = #{chatGroup}</if>
+            <if test="chatTitle != null and chatTitle != ''"> and chat_title = #{chatTitle}</if>
+            <if test="createByName != null and createByName != ''"> and create_by_name like concat('%', #{createByName}, '%')</if>
+            <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''"> and create_time between #{params.beginCreateTime} and #{params.endCreateTime}</if>
+            <if test="updateByName != null and updateByName != ''"> and update_by_name like concat('%', #{updateByName}, '%')</if>
+            <if test="remark != null and remark != ''"> and remark like concat('%', #{remark}, '%')</if>
+        </where>
+    </select>
+
+    <select id="selectAiChatConversationByChatConversationId" parameterType="Long" resultMap="AiChatConversationResult">
+        <include refid="selectAiChatConversationVo"/>
+        where chat_conversation_id = #{chatConversationId}
+    </select>
+
+    <insert id="insertAiChatConversation" parameterType="AiChatConversationDO" useGeneratedKeys="true" keyProperty="chatConversationId">
+        insert into ai_chat_conversation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="chatGroup != null">chat_group,</if>
+            <if test="chatTitle != null">chat_title,</if>
+            <if test="createById != null">create_by_id,</if>
+            <if test="createByName != null">create_by_name,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateById != null">update_by_id,</if>
+            <if test="updateByName != null">update_by_name,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="chatGroup != null">#{chatGroup},</if>
+            <if test="chatTitle != null">#{chatTitle},</if>
+            <if test="createById != null">#{createById},</if>
+            <if test="createByName != null">#{createByName},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateById != null">#{updateById},</if>
+            <if test="updateByName != null">#{updateByName},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateAiChatConversation" parameterType="AiChatConversationDO">
+        update ai_chat_conversation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="chatGroup != null">chat_group = #{chatGroup},</if>
+            <if test="chatTitle != null">chat_title = #{chatTitle},</if>
+            <if test="createById != null">create_by_id = #{createById},</if>
+            <if test="createByName != null">create_by_name = #{createByName},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateById != null">update_by_id = #{updateById},</if>
+            <if test="updateByName != null">update_by_name = #{updateByName},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where chat_conversation_id = #{chatConversationId}
+    </update>
+
+    <delete id="deleteAiChatConversationByChatConversationId" parameterType="Long">
+        delete from ai_chat_conversation where chat_conversation_id = #{chatConversationId}
+    </delete>
+
+    <delete id="deleteAiChatConversationByChatConversationIds" parameterType="List">
+        delete from ai_chat_conversation where chat_conversation_id in
+        <foreach item="chatConversationId" collection="list" open="(" separator="," close=")">
+            #{chatConversationId}
+        </foreach>
+    </delete>
+</mapper>

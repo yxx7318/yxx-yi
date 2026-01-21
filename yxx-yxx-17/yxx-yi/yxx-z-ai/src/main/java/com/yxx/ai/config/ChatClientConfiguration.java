@@ -1,7 +1,7 @@
 package com.yxx.ai.config;
 
 import com.yxx.ai.config.model.AlibabaOpenAiChatModel;
-import com.yxx.ai.config.storage.RedisChatMemory;
+import com.yxx.ai.config.storage.DatabaseChatMemory;
 import com.yxx.ai.config.tools.InvoiceTool;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
@@ -19,12 +19,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ChatClientConfiguration {
-
-    @Bean
-    public ChatMemory chatMemory() {
-        // InMemoryChatMemory
-        return new RedisChatMemory();
-    }
 
     @Bean
     public VectorStore vectorStore(OpenAiEmbeddingModel embeddingModel) {

@@ -171,7 +171,7 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
      * @param pageSize 页大小
      * @return 分页结果
      */
-    public Page<T> getMpDoPage(Integer pageNum, Integer pageSize);
+    public Page<T> getMpDOPage(Integer pageNum, Integer pageSize);
 
     /**
      * 获取MP通用分页结果
@@ -181,7 +181,7 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
      * @param wrapper  查询条件
      * @return 分页结果
      */
-    public Page<T> getMpDoPage(Integer pageNum, Integer pageSize, Wrapper<T> wrapper);
+    public Page<T> getMpDOPage(Integer pageNum, Integer pageSize, Wrapper<T> wrapper);
 
     /**
      * 获取MP通用分页结果
@@ -189,7 +189,7 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
      * @param dto 条件对象
      * @return 分页结果
      */
-    public <DTO extends PageQueryEntity> Page<T> getMpDoPage(DTO dto);
+    public <DTO extends PageQueryEntity> Page<T> getMpDOPage(DTO dto);
 
     /**
      * 获取MP通用分页结果
@@ -198,7 +198,7 @@ public interface IServicePlus<T extends BaseColumnEntity> extends IService<T> {
      * @param wrapper 查询条件
      * @return 分页结果
      */
-    public <DTO extends PageQueryEntity> Page<T> getMpDoPage(DTO dto, Wrapper<T> wrapper);
+    public <DTO extends PageQueryEntity> Page<T> getMpDOPage(DTO dto, Wrapper<T> wrapper);
 
     /**
      * 获取到MyBatis分页结果

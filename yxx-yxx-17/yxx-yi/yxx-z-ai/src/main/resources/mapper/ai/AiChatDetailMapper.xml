@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxx.ai.mapper.AiChatDetailMapper">
+
+    <resultMap type="AiChatDetailDO" id="AiChatDetailResult">
+        <result property="chatDetailId"    column="chat_detail_id"    />
+        <result property="chatConversationId"    column="chat_conversation_id"    />
+        <result property="messageType"    column="message_type"    />
+        <result property="content"    column="content"    />
+        <result property="attachment"    column="attachment"    />
+        <result property="createById"    column="create_by_id"    />
+        <result property="createByName"    column="create_by_name"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateById"    column="update_by_id"    />
+        <result property="updateByName"    column="update_by_name"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectAiChatDetailVo">
+        select chat_detail_id, chat_conversation_id, message_type, content, attachment, create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark from ai_chat_detail
+    </sql>
+
+    <select id="selectAiChatDetailList" parameterType="AiChatDetailQueryDTO" resultMap="AiChatDetailResult">
+        <include refid="selectAiChatDetailVo"/>
+        <where>
+            <if test="chatConversationId != null"> and chat_conversation_id = #{chatConversationId}</if>
+            <if test="messageType != null"> and message_type = #{messageType}</if>
+            <if test="content != null and content != ''"> and content = #{content}</if>
+            <if test="attachment != null and attachment != ''"> and attachment = #{attachment}</if>
+            <if test="createByName != null and createByName != ''"> and create_by_name like concat('%', #{createByName}, '%')</if>
+            <if test="createTime != null"> and create_time = #{createTime}</if>
+            <if test="updateByName != null and updateByName != ''"> and update_by_name like concat('%', #{updateByName}, '%')</if>
+            <if test="remark != null and remark != ''"> and remark = #{remark}</if>
+        </where>
+    </select>
+
+    <select id="selectAiChatDetailByChatDetailId" parameterType="Long" resultMap="AiChatDetailResult">
+        <include refid="selectAiChatDetailVo"/>
+        where chat_detail_id = #{chatDetailId}
+    </select>
+
+    <insert id="insertAiChatDetail" parameterType="AiChatDetailDO" useGeneratedKeys="true" keyProperty="chatDetailId">
+        insert into ai_chat_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="chatConversationId != null">chat_conversation_id,</if>
+            <if test="messageType != null">message_type,</if>
+            <if test="content != null">content,</if>
+            <if test="attachment != null">attachment,</if>
+            <if test="createById != null">create_by_id,</if>
+            <if test="createByName != null">create_by_name,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateById != null">update_by_id,</if>
+            <if test="updateByName != null">update_by_name,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="chatConversationId != null">#{chatConversationId},</if>
+            <if test="messageType != null">#{messageType},</if>
+            <if test="content != null">#{content},</if>
+            <if test="attachment != null">#{attachment},</if>
+            <if test="createById != null">#{createById},</if>
+            <if test="createByName != null">#{createByName},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateById != null">#{updateById},</if>
+            <if test="updateByName != null">#{updateByName},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+        </trim>
+    </insert>
+
+    <update id="updateAiChatDetail" parameterType="AiChatDetailDO">
+        update ai_chat_detail
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="chatConversationId != null">chat_conversation_id = #{chatConversationId},</if>
+            <if test="messageType != null">message_type = #{messageType},</if>
+            <if test="content != null">content = #{content},</if>
+            <if test="attachment != null">attachment = #{attachment},</if>
+            <if test="createById != null">create_by_id = #{createById},</if>
+            <if test="createByName != null">create_by_name = #{createByName},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateById != null">update_by_id = #{updateById},</if>
+            <if test="updateByName != null">update_by_name = #{updateByName},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where chat_detail_id = #{chatDetailId}
+    </update>
+
+    <delete id="deleteAiChatDetailByChatDetailId" parameterType="Long">
+        delete from ai_chat_detail where chat_detail_id = #{chatDetailId}
+    </delete>
+
+    <delete id="deleteAiChatDetailByChatDetailIds" parameterType="List">
+        delete from ai_chat_detail where chat_detail_id in
+        <foreach item="chatDetailId" collection="list" open="(" separator="," close=")">
+            #{chatDetailId}
+        </foreach>
+    </delete>
+</mapper>

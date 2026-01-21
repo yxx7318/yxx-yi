@@ -49,15 +49,10 @@ public class ChatHistoryController {
             return R.ok();
         }
 
-        // 使用Stream API直接反转
         List<MessageVO> result = messages.stream()
                 .map(MessageVO::new)
                 .collect(Collectors.toList());
 
-        // 创建反转后的列表
-        List<MessageVO> reversedList = new ArrayList<>(result);
-        Collections.reverse(reversedList);
-
-        return R.ok(reversedList);
+        return R.ok(result);
     }
 }

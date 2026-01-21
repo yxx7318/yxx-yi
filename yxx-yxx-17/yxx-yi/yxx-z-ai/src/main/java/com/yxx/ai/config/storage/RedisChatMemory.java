@@ -11,12 +11,14 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.yxx.ai.constant.Constants.CHAT_MEMORY_KEY_PREFIX;
 import static com.yxx.common.constant.Constants.REDIS_TEMPLATE;
 
-@Component
+//@Component
 public class RedisChatMemory implements ChatMemory {
 
     private final RedisTemplate<String, String> redisTemplate;
@@ -49,13 +51,16 @@ public class RedisChatMemory implements ChatMemory {
         if (list == null || list.isEmpty()) {
             return List.of();
         }
-        return list.stream().map(s -> {
+        List<Message> messageList = list.stream().map(s -> {
             try {
                 return objectMapper.readValue(s, Msg.class);
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }
-        }).map(Msg::toMessage).toList();
+        }).map(Msg::toMessage).collect(Collectors.toList());
+        // 反转列表
+        Collections.reverse(messageList);
+        return messageList;
     }
 
     @Override

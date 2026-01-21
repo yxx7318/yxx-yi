@@ -6,4 +6,5 @@ public class Constants {
 
     public static final String CHAT_HISTORY_KEY_PREFIX = "chat:history:";
 
+    public static final String RESOURCE_MEDIA_DATA = "RESOURCE_MEDIA_DATA";
 }

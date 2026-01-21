@@ -36,6 +36,7 @@ import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
+import static com.yxx.ai.constant.Constants.RESOURCE_MEDIA_DATA;
 import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
 import static org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor.FILTER_EXPRESSION;
 
@@ -100,7 +101,7 @@ public class ChatController {
 
     private Flux<String> resourceModalChat(String prompt, String chatId, List<FileUploadDTO> files) {
         List<Resource> resources = files.stream().map(FileUploadDTO::extractResource).collect(Collectors.toList());
-
+        // 写入向量库
         List<DocumentInfoDTO> documentInfoDTOS =
                 resources.stream().map(vectorDocumentManager::writeToVectorStore).collect(Collectors.toList());
         // 请求模型
@@ -108,6 +109,7 @@ public class ChatController {
                 .user(prompt)
                 .user(p -> resources.forEach(r -> p.media(MimeType.valueOf("application/pdf"), r)))
                 .advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId))
+                .advisors(a -> a.param(RESOURCE_MEDIA_DATA, JacksonUtils.toJsonString(files)))
                 .advisors(a -> resources.forEach(r -> a.param(FILTER_EXPRESSION, String.format("file_name == '%s'", r.getFilename()))))
                 .stream()
                 .content();
