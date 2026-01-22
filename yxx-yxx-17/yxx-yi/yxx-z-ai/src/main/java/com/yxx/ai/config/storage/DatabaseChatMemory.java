@@ -45,8 +45,8 @@ public class DatabaseChatMemory implements ChatMemory {
     }
 
     @Override
-    public List<Message> get(String conversationId, int lastN) {
-        List<AiChatDetailDO> chatDetailDOS = aiChatDetailService.getMpDOPage(0, lastN).getRecords();
+    public List<Message> get(String conversationId) {
+        List<AiChatDetailDO> chatDetailDOS = aiChatDetailService.getMpDOPage(0, Integer.MAX_VALUE).getRecords();
         List<Msg> msgList = chatDetailDOS.stream()
                 .map(item -> JacksonUtils.parseObject(item.getContent(), Msg.class))
                 .filter(StringUtils::isNotNull)

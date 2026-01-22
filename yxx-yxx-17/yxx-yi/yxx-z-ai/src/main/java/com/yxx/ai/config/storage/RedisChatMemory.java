@@ -46,8 +46,8 @@ public class RedisChatMemory implements ChatMemory {
     }
 
     @Override
-    public List<Message> get(String conversationId, int lastN) {
-        List<String> list = redisTemplate.opsForList().range(CHAT_MEMORY_KEY_PREFIX + conversationId, 0, lastN);
+    public List<Message> get(String conversationId) {
+        List<String> list = redisTemplate.opsForList().range(CHAT_MEMORY_KEY_PREFIX + conversationId, 0, Integer.MAX_VALUE);
         if (list == null || list.isEmpty()) {
             return List.of();
         }

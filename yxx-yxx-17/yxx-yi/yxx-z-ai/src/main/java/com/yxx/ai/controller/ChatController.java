@@ -11,8 +11,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.document.Document;
-import org.springframework.ai.model.Media;
+import org.springframework.ai.content.Media;
 import org.springframework.ai.reader.ExtractedTextFormatter;
 import org.springframework.ai.reader.pdf.PagePdfDocumentReader;
 import org.springframework.ai.reader.pdf.config.PdfDocumentReaderConfig;
@@ -37,8 +38,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import static com.yxx.ai.constant.Constants.RESOURCE_MEDIA_DATA;
-import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
-import static org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor.FILTER_EXPRESSION;
+import static org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor.FILTER_EXPRESSION;
+
 
 @Tag(name = "Ai会话接口-AiController")
 @RestController
@@ -108,7 +109,7 @@ public class ChatController {
         return chatClient.prompt()
                 .user(prompt)
                 .user(p -> resources.forEach(r -> p.media(MimeType.valueOf("application/pdf"), r)))
-                .advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId))
+                .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, chatId))
                 .advisors(a -> a.param(RESOURCE_MEDIA_DATA, JacksonUtils.toJsonString(files)))
                 .advisors(a -> resources.forEach(r -> a.param(FILTER_EXPRESSION, String.format("file_name == '%s'", r.getFilename()))))
                 .stream()
@@ -128,7 +129,7 @@ public class ChatController {
         // 2.请求模型
         return chatClient.prompt()
                 .user(p -> p.text(prompt).media(medias.toArray(Media[]::new)))
-                .advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId))
+                .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, chatId))
                 .stream()
                 .content();
     }
@@ -136,7 +137,7 @@ public class ChatController {
     private Flux<String> textChat(String prompt, String chatId) {
         return chatClient.prompt()
                 .user(prompt)
-                .advisors(a -> a.param(CHAT_MEMORY_CONVERSATION_ID_KEY, chatId))
+                .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, chatId))
                 .stream()
                 .content();
     }

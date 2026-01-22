@@ -1,6 +1,11 @@
 package com.yxx.ai.domain;
 
-import org.springframework.ai.chat.messages.*;
+
+import org.springframework.ai.chat.messages.AssistantMessage;
+import org.springframework.ai.chat.messages.Message;
+import org.springframework.ai.chat.messages.MessageType;
+import org.springframework.ai.chat.messages.SystemMessage;
+import org.springframework.ai.chat.messages.UserMessage;
 
 import java.util.List;
 import java.util.Map;
@@ -27,7 +32,7 @@ public class Msg {
     public Message toMessage() {
         return switch (messageType) {
             case SYSTEM -> new SystemMessage(text);
-            case USER -> new UserMessage(text, List.of(), metadata);
+            case USER -> new UserMessage(text);
             case ASSISTANT -> new AssistantMessage(text, metadata, toolCalls, List.of());
             default -> throw new IllegalArgumentException("Unsupported message type: " + messageType);
         };
