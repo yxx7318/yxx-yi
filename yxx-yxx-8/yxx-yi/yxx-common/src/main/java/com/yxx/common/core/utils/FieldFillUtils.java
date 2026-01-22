@@ -3,6 +3,7 @@ package com.yxx.common.core.utils;
 import com.yxx.common.core.domain.BaseColumnEntity;
 import com.yxx.common.utils.LocalDateUtils;
 import com.yxx.common.utils.SecurityUtils;
+import com.yxx.common.utils.StringUtils;
 
 import java.util.Objects;
 
@@ -23,9 +24,15 @@ public class FieldFillUtils {
         if (Objects.isNull(t)) {
             return null;
         }
-        t.setCreateById(SecurityUtils.getUserIdOrNotLogged());
-        t.setCreateByName(SecurityUtils.getUsernameOrNotLogged());
-        t.setCreateTime(LocalDateUtils.getNowLocalDateTime());
+        if (StringUtils.isNull(t.getCreateById())) {
+            t.setCreateById(SecurityUtils.getUserIdOrNotLogged());
+        }
+        if (StringUtils.isNull(t.getCreateByName())) {
+            t.setCreateByName(SecurityUtils.getUsernameOrNotLogged());
+        }
+        if (StringUtils.isNull(t.getCreateTime())) {
+            t.setCreateTime(LocalDateUtils.getNowLocalDateTime());
+        }
         return t;
     }
 
@@ -40,9 +47,15 @@ public class FieldFillUtils {
         if (Objects.isNull(t)) {
             return null;
         }
-        t.setUpdateById(SecurityUtils.getUserIdOrNotLogged());
-        t.setUpdateByName(SecurityUtils.getUsernameOrNotLogged());
-        t.setUpdateTime(LocalDateUtils.getNowLocalDateTime());
+        if (StringUtils.isNull(t.getUpdateById())) {
+            t.setUpdateById(SecurityUtils.getUserIdOrNotLogged());
+        }
+        if (StringUtils.isNull(t.getUpdateByName())) {
+            t.setUpdateByName(SecurityUtils.getUsernameOrNotLogged());
+        }
+        if (StringUtils.isNull(t.getUpdateTime())) {
+            t.setUpdateTime(LocalDateUtils.getNowLocalDateTime());
+        }
         return t;
     }
 }
