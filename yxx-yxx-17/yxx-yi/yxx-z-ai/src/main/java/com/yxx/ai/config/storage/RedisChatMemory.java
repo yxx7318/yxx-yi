@@ -3,13 +3,11 @@ package com.yxx.ai.config.storage;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.yxx.ai.domain.Msg;
+import com.yxx.ai.domain.MessageRecordDTO;
 import com.yxx.common.utils.spring.SpringUtils;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.stereotype.Component;
 
 import java.util.Collections;
 import java.util.List;
@@ -35,9 +33,9 @@ public class RedisChatMemory implements ChatMemory {
         if (messages == null || messages.isEmpty()) {
             return;
         }
-        List<String> list = messages.stream().map(Msg::new).map(msg -> {
+        List<String> list = messages.stream().map(MessageRecordDTO::new).map(messageRecordDTO -> {
             try {
-                return objectMapper.writeValueAsString(msg);
+                return objectMapper.writeValueAsString(messageRecordDTO);
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }
@@ -53,11 +51,11 @@ public class RedisChatMemory implements ChatMemory {
         }
         List<Message> messageList = list.stream().map(s -> {
             try {
-                return objectMapper.readValue(s, Msg.class);
+                return objectMapper.readValue(s, MessageRecordDTO.class);
             } catch (JsonProcessingException e) {
                 throw new RuntimeException(e);
             }
-        }).map(Msg::toMessage).collect(Collectors.toList());
+        }).map(MessageRecordDTO::toMessage).collect(Collectors.toList());
         // 反转列表
         Collections.reverse(messageList);
         return messageList;

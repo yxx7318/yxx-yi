@@ -3,6 +3,7 @@ package com.yxx.ai.config;
 //import com.yxx.ai.config.model.AlibabaOpenAiChatModel;
 import com.yxx.ai.config.storage.DatabaseChatMemory;
 import com.yxx.ai.config.tools.InvoiceTool;
+import com.yxx.common.utils.spring.SpringUtils;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
@@ -102,7 +103,7 @@ public class ChatClientConfiguration {
                                 .topK(10)
                                 .build()).build()
                 )
-                .defaultTools(new InvoiceTool())
+                .defaultTools(SpringUtils.getBean(InvoiceTool.class))
                 .defaultToolCallbacks(mcpTools)
                 .build();
     }

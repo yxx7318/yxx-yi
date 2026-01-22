@@ -10,7 +10,7 @@ import org.springframework.ai.chat.messages.UserMessage;
 import java.util.List;
 import java.util.Map;
 
-public class Msg {
+public class MessageRecordDTO {
 
     private MessageType messageType;
 
@@ -20,7 +20,7 @@ public class Msg {
 
     private List<AssistantMessage.ToolCall> toolCalls;
 
-    public Msg(Message message) {
+    public MessageRecordDTO(Message message) {
         this.messageType = message.getMessageType();
         this.text = message.getText();
         this.metadata = message.getMetadata();
@@ -38,10 +38,10 @@ public class Msg {
         };
     }
 
-    public Msg() {
+    public MessageRecordDTO() {
     }
 
-    public Msg(MessageType messageType, String text, Map<String, Object> metadata, List<AssistantMessage.ToolCall> toolCalls) {
+    public MessageRecordDTO(MessageType messageType, String text, Map<String, Object> metadata, List<AssistantMessage.ToolCall> toolCalls) {
         this.messageType = messageType;
         this.text = text;
         this.metadata = metadata;
