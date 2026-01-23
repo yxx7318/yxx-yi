@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.yxx.ai.constant.Constants.RESOURCE_MEDIA_DATA;
+import static com.yxx.ai.constant.Constants.CONVERSATION_INFO_DATA;
 
 @Component
 @RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
@@ -38,7 +38,7 @@ public class DatabaseChatMemory implements ChatMemory {
             aiChatDetailDO.setChatConversationId(id);
             aiChatDetailDO.setMessageType(MessageTypeEnum.fromValue(messageRecordDTO.getMessageType()));
             aiChatDetailDO.setContent(JacksonUtils.toJsonString(messageRecordDTO));
-            aiChatDetailDO.setAttachment(JacksonUtils.toJsonString(messageRecordDTO.getMetadata().get(RESOURCE_MEDIA_DATA)));
+            aiChatDetailDO.setAttachment(JacksonUtils.toJsonString(messageRecordDTO.getMetadata().get(CONVERSATION_INFO_DATA)));
             return aiChatDetailDO;
         }).collect(Collectors.toList());
         aiChatDetailService.saveBatch(chatDetailDOS);

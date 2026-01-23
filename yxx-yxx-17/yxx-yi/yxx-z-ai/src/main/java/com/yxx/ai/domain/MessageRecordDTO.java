@@ -33,7 +33,7 @@ public class MessageRecordDTO {
         return switch (messageType) {
             case SYSTEM -> new SystemMessage(text);
             case USER -> new UserMessage(text);
-            case ASSISTANT -> new AssistantMessage(text, metadata, toolCalls, List.of());
+            case ASSISTANT -> new AssistantMessage(text);
             default -> throw new IllegalArgumentException("Unsupported message type: " + messageType);
         };
     }

@@ -1,12 +1,9 @@
 package com.yxx.ai.domain;
 
 import com.yxx.common.core.domain.dto.FileUploadDTO;
-import com.yxx.common.core.utils.JacksonUtils;
 import org.springframework.ai.chat.messages.Message;
 
 import java.util.List;
-
-import static com.yxx.ai.constant.Constants.RESOURCE_MEDIA_DATA;
 
 
 public class MessageVO {
@@ -30,7 +27,7 @@ public class MessageVO {
                 break;
         }
         this.content = message.getText();
-//        this.files = JacksonUtils.parseArray(message.getMetadata().get(RESOURCE_MEDIA_DATA).toString(), FileUploadDTO.class);
+        this.files = ConversationInfoDTO.convertFiles(message);
     }
 
     public MessageVO() {
@@ -55,5 +52,13 @@ public class MessageVO {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public List<FileUploadDTO> getFiles() {
+        return files;
+    }
+
+    public void setFiles(List<FileUploadDTO> files) {
+        this.files = files;
     }
 }

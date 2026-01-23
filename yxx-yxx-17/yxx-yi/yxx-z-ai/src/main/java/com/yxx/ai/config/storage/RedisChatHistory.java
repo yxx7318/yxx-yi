@@ -21,8 +21,8 @@ public class RedisChatHistory implements ChatHistoryRepository {
     }
 
     @Override
-    public void save(String type, String chatId) {
-        redisTemplate.opsForSet().add(CHAT_HISTORY_KEY_PREFIX + type, chatId);
+    public void save(String type, String conversationId) {
+        redisTemplate.opsForSet().add(CHAT_HISTORY_KEY_PREFIX + type, conversationId);
     }
 
     @Override

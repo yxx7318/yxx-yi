@@ -326,7 +326,7 @@ const handleSend = (value) => {
 
   // SSE请求
   startChatSSE({
-    chatId: userStore.id,
+    conversationId: userStore.id,
     prompt: value,
     files: filesValue.value
   })
