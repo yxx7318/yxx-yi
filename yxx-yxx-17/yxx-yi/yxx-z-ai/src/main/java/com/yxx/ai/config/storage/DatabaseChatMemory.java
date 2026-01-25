@@ -7,6 +7,7 @@ import com.yxx.ai.enums.MessageTypeEnum;
 import com.yxx.ai.service.IAiChatDetailService;
 import com.yxx.common.core.text.Convert;
 import com.yxx.common.core.utils.JacksonUtils;
+import com.yxx.common.utils.SecurityUtils;
 import com.yxx.common.utils.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.memory.ChatMemory;
@@ -46,7 +47,13 @@ public class DatabaseChatMemory implements ChatMemory {
 
     @Override
     public List<Message> get(String conversationId) {
-        List<AiChatDetailDO> chatDetailDOS = aiChatDetailService.getMpDOPage(0, Integer.MAX_VALUE).getRecords();
+        List<AiChatDetailDO> chatDetailDOS =
+                aiChatDetailService
+                        .getMpDOPage(0, Integer.MAX_VALUE,
+                                new LambdaQueryWrapper<AiChatDetailDO>()
+                                        .eq(AiChatDetailDO::getChatConversationId, conversationId)
+                        )
+                        .getRecords();
         List<MessageRecordDTO> messageRecordDTOList = chatDetailDOS.stream()
                 .map(item -> JacksonUtils.parseObject(item.getContent(), MessageRecordDTO.class))
                 .filter(StringUtils::isNotNull)

@@ -26,6 +26,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         <where>
             <if test="chatGroup != null and chatGroup != ''"> and chat_group = #{chatGroup}</if>
             <if test="chatTitle != null and chatTitle != ''"> and chat_title = #{chatTitle}</if>
+            <if test="createById != null"> and create_by_id = #{createById}</if>
             <if test="createByName != null and createByName != ''"> and create_by_name like concat('%', #{createByName}, '%')</if>
             <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''"> and create_time between #{params.beginCreateTime} and #{params.endCreateTime}</if>
             <if test="updateByName != null and updateByName != ''"> and update_by_name like concat('%', #{updateByName}, '%')</if>

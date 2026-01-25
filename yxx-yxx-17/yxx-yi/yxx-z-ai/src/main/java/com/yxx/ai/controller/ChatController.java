@@ -1,6 +1,5 @@
 package com.yxx.ai.controller;
 
-import com.yxx.ai.config.storage.ChatHistoryRepository;
 import com.yxx.ai.domain.ChatDTO;
 import com.yxx.ai.domain.ConversationInfoDTO;
 import com.yxx.ai.domain.DocumentInfoDTO;
@@ -40,19 +39,14 @@ public class ChatController {
 
     private final VectorDocumentManager vectorDocumentManager;
 
-    private final ChatHistoryRepository chatHistoryRepository;
-
     private final ChatClient chatClient;
 
     @PostMapping(value = "/chatStream", produces = "text/html;charset=utf-8")
     public Flux<String> chatStream(@RequestBody ChatDTO chatDTO) {
-        // 1.保存会话id
-        chatHistoryRepository.save("chat", chatDTO.getConversationId());
-
         ConversationInfoDTO conversationInfoDTO =
                 new ConversationInfoDTO(chatDTO.getConversationId(), chatDTO.getFiles());
 
-        // 2.请求模型
+        // 请求模型
         if (chatDTO.getFiles() == null || chatDTO.getFiles().isEmpty()) {
             // 没有附件，纯文本聊天
             return textChat(chatDTO.getPrompt(), conversationInfoDTO);
@@ -77,9 +71,8 @@ public class ChatController {
 
         ConversationInfoDTO conversationInfoDTO =
                 new ConversationInfoDTO(chatDTO.getConversationId(), chatDTO.getFiles());
-        // 1.保存会话id
-        chatHistoryRepository.save("chat", chatDTO.getConversationId());
-        // 2.请求模型
+
+        // 请求模型
         if (chatDTO.getFiles() == null || chatDTO.getFiles().isEmpty()) {
             // 没有附件，纯文本聊天
             responseFlux = textChat(chatDTO.getPrompt(), conversationInfoDTO);

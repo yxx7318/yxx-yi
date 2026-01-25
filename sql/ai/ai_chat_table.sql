@@ -1,6 +1,6 @@
 -- 会话表
-drop table if exists ai_conversation;
-create table ai_conversation
+drop table if exists ai_chat_conversation;
+create table ai_chat_conversation
 (
     chat_conversation_id   bigint(20)        not null auto_increment   comment '会话id',
     chat_group             varchar(100)      default ''                comment '会话分组',

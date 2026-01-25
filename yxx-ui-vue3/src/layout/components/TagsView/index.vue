@@ -15,7 +15,7 @@
         <svg-icon v-if="tagsIcon && tag.meta && tag.meta.icon && tag.meta.icon !== '#'" :icon-class="tag.meta.icon" />
         {{ tag.title }}
         <span v-if="!isAffix(tag)" @click.prevent.stop="closeSelectedTag(tag)">
-          <close class="el-icon-close" style="width: 1em; height: 1em;vertical-align: middle;" />
+          <close class="el-icon-close" style="width: 1em; height: 1em; vertical-align: middle;" />
         </span>
       </router-link>
     </scroll-pane>

@@ -5,17 +5,26 @@ import { SSERequest } from '@/utils/sse'
 // 查询会话列表
 export function getSessionList(query) {
   return request({
-    url: '/ai/history/chat',
+    url: '/ai/history',
     method: 'get',
     params: query
   })
 }
 
 // 查询会话详细
-export function getSession(chatId) {
+export function getSession(conversationId) {
   return request({
-    url: '/ai/history/chat/' + chatId,
+    url: '/ai/history/detail/' + conversationId,
     method: 'get'
+  })
+}
+
+// 新增会话历史
+export function addSessionHistory(data) {
+  return request({
+    url: '/ai/history',
+    method: 'post',
+    data: data
   })
 }
 
@@ -23,7 +32,7 @@ export function getSession(chatId) {
 export function addSession(data) {
   return request({
     url: '/ai/session',
-    method: 'get',
+    method: 'post',
     data: data
   })
 }
