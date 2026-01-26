@@ -326,7 +326,6 @@ let preContent = ""
  * @param userContent
  */
 const handleSend = async (userContent) => {
-
   // 是否第一次
   if (firstConversation.value) {
     // 保存新的历史会话
@@ -334,6 +333,7 @@ const handleSend = async (userContent) => {
       chatGroup: "",
       chatTitle: userContent.substring(0, 20),
     })
+    // 获取到会话ID
     conversationId.value = String(res.data.chatConversationId)
     // 当前历史会话增加
     conversationList.value.unshift({
