@@ -1,6 +1,7 @@
 package com.yxx.ai.config.storage;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.yxx.ai.domain.ConversationInfoDTO;
 import com.yxx.ai.domain.MessageRecordDTO;
 import com.yxx.ai.entity.AiChatDetailDO;
 import com.yxx.ai.enums.MessageTypeEnum;
@@ -35,11 +36,16 @@ public class DatabaseChatMemory implements ChatMemory {
         Long id = Convert.toLong(conversationId);
         List<AiChatDetailDO> chatDetailDOS = messages.stream().map(message -> {
             MessageRecordDTO messageRecordDTO = new MessageRecordDTO(message);
+            ConversationInfoDTO conversationInfoDTO =
+                    ConversationInfoDTO.convertBean(messageRecordDTO.getMetadata().get(CONVERSATION_INFO_DATA));
             AiChatDetailDO aiChatDetailDO = new AiChatDetailDO();
             aiChatDetailDO.setChatConversationId(id);
             aiChatDetailDO.setMessageType(MessageTypeEnum.fromValue(messageRecordDTO.getMessageType()));
             aiChatDetailDO.setContent(JacksonUtils.toJsonString(messageRecordDTO));
-            aiChatDetailDO.setAttachment(JacksonUtils.toJsonString(messageRecordDTO.getMetadata().get(CONVERSATION_INFO_DATA)));
+            // 保存附件信息
+            aiChatDetailDO.setAttachment(JacksonUtils.toJsonString(conversationInfoDTO.getFiles()));
+            // 填充登录信息
+            aiChatDetailDO.fieldFillInsertByLoginUser(conversationInfoDTO.getLoginUser());
             return aiChatDetailDO;
         }).collect(Collectors.toList());
         aiChatDetailService.saveBatch(chatDetailDOS);

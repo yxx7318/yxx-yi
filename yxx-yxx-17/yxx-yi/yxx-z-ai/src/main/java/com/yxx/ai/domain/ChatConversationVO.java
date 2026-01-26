@@ -3,7 +3,7 @@ package com.yxx.ai.domain;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 
-public class ChatConversationListVO {
+public class ChatConversationVO {
 
     @Schema(description = "会话id")
     private Long chatConversationId;
@@ -14,10 +14,10 @@ public class ChatConversationListVO {
     @Schema(description = "会话标题")
     private String chatTitle;
 
-    public ChatConversationListVO() {
+    public ChatConversationVO() {
     }
 
-    public ChatConversationListVO(Long chatConversationId, String chatGroup, String chatTitle) {
+    public ChatConversationVO(Long chatConversationId, String chatGroup, String chatTitle) {
         this.chatConversationId = chatConversationId;
         this.chatGroup = chatGroup;
         this.chatTitle = chatTitle;

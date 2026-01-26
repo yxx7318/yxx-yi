@@ -5,9 +5,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public class ChatConversationEditDTO {
 
-    @Schema(description = "会话id")
-    private Long chatConversationId;
-
     @Schema(description = "会话分组")
     private String chatGroup;
 
@@ -18,17 +15,8 @@ public class ChatConversationEditDTO {
     }
 
     public ChatConversationEditDTO(Long chatConversationId, String chatGroup, String chatTitle) {
-        this.chatConversationId = chatConversationId;
         this.chatGroup = chatGroup;
         this.chatTitle = chatTitle;
-    }
-
-    public Long getChatConversationId() {
-        return chatConversationId;
-    }
-
-    public void setChatConversationId(Long chatConversationId) {
-        this.chatConversationId = chatConversationId;
     }
 
     public String getChatGroup() {

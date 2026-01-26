@@ -6,6 +6,7 @@ import com.yxx.ai.domain.DocumentInfoDTO;
 import com.yxx.ai.manager.VectorDocumentManager;
 import com.yxx.common.core.domain.dto.FileUploadDTO;
 import com.yxx.common.core.utils.JacksonUtils;
+import com.yxx.common.utils.SecurityUtils;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
@@ -45,7 +46,8 @@ public class ChatController {
     public Flux<String> chatStream(@RequestBody ChatDTO chatDTO) {
         ConversationInfoDTO conversationInfoDTO =
                 new ConversationInfoDTO(chatDTO.getConversationId(), chatDTO.getFiles());
-
+        // 设置登录上下文，方便在流式请求中流转
+        conversationInfoDTO.setLoginUser(SecurityUtils.getLoginUser());
         // 请求模型
         if (chatDTO.getFiles() == null || chatDTO.getFiles().isEmpty()) {
             // 没有附件，纯文本聊天
@@ -71,7 +73,8 @@ public class ChatController {
 
         ConversationInfoDTO conversationInfoDTO =
                 new ConversationInfoDTO(chatDTO.getConversationId(), chatDTO.getFiles());
-
+        // 设置登录上下文，方便在流式请求中流转
+        conversationInfoDTO.setLoginUser(SecurityUtils.getLoginUser());
         // 请求模型
         if (chatDTO.getFiles() == null || chatDTO.getFiles().isEmpty()) {
             // 没有附件，纯文本聊天
@@ -128,6 +131,7 @@ public class ChatController {
     private Flux<String> textChat(String prompt, ConversationInfoDTO conversationInfoDTO) {
         return chatClient.prompt()
                 .user(prompt)
+                .user(p -> p.metadata(CONVERSATION_INFO_DATA, conversationInfoDTO))
                 .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, conversationInfoDTO.getConversationId()))
                 .stream()
                 .content();

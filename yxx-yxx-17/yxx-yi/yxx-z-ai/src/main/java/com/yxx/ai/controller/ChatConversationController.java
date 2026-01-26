@@ -3,7 +3,7 @@ package com.yxx.ai.controller;
 
 import com.yxx.ai.config.storage.ChatConversationListRepository;
 import com.yxx.ai.domain.ChatConversationEditDTO;
-import com.yxx.ai.domain.ChatConversationListVO;
+import com.yxx.ai.domain.ChatConversationVO;
 import com.yxx.ai.domain.MessageVO;
 import com.yxx.common.core.domain.R;
 import io.swagger.v3.oas.annotations.Operation;
@@ -31,18 +31,17 @@ public class ChatConversationController {
 
     @Operation(summary = "新增--会话历史")
     @PostMapping("")
-    public R<String> getConversationList(@RequestBody ChatConversationEditDTO conversationEditDTO) {
-        chatConversationListRepository.saveChatConversation(conversationEditDTO);
-        return R.ok();
+    public R<ChatConversationVO> getConversationList(@RequestBody ChatConversationEditDTO conversationEditDTO) {
+        return R.ok(chatConversationListRepository.saveChatConversation(conversationEditDTO));
     }
 
     @Operation(summary = "查询--会话历史")
     @GetMapping("")
-    public R<List<ChatConversationListVO>> getConversationList() {
+    public R<List<ChatConversationVO>> getConversationList() {
         return R.ok(chatConversationListRepository.getChatConversationList());
     }
 
-    @Operation(summary = "查询--会话历史单个")
+    @Operation(summary = "查询--会话历史详细")
     @GetMapping("/detail/{conversationId}")
     public R<List<MessageVO>> getConversationDetailById(@PathVariable String conversationId) {
         List<Message> messages = chatMemory.get(conversationId);

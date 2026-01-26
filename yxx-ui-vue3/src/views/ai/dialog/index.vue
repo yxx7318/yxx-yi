@@ -181,10 +181,10 @@ const { proxy } = getCurrentInstance()
 const userStore = useUserStore()
 
 // 会话id
-const conversationId = ref(String(Date.now()))
+const conversationId = ref("")
 
 // 是否当前会话是第一次发起
-const firstCnversation = ref(true)
+const firstConversation = ref(true)
 
 // 是否上转文件状态
 const isFilesUpload = ref(false)
@@ -248,7 +248,7 @@ const activeMenuKey = ref()
 
 // 获取指定的会话
 function getConversation(conversationId) {
-  firstCnversation.value = false
+  firstConversation.value = false
   getSession(conversationId).then(res => {
     chatList.value = []
     for (let i = 0; i < res.data.length; i++) {
@@ -272,9 +272,7 @@ function newConversation() {
   hasBubble.value = false
   drawer.value = false
   filesValue.value = []
-  firstCnversation.value = true
-  // 新的会话id
-  conversationId.value = String(Date.now())
+  firstConversation.value = true
 }
 
 // 选中会话
@@ -320,38 +318,36 @@ const senderValue = ref()
 // 是否选中深度思考
 const isSelect = ref(false)
 
-// content监听器
-let stopWatchEffect = () => {}
+// 上一个对话内容，防止SSE的content值为刷新导致显示问题
+let preContent = ""
 
 /**
  * 开启会话
  * @param userContent
  */
-const handleSend = (userContent) => {
-  // 停止上一个
-  if (stopWatchEffect) {
-    content.value = ""
-    stopWatchEffect()
-  }
+const handleSend = async (userContent) => {
 
   // 是否第一次
-  if (firstCnversation.value) {
+  if (firstConversation.value) {
     // 保存新的历史会话
-    addSessionHistory({
-      chatConversationId: conversationId.value,
+    let res = await addSessionHistory({
       chatGroup: "",
       chatTitle: userContent.substring(0, 20),
     })
+    conversationId.value = String(res.data.chatConversationId)
     // 当前历史会话增加
     conversationList.value.unshift({
-      id: String(conversationId.value),
+      id: conversationId.value,
       label: userContent.substring(0, 20),
     })
-    firstCnversation.value = false
+    firstConversation.value = false
   }
 
   // 当前AI会话内容
   let currentAiText = ref("")
+
+  // 当前AI会话附件
+  let files = filesValue.value
 
   // 有会话
   hasBubble.value = true
@@ -359,22 +355,29 @@ const handleSend = (userContent) => {
   chatList.value.push(getFakeItem(new Date().getTime(), "user", userContent))
   chatList.value.push(getFakeItem(new Date().getTime() + 1, "ai", currentAiText))
 
-  // 当content变化时自动更新
-  stopWatchEffect = watchEffect(() => {
-    currentAiText.value = content.value
-  })
-
-  // SSE请求
-  startChatSSE({
-    conversationId: conversationId.value,
-    prompt: userContent,
-    files: filesValue.value
+  // 当SSE的content变化时自动更新
+  const stopWatchEffect = watchEffect(() => {
+    if (preContent !== content.value) {
+      currentAiText.value = content.value
+    }
   })
 
   // 清除操作
   proxy.$refs.senderRef.clear()
   filesValue.value = []
   refreshSenderHeader()
+
+  // SSE请求
+  await startChatSSE({
+    conversationId: conversationId.value,
+    prompt: userContent,
+    files: files
+  })
+
+  // 设置为上一个会话内容
+  preContent = currentAiText.value
+  // 停止监听
+  stopWatchEffect()
 }
 
 // 生成一个会话结果对象
