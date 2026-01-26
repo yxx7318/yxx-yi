@@ -8,7 +8,6 @@ import com.yxx.ai.enums.MessageTypeEnum;
 import com.yxx.ai.service.IAiChatDetailService;
 import com.yxx.common.core.text.Convert;
 import com.yxx.common.core.utils.JacksonUtils;
-import com.yxx.common.utils.SecurityUtils;
 import com.yxx.common.utils.StringUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.memory.ChatMemory;
@@ -17,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,22 +30,25 @@ public class DatabaseChatMemory implements ChatMemory {
 
     @Override
     public void add(String conversationId, List<Message> messages) {
-        if (messages == null || messages.isEmpty()) {
+        if (StringUtils.isEmpty(conversationId) || StringUtils.isEmpty(messages)) {
             return;
         }
         Long id = Convert.toLong(conversationId);
         List<AiChatDetailDO> chatDetailDOS = messages.stream().map(message -> {
             MessageRecordDTO messageRecordDTO = new MessageRecordDTO(message);
-            ConversationInfoDTO conversationInfoDTO =
-                    ConversationInfoDTO.convertBean(messageRecordDTO.getMetadata().get(CONVERSATION_INFO_DATA));
             AiChatDetailDO aiChatDetailDO = new AiChatDetailDO();
             aiChatDetailDO.setChatConversationId(id);
             aiChatDetailDO.setMessageType(MessageTypeEnum.fromValue(messageRecordDTO.getMessageType()));
             aiChatDetailDO.setContent(JacksonUtils.toJsonString(messageRecordDTO));
-            // 保存附件信息
-            aiChatDetailDO.setAttachment(JacksonUtils.toJsonString(conversationInfoDTO.getFiles()));
-            // 填充登录信息
-            aiChatDetailDO.fieldFillInsertByLoginUser(conversationInfoDTO.getLoginUser());
+            // 会话信息
+            ConversationInfoDTO conversationInfoDTO =
+                    ConversationInfoDTO.convertBean(messageRecordDTO.getMetadata().get(CONVERSATION_INFO_DATA));
+            if (StringUtils.isNotNull(conversationInfoDTO)) {
+                // 保存附件信息
+                aiChatDetailDO.setAttachment(JacksonUtils.toJsonString(conversationInfoDTO.getFiles()));
+                // 填充登录信息
+                aiChatDetailDO.fieldFillInsertByLoginUser(conversationInfoDTO.getLoginUser());
+            }
             return aiChatDetailDO;
         }).collect(Collectors.toList());
         aiChatDetailService.saveBatch(chatDetailDOS);
@@ -53,6 +56,9 @@ public class DatabaseChatMemory implements ChatMemory {
 
     @Override
     public List<Message> get(String conversationId) {
+        if (StringUtils.isEmpty(conversationId)) {
+            return Collections.emptyList();
+        }
         List<AiChatDetailDO> chatDetailDOS =
                 aiChatDetailService
                         .getMpDOPage(0, Integer.MAX_VALUE,

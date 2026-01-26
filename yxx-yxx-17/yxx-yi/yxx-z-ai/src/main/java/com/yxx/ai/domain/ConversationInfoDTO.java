@@ -41,14 +41,14 @@ public class ConversationInfoDTO {
 
     public static ConversationInfoDTO convertBean(String text) {
         if (StringUtils.isEmpty(text)) {
-            return new ConversationInfoDTO();
+            return null;
         }
         return JacksonUtils.parseObject(text, ConversationInfoDTO.class);
     }
 
     public static ConversationInfoDTO convertBean(Object o) {
         if (StringUtils.isNull(o) || ! (o instanceof ConversationInfoDTO)) {
-            return new ConversationInfoDTO();
+            return null;
         }
         return (ConversationInfoDTO) o;
     }
