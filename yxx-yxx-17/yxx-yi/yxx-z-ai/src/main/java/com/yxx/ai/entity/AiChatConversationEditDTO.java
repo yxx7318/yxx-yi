@@ -25,9 +25,6 @@ public class AiChatConversationEditDTO extends BaseEditDTOEntity {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Schema(description = "会话id")
-    private Long chatConversationId;
-
     @Schema(description = "会话分组")
     private String chatGroup;
 

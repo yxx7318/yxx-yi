@@ -26,9 +26,6 @@ public class AiChatDetailEditDTO extends BaseEditDTOEntity {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Schema(description = "会话详细id")
-    private Long chatDetailId;
-
     @Schema(description = "会话id")
     @NotNull(message = "会话id不能为空")
     private Long chatConversationId;

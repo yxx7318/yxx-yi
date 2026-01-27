@@ -43,14 +43,12 @@ public class ${ClassName}DO extends ${Entity} {
 #end
     private static final long serialVersionUID = 1L;
 
-## 初始化计数器
-#set($index = 0)
 #foreach ($column in $columns)
 #if(!$table.isSuperColumn($column.javaField))
 ## 添加swagger
     @Schema(description = "$column.columnComment")
 ## 添加Mp
-#if($column.javaField.toLowerCase().indexOf("id") != -1 && $index == 0)
+#if($pkColumn.javaField == $column.javaField)
     @TableId(value = "$column.columnName", type = IdType.AUTO)
 #else
     @TableField("$column.columnName")
@@ -75,7 +73,5 @@ public class ${ClassName}DO extends ${Entity} {
     private $column.javaType $column.javaField;
 
 #end
-## 更新计数器
-#set($index = $index + 1)
 #end
 }

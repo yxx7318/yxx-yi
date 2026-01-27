@@ -59,7 +59,8 @@ public class ${ClassName}EditDTO extends ${Entity} {
     private static final long serialVersionUID = 1L;
 
 #foreach ($column in $columns)
-#if(!$table.isSuperColumn($column.javaField))
+## 所有字段排除基本字段和主键
+#if(!$table.isSuperColumn($column.javaField) && $pkColumn.javaField != $column.javaField)
 ## 添加swagger
     @Schema(description = "$column.columnComment")
 ## 添加校验

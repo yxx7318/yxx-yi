@@ -70,8 +70,6 @@ public class ${ClassName} extends ${Entity} {
 #end
     private static final long serialVersionUID = 1L;
 
-## 初始化计数器
-#set($index = 0)
 #foreach ($column in $columns)
 #if(!$table.isSuperColumn($column.javaField))
 ## 添加swagger
@@ -83,7 +81,7 @@ public class ${ClassName} extends ${Entity} {
     @NotBlank(message = "$column.columnComment不能为空")
 #end
 ## 添加Mp
-#if($column.javaField.toLowerCase().indexOf("id") != -1 && $index == 0)
+#if($pkColumn.javaField == $column.javaField)
     @TableId(value = "$column.columnName", type = IdType.AUTO)
 #else
     @TableField("$column.columnName")
@@ -110,8 +108,6 @@ public class ${ClassName} extends ${Entity} {
     private $column.javaType $column.javaField;
 
 #end
-## 更新计数器
-#set($index = $index + 1)
 #end
 ## 主子表的额外属性
 #if($table.sub)
