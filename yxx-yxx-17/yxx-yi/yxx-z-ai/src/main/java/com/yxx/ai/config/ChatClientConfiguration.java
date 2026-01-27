@@ -1,7 +1,5 @@
 package com.yxx.ai.config;
 
-//import com.yxx.ai.config.model.AlibabaOpenAiChatModel;
-import com.yxx.ai.config.storage.DatabaseChatMemory;
 import com.yxx.ai.config.tools.InvoiceTool;
 import com.yxx.common.utils.spring.SpringUtils;
 import org.springframework.ai.chat.client.ChatClient;
@@ -91,17 +89,13 @@ public class ChatClientConfiguration {
 //    }
 
     @Bean
-    public ChatClient ragClient(OpenAiChatModel model, ChatMemory chatMemory, VectorStore vectorStore, ToolCallbackProvider mcpTools) {
+    public ChatClient ragClient(OpenAiChatModel model, ChatMemory chatMemory, ToolCallbackProvider mcpTools) {
         return ChatClient
                 .builder(model)
                 .defaultSystem("你是一个热情的YXX智能体，如果有知识库，请理解引用知识库内容回答，如果没有知识库，正常回答即可。")
                 .defaultAdvisors(
                         new SimpleLoggerAdvisor(),
-                        MessageChatMemoryAdvisor.builder(chatMemory).build(),
-                        QuestionAnswerAdvisor.builder(vectorStore).searchRequest(SearchRequest.builder()
-                                .similarityThreshold(0.6)
-                                .topK(10)
-                                .build()).build()
+                        MessageChatMemoryAdvisor.builder(chatMemory).build()
                 )
                 .defaultTools(SpringUtils.getBean(InvoiceTool.class))
                 .defaultToolCallbacks(mcpTools)

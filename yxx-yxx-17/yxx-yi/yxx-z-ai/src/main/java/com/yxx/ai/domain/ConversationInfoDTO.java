@@ -1,7 +1,6 @@
 package com.yxx.ai.domain;
 
 import com.yxx.common.core.domain.dto.FileUploadDTO;
-import com.yxx.common.core.domain.model.LoginUser;
 import com.yxx.common.core.utils.JacksonUtils;
 import com.yxx.common.utils.StringUtils;
 import org.springframework.ai.chat.messages.Message;
@@ -11,9 +10,6 @@ import java.util.List;
 import static com.yxx.ai.constant.Constants.CONVERSATION_INFO_DATA;
 
 public class ConversationInfoDTO {
-
-    private LoginUser loginUser;
-
     private String chatDetailId;
 
     private String conversationId;
@@ -28,8 +24,7 @@ public class ConversationInfoDTO {
         this.files = files;
     }
 
-    public ConversationInfoDTO(LoginUser loginUser, String chatDetailId, String conversationId, List<FileUploadDTO> files) {
-        this.loginUser = loginUser;
+    public ConversationInfoDTO(String chatDetailId, String conversationId, List<FileUploadDTO> files) {
         this.chatDetailId = chatDetailId;
         this.conversationId = conversationId;
         this.files = files;
@@ -62,14 +57,6 @@ public class ConversationInfoDTO {
             return ((ConversationInfoDTO) conversationInfoDTO).getFiles();
         }
         return null;
-    }
-
-    public LoginUser getLoginUser() {
-        return loginUser;
-    }
-
-    public void setLoginUser(LoginUser loginUser) {
-        this.loginUser = loginUser;
     }
 
     public String getChatDetailId() {

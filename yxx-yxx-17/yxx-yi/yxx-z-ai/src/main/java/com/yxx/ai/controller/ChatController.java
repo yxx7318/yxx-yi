@@ -46,8 +46,6 @@ public class ChatController {
     public Flux<String> chatStream(@RequestBody ChatDTO chatDTO) {
         ConversationInfoDTO conversationInfoDTO =
                 new ConversationInfoDTO(chatDTO.getConversationId(), chatDTO.getFiles());
-        // 设置登录上下文，方便在流式请求中流转
-        conversationInfoDTO.setLoginUser(SecurityUtils.getLoginUser());
         // 请求模型
         if (chatDTO.getFiles() == null || chatDTO.getFiles().isEmpty()) {
             // 没有附件，纯文本聊天
@@ -73,8 +71,6 @@ public class ChatController {
 
         ConversationInfoDTO conversationInfoDTO =
                 new ConversationInfoDTO(chatDTO.getConversationId(), chatDTO.getFiles());
-        // 设置登录上下文，方便在流式请求中流转
-        conversationInfoDTO.setLoginUser(SecurityUtils.getLoginUser());
         // 请求模型
         if (chatDTO.getFiles() == null || chatDTO.getFiles().isEmpty()) {
             // 没有附件，纯文本聊天

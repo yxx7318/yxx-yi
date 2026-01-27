@@ -46,9 +46,9 @@ public class DatabaseChatMemory implements ChatMemory {
             if (StringUtils.isNotNull(conversationInfoDTO)) {
                 // 保存附件信息
                 aiChatDetailDO.setAttachment(JacksonUtils.toJsonString(conversationInfoDTO.getFiles()));
-                // 填充登录信息
-                aiChatDetailDO.fieldFillInsertByLoginUser(conversationInfoDTO.getLoginUser());
             }
+            // 填充登录信息
+            aiChatDetailDO.fieldFillInsert();
             return aiChatDetailDO;
         }).collect(Collectors.toList());
         aiChatDetailService.saveBatch(chatDetailDOS);
