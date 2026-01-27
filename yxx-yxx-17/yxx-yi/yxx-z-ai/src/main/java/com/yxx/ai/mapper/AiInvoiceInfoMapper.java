@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
  * 发票信息Mapper接口
  *
  * @author yxx
- * @date 2025-11-30
+ * @date 2026-01-27
  */
 @Repository
 public interface AiInvoiceInfoMapper extends BaseMapperPlus<AiInvoiceInfoDO> {

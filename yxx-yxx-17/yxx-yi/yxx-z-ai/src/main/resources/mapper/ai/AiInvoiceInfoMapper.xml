@@ -25,11 +25,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <select id="selectAiInvoiceInfoList" parameterType="AiInvoiceInfoQueryDTO" resultMap="AiInvoiceInfoResult">
         <include refid="selectAiInvoiceInfoVo"/>
         <where>
-            <if test="invoiceNumber != null and invoiceNumber != ''"> and invoice_number = #{invoiceNumber}</if>
+            <if test="invoiceNumber != null and invoiceNumber != ''"> and invoice_number like concat('%', #{invoiceNumber}, '%')</if>
             <if test="amount != null"> and amount = #{amount}</if>
             <if test="params.beginInvoiceDate != null and params.beginInvoiceDate != '' and params.endInvoiceDate != null and params.endInvoiceDate != ''"> and invoice_date between #{params.beginInvoiceDate} and #{params.endInvoiceDate}</if>
             <if test="createByName != null and createByName != ''"> and create_by_name like concat('%', #{createByName}, '%')</if>
-            <if test="params.beginCreateTime != null and params.beginCreateTime != '' and params.endCreateTime != null and params.endCreateTime != ''"> and create_time between #{params.beginCreateTime} and #{params.endCreateTime}</if>
+            <if test="createTime != null"> and create_time = #{createTime}</if>
+            <if test="updateByName != null and updateByName != ''"> and update_by_name like concat('%', #{updateByName}, '%')</if>
+            <if test="remark != null and remark != ''"> and remark = #{remark}</if>
         </where>
     </select>
 
@@ -41,7 +43,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <insert id="insertAiInvoiceInfo" parameterType="AiInvoiceInfoDO" useGeneratedKeys="true" keyProperty="invoiceInfoId">
         insert into ai_invoice_info
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="invoiceNumber != null">invoice_number,</if>
+            <if test="invoiceNumber != null and invoiceNumber != ''">invoice_number,</if>
             <if test="amount != null">amount,</if>
             <if test="invoiceDate != null">invoice_date,</if>
             <if test="createById != null">create_by_id,</if>
@@ -53,7 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="remark != null">remark,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="invoiceNumber != null">#{invoiceNumber},</if>
+            <if test="invoiceNumber != null and invoiceNumber != ''">#{invoiceNumber},</if>
             <if test="amount != null">#{amount},</if>
             <if test="invoiceDate != null">#{invoiceDate},</if>
             <if test="createById != null">#{createById},</if>
@@ -69,7 +71,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     <update id="updateAiInvoiceInfo" parameterType="AiInvoiceInfoDO">
         update ai_invoice_info
         <trim prefix="SET" suffixOverrides=",">
-            <if test="invoiceNumber != null">invoice_number = #{invoiceNumber},</if>
+            <if test="invoiceNumber != null and invoiceNumber != ''">invoice_number = #{invoiceNumber},</if>
             <if test="amount != null">amount = #{amount},</if>
             <if test="invoiceDate != null">invoice_date = #{invoiceDate},</if>
             <if test="createById != null">create_by_id = #{createById},</if>

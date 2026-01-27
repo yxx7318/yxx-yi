@@ -36,16 +36,23 @@
           @keyup.enter="handleQuery"
         />
       </el-form-item>
-      <el-form-item label="创建时间">
+      <el-form-item label="创建时间" prop="createTime">
         <el-date-picker
           style="width: 100%"
-          v-model="datetimerangeCreateTime"
+          clearable
+          v-model="queryParams.createTime"
+          type="datetime"
           value-format="YYYY-MM-DD HH:mm:ss"
-          type="datetimerange"
-          range-separator="-"
-          start-placeholder="开始日期"
-          end-placeholder="结束日期"
-        ></el-date-picker>
+          placeholder="请选择创建时间">
+        </el-date-picker>
+      </el-form-item>
+      <el-form-item label="更新者" prop="updateByName">
+        <el-input
+          v-model="queryParams.updateByName"
+          placeholder="请输入更新者"
+          clearable
+          @keyup.enter="handleQuery"
+        />
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="Search" @click="handleQuery">搜索</el-button>
@@ -112,6 +119,8 @@
       <el-table-column label="开票日期" align="center" prop="invoiceDate" v-if="columns.invoiceDate.visible" />
       <el-table-column label="创建者" align="center" prop="createByName" v-if="columns.createByName.visible" />
       <el-table-column label="创建时间" align="center" prop="createTime" v-if="columns.createTime.visible" />
+      <el-table-column label="更新者" align="center" prop="updateByName" v-if="columns.updateByName.visible" />
+      <el-table-column label="备注" align="center" prop="remark" v-if="columns.remark.visible" />
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template #default="scope">
           <el-button link type="primary" icon="Edit" @click="handleUpdate(scope.row)" v-hasPermi="['ai:invoiceInfo:edit']">修改</el-button>
@@ -145,6 +154,9 @@
             value-format="YYYY-MM-DD HH:mm:ss"
             placeholder="请选择开票日期">
           </el-date-picker>
+        </el-form-item>
+        <el-form-item label="备注" prop="remark">
+          <el-input v-model="form.remark" type="textarea" placeholder="请输入内容" />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -180,10 +192,8 @@ const single = ref(true)
 const multiple = ref(true)
 const total = ref(0)
 const title = ref("")
-// 开票日期时间范围
+// 备注时间范围
 const datetimerangeInvoiceDate = ref([])
-// 开票日期时间范围
-const datetimerangeCreateTime = ref([])
 
 // 导入Excel参数
 const upload = ref({
@@ -203,6 +213,8 @@ const columns = reactive({
   invoiceDate: {label: `开票日期`, visible: true},
   createByName: {label: `创建者`, visible: true},
   createTime: {label: `创建时间`, visible: true},
+  updateByName: {label: `更新者`, visible: true},
+  remark: {label: `备注`, visible: true},
 })
 
 const data = reactive({
@@ -215,8 +227,19 @@ const data = reactive({
     invoiceDate: null,
     createByName: null,
     createTime: null,
+    updateByName: null,
+    remark: null
   },
   rules: {
+    invoiceNumber: [
+      { required: true, message: "发票号码不能为空", trigger: "blur" }
+    ],
+    amount: [
+      { required: true, message: "发票金额不能为空", trigger: "blur" }
+    ],
+    invoiceDate: [
+      { required: true, message: "开票日期不能为空", trigger: "blur" }
+    ],
   }
 })
 
@@ -229,10 +252,6 @@ function getList() {
   if (null != datetimerangeInvoiceDate && '' != datetimerangeInvoiceDate) {
     queryParams.value.params["beginInvoiceDate"] = datetimerangeInvoiceDate.value[0]
     queryParams.value.params["endInvoiceDate"] = datetimerangeInvoiceDate.value[1]
-  }
-  if (null != datetimerangeCreateTime && '' != datetimerangeCreateTime) {
-    queryParams.value.params["beginCreateTime"] = datetimerangeCreateTime.value[0]
-    queryParams.value.params["endCreateTime"] = datetimerangeCreateTime.value[1]
   }
   listInvoiceInfo(queryParams.value).then(response => {
     invoiceInfoList.value = response.rows
@@ -274,7 +293,6 @@ function handleQuery() {
 /** 重置按钮操作 */
 function resetQuery() {
   datetimerangeInvoiceDate.value = []
-  datetimerangeCreateTime.value = []
   proxy.resetForm("queryRef")
   handleQuery()
 }
