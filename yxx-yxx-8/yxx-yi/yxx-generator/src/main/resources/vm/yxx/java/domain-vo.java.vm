@@ -46,8 +46,6 @@ public class ${ClassName}VO extends ${Entity} {
 #end
     private static final long serialVersionUID = 1L;
 
-## 初始化计数器
-#set($index = 0)
 #foreach ($column in $columns)
 #if(!$table.isSuperColumn($column.javaField))
 ## 添加swagger
@@ -74,8 +72,6 @@ public class ${ClassName}VO extends ${Entity} {
     private $column.javaType $column.javaField;
 
 #end
-## 更新计数器
-#set($index = $index + 1)
 #end
 ## 主子表的额外属性
 #if($table.sub)
