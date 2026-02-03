@@ -273,19 +273,19 @@ const { queryParams, form, rules } = toRefs(data)
 function getList() {
   loading.value = true
   queryParams.value.params = {}
-  if (null != daterangeRegisterDate && '' != daterangeRegisterDate) {
+  if (null != daterangeRegisterDate && '' !== daterangeRegisterDate.value) {
     queryParams.value.params["beginRegisterDate"] = daterangeRegisterDate.value[0]
     queryParams.value.params["endRegisterDate"] = daterangeRegisterDate.value[1]
   }
-  if (null != datetimerangeRegisterTime && '' != datetimerangeRegisterTime) {
+  if (null != datetimerangeRegisterTime && '' !== datetimerangeRegisterTime.value) {
     queryParams.value.params["beginRegisterTime"] = datetimerangeRegisterTime.value[0]
     queryParams.value.params["endRegisterTime"] = datetimerangeRegisterTime.value[1]
   }
-  if (null != datetimerangeCreateTime && '' != datetimerangeCreateTime) {
+  if (null != datetimerangeCreateTime && '' !== datetimerangeCreateTime.value) {
     queryParams.value.params["beginCreateTime"] = datetimerangeCreateTime.value[0]
     queryParams.value.params["endCreateTime"] = datetimerangeCreateTime.value[1]
   }
-  if (null != datetimerangeUpdateTime && '' != datetimerangeUpdateTime) {
+  if (null != datetimerangeUpdateTime && '' !== datetimerangeUpdateTime.value) {
     queryParams.value.params["beginUpdateTime"] = datetimerangeUpdateTime.value[0]
     queryParams.value.params["endUpdateTime"] = datetimerangeUpdateTime.value[1]
   }
