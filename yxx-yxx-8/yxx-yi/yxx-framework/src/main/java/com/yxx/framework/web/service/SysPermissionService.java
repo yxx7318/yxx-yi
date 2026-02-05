@@ -3,6 +3,8 @@ package com.yxx.framework.web.service;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import com.yxx.common.constant.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -37,7 +39,7 @@ public class SysPermissionService
         // 管理员拥有所有权限
         if (user.isAdmin())
         {
-            roles.add("admin");
+            roles.add(Constants.SUPER_ADMIN);
         }
         else
         {
@@ -58,7 +60,7 @@ public class SysPermissionService
         // 管理员拥有所有权限
         if (user.isAdmin())
         {
-            perms.add("*:*:*");
+            perms.add(Constants.ALL_PERMISSION);
         }
         else
         {

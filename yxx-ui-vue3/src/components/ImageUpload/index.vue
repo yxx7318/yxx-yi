@@ -254,5 +254,5 @@ onMounted(() => {
 
 :deep(.el-upload.el-upload--picture-card.is-disabled) {
   display: none !important;
-} 
+}
 </style>

@@ -14,7 +14,7 @@ import com.yxx.system.domain.SysLoginInfo;
 import com.yxx.system.domain.SysOperLog;
 import com.yxx.system.service.ISysLoginInfoService;
 import com.yxx.system.service.ISysOperLogService;
-import eu.bitwalker.useragentutils.UserAgent;
+import com.yxx.common.utils.http.UserAgentUtils;
 
 /**
  * 异步工厂（产生任务用）
@@ -35,7 +35,7 @@ public class AsyncFactory
     public static TimerTask recordLoginInfo(final String username, final String status, final String message,
                                             final Object... args)
     {
-        final UserAgent userAgent = UserAgent.parseUserAgentString(ServletUtils.getRequest().getHeader("User-Agent"));
+        final String userAgent = ServletUtils.getRequest().getHeader("User-Agent");
         final String ip = IpUtils.getIpAddr();
         return new TimerTask()
         {
@@ -52,9 +52,9 @@ public class AsyncFactory
                 // 打印信息到日志
                 sys_user_logger.info(s.toString(), args);
                 // 获取客户端操作系统
-                String os = userAgent.getOperatingSystem().getName();
+                String os = UserAgentUtils.getOperatingSystem(userAgent);
                 // 获取客户端浏览器
-                String browser = userAgent.getBrowser().getName();
+                String browser = UserAgentUtils.getBrowser(userAgent);
                 // 封装对象
                 SysLoginInfo loginInfo = new SysLoginInfo();
                 loginInfo.setUserName(username);

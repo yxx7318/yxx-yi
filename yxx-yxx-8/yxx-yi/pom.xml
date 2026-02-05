@@ -14,7 +14,7 @@
 
     <properties>
         <druid.version>1.2.23</druid.version>
-        <bitwalker.version>1.21</bitwalker.version>
+        <yauaa.version>7.32.0</yauaa.version>
         <swagger.version>3.0.0</swagger.version>
         <kaptcha.version>2.3.3</kaptcha.version>
         <alipay.version>4.35.79.ALL</alipay.version>
@@ -78,9 +78,9 @@
 
             <!-- 解析客户端操作系统、浏览器等 -->
             <dependency>
-                <groupId>eu.bitwalker</groupId>
-                <artifactId>UserAgentUtils</artifactId>
-                <version>${bitwalker.version}</version>
+                <groupId>nl.basjes.parse.useragent</groupId>
+                <artifactId>yauaa</artifactId>
+                <version>${yauaa.version}</version>
             </dependency>
 
             <!-- pagehelper 分页插件 -->

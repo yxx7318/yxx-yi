@@ -2,6 +2,8 @@ package com.yxx.framework.aspectj;
 
 import java.util.Collection;
 import java.util.Map;
+
+import com.yxx.common.utils.MDCUtils;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.lang3.ArrayUtils;
@@ -23,7 +25,6 @@ import com.yxx.common.core.domain.model.LoginUser;
 import com.yxx.common.enums.BusinessStatus;
 import com.yxx.common.enums.HttpMethod;
 import com.yxx.common.filter.PropertyPreExcludeFilter;
-import com.yxx.common.utils.MDCUtils;
 import com.yxx.common.utils.SecurityUtils;
 import com.yxx.common.utils.ServletUtils;
 import com.yxx.common.utils.StringUtils;
@@ -46,6 +47,9 @@ public class LogAspect
 
     /** 计算操作消耗时间 */
     private static final ThreadLocal<Long> TIME_THREADLOCAL = new NamedThreadLocal<Long>("Cost Time");
+
+    /** 参数最大长度限制 */
+    private static final int PARAM_MAX_LENGTH = 2000;
 
     /**
      * 处理请求前执行
@@ -107,7 +111,7 @@ public class LogAspect
             if (e != null)
             {
                 operLog.setStatus(BusinessStatus.FAIL.getCode());
-                operLog.setErrorMsg(StringUtils.substring(e.getMessage(), 0, 2000));
+                operLog.setErrorMsg(StringUtils.substring(e.getMessage(), 0, PARAM_MAX_LENGTH));
             }
             // 设置方法名称
             String className = joinPoint.getTarget().getClass().getName();
@@ -119,8 +123,6 @@ public class LogAspect
             getControllerMethodDescription(joinPoint, controllerLog, operLog, jsonResult);
             // 设置消耗时间
             operLog.setCostTime(System.currentTimeMillis() - TIME_THREADLOCAL.get());
-            // 填充公共字段
-            operLog.fieldFillInsert();
             // 保存数据库
             AsyncManager.me().execute(AsyncFactory.recordOper(operLog));
         }
@@ -160,7 +162,7 @@ public class LogAspect
         // 是否需要保存response，参数和值
         if (log.isSaveResponseData() && StringUtils.isNotNull(jsonResult))
         {
-            operLog.setJsonResult(StringUtils.substring(JSON.toJSONString(jsonResult), 0, 2000));
+            operLog.setJsonResult(StringUtils.substring(JSON.toJSONString(jsonResult), 0, PARAM_MAX_LENGTH));
         }
     }
 
@@ -172,16 +174,16 @@ public class LogAspect
      */
     private void setRequestValue(JoinPoint joinPoint, SysOperLog operLog, String[] excludeParamNames) throws Exception
     {
-        Map<?, ?> paramsMap = ServletUtils.getParamMap(ServletUtils.getRequest());
         String requestMethod = operLog.getRequestMethod();
+        Map<?, ?> paramsMap = ServletUtils.getParamMap(ServletUtils.getRequest());
         if (StringUtils.isEmpty(paramsMap) && StringUtils.equalsAny(requestMethod, HttpMethod.PUT.name(), HttpMethod.POST.name(), HttpMethod.DELETE.name()))
         {
             String params = argsArrayToString(joinPoint.getArgs(), excludeParamNames);
-            operLog.setOperParam(StringUtils.substring(params, 0, 2000));
+            operLog.setOperParam(params);
         }
         else
         {
-            operLog.setOperParam(StringUtils.substring(JSON.toJSONString(paramsMap, excludePropertyPreFilter(excludeParamNames)), 0, 2000));
+            operLog.setOperParam(StringUtils.substring(JSON.toJSONString(paramsMap, excludePropertyPreFilter(excludeParamNames)), 0, PARAM_MAX_LENGTH));
         }
     }
 
@@ -190,7 +192,7 @@ public class LogAspect
      */
     private String argsArrayToString(Object[] paramsArray, String[] excludeParamNames)
     {
-        String params = "";
+        StringBuilder params = new StringBuilder();
         if (paramsArray != null && paramsArray.length > 0)
         {
             for (Object o : paramsArray)
@@ -200,15 +202,20 @@ public class LogAspect
                     try
                     {
                         String jsonObj = JSON.toJSONString(o, excludePropertyPreFilter(excludeParamNames));
-                        params += jsonObj.toString() + " ";
+                        params.append(jsonObj).append(" ");
+                        if (params.length() >= PARAM_MAX_LENGTH)
+                        {
+                            return StringUtils.substring(params.toString(), 0, PARAM_MAX_LENGTH);
+                        }
                     }
                     catch (Exception e)
                     {
+                        log.error("请求参数拼装异常 msg:{}, 参数:{}", e.getMessage(), paramsArray, e);
                     }
                 }
             }
         }
-        return params.trim();
+        return params.toString();
     }
 
     /**

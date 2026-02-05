@@ -1,164 +1,174 @@
 <template>
-  <div style="height: 100%; margin: 5px" @dragenter="isFilesUpload = true" @dragleave="handleDragLeave($event, () => isFilesUpload = false)">
-    <div style="height: 100%; display: flex; align-items: center; justify-content: center" v-show="isFilesUpload">
-      <drag-upload
-        ref="dragUpload"
-        :fileType="['pdf']"
-        style="height: 92%; width: 80%"
-        v-model:modelValue="filesValue"
-        @uploadedSuccess="uploadedSuccess"
+  <div class="app-container">
+    <div style="height: 90vh; margin: 5px" @dragenter="isFilesUpload = true" @dragleave="handleDragLeave($event, () => isFilesUpload = false)">
+      <!-- 文件上传 -->
+      <div style="height: 100%; display: flex; align-items: center; justify-content: center" v-show="isFilesUpload">
+        <drag-upload
+          ref="dragUpload"
+          :fileType="['pdf']"
+          style="height: 92%; width: 80%"
+          v-model:modelValue="filesValue"
+          @uploadedSuccess="uploadedSuccess"
+        >
+        </drag-upload>
+      </div>
+
+      <!-- 侧边栏抽屉 -->
+      <el-drawer
+        v-model="drawer"
+        title="会话历史"
+        direction="ltr"
       >
-      </drag-upload>
-    </div>
-    <!-- 侧边栏抽屉 -->
-    <el-drawer
-      v-model="drawer"
-      title="会话历史"
-      direction="ltr"
-    >
-      <!-- 侧边栏内容 -->
-      <el-container
-        style="height: 100%; flex: 2; min-width: 320px; max-width: 320px; background-color: #f3f4f6">
-        <el-header style="width: 100%; display: flex; align-items: center;">
-          <el-button style="width: 100%; height: 70%;" @click="newConversation">
-            <div style="font-size: 16px">新建会话</div>
+        <!-- 侧边栏内容 -->
+        <el-container
+          style="height: 100%; flex: 2; min-width: 320px; max-width: 320px; background-color: #f3f4f6">
+          <el-header style="width: 100%; display: flex; align-items: center;">
+            <el-button style="width: 100%; height: 70%;" @click="newConversation">
+              <div style="font-size: 16px">新建会话</div>
+            </el-button>
+          </el-header>
+          <el-main style="width: 100%">
+            <Conversations
+              v-model:active="activeMenuKey"
+              :items="conversationList"
+              :label-max-width="200"
+              :show-tooltip="true"
+              row-key="id"
+              show-to-top-btn
+              show-built-in-menu
+              show-built-in-menu-type="always"
+              @menu-command="handleConversationListCommand"
+              @change="handleConversationChange"
+            />
+          </el-main>
+          <el-footer style="width: 100%"></el-footer>
+        </el-container>
+      </el-drawer>
+
+      <!-- 会话信息 -->
+      <div style="height: 100%; display: flex; justify-content: space-between;" v-show="!isFilesUpload">
+        <div style="height: 100%; flex: 7; max-width: 100%;">
+          <el-button style="height: 5%; margin-left: 2%;" @click="drawer = true">
+            会话列表
+            <template #icon>
+              <svg-icon icon-class="conversation-list" />
+            </template>
           </el-button>
-        </el-header>
-        <el-main style="width: 100%">
-          <Conversations
-            v-model:active="activeMenuKey"
-            :items="conversationList"
-            :label-max-width="200"
-            :show-tooltip="true"
-            row-key="id"
-            show-to-top-btn
-            show-built-in-menu
-            show-built-in-menu-type="always"
-            @menu-command="handleConversationListCommand"
-            @change="handleConversationChange"
-          />
-        </el-main>
-        <el-footer style="width: 100%"></el-footer>
-      </el-container>
-    </el-drawer>
-    <div style="height: 100%; display: flex; justify-content: space-between;" v-show="!isFilesUpload">
-      <div style="height: 100%; flex: 7; max-width: 100%;">
-        <el-button style="height: 5%; margin-left: 2%;" @click="drawer = true">
-          会话列表
-          <template #icon>
-            <svg-icon icon-class="conversation-list" />
-          </template>
-        </el-button>
-        <div
-          style="height: 90%; margin-top: 5%; display: flex; align-items: center;"
-          :class="hasBubble ? 'justifyContentSpaceBetween' : 'justifyContentCenter'">
-          <BubbleList v-show="hasBubble" :list="chatList" max-height="70%" style="width: 90%; margin-bottom: 50px">
-            <template #content="{ item }">
-              <!-- 文件列表 -->
-              <div style="display: flex; flex-wrap: wrap; gap: 12px" v-if="item.role === 'user'">
-                <div v-for="(i, index) in item.files" :key="index" style="flex: 1">
-                  <el-tooltip
-                    placement="top"
-                    :content="i.name"
-                  >
-                    <a :href="i.url" target="_blank">
-                      <files-card
-                        :uid="i.uid"
-                        :name="i.name"
-                      >
-                      </files-card>
-                    </a>
-                  </el-tooltip>
-                </div>
-              </div>
-              <!-- md格式解析 -->
-              <XMarkdown
-                :allowHtml="true"
-                :enableLatex="true"
-                :enableBreaks="true"
-                :markdown="item.content"
-                default-theme-mode="light"
-              />
-            </template>
-            <template #header="{ item }">
-              <el-text>{{ item.role === 'ai' ? 'YXX智能体' : userStore.nickName }}</el-text>
-            </template>
-          </BubbleList>
-          <div style="width: 90%; margin-bottom: 4%">
-            <Typewriter
-              v-show="!hasBubble"
-              :content="`你好，我是 YXX 智能体`"
-              :typing="{
-                step: 1,
-                interval: 80,
-              }"
-              style="text-align: center; font-size: 32px; font-weight: 550; letter-spacing: 1px; margin-bottom: 20px"
-            >
-            </Typewriter>
-            <Sender
-              style="height: 30%; flex: 1; width: 100%"
-              ref="senderRef"
-              v-model="senderValue"
-              :auto-size="{
-                maxRows: 10,
-                minRows: 5,
-              }"
-              variant="updown"
-              clearable
-              allow-speech
-              @submit="handleSend"
-            >
-              <template #header>
-                <div style="display: flex; overflow-x: auto; gap: 20px; flex-wrap: nowrap; padding: 20px;">
-                  <div v-for="(item, index) in filesValue" :key="index">
+          <div
+            style="height: 90%; margin-top: 5%; display: flex; align-items: center;"
+            :class="hasBubble ? 'justifyContentSpaceBetween' : 'justifyContentCenter'">
+
+            <!-- 历史对话 -->
+            <BubbleList v-show="hasBubble" :list="chatList" max-height="90%" style="width: 90%;">
+              <template #content="{ item }">
+                <!-- 文件列表 -->
+                <div style="display: flex; flex-wrap: wrap; gap: 12px" v-if="item.role === 'user'">
+                  <div v-for="(i, index) in item.files" :key="index" style="flex: 1">
                     <el-tooltip
                       placement="top"
-                      :content="item.name"
+                      :content="i.name"
                     >
-                      <a :href="item.url" target="_blank">
+                      <a :href="i.url" target="_blank">
                         <files-card
-                          :uid="item.uid"
-                          :name="item.name"
-                          show-del-icon
-                          @delete="deleteCard(item.uid)"
+                          :uid="i.uid"
+                          :name="i.name"
                         >
                         </files-card>
                       </a>
                     </el-tooltip>
                   </div>
-
                 </div>
+                <!-- md格式解析 -->
+                <XMarkdown
+                  :allowHtml="true"
+                  :enableLatex="true"
+                  :enableBreaks="true"
+                  :markdown="item.content"
+                  default-theme-mode="light"
+                />
               </template>
+              <template #header="{ item }">
+                <el-text>{{ item.role === 'ai' ? 'YXX智能体' : userStore.nickName }}</el-text>
+              </template>
+            </BubbleList>
 
-              <template #prefix>
-                <div
-                  style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; height: 100%"
-                >
-                  <!-- 文件选择按钮 -->
-                  <el-button round plain color="#626aef" @click="clickSelectFile">
-                    <el-icon><Paperclip /></el-icon>
-                  </el-button>
+            <!-- 输入框 -->
+            <div style="width: 90%;">
+              <Typewriter
+                v-show="!hasBubble"
+                :content="`你好，我是 YXX 智能体`"
+                :typing="{
+                  step: 1,
+                  interval: 80,
+                }"
+                style="text-align: center; font-size: 32px; font-weight: 550; letter-spacing: 1px; margin-bottom: 20px"
+              >
+              </Typewriter>
+              <Sender
+                style="height: 30%; flex: 1; width: 100%; margin-bottom: 50px;"
+                ref="senderRef"
+                v-model="senderValue"
+                :auto-size="{
+                  maxRows: 10,
+                  minRows: 5,
+                }"
+                variant="updown"
+                clearable
+                allow-speech
+                @submit="handleSend"
+              >
+                <template #header>
+                  <div style="display: flex; overflow-x: auto; gap: 20px; flex-wrap: nowrap; padding: 20px;">
+                    <div v-for="(item, index) in filesValue" :key="index">
+                      <el-tooltip
+                        placement="top"
+                        :content="item.name"
+                      >
+                        <a :href="item.url" target="_blank">
+                          <files-card
+                            :uid="item.uid"
+                            :name="item.name"
+                            show-del-icon
+                            @delete="deleteCard(item.uid)"
+                          >
+                          </files-card>
+                        </a>
+                      </el-tooltip>
+                    </div>
 
-                  <!-- 深度思考按钮 -->
-                  <div
-                    :class="{ isSelect }"
-                    class="noSelect"
-                    @click="isSelect = !isSelect"
-                  >
-                    <el-icon><ElementPlus /></el-icon>
-                    <span>深度思考</span>
                   </div>
-                </div>
-              </template>
+                </template>
 
-              <template #action-list>
-                <div style="display: flex; align-items: center; gap: 8px">
-                  <el-button round color="#626aef" @click="handleSend">
-                    <el-icon><Promotion /></el-icon>
-                  </el-button>
-                </div>
-              </template>
-            </Sender>
+                <template #prefix>
+                  <div
+                    style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; height: 100%"
+                  >
+                    <!-- 文件选择按钮 -->
+                    <el-button round plain color="#626aef" @click="clickSelectFile">
+                      <el-icon><Paperclip /></el-icon>
+                    </el-button>
+
+                    <!-- 深度思考按钮 -->
+                    <div
+                      :class="{ isSelect }"
+                      class="noSelect"
+                      @click="isSelect = !isSelect"
+                    >
+                      <el-icon><ElementPlus /></el-icon>
+                      <span>深度思考</span>
+                    </div>
+                  </div>
+                </template>
+
+                <template #action-list>
+                  <div style="display: flex; align-items: center; gap: 8px">
+                    <el-button round color="#626aef" @click="() => handleSend(senderValue)">
+                      <el-icon><Promotion /></el-icon>
+                    </el-button>
+                  </div>
+                </template>
+              </Sender>
+            </div>
           </div>
         </div>
       </div>
@@ -247,9 +257,9 @@ function getConversationList() {
 const activeMenuKey = ref()
 
 // 获取指定的会话
-function getConversation(conversationId) {
+function getConversation(currentConversationId) {
   firstConversation.value = false
-  getSession(conversationId).then(res => {
+  getSession(currentConversationId).then(res => {
     chatList.value = []
     for (let i = 0; i < res.data.length; i++) {
       let item = res.data[i]
@@ -278,6 +288,7 @@ function newConversation() {
 // 选中会话
 function handleConversationChange(item) {
   proxy.$modal.msgSuccess(`切换到对应会话${JSON.stringify(item.label)}`)
+  conversationId.value = item.id
   getConversation(item.id)
 }
 
@@ -403,7 +414,7 @@ function getFakeItem(key, role, content) {
     isFog: role === 'ai', // 是否开启打字雾化效果，该效果 v1.1.6 新增，且在 typing 为 true 时生效，该效果会覆盖 typing 的 suffix 属性
     avatar,
     // 控制Bubble组件样式，这里增加最大宽度
-    maxWidth: "80%",
+    maxWidth: "90%",
     avatarSize: '24px', // 头像占位大小
     avatarGap: '12px', // 头像与气泡之间的距离
     // 传递福建信息

@@ -18,7 +18,7 @@ import com.yxx.common.utils.StringUtils;
 import com.yxx.common.utils.ip.AddressUtils;
 import com.yxx.common.utils.ip.IpUtils;
 import com.yxx.common.utils.uuid.IdUtils;
-import eu.bitwalker.useragentutils.UserAgent;
+import com.yxx.common.utils.http.UserAgentUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -159,12 +159,12 @@ public class TokenService
      */
     public void setUserAgent(LoginUser loginUser)
     {
-        UserAgent userAgent = UserAgent.parseUserAgentString(ServletUtils.getRequest().getHeader("User-Agent"));
+        String userAgent = ServletUtils.getRequest().getHeader("User-Agent");
         String ip = IpUtils.getIpAddr();
         loginUser.setIpaddr(ip);
         loginUser.setLoginLocation(AddressUtils.getRealAddressByIP(ip));
-        loginUser.setBrowser(userAgent.getBrowser().getName());
-        loginUser.setOs(userAgent.getOperatingSystem().getName());
+        loginUser.setBrowser(UserAgentUtils.getOperatingSystem(userAgent));
+        loginUser.setOs(UserAgentUtils.getBrowser(userAgent));
     }
 
     /**
