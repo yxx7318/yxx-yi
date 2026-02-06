@@ -3,6 +3,8 @@ package com.yxx.framework.aspectj;
 import java.util.Collection;
 import java.util.Map;
 
+import com.yxx.common.core.text.Convert;
+import com.yxx.common.utils.ExceptionUtil;
 import com.yxx.common.utils.MDCUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -111,7 +113,7 @@ public class LogAspect
             if (e != null)
             {
                 operLog.setStatus(BusinessStatus.FAIL.getCode());
-                operLog.setErrorMsg(StringUtils.substring(e.getMessage(), 0, PARAM_MAX_LENGTH));
+                operLog.setErrorMsg(StringUtils.substring(Convert.toStr(e.getMessage(), ExceptionUtil.getExceptionMessage(e)), 0, PARAM_MAX_LENGTH));
             }
             // 设置方法名称
             String className = joinPoint.getTarget().getClass().getName();
