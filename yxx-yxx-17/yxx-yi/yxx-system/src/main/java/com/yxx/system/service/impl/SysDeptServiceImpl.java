@@ -11,7 +11,6 @@ import com.yxx.common.constant.UserConstants;
 import com.yxx.common.core.domain.TreeSelect;
 import com.yxx.common.core.domain.entity.SysDept;
 import com.yxx.common.core.domain.entity.SysRole;
-import com.yxx.common.core.domain.entity.SysUser;
 import com.yxx.common.core.text.Convert;
 import com.yxx.common.exception.ServiceException;
 import com.yxx.common.utils.SecurityUtils;
@@ -188,7 +187,7 @@ public class SysDeptServiceImpl implements ISysDeptService
     @Override
     public void checkDeptDataScope(Long deptId)
     {
-        if (!SysUser.isAdmin(SecurityUtils.getUserId()) && StringUtils.isNotNull(deptId))
+        if (!SecurityUtils.isAdmin() && StringUtils.isNotNull(deptId))
         {
             SysDept dept = new SysDept();
             dept.setDeptId(deptId);

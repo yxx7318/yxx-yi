@@ -1,19 +1,24 @@
 package com.yxx.common.core.domain.entity;
 
-import java.util.Date;
-import java.util.List;
-import javax.validation.constraints.*;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.yxx.common.annotation.Excel;
 import com.yxx.common.annotation.Excel.ColumnType;
 import com.yxx.common.annotation.Excel.Type;
 import com.yxx.common.annotation.Excels;
 import com.yxx.common.core.domain.BaseEntity;
+import com.yxx.common.utils.SecurityUtils;
 import com.yxx.common.xss.Xss;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * 用户对象 sys_user
@@ -77,8 +82,8 @@ public class SysUser extends BaseEntity
 
     /** 部门对象 */
     @Excels({
-        @Excel(name = "部门名称", targetAttr = "deptName", type = Type.EXPORT),
-        @Excel(name = "部门负责人", targetAttr = "leader", type = Type.EXPORT)
+            @Excel(name = "部门名称", targetAttr = "deptName", type = Type.EXPORT),
+            @Excel(name = "部门负责人", targetAttr = "leader", type = Type.EXPORT)
     })
     private SysDept dept;
 
@@ -116,12 +121,7 @@ public class SysUser extends BaseEntity
 
     public boolean isAdmin()
     {
-        return isAdmin(this.userId);
-    }
-
-    public static boolean isAdmin(Long userId)
-    {
-        return userId != null && 1L == userId;
+        return SecurityUtils.isAdmin(this.userId);
     }
 
     public Long getDeptId()
@@ -202,6 +202,7 @@ public class SysUser extends BaseEntity
         this.avatar = avatar;
     }
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public String getPassword()
     {
         return password;
@@ -315,21 +316,26 @@ public class SysUser extends BaseEntity
     @Override
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
-            .append("userId", getUserId())
-            .append("deptId", getDeptId())
-            .append("userName", getUserName())
-            .append("nickName", getNickName())
-            .append("email", getEmail())
-            .append("phoneNumber", getPhoneNumber())
-            .append("sex", getSex())
-            .append("avatar", getAvatar())
-            .append("password", getPassword())
-            .append("status", getStatus())
-            .append("delFlag", getDelFlag())
-            .append("loginIp", getLoginIp())
-            .append("loginDate", getLoginDate())
-            .append("pwdUpdateDate", getPwdUpdateDate())
-            .append("super=>", super.toString())
-            .toString();
+                .append("userId", getUserId())
+                .append("deptId", getDeptId())
+                .append("userName", getUserName())
+                .append("nickName", getNickName())
+                .append("email", getEmail())
+                .append("phoneNumber", getPhoneNumber())
+                .append("sex", getSex())
+                .append("avatar", getAvatar())
+                .append("password", getPassword())
+                .append("status", getStatus())
+                .append("delFlag", getDelFlag())
+                .append("loginIp", getLoginIp())
+                .append("loginDate", getLoginDate())
+                .append("pwdUpdateDate", getPwdUpdateDate())
+                .append("dept", getDept())
+                .append("roles", getRoles())
+                .append("roleIds", getRoles())
+                .append("postIds", getPostIds())
+                .append("roleId", getRoleId())
+                .append("super=>", super.toString())
+                .toString();
     }
 }

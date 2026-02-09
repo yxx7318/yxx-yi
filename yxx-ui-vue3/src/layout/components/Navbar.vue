@@ -53,9 +53,6 @@
           </el-dropdown-menu>
         </template>
       </el-dropdown>
-      <div class="right-menu-item hover-effect setting" @click="setLayout" v-if="settingsStore.showSettings">
-        <svg-icon icon-class="more-up" />
-      </div>
     </div>
   </div>
 </template>
@@ -104,7 +101,7 @@ function logout() {
     type: 'warning'
   }).then(() => {
     userStore.logOut().then(() => {
-      location.href = import.meta.env.VITE_APP_PUBLIC_PATH ? import.meta.env.VITE_APP_PUBLIC_PATH : '' + '/index'
+      location.href = '/index'
     })
   }).catch(() => { })
 }
@@ -114,8 +111,44 @@ function setLayout() {
   emits('setLayout')
 }
 
-function toggleTheme() {
-  settingsStore.toggleTheme()
+async function toggleTheme(event) {
+  const x = event?.clientX || window.innerWidth / 2
+  const y = event?.clientY || window.innerHeight / 2
+  const wasDark = settingsStore.isDark
+
+  const isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  const isSupported = document.startViewTransition && !isReducedMotion
+
+  if (!isSupported) {
+    settingsStore.toggleTheme()
+    return
+  }
+
+  try {
+    const transition = document.startViewTransition(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 10))
+      settingsStore.toggleTheme()
+      await nextTick()
+    })
+    await transition.ready
+
+    const endRadius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y))
+    const clipPath = [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`]
+    document.documentElement.animate(
+      {
+        clipPath: !wasDark ? [...clipPath].reverse() : clipPath
+      }, {
+        duration: 650,
+        easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+        fill: "forwards",
+        pseudoElement: !wasDark ? "::view-transition-old(root)" : "::view-transition-new(root)"
+      }
+    )
+    await transition.finished
+  } catch (error) {
+    console.warn("View transition failed, falling back to immediate toggle:", error)
+    settingsStore.toggleTheme()
+  }
 }
 </script>
 
@@ -237,6 +270,7 @@ function toggleTheme() {
 
         .user-nickname{
           position: relative;
+          left: 0px;
           bottom: 10px;
           font-size: 14px;
           font-weight: bold;
