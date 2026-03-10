@@ -77,7 +77,7 @@
     "pinia": "2.2.2",
     "tslib": "^2.7.0",
     "uview-plus": "^3.3.32",
-    "vue": "3.4.21",
+    "vue": "3.5.0",
     "vue-i18n": "^9.14.2"
   },
   "devDependencies": {
