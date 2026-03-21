@@ -58,6 +58,47 @@
     <select id="selectListByOrderId" resultMap="PayRefundResult">
         <include refid="selectPayRefundVo"/>
         where order_id = #{orderId}
+        order by create_time desc
+    </select>
+
+    <select id="selectListByOrderIdAndStatus" resultMap="PayRefundResult">
+        <include refid="selectPayRefundVo"/>
+        where order_id = #{orderId} and refund_status = #{status}
+        order by create_time desc
+    </select>
+
+    <select id="selectRefundPageList" parameterType="com.yxx.pay.core.entity.vo.refund.PayRefundPageReqVO" resultMap="PayRefundResult">
+        <include refid="selectPayRefundVo"/>
+        <where>
+            <if test="refundNo != null and refundNo != ''">
+                and refund_no = #{refundNo}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="orderId != null">
+                and order_id = #{orderId}
+            </if>
+            <if test="merchantOrderId != null and merchantOrderId != ''">
+                and merchant_order_id = #{merchantOrderId}
+            </if>
+            <if test="merchantRefundId != null and merchantRefundId != ''">
+                and merchant_refund_id = #{merchantRefundId}
+            </if>
+            <if test="channelCode != null and channelCode != ''">
+                and channel_code = #{channelCode}
+            </if>
+            <if test="refundStatus != null">
+                and refund_status = #{refundStatus}
+            </if>
+            <if test="createTimeBegin != null">
+                and create_time &gt;= #{createTimeBegin}
+            </if>
+            <if test="createTimeEnd != null">
+                and create_time &lt;= #{createTimeEnd}
+            </if>
+        </where>
+        order by create_time desc
     </select>
 
     <select id="selectListByStatusAndCreateTimeGe" resultMap="PayRefundResult">

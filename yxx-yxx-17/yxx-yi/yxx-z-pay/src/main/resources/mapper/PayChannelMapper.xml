@@ -34,9 +34,15 @@
         where channel_code = #{channelCode}
     </select>
 
+    <select id="selectList" resultMap="PayChannelResult">
+        <include refid="selectPayChannelVo"/>
+        order by channel_id asc
+    </select>
+
     <select id="selectListByStatus" resultMap="PayChannelResult">
         <include refid="selectPayChannelVo"/>
         where status = #{status}
+        order by channel_id asc
     </select>
 
     <update id="updateStatus">

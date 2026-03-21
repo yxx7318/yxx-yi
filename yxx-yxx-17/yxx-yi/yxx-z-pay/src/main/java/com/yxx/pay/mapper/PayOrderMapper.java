@@ -2,6 +2,7 @@ package com.yxx.pay.mapper;
 
 import com.yxx.common.core.mapper.BaseMapperPlus;
 import com.yxx.pay.core.domain.order.PayOrderDO;
+import com.yxx.pay.core.entity.vo.order.PayOrderPageReqVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,6 +18,8 @@ public interface PayOrderMapper extends BaseMapperPlus<PayOrderDO> {
 
     PayOrderDO selectByMerchantOrderId(@Param("merchantOrderId") String merchantOrderId);
 
+    List<PayOrderDO> selectOrderPageList(PayOrderPageReqVO pageReqVO);
+
     List<PayOrderDO> selectListByStatusAndExpireTimeLt(@Param("status") Integer status, 
                                                         @Param("expireTime") LocalDateTime expireTime);
 
@@ -26,4 +29,5 @@ public interface PayOrderMapper extends BaseMapperPlus<PayOrderDO> {
 
     int updateRefundPrice(@Param("orderId") Long orderId, 
                           @Param("incrRefundPrice") Integer incrRefundPrice);
+
 }

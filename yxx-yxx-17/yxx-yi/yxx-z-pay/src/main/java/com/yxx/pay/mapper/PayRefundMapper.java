@@ -2,6 +2,7 @@ package com.yxx.pay.mapper;
 
 import com.yxx.common.core.mapper.BaseMapperPlus;
 import com.yxx.pay.core.domain.refund.PayRefundDO;
+import com.yxx.pay.core.entity.vo.refund.PayRefundPageReqVO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -15,9 +16,13 @@ public interface PayRefundMapper extends BaseMapperPlus<PayRefundDO> {
 
     PayRefundDO selectByRefundNo(String refundNo);
 
-    PayRefundDO selectByMerchantRefundId(@Param("merchantRefundId") String merchantRefundId);
+    PayRefundDO selectByMerchantRefundId(String merchantRefundId);
 
     List<PayRefundDO> selectListByOrderId(@Param("orderId") Long orderId);
+
+    List<PayRefundDO> selectListByOrderIdAndStatus(@Param("orderId") Long orderId, @Param("status") Integer status);
+
+    List<PayRefundDO> selectRefundPageList(PayRefundPageReqVO pageReqVO);
 
     List<PayRefundDO> selectListByStatusAndCreateTimeGe(@Param("status") Integer status, 
                                                          @Param("createTime") LocalDateTime createTime);
@@ -25,4 +30,5 @@ public interface PayRefundMapper extends BaseMapperPlus<PayRefundDO> {
     int updateByIdAndStatus(@Param("refundId") Long refundId, 
                             @Param("status") Integer status, 
                             @Param("updateObj") PayRefundDO updateObj);
+
 }

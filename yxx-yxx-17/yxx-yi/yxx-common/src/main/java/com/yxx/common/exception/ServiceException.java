@@ -42,6 +42,24 @@ public final class ServiceException extends RuntimeException
         this.code = code;
     }
 
+    public ServiceException(ErrorCode channelExistSameChannelError)
+    {
+        if (channelExistSameChannelError != null)
+        {
+            this.message = channelExistSameChannelError.getMsg();
+            this.code = channelExistSameChannelError.getCode();
+        }
+    }
+
+    public ServiceException(ErrorCode payOrderSubmitChannelError, Object... errorMsg)
+    {
+        if (payOrderSubmitChannelError != null)
+        {
+            this.message = String.format(payOrderSubmitChannelError.getMsg(), errorMsg);
+            this.code = payOrderSubmitChannelError.getCode();
+        }
+    }
+
     public String getDetailMessage()
     {
         return detailMessage;

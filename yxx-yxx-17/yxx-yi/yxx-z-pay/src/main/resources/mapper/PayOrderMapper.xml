@@ -54,6 +54,34 @@
         where merchant_order_id = #{merchantOrderId}
     </select>
 
+    <select id="selectOrderPageList" parameterType="com.yxx.pay.core.entity.vo.order.PayOrderPageReqVO" resultMap="PayOrderResult">
+        <include refid="selectPayOrderVo"/>
+        <where>
+            <if test="orderNo != null and orderNo != ''">
+                and order_no = #{orderNo}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="merchantOrderId != null and merchantOrderId != ''">
+                and merchant_order_id = #{merchantOrderId}
+            </if>
+            <if test="channelCode != null and channelCode != ''">
+                and channel_code = #{channelCode}
+            </if>
+            <if test="orderStatus != null">
+                and order_status = #{orderStatus}
+            </if>
+            <if test="createTimeBegin != null">
+                and create_time &gt;= #{createTimeBegin}
+            </if>
+            <if test="createTimeEnd != null">
+                and create_time &lt;= #{createTimeEnd}
+            </if>
+        </where>
+        order by create_time desc
+    </select>
+
     <select id="selectListByStatusAndExpireTimeLt" resultMap="PayOrderResult">
         <include refid="selectPayOrderVo"/>
         where order_status = #{status} and expire_time &lt; #{expireTime}

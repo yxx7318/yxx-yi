@@ -1,10 +1,12 @@
 package com.yxx.pay.core.entity.vo.order;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 import lombok.Data;
 
 @Schema(description = "支付订单提交 Response VO")
 @Data
+@Builder
 public class PayOrderSubmitRespVO {
 
     @Schema(description = "支付状态", requiredMode = Schema.RequiredMode.REQUIRED, example = "0")

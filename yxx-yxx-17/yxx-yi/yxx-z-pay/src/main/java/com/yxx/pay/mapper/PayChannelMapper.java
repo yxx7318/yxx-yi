@@ -14,7 +14,10 @@ public interface PayChannelMapper extends BaseMapperPlus<PayChannelDO> {
 
     PayChannelDO selectByChannelCode(String channelCode);
 
+    List<PayChannelDO> selectList();
+
     List<PayChannelDO> selectListByStatus(@Param("status") Integer status);
 
     int updateStatus(@Param("channelId") Long channelId, @Param("status") Integer status);
+
 }
