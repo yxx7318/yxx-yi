@@ -1,44 +1,42 @@
 package com.yxx.pay.core.entity.vo.refund;
 
-import com.yxx.common.core.domain.BaseEntity;
+import com.yxx.common.core.domain.PageQueryEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 
-@Schema(description = "管理后台 - 退款订单分页 Request VO")
+@Schema(description = "支付退款分页查询 Request VO")
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
-public class PayRefundPageReqVO extends BaseEntity {
+public class PayRefundPageReqVO extends PageQueryEntity {
 
-    @Schema(description = "应用编号", example = "1024")
-    private Long appId;
+    @Schema(description = "退款单号", example = "REF202401010001")
+    private String refundNo;
 
-    @Schema(description = "渠道编码", example = "wx_app")
-    private String channelCode;
+    @Schema(description = "用户编号", example = "1")
+    private Long userId;
 
-    @Schema(description = "商户支付单号", example = "10")
+    @Schema(description = "订单编号", example = "1")
+    private Long orderId;
+
+    @Schema(description = "商户订单编号", example = "ORDER_202401010001")
     private String merchantOrderId;
 
-    @Schema(description = "商户退款单号", example = "20")
+    @Schema(description = "商户退款单号", example = "REFUND_202401010001")
     private String merchantRefundId;
 
-    @Schema(description = "渠道支付单号", example = "30")
-    private String channelOrderNo;
+    @Schema(description = "渠道编码", example = "wx_pub")
+    private String channelCode;
 
-    @Schema(description = "渠道退款单号", example = "40")
-    private String channelRefundNo;
+    @Schema(description = "退款状态(0待退款 10成功 20失败)", example = "0")
+    private Integer refundStatus;
 
-    @Schema(description = "退款状态", example = "0")
-    private Integer status;
+    @Schema(description = "创建时间-开始")
+    private LocalDateTime createTimeBegin;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Schema(description = "创建时间")
-//    private LocalDateTime[] createTime;
-    private LocalDateTime[] createTimes;
+    @Schema(description = "创建时间-结束")
+    private LocalDateTime createTimeEnd;
 
 }

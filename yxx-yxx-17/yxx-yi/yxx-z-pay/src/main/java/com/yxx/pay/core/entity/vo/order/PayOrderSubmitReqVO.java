@@ -1,34 +1,28 @@
 package com.yxx.pay.core.entity.vo.order;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Data;
-import org.hibernate.validator.constraints.URL;
-
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import lombok.Data;
 
 import java.util.Map;
 
-@Schema(description = "管理后台 - 支付订单提交 Request VO")
+@Schema(description = "支付订单提交 Request VO")
 @Data
 public class PayOrderSubmitReqVO {
 
-    @Schema(description = "支付单编号", requiredMode = Schema.RequiredMode.REQUIRED, example = "1024")
-    @NotNull(message = "支付单编号不能为空")
-    private Long id;
+    @Schema(description = "订单编号", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
+    @NotNull(message = "订单编号不能为空")
+    private Long orderId;
 
-    @Schema(description = "支付渠道", requiredMode = Schema.RequiredMode.REQUIRED, example = "wx_pub")
-    @NotEmpty(message = "支付渠道不能为空")
+    @Schema(description = "渠道编码", requiredMode = Schema.RequiredMode.REQUIRED, example = "wx_pub")
+    @NotEmpty(message = "渠道编码不能为空")
     private String channelCode;
 
-    @Schema(description = "支付渠道的额外参数，例如说，微信公众号需要传递 openid 参数")
+    @Schema(description = "用户IP", example = "127.0.0.1")
+    private String userIp;
+
+    @Schema(description = "渠道额外参数", example = "{\"openid\":\"oUpF8uMuAJ...\"}")
     private Map<String, String> channelExtras;
-
-    @Schema(description = "展示模式", example = "url") // 参见 {@link PayDisplayModeEnum} 枚举。如果不传递，则每个支付渠道使用默认的方式
-    private String displayMode;
-
-    @Schema(description = "回跳地址")
-    @URL(message = "回跳地址的格式必须是 URL")
-    private String returnUrl;
 
 }

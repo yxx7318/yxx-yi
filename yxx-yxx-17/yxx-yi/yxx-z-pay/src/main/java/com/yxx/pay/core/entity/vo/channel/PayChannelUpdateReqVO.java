@@ -1,25 +1,17 @@
 package com.yxx.pay.core.entity.vo.channel;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-
-@Schema(description = "管理后台 - 支付渠道 更新 Request VO")
+@Schema(description = "支付渠道更新 Request VO")
 @Data
 @EqualsAndHashCode(callSuper = true)
-@ToString(callSuper = true)
-public class PayChannelUpdateReqVO extends PayChannelBaseVO {
+public class PayChannelUpdateReqVO extends PayChannelCreateReqVO {
 
-    @Schema(description = "商户编号", requiredMode = Schema.RequiredMode.REQUIRED)
-    @NotNull(message = "商户编号不能为空")
-    private Long id;
-
-    @Schema(description = "渠道配置的json字符串")
-    @NotBlank(message = "渠道配置不能为空")
-    private String config;
+    @Schema(description = "渠道编号", requiredMode = Schema.RequiredMode.REQUIRED, example = "1")
+    @NotNull(message = "渠道编号不能为空")
+    private Long channelId;
 
 }
