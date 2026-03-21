@@ -1,173 +1,102 @@
 package com.yxx.pay.core.domain.refund;
 
-import com.baomidou.mybatisplus.annotation.KeySequence;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.yxx.common.core.domain.BaseEntity;
-import com.yxx.pay.client.dto.refund.PayRefundRespDTO;
-import com.yxx.pay.core.domain.channel.PayChannelDO;
-import com.yxx.pay.core.domain.order.PayOrderDO;
-import com.yxx.pay.enums.PayChannelEnum;
-import com.yxx.pay.enums.refund.PayRefundStatusEnum;
+import com.yxx.common.core.domain.BaseColumnEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
+import java.io.Serial;
 import java.time.LocalDateTime;
 
-/**
- * 支付退款单 DO
- * 一个支付订单，可以拥有多个支付退款单
- * <p>
- * 即 PayOrderDO : PayRefundDO = 1 : n
- *
- * @author yxx
- */
+@Schema(description = "支付退款DO")
 @TableName("pay_refund")
-@KeySequence("pay_refund_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PayRefundDO extends BaseEntity {
+public class PayRefundDO extends BaseColumnEntity {
 
-    /**
-     * 退款单编号，数据库自增
-     */
-    @TableId
-    private Long id;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-    /**
-     * 外部退款号，根据规则生成
-     * <p>
-     * 调用支付渠道时，使用该字段作为对接的退款号：
-     * 1. 微信退款：对应 <a href="https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=9_4">申请退款</a> 的 out_refund_no 字段
-     * 2. 支付宝退款：对应 <a href="https://opendocs.alipay.com/open/02e7go"统一收单交易退款接口></a> 的 out_request_no 字段
-     */
-    private String no;
+    @Schema(description = "退款编号")
+    @TableId(value = "refund_id")
+    private Long refundId;
 
-    /**
-     * 渠道编号
-     * <p>
-     * 关联 {@link PayChannelDO#getId()}
-     */
-    private Long channelId;
+    @Schema(description = "退款单号")
+    @TableField("refund_no")
+    private String refundNo;
 
-    /**
-     * 渠道编码
-     * <p>
-     * 枚举 {@link PayChannelEnum}
-     */
-    private String channelCode;
-
-    /**
-     * 订单编号
-     * <p>
-     * 关联 {@link PayOrderDO#getId()}
-     */
+    @Schema(description = "订单编号")
+    @TableField("order_id")
     private Long orderId;
 
-    /**
-     * 支付订单编号
-     * <p>
-     * 冗余 {@link PayOrderDO#getNo()}
-     */
-    private String orderNo;
-
-    /**
-     * 用户编号
-     */
+    @Schema(description = "用户编号")
+    @TableField("user_id")
     private Long userId;
 
-    /**
-     * 用户类型
-     */
-    private Integer userType;
-
-    // ========== 商户相关字段 ==========
-    /**
-     * 商户订单编号
-     * <p>
-     * 例如说，内部系统 A 的订单号，需要保证每个 PayAppDO 唯一
-     */
+    @Schema(description = "商户订单编号")
+    @TableField("merchant_order_id")
     private String merchantOrderId;
 
-    /**
-     * 商户退款订单号
-     * <p>
-     * 例如说，内部系统 A 的订单号，需要保证每个 PayAppDO 唯一
-     */
+    @Schema(description = "商户退款单号")
+    @TableField("merchant_refund_id")
     private String merchantRefundId;
 
-    /**
-     * 异步通知地址
-     */
-    private String notifyUrl;
+    @Schema(description = "渠道编号")
+    @TableField("channel_id")
+    private Long channelId;
 
-    // ========== 退款相关字段 ==========
-    /**
-     * 退款状态
-     * <p>
-     * 枚举 {@link PayRefundStatusEnum}
-     */
-    private Integer status;
+    @Schema(description = "渠道编码")
+    @TableField("channel_code")
+    private String channelCode;
 
-    /**
-     * 支付金额，单位：分
-     */
-    private Integer payPrice;
-
-    /**
-     * 退款金额，单位：分
-     */
-    private Integer refundPrice;
-
-    /**
-     * 退款原因
-     */
-    private String reason;
-
-    /**
-     * 用户 IP
-     */
-    private String userIp;
-
-    // ========== 渠道相关字段 ==========
-    /**
-     * 渠道订单号
-     * <p>
-     * 冗余 {@link PayOrderDO#getChannelOrderNo()}
-     */
+    @Schema(description = "渠道订单号")
+    @TableField("channel_order_no")
     private String channelOrderNo;
 
-    /**
-     * 渠道退款单号
-     * <p>
-     * 1. 微信退款：对应 <a href="https://pay.weixin.qq.com/wiki/doc/api/micropay.php?chapter=9_4">申请退款</a> 的 refund_id 字段
-     * 2. 支付宝退款：没有字段
-     */
+    @Schema(description = "渠道退款单号")
+    @TableField("channel_refund_no")
     private String channelRefundNo;
 
-    /**
-     * 退款成功时间
-     */
+    @Schema(description = "原支付金额(分)")
+    @TableField("pay_price")
+    private Integer payPrice;
+
+    @Schema(description = "退款金额(分)")
+    @TableField("refund_price")
+    private Integer refundPrice;
+
+    @Schema(description = "退款原因")
+    @TableField("refund_reason")
+    private String refundReason;
+
+    @Schema(description = "退款状态(0待退款 10成功 20失败)")
+    @TableField("refund_status")
+    private Integer refundStatus;
+
+    @Schema(description = "退款成功时间")
+    @TableField("success_time")
     private LocalDateTime successTime;
 
-    /**
-     * 调用渠道的错误码
-     */
+    @Schema(description = "用户IP")
+    @TableField("user_ip")
+    private String userIp;
+
+    @Schema(description = "渠道错误码")
+    @TableField("channel_error_code")
     private String channelErrorCode;
 
-    /**
-     * 调用渠道的错误提示
-     */
+    @Schema(description = "渠道错误信息")
+    @TableField("channel_error_msg")
     private String channelErrorMsg;
 
-    /**
-     * 支付渠道的同步/异步通知的内容
-     * <p>
-     * 对应 {@link PayRefundRespDTO#getRawData()}
-     */
+    @Schema(description = "渠道回调数据")
+    @TableField("channel_notify_data")
     private String channelNotifyData;
 
 }

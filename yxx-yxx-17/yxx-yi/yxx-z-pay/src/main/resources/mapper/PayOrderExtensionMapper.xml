@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxx.pay.mapper.PayOrderExtensionMapper">
+
+    <resultMap type="com.yxx.pay.core.domain.order.PayOrderExtensionDO" id="PayOrderExtensionResult">
+        <id property="extensionId" column="extension_id"/>
+        <result property="orderId" column="order_id"/>
+        <result property="orderNo" column="order_no"/>
+        <result property="channelId" column="channel_id"/>
+        <result property="channelCode" column="channel_code"/>
+        <result property="userIp" column="user_ip"/>
+        <result property="orderStatus" column="order_status"/>
+        <result property="channelExtras" column="channel_extras" typeHandler="com.baomidou.mybatisplus.extension.handlers.JacksonTypeHandler"/>
+        <result property="channelNotifyData" column="channel_notify_data"/>
+        <result property="channelErrorCode" column="channel_error_code"/>
+        <result property="channelErrorMsg" column="channel_error_msg"/>
+        <result property="createById" column="create_by_id"/>
+        <result property="createByName" column="create_by_name"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateById" column="update_by_id"/>
+        <result property="updateByName" column="update_by_name"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="selectPayOrderExtensionVo">
+        select extension_id, order_id, order_no, channel_id, channel_code, user_ip,
+               order_status, channel_extras, channel_notify_data, channel_error_code, channel_error_msg,
+               create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark
+        from pay_order_extension
+    </sql>
+
+    <select id="selectByExtensionId" parameterType="Long" resultMap="PayOrderExtensionResult">
+        <include refid="selectPayOrderExtensionVo"/>
+        where extension_id = #{extensionId}
+    </select>
+
+    <select id="selectByOrderNo" parameterType="String" resultMap="PayOrderExtensionResult">
+        <include refid="selectPayOrderExtensionVo"/>
+        where order_no = #{orderNo}
+    </select>
+
+    <select id="selectListByOrderId" resultMap="PayOrderExtensionResult">
+        <include refid="selectPayOrderExtensionVo"/>
+        where order_id = #{orderId}
+    </select>
+
+    <select id="selectListByOrderIdAndStatus" resultMap="PayOrderExtensionResult">
+        <include refid="selectPayOrderExtensionVo"/>
+        where order_id = #{orderId} and order_status = #{status}
+    </select>
+
+    <select id="selectListByStatusAndCreateTimeGe" resultMap="PayOrderExtensionResult">
+        <include refid="selectPayOrderExtensionVo"/>
+        where order_status = #{status} and create_time &gt;= #{createTime}
+    </select>
+
+    <update id="updateByIdAndStatus">
+        update pay_order_extension
+        <set>
+            <if test="updateObj.orderStatus != null">order_status = #{updateObj.orderStatus},</if>
+            <if test="updateObj.channelNotifyData != null">channel_notify_data = #{updateObj.channelNotifyData},</if>
+            <if test="updateObj.channelErrorCode != null">channel_error_code = #{updateObj.channelErrorCode},</if>
+            <if test="updateObj.channelErrorMsg != null">channel_error_msg = #{updateObj.channelErrorMsg},</if>
+            update_time = now()
+        </set>
+        where extension_id = #{extensionId} and order_status = #{status}
+    </update>
+
+</mapper>

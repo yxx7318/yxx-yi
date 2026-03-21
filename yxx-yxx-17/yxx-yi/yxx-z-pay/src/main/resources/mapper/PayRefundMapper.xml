@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.yxx.pay.mapper.PayRefundMapper">
+
+    <resultMap type="com.yxx.pay.core.domain.refund.PayRefundDO" id="PayRefundResult">
+        <id property="refundId" column="refund_id"/>
+        <result property="refundNo" column="refund_no"/>
+        <result property="orderId" column="order_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="merchantOrderId" column="merchant_order_id"/>
+        <result property="merchantRefundId" column="merchant_refund_id"/>
+        <result property="channelId" column="channel_id"/>
+        <result property="channelCode" column="channel_code"/>
+        <result property="channelOrderNo" column="channel_order_no"/>
+        <result property="channelRefundNo" column="channel_refund_no"/>
+        <result property="payPrice" column="pay_price"/>
+        <result property="refundPrice" column="refund_price"/>
+        <result property="refundReason" column="refund_reason"/>
+        <result property="refundStatus" column="refund_status"/>
+        <result property="successTime" column="success_time"/>
+        <result property="userIp" column="user_ip"/>
+        <result property="channelErrorCode" column="channel_error_code"/>
+        <result property="channelErrorMsg" column="channel_error_msg"/>
+        <result property="channelNotifyData" column="channel_notify_data"/>
+        <result property="createById" column="create_by_id"/>
+        <result property="createByName" column="create_by_name"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateById" column="update_by_id"/>
+        <result property="updateByName" column="update_by_name"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="selectPayRefundVo">
+        select refund_id, refund_no, order_id, user_id, merchant_order_id, merchant_refund_id,
+               channel_id, channel_code, channel_order_no, channel_refund_no,
+               pay_price, refund_price, refund_reason, refund_status, success_time, user_ip,
+               channel_error_code, channel_error_msg, channel_notify_data,
+               create_by_id, create_by_name, create_time, update_by_id, update_by_name, update_time, remark
+        from pay_refund
+    </sql>
+
+    <select id="selectByRefundId" parameterType="Long" resultMap="PayRefundResult">
+        <include refid="selectPayRefundVo"/>
+        where refund_id = #{refundId}
+    </select>
+
+    <select id="selectByRefundNo" parameterType="String" resultMap="PayRefundResult">
+        <include refid="selectPayRefundVo"/>
+        where refund_no = #{refundNo}
+    </select>
+
+    <select id="selectByMerchantRefundId" parameterType="String" resultMap="PayRefundResult">
+        <include refid="selectPayRefundVo"/>
+        where merchant_refund_id = #{merchantRefundId}
+    </select>
+
+    <select id="selectListByOrderId" resultMap="PayRefundResult">
+        <include refid="selectPayRefundVo"/>
+        where order_id = #{orderId}
+    </select>
+
+    <select id="selectListByStatusAndCreateTimeGe" resultMap="PayRefundResult">
+        <include refid="selectPayRefundVo"/>
+        where refund_status = #{status} and create_time &gt;= #{createTime}
+    </select>
+
+    <update id="updateByIdAndStatus">
+        update pay_refund
+        <set>
+            <if test="updateObj.refundStatus != null">refund_status = #{updateObj.refundStatus},</if>
+            <if test="updateObj.channelRefundNo != null">channel_refund_no = #{updateObj.channelRefundNo},</if>
+            <if test="updateObj.successTime != null">success_time = #{updateObj.successTime},</if>
+            <if test="updateObj.channelErrorCode != null">channel_error_code = #{updateObj.channelErrorCode},</if>
+            <if test="updateObj.channelErrorMsg != null">channel_error_msg = #{updateObj.channelErrorMsg},</if>
+            <if test="updateObj.channelNotifyData != null">channel_notify_data = #{updateObj.channelNotifyData},</if>
+            update_time = now()
+        </set>
+        where refund_id = #{refundId} and refund_status = #{status}
+    </update>
+
+</mapper>

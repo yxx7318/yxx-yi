@@ -1,4 +1,4 @@
-package com.yxx.pay.core.domain.redis;
+package com.yxx.pay.redis;
 
 /**
  * 支付 Redis Key 枚举类

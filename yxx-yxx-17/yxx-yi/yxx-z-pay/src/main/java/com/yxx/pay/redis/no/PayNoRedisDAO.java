@@ -1,12 +1,13 @@
-package com.yxx.pay.core.domain.redis.no;
+package com.yxx.pay.redis.no;
 
 import cn.hutool.core.date.DatePattern;
 import cn.hutool.core.date.DateUtil;
-import cn.iocoder.yudao.module.pay.dal.redis.RedisKeyConstants;
+import com.yxx.pay.redis.RedisKeyConstants;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Repository;
 
-import javax.annotation.Resource;
+
 import java.time.Duration;
 import java.time.LocalDateTime;
 
@@ -16,10 +17,10 @@ import java.time.LocalDateTime;
  * @author yxx
  */
 @Repository
+@RequiredArgsConstructor
 public class PayNoRedisDAO {
 
-    @Resource
-    private StringRedisTemplate stringRedisTemplate;
+    private final StringRedisTemplate stringRedisTemplate;
 
     /**
      * 生成序号

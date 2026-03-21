@@ -1,66 +1,52 @@
 package com.yxx.pay.core.domain.channel;
 
-import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.handlers.Fastjson2TypeHandler;
-import com.yxx.common.core.domain.BaseEntity;
-import com.yxx.common.enums.CommonStatusEnum;
+import com.yxx.common.core.domain.BaseColumnEntity;
 import com.yxx.pay.client.PayClientConfig;
-import com.yxx.pay.enums.PayChannelEnum;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
-/**
- * 支付渠道 DO
- * 一个应用下，会有多种支付渠道，例如说微信支付、支付宝支付等等
- * <p>
- * 即 PayAppDO : PayChannelDO = 1 : n
- *
- * @author yxx
- */
+import java.io.Serial;
+import java.math.BigDecimal;
+
+@Schema(description = "支付渠道DO")
 @TableName(value = "pay_channel", autoResultMap = true)
-@KeySequence("pay_channel_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PayChannelDO extends BaseEntity {
+public class PayChannelDO extends BaseColumnEntity {
 
-    /**
-     * 渠道编号，数据库自增
-     */
-    private Long id;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-    /**
-     * 渠道编码
-     * <p>
-     * 枚举 {@link PayChannelEnum}
-     */
-    private String code;
+    @Schema(description = "渠道编号")
+    @TableId(value = "channel_id")
+    private Long channelId;
 
-    /**
-     * 状态
-     * <p>
-     * 枚举 {@link CommonStatusEnum}
-     */
+    @Schema(description = "渠道编码")
+    @TableField("channel_code")
+    private String channelCode;
+
+    @Schema(description = "渠道名称")
+    @TableField("channel_name")
+    private String channelName;
+
+    @Schema(description = "渠道配置(JSON格式)")
+    @TableField(value = "channel_config", typeHandler = Fastjson2TypeHandler.class)
+    private PayClientConfig channelConfig;
+
+    @Schema(description = "渠道手续费率(百分比)")
+    @TableField("channel_fee_rate")
+    private BigDecimal channelFeeRate;
+
+    @Schema(description = "状态(0正常 1停用)")
+    @TableField("status")
     private Integer status;
-
-    /**
-     * 渠道费率，单位：百分比
-     */
-    private Double feeRate;
-
-    /**
-     * 备注
-     */
-    private String remark;
-
-    /**
-     * 支付渠道配置
-     */
-    @TableField(typeHandler = Fastjson2TypeHandler.class)
-    private PayClientConfig config;
 
 }

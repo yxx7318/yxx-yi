@@ -1,155 +1,99 @@
 package com.yxx.pay.core.domain.order;
 
-import com.yxx.pay.core.domain.channel.PayChannelDO;
-import com.yxx.pay.enums.PayChannelEnum;
-import com.yxx.pay.enums.order.PayOrderStatusEnum;
-import com.baomidou.mybatisplus.annotation.KeySequence;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.yxx.common.core.domain.BaseEntity;
+import com.yxx.common.core.domain.BaseColumnEntity;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 
+import java.io.Serial;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-/**
- * 支付订单 DO
- *
- * @author yxx
- */
+@Schema(description = "支付订单DO")
 @TableName("pay_order")
-@KeySequence("pay_order_seq") // 用于 Oracle、PostgreSQL、Kingbase、DB2、H2 数据库的主键自增。如果是 MySQL 等数据库，可不写。
 @Data
 @EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PayOrderDO extends BaseEntity {
+public class PayOrderDO extends BaseColumnEntity {
 
-    /**
-     * 订单编号，数据库自增
-     */
-    private Long id;
+    @Serial
+    private static final long serialVersionUID = 1L;
 
-    /**
-     * 渠道编号
-     * <p>
-     * 关联 {@link PayChannelDO#getId()}
-     */
-    private Long channelId;
+    @Schema(description = "订单编号")
+    @TableId(value = "order_id")
+    private Long orderId;
 
-    /**
-     * 渠道编码
-     * <p>
-     * 枚举 {@link PayChannelEnum}
-     */
-    private String channelCode;
+    @Schema(description = "支付订单号")
+    @TableField("order_no")
+    private String orderNo;
 
-    /**
-     * 用户编号
-     */
+    @Schema(description = "用户编号")
+    @TableField("user_id")
     private Long userId;
 
-    /**
-     * 用户类型
-     */
-    private Integer userType;
-
-    // ========== 商户相关字段 ==========
-
-    /**
-     * 商户订单编号
-     * <p>
-     * 例如说，内部系统 A 的订单号，需要保证每个 PayAppDO 唯一
-     */
+    @Schema(description = "商户订单编号")
+    @TableField("merchant_order_id")
     private String merchantOrderId;
 
-    /**
-     * 商品标题
-     */
+    @Schema(description = "商品标题")
+    @TableField("subject")
     private String subject;
 
-    /**
-     * 商品描述信息
-     */
+    @Schema(description = "商品描述")
+    @TableField("body")
     private String body;
 
-    /**
-     * 异步通知地址
-     */
-    private String notifyUrl;
+    @Schema(description = "渠道编号")
+    @TableField("channel_id")
+    private Long channelId;
 
-    // ========== 订单相关字段 ==========
+    @Schema(description = "渠道编码")
+    @TableField("channel_code")
+    private String channelCode;
 
-    /**
-     * 支付金额，单位：分
-     */
-    private Integer price;
-
-    /**
-     * 渠道手续费，单位：百分比
-     * <p>
-     * 冗余 {@link PayChannelDO#getFeeRate()}
-     */
-    private Double channelFeeRate;
-
-    /**
-     * 渠道手续金额，单位：分
-     */
-    private Integer channelFeePrice;
-
-    /**
-     * 支付状态
-     * <p>
-     * 枚举 {@link PayOrderStatusEnum}
-     */
-    private Integer status;
-
-    /**
-     * 用户 IP
-     */
-    private String userIp;
-
-    /**
-     * 订单失效时间
-     */
-    private LocalDateTime expireTime;
-
-    /**
-     * 订单支付成功时间
-     */
-    private LocalDateTime successTime;
-
-    /**
-     * 支付成功的订单拓展单编号
-     * <p>
-     * 关联 {@link PayOrderExtensionDO#getId()}
-     */
-    private Long extensionId;
-
-    /**
-     * 支付成功的外部订单号
-     * <p>
-     * 关联 {@link PayOrderExtensionDO#getNo()}
-     */
-    private String no;
-
-    // ========== 退款相关字段 ==========
-    /**
-     * 退款总金额，单位：分
-     */
-    private Integer refundPrice;
-
-    // ========== 渠道相关字段 ==========
-    /**
-     * 渠道用户编号
-     * <p>
-     * 例如说，微信 openid、支付宝账号
-     */
+    @Schema(description = "渠道用户编号(openid等)")
+    @TableField("channel_user_id")
     private String channelUserId;
 
-    /**
-     * 渠道订单号
-     */
+    @Schema(description = "渠道订单号")
+    @TableField("channel_order_no")
     private String channelOrderNo;
+
+    @Schema(description = "支付金额(分)")
+    @TableField("pay_price")
+    private Integer payPrice;
+
+    @Schema(description = "渠道手续费率")
+    @TableField("channel_fee_rate")
+    private BigDecimal channelFeeRate;
+
+    @Schema(description = "渠道手续费(分)")
+    @TableField("channel_fee_price")
+    private Integer channelFeePrice;
+
+    @Schema(description = "支付状态(0待支付 10成功 20退款 30关闭)")
+    @TableField("order_status")
+    private Integer orderStatus;
+
+    @Schema(description = "订单失效时间")
+    @TableField("expire_time")
+    private LocalDateTime expireTime;
+
+    @Schema(description = "支付成功时间")
+    @TableField("success_time")
+    private LocalDateTime successTime;
+
+    @Schema(description = "成功扩展单编号")
+    @TableField("extension_id")
+    private Long extensionId;
+
+    @Schema(description = "已退款金额(分)")
+    @TableField("refund_price")
+    private Integer refundPrice;
 
 }
