@@ -10,11 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-/**
- * 退款单 API 实现类
- *
- * @author yxx
- */
 @Service
 @RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
 public class PayRefundApiImpl implements PayRefundApi {
@@ -29,6 +24,12 @@ public class PayRefundApiImpl implements PayRefundApi {
     @Override
     public PayRefundRespDTO getRefund(Long id) {
         PayRefundDO refund = payRefundService.getRefund(id);
+        return BeanUtils.convertBean(refund, PayRefundRespDTO.class);
+    }
+
+    @Override
+    public PayRefundRespDTO getRefundByMerchantRefundId(String merchantRefundId) {
+        PayRefundDO refund = payRefundService.getRefundByMerchantRefundId(merchantRefundId);
         return BeanUtils.convertBean(refund, PayRefundRespDTO.class);
     }
 
