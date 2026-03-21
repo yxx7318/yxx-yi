@@ -8,7 +8,7 @@ import com.baomidou.mybatisplus.core.metadata.TableInfoHelper;
 import com.baomidou.mybatisplus.core.toolkit.LambdaUtils;
 import com.baomidou.mybatisplus.core.toolkit.reflect.GenericTypeUtils;
 import com.baomidou.mybatisplus.core.toolkit.support.SFunction;
-import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
+import com.yxx.common.core.domain.BaseColumnEntity;
 import com.yxx.common.core.mapper.BaseMapperPlus;
 import com.yxx.common.utils.StringUtils;
 import org.apache.ibatis.reflection.property.PropertyNamer;
@@ -32,7 +32,7 @@ public class WrapperUtils<T> extends LambdaQueryWrapper<T> {
     /**
      * 通过Mapper获取到实体类字节码
      */
-    public static <T extends BaseMapperPlus> Class<?> getEntityClassByMapper(Class<T> mapperPlus) {
+    public static <K extends BaseColumnEntity, T extends BaseMapperPlus<K>> Class<?> getEntityClassByMapper(Class<T> mapperPlus) {
         return GenericTypeUtils.resolveTypeArguments(mapperPlus, BaseMapperPlus.class)[0];
     }
 

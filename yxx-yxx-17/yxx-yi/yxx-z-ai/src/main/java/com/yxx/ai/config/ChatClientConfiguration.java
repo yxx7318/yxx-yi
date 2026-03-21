@@ -1,12 +1,11 @@
 package com.yxx.ai.config;
 
-import com.yxx.ai.config.model.AlibabaOpenAiChatModel;
-import com.yxx.ai.config.storage.RedisChatMemory;
 import com.yxx.ai.config.tools.InvoiceTool;
+import com.yxx.common.utils.spring.SpringUtils;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
-import org.springframework.ai.chat.client.advisor.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
+import org.springframework.ai.chat.client.advisor.vectorstore.QuestionAnswerAdvisor;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.openai.OpenAiChatModel;
 import org.springframework.ai.openai.OpenAiEmbeddingModel;
@@ -19,12 +18,6 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ChatClientConfiguration {
-
-    @Bean
-    public ChatMemory chatMemory() {
-        // InMemoryChatMemory
-        return new RedisChatMemory();
-    }
 
     @Bean
     public VectorStore vectorStore(OpenAiEmbeddingModel embeddingModel) {
@@ -96,23 +89,16 @@ public class ChatClientConfiguration {
 //    }
 
     @Bean
-    public ChatClient ragClient(AlibabaOpenAiChatModel model, ChatMemory chatMemory, VectorStore vectorStore, ToolCallbackProvider mcpTools) {
+    public ChatClient ragClient(OpenAiChatModel model, ChatMemory chatMemory, ToolCallbackProvider mcpTools) {
         return ChatClient
                 .builder(model)
                 .defaultSystem("你是一个热情的YXX智能体，如果有知识库，请理解引用知识库内容回答，如果没有知识库，正常回答即可。")
                 .defaultAdvisors(
                         new SimpleLoggerAdvisor(),
-                        new MessageChatMemoryAdvisor(chatMemory),
-                        new QuestionAnswerAdvisor(
-                                vectorStore,
-                                SearchRequest.builder()
-                                        .similarityThreshold(0.6)
-                                        .topK(10)
-                                        .build()
-                        )
+                        MessageChatMemoryAdvisor.builder(chatMemory).build()
                 )
-                .defaultTools(new InvoiceTool())
-                .defaultTools(mcpTools)
+                .defaultTools(SpringUtils.getBean(InvoiceTool.class))
+                .defaultToolCallbacks(mcpTools)
                 .build();
     }
 
@@ -124,14 +110,11 @@ public class ChatClientConfiguration {
                         "除此之外，你每次进行函数调用，只需要选择和调用一个函数即可")
                 .defaultAdvisors(
                         new SimpleLoggerAdvisor(),
-                        new MessageChatMemoryAdvisor(chatMemory),
-                        new QuestionAnswerAdvisor(
-                                vectorStore,
-                                SearchRequest.builder()
-                                        .similarityThreshold(0.6)
-                                        .topK(10)
-                                        .build()
-                        )
+                        MessageChatMemoryAdvisor.builder(chatMemory).build(),
+                        QuestionAnswerAdvisor.builder(vectorStore).searchRequest(SearchRequest.builder()
+                                .similarityThreshold(0.6)
+                                .topK(10)
+                                .build()).build()
                 )
                 .build();
     }

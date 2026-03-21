@@ -1,8 +1,12 @@
 <template>
-  <div class="navbar">
+  <div class="navbar" :class="'nav' + settingsStore.navType">
     <hamburger id="hamburger-container" :is-active="appStore.sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
-    <breadcrumb v-if="!settingsStore.topNav" id="breadcrumb-container" class="breadcrumb-container" />
-    <top-nav v-if="settingsStore.topNav" id="topmenu-container" class="topmenu-container" />
+    <breadcrumb v-if="settingsStore.navType == 1" id="breadcrumb-container" class="breadcrumb-container" />
+    <top-nav v-if="settingsStore.navType == 2" id="topmenu-container" class="topmenu-container" />
+    <template v-if="settingsStore.navType == 3">
+      <logo v-show="settingsStore.sidebarLogo" :collapse="false"></logo>
+      <top-bar id="topbar-container" class="topbar-container" />
+    </template>
 
     <div class="right-menu">
       <template v-if="appStore.device !== 'mobile'">
@@ -49,9 +53,6 @@
           </el-dropdown-menu>
         </template>
       </el-dropdown>
-      <div class="right-menu-item hover-effect setting" @click="setLayout" v-if="settingsStore.showSettings">
-        <svg-icon icon-class="more-up" />
-      </div>
     </div>
   </div>
 </template>
@@ -60,6 +61,8 @@
 import { ElMessageBox } from 'element-plus'
 import Breadcrumb from '@/components/Breadcrumb'
 import TopNav from '@/components/TopNav'
+import TopBar from './TopBar'
+import Logo from './Sidebar/Logo'
 import Hamburger from '@/components/Hamburger'
 import Screenfull from '@/components/Screenfull'
 import SizeSelect from '@/components/SizeSelect'
@@ -98,7 +101,7 @@ function logout() {
     type: 'warning'
   }).then(() => {
     userStore.logOut().then(() => {
-      location.href = import.meta.env.VITE_APP_PUBLIC_PATH ? import.meta.env.VITE_APP_PUBLIC_PATH : '' + '/index'
+      location.href = '/index'
     })
   }).catch(() => { })
 }
@@ -108,26 +111,75 @@ function setLayout() {
   emits('setLayout')
 }
 
-function toggleTheme() {
-  settingsStore.toggleTheme()
+async function toggleTheme(event) {
+  const x = event?.clientX || window.innerWidth / 2
+  const y = event?.clientY || window.innerHeight / 2
+  const wasDark = settingsStore.isDark
+
+  const isReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  const isSupported = document.startViewTransition && !isReducedMotion
+
+  if (!isSupported) {
+    settingsStore.toggleTheme()
+    return
+  }
+
+  try {
+    const transition = document.startViewTransition(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 10))
+      settingsStore.toggleTheme()
+      await nextTick()
+    })
+    await transition.ready
+
+    const endRadius = Math.hypot(Math.max(x, window.innerWidth - x), Math.max(y, window.innerHeight - y))
+    const clipPath = [`circle(0px at ${x}px ${y}px)`, `circle(${endRadius}px at ${x}px ${y}px)`]
+    document.documentElement.animate(
+      {
+        clipPath: !wasDark ? [...clipPath].reverse() : clipPath
+      }, {
+        duration: 650,
+        easing: "cubic-bezier(0.4, 0, 0.2, 1)",
+        fill: "forwards",
+        pseudoElement: !wasDark ? "::view-transition-old(root)" : "::view-transition-new(root)"
+      }
+    )
+    await transition.finished
+  } catch (error) {
+    console.warn("View transition failed, falling back to immediate toggle:", error)
+    settingsStore.toggleTheme()
+  }
 }
 </script>
 
 <style lang='scss' scoped>
+.navbar.nav3 {
+  .hamburger-container {
+    display: none !important;
+  }
+}
+
 .navbar {
   height: 50px;
   overflow: hidden;
   position: relative;
   background: var(--navbar-bg);
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
+  display: flex;
+  align-items: center;
+  // padding: 0 8px;
+  box-sizing: border-box;
 
   .hamburger-container {
     line-height: 46px;
     height: 100%;
-    float: left;
     cursor: pointer;
     transition: background 0.3s;
     -webkit-tap-highlight-color: transparent;
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin-right: 8px;
 
     &:hover {
       background: rgba(0, 0, 0, 0.025);
@@ -135,12 +187,21 @@ function toggleTheme() {
   }
 
   .breadcrumb-container {
-    float: left;
+    flex-shrink: 0;
   }
 
   .topmenu-container {
     position: absolute;
     left: 50px;
+  }
+
+  .topbar-container {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    margin-left: 8px;
   }
 
   .errLog-container {
@@ -149,10 +210,11 @@ function toggleTheme() {
   }
 
   .right-menu {
-    float: right;
     height: 100%;
     line-height: 50px;
     display: flex;
+    align-items: center;
+    margin-left: auto;
 
     &:focus {
       outline: none;
@@ -208,6 +270,7 @@ function toggleTheme() {
 
         .user-nickname{
           position: relative;
+          left: 0px;
           bottom: 10px;
           font-size: 14px;
           font-weight: bold;

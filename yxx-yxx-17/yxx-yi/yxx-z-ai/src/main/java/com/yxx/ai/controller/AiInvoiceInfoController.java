@@ -39,7 +39,7 @@ import org.springframework.validation.annotation.Validated;
  * 发票信息Controller
  *
  * @author yxx
- * @date 2025-11-30
+ * @date 2026-01-27
  */
 @Tag(name = "发票信息管理-AiInvoiceInfo")
 @RestController

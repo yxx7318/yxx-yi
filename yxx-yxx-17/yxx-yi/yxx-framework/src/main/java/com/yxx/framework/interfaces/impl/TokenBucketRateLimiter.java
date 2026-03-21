@@ -26,7 +26,7 @@ import java.util.List;
  * <p>
  * <a href="https://blog.csdn.net/weixin_42645678/article/details/124428393">redis实现令牌桶的正确姿势</a>
  *
- * @author : yxx
+ * @author yxx
  */
 @Component
 public class TokenBucketRateLimiter implements RateLimitInterface

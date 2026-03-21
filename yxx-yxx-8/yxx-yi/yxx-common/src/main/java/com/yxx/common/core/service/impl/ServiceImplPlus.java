@@ -84,14 +84,14 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseColumnEn
     /**
      * 获取MP通用分页结果
      */
-    public Page<T> getMpDoPage(Integer pageNum, Integer pageSize) {
-        return getMpDoPage(pageNum, pageSize, null);
+    public Page<T> getMpDOPage(Integer pageNum, Integer pageSize) {
+        return getMpDOPage(pageNum, pageSize, null);
     }
 
     /**
      * 获取MP通用分页结果
      */
-    public Page<T> getMpDoPage(Integer pageNum, Integer pageSize, Wrapper<T> wrapper) {
+    public Page<T> getMpDOPage(Integer pageNum, Integer pageSize, Wrapper<T> wrapper) {
         return MpPageUtils.getSelectPage(pageNum, pageSize, this.baseMapper, wrapper);
     }
 
@@ -99,15 +99,15 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseColumnEn
      * 获取MP通用分页结果
      */
     @Override
-    public <DTO extends PageQueryEntity> Page<T> getMpDoPage(DTO dto) {
-        return this.getMpDoPage(dto, null);
+    public <DTO extends PageQueryEntity> Page<T> getMpDOPage(DTO dto) {
+        return this.getMpDOPage(dto, null);
     }
 
     /**
      * 获取MP分页结果
      */
     @Override
-    public <DTO extends PageQueryEntity> Page<T> getMpDoPage(DTO dto, Wrapper<T> wrapper) {
+    public <DTO extends PageQueryEntity> Page<T> getMpDOPage(DTO dto, Wrapper<T> wrapper) {
         return MpPageUtils.getSelectPage(dto, this.baseMapper, wrapper);
     }
 
@@ -148,7 +148,7 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseColumnEn
      */
     @Override
     public PageResult<T> getMpDoPageResult(Integer pageNum, Integer pageSize) {
-        return MpPageUtils.of(this.getMpDoPage(pageNum, pageSize));
+        return MpPageUtils.of(this.getMpDOPage(pageNum, pageSize));
     }
 
     /**
@@ -164,7 +164,7 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseColumnEn
      */
     @Override
     public <VO> PageResult<VO> getMpVoPageResult(Integer pageNum, Integer pageSize, Wrapper<T> wrapper, Class<VO> voClass) {
-        Page<T> page = this.getMpDoPage(pageNum, pageSize, wrapper);
+        Page<T> page = this.getMpDOPage(pageNum, pageSize, wrapper);
         return MpPageUtils.of(page, voClass);
     }
 
@@ -181,7 +181,7 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseColumnEn
      */
     @Override
     public <VO> PageResult<VO> getMpVoPageResult(Integer pageNum, Integer pageSize, Wrapper<T> wrapper, Function<T, VO> convertor) {
-        Page<T> page = this.getMpDoPage(pageNum, pageSize, wrapper);
+        Page<T> page = this.getMpDOPage(pageNum, pageSize, wrapper);
         return MpPageUtils.of(page, convertor);
     }
 
@@ -190,7 +190,7 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseColumnEn
      */
     @Override
     public <DTO extends PageQueryEntity> PageResult<T> getMpDoPageResult(DTO dto) {
-        return MpPageUtils.of(this.getMpDoPage(dto));
+        return MpPageUtils.of(this.getMpDOPage(dto));
     }
 
     /**
@@ -214,7 +214,7 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseColumnEn
      */
     @Override
     public <DTO extends PageQueryEntity, VO> PageResult<VO> getMpVoPageResult(DTO dto, Wrapper<T> wrapper, Class<VO> voClass){
-        Page<T> page = this.getMpDoPage(dto, wrapper);
+        Page<T> page = this.getMpDOPage(dto, wrapper);
         return MpPageUtils.of(page, voClass);
     }
 
@@ -223,7 +223,7 @@ public class ServiceImplPlus<M extends BaseMapperPlus<T>, T extends BaseColumnEn
      */
     @Override
     public <DTO extends PageQueryEntity, VO> PageResult<VO> getMpVoPageResult(DTO dto, Wrapper<T> wrapper, Function<T, VO> convertor) {
-        Page<T> page = this.getMpDoPage(dto, wrapper);
+        Page<T> page = this.getMpDOPage(dto, wrapper);
         return MpPageUtils.of(page, convertor);
     }
 }

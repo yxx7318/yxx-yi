@@ -3,6 +3,7 @@ package com.yxx.common.core.domain;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.yxx.common.core.domain.model.LoginUser;
 import com.yxx.common.core.utils.FieldFillUtils;
 import io.swagger.v3.oas.annotations.media.Schema;
 
@@ -77,6 +78,20 @@ public class BaseColumnEntity implements Serializable
      */
     public void fieldFillUpdate() {
         FieldFillUtils.fieldFillUpdate(this);
+    }
+
+    /**
+     * 填充插入时的公共字段通过登录数据
+     */
+    public void fieldFillInsertByLoginUser(LoginUser loginUser) {
+        FieldFillUtils.fieldFillInsertByLoginUser(this, loginUser);
+    }
+
+    /**
+     * 填充插入时的公共字段通过登录数据
+     */
+    public void fieldFillUpdateByLoginUser(LoginUser loginUser) {
+        FieldFillUtils.fieldFillUpdateByLoginUser(this, loginUser);
     }
 
     public Long getCreateById() {

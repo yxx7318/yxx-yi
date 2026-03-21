@@ -1,8 +1,6 @@
 /**
  * @1900-2100区间内的公历、农历互转
  * @charset UTF-8
- * @github  https://github.com/jjonline/calendar.js
- * @Author  Jea杨(JJonline@JJonline.Cn)
  * @Time    2014-7-21
  * @Time    2016-8-13 Fixed 2033hex、Attribution Annals
  * @Time    2016-9-25 Fixed lunar LeapMonth Param Bug

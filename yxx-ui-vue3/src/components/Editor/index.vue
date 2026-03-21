@@ -28,11 +28,11 @@
 
 <script setup>
 import axios from 'axios'
-import {QuillEditor} from "@vueup/vue-quill"
+import { QuillEditor } from "@vueup/vue-quill"
 import "@vueup/vue-quill/dist/vue-quill.snow.css"
-import {getToken} from "@/utils/auth"
+import { getToken } from "@/utils/auth"
 
-const {proxy} = getCurrentInstance()
+const { proxy } = getCurrentInstance()
 
 const quillEditorRef = ref()
 const uploadUrl = ref(import.meta.env.VITE_APP_BASE_API + "/common/upload") // 上传的图片服务器地址
@@ -81,12 +81,12 @@ const options = ref({
     toolbar: [
       ["bold", "italic", "underline", "strike"],      // 加粗 斜体 下划线 删除线
       ["blockquote", "code-block"],                   // 引用  代码块
-      [{list: "ordered"}, {list: "bullet"}],      // 有序、无序列表
-      [{indent: "-1"}, {indent: "+1"}],           // 缩进
-      [{size: ["small", false, "large", "huge"]}],  // 字体大小
-      [{header: [1, 2, 3, 4, 5, 6, false]}],        // 标题
-      [{color: []}, {background: []}],            // 字体颜色、字体背景颜色
-      [{align: []}],                                // 对齐方式
+      [{ list: "ordered" }, { list: "bullet" }],      // 有序、无序列表
+      [{ indent: "-1" }, { indent: "+1" }],           // 缩进
+      [{ size: ["small", false, "large", "huge"] }],  // 字体大小
+      [{ header: [1, 2, 3, 4, 5, 6, false] }],        // 标题
+      [{ color: [] }, { background: [] }],            // 字体颜色、字体背景颜色
+      [{ align: [] }],                                // 对齐方式
       ["clean"],                                      // 清除文本格式
       ["link", "image", "video"]                      // 链接、图片、视频
     ],
@@ -111,7 +111,7 @@ watch(() => props.modelValue, (v) => {
   if (v !== content.value) {
     content.value = v == undefined ? "<p></p>" : v
   }
-}, {immediate: true})
+}, { immediate: true })
 
 // 如果设置了上传地址则自定义图片上传事件
 onMounted(() => {
@@ -189,18 +189,17 @@ function handlePasteCapture(e) {
 function insertImage(file) {
   const formData = new FormData()
   formData.append("file", file)
-  axios.post(uploadUrl.value, formData, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-      Authorization: headers.value.Authorization
-    }
-  }).then(res => {
+  axios.post(uploadUrl.value, formData, { headers: { "Content-Type": "multipart/form-data", Authorization: headers.value.Authorization } }).then(res => {
     handleUploadSuccess(res.data)
   })
 }
 </script>
 
 <style>
+.editor {
+  width: 100%;
+}
+
 .editor-img-uploader {
   display: none;
 }

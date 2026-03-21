@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.yxx.common.utils.ip.IpUtils.getIpAddr;
+
 /**
  * TraceId过滤器
  */
@@ -37,7 +39,7 @@ public class TraceFilter implements Filter
             traceId = MDCUtils.setTraceIdIfAbsent();
         }
         resp.setHeader(Constants.TRACE_HEADER, traceId);
-        logger.info("access: [{}] {} {}", req.getRemoteAddr(), req.getMethod(), req.getRequestURI());
+        logger.info("access: [{}] {} {}", getIpAddr(req), req.getMethod(), req.getRequestURI());
         try
         {
             chain.doFilter(request, response);

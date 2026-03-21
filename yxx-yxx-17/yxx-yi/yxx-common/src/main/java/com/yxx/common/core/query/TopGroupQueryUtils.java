@@ -24,7 +24,7 @@ public class TopGroupQueryUtils<T> extends LambdaQueryWrapper<T> {
      * @param orderCol   最新的字段
      * @return 分组后最新的列
      */
-    public static <K extends BaseColumnEntity, M extends BaseMapperPlus> List<K> topGroupFunc(LambdaQueryWrapper<K> wrapper, Class<M> mapperPlus, SFunction<K, ?> groupCol, SFunction<K, ?> orderCol) {
+    public static <K extends BaseColumnEntity, M extends BaseMapperPlus<K>> List<K> topGroupFunc(LambdaQueryWrapper<K> wrapper, Class<M> mapperPlus, SFunction<K, ?> groupCol, SFunction<K, ?> orderCol) {
         Class<?> kClass = WrapperUtils.getEntityClassByMapper(mapperPlus);
         wrapper.setEntityClass((Class<K>) kClass);
         // 执行SQL并返回结果
@@ -44,7 +44,7 @@ public class TopGroupQueryUtils<T> extends LambdaQueryWrapper<T> {
      * @param orderCol   最新的字段
      * @return 分组后最新的列
      */
-    public static <K extends BaseColumnEntity, M extends BaseMapperPlus> List<K> topGroupFunc(Class<M> mapperPlus, SFunction<K, ?> groupCol, SFunction<K, ?> orderCol) {
+    public static <K extends BaseColumnEntity, M extends BaseMapperPlus<K>> List<K> topGroupFunc(Class<M> mapperPlus, SFunction<K, ?> groupCol, SFunction<K, ?> orderCol) {
         Class<?> kClass = WrapperUtils.getEntityClassByMapper(mapperPlus);
         LambdaQueryWrapper<K> wrapper = new LambdaQueryWrapper<>((Class<K>) kClass);
         // 执行SQL并返回结果

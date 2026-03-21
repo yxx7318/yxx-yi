@@ -7,10 +7,11 @@ import com.yxx.ai.entity.AiInvoiceInfoEditDTO;
 import com.yxx.ai.entity.AiInvoiceInfoQueryDTO;
 import com.yxx.ai.service.IAiInvoiceInfoService;
 import com.yxx.common.utils.bean.BeanUtils;
-import com.yxx.common.utils.spring.SpringUtils;
+import lombok.RequiredArgsConstructor;
 import org.springframework.ai.tool.annotation.Tool;
 import org.springframework.ai.tool.annotation.ToolParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,10 +20,10 @@ import java.util.List;
  * 发票助手AI FunctionCalling
  */
 @Component
+@RequiredArgsConstructor(onConstructor_ = {@Lazy, @Autowired})
 public class InvoiceTool {
 
-    @Autowired
-    private IAiInvoiceInfoService aiInvoiceInfoService = SpringUtils.getBean(IAiInvoiceInfoService.class);
+    private final IAiInvoiceInfoService aiInvoiceInfoService;
 
     @Tool(description = "根据条件查询发票信息")
     public List<AiInvoiceInfoDO> queryInvoiceInfo(@ToolParam(description = "发票查询条件") InvoiceToolQueryDTO queryDTO) {

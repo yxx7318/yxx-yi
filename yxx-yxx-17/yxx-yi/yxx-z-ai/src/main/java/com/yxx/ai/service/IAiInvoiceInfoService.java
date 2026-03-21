@@ -13,7 +13,7 @@ import com.yxx.common.core.service.IServicePlus;
  * 发票信息Service接口
  *
  * @author yxx
- * @date 2025-11-30
+ * @date 2026-01-27
  */
 public interface IAiInvoiceInfoService extends IServicePlus<AiInvoiceInfoDO> {
 

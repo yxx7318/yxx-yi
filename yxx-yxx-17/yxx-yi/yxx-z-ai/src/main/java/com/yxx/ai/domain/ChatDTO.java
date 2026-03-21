@@ -7,7 +7,9 @@ import java.util.List;
 public class ChatDTO {
 
     private String prompt;
-    private String chatId;
+
+    private String conversationId;
+
     private List<FileUploadDTO> files;
 
     public String getPrompt() {
@@ -18,12 +20,12 @@ public class ChatDTO {
         this.prompt = prompt;
     }
 
-    public String getChatId() {
-        return chatId;
+    public String getConversationId() {
+        return conversationId;
     }
 
-    public void setChatId(String chatId) {
-        this.chatId = chatId;
+    public void setConversationId(String conversationId) {
+        this.conversationId = conversationId;
     }
 
     public List<FileUploadDTO> getFiles() {

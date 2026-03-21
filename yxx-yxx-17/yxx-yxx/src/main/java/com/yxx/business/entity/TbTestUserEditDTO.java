@@ -29,9 +29,6 @@ public class TbTestUserEditDTO extends BaseEditDTOEntity {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Schema(description = "用户ID")
-    private Long userId;
-
     @Schema(description = "主表ID")
     private Long parentId;
 

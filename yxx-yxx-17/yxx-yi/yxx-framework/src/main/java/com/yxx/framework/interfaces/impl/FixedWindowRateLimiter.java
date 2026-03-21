@@ -22,7 +22,7 @@ import java.util.List;
  * - 在一个固定的时间窗口内，统计请求的数量
  * - 如果请求数量超过了设定的阈值，则拒绝后续的请求
  *
- * @author : yxx
+ * @author yxx
  */
 @Component
 public class FixedWindowRateLimiter implements RateLimitInterface

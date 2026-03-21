@@ -1,20 +1,30 @@
 import request from '@/utils/request'
 import { streamRequest } from '@/utils/fetch'
+import { SSERequest } from '@/utils/sse'
 
 // 查询会话列表
 export function getSessionList(query) {
   return request({
-    url: '/ai/history/chat',
+    url: '/ai/history',
     method: 'get',
     params: query
   })
 }
 
 // 查询会话详细
-export function getSession(chatId) {
+export function getSession(conversationId) {
   return request({
-    url: '/ai/history/chat/' + chatId,
+    url: '/ai/history/detail/' + conversationId,
     method: 'get'
+  })
+}
+
+// 新增会话历史
+export function addSessionHistory(data) {
+  return request({
+    url: '/ai/history',
+    method: 'post',
+    data: data
   })
 }
 
@@ -22,7 +32,7 @@ export function getSession(chatId) {
 export function addSession(data) {
   return request({
     url: '/ai/session',
-    method: 'get',
+    method: 'post',
     data: data
   })
 }
@@ -51,6 +61,15 @@ export function startChat(data, onData, onError, onComplete) {
     method: 'post',
     data: data,
   }, onData, onError, onComplete)
+}
+
+// 开始对话(SSE协议)
+export function startChatSSE(data) {
+  return SSERequest({
+    url: '/ai/session/chat',
+    method: 'post',
+    data: data,
+  })
 }
 
 

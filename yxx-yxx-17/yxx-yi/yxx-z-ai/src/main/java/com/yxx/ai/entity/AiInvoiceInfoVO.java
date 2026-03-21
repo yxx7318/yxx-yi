@@ -14,7 +14,7 @@ import lombok.*;
  * 发票信息VO对象 ai_invoice_info
  *
  * @author yxx
- * @date 2025-11-30
+ * @date 2026-01-27
  */
 @Schema(description = "发票信息VO实体")
 @NoArgsConstructor
