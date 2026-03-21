@@ -1,5 +1,7 @@
 -- ----------------------------
 -- 支付渠道表
+-- 注意：支付渠道配置已迁移至 application-pay.yml
+-- 此表仅用于记录渠道基本信息，不存储敏感配置
 -- ----------------------------
 DROP TABLE IF EXISTS pay_channel;
 CREATE TABLE pay_channel
@@ -126,19 +128,3 @@ CREATE TABLE pay_refund
     KEY idx_user_id (user_id),
     KEY idx_refund_status (refund_status)
 ) ENGINE=InnoDB AUTO_INCREMENT=100 COMMENT='支付退款表';
-
--- ----------------------------
--- 初始化支付渠道数据
--- ----------------------------
-INSERT INTO pay_channel (channel_id, channel_code, channel_name, channel_fee_rate, status, remark) VALUES
-(1, 'wx_pub', '微信JSAPI支付', 0.60, 0, '微信公众号支付'),
-(2, 'wx_lite', '微信小程序支付', 0.60, 0, '微信小程序支付'),
-(3, 'wx_app', '微信App支付', 0.60, 0, '微信App支付'),
-(4, 'wx_native', '微信Native支付', 0.60, 0, '微信扫码支付'),
-(5, 'wx_wap', '微信H5支付', 0.60, 0, '微信H5网页支付'),
-(6, 'wx_bar', '微信付款码支付', 0.60, 0, '微信付款码支付'),
-(7, 'alipay_pc', '支付宝PC支付', 0.60, 0, '支付宝PC网站支付'),
-(8, 'alipay_wap', '支付宝Wap支付', 0.60, 0, '支付宝手机网站支付'),
-(9, 'alipay_app', '支付宝App支付', 0.60, 0, '支付宝App支付'),
-(10, 'alipay_qr', '支付宝扫码支付', 0.60, 0, '支付宝扫码支付'),
-(11, 'alipay_bar', '支付宝条码支付', 0.60, 0, '支付宝条码支付');

@@ -32,40 +32,41 @@
 
 ## 二、开发阶段规划
 
-### 阶段一：基础设施搭建（Phase 1）
-- [ ] 1.1 创建数据库表结构（4张表）
-- [ ] 1.2 创建Mapper接口和XML文件
-- [ ] 1.3 完善DO实体类（继承BaseColumnEntity）
-- [ ] 1.4 创建VO/DTO实体类
-- [ ] 1.5 完善枚举类和错误码
+### 阶段一：基础设施搭建（Phase 1）✅ 已完成
+- [x] 1.1 创建数据库表结构（4张表）
+- [x] 1.2 创建Mapper接口和XML文件
+- [x] 1.3 完善DO实体类（继承BaseColumnEntity）
+- [x] 1.4 创建VO/DTO实体类
+- [x] 1.5 完善枚举类和错误码
 
-### 阶段二：核心服务层开发（Phase 2）
-- [ ] 2.1 实现PayChannelService（支付渠道服务）
-- [ ] 2.2 实现PayOrderService（支付订单服务）
-  - [ ] 2.2.1 创建订单
-  - [ ] 2.2.2 提交支付
-  - [ ] 2.2.3 支付回调处理
-  - [ ] 2.2.4 订单查询
-- [ ] 2.3 实现PayRefundService（退款服务）
-  - [ ] 2.3.1 创建退款单
-  - [ ] 2.3.2 发起退款
-  - [ ] 2.3.3 退款回调处理
-  - [ ] 2.3.4 退款查询
+### 阶段二：核心服务层开发（Phase 2）✅ 已完成
+- [x] 2.1 实现PayChannelService（支付渠道服务）
+- [x] 2.2 实现PayOrderService（支付订单服务）
+  - [x] 2.2.1 创建订单
+  - [x] 2.2.2 提交支付
+  - [x] 2.2.3 支付回调处理
+  - [x] 2.2.4 订单查询
+- [x] 2.3 实现PayRefundService（退款服务）
+  - [x] 2.3.1 创建退款单
+  - [x] 2.3.2 发起退款
+  - [x] 2.3.3 退款回调处理
+  - [x] 2.3.4 退款查询
+- [x] 2.4 编写核心Service单元测试
 
-### 阶段三：控制器层开发（Phase 3）
-- [ ] 3.1 实现PayNotifyController（支付回调控制器）
-- [ ] 3.2 实现PayOrderController（订单管理控制器）
-- [ ] 3.3 实现PayRefundController（退款管理控制器）
-- [ ] 3.4 实现PayChannelController（渠道管理控制器）
+### 阶段三：控制器层开发（Phase 3）✅ 已完成
+- [x] 3.1 实现PayNotifyController（支付回调控制器）
+- [x] 3.2 实现PayOrderController（订单管理控制器）
+- [x] 3.3 实现PayRefundController（退款管理控制器）
+- [x] 3.4 实现PayChannelController（渠道管理控制器）
 
-### 阶段四：定时任务开发（Phase 4）
-- [ ] 4.1 支付结果轮询任务
-- [ ] 4.2 超时订单关闭任务
-- [ ] 4.3 退款结果轮询任务
+### 阶段四：定时任务开发（Phase 4）✅ 已完成
+- [x] 4.1 支付结果轮询任务
+- [x] 4.2 超时订单关闭任务
+- [x] 4.3 退款结果轮询任务
 
-### 阶段五：API层完善（Phase 5）
-- [ ] 5.1 完善PayOrderApi（跨模块调用接口）
-- [ ] 5.2 完善PayRefundApi（跨模块调用接口）
+### 阶段五：API层完善（Phase 5）✅ 已完成
+- [x] 5.1 完善PayOrderApi（跨模块调用接口）
+- [x] 5.2 完善PayRefundApi（跨模块调用接口）
 
 ### 阶段六：测试与验证（Phase 6）
 - [ ] 6.1 单元测试

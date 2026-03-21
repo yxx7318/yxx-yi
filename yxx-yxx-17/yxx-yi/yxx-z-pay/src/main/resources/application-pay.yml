@@ -1,11 +1,28 @@
-# pay模块
-pay:
-  # 作者
-  author: yxx
-
-# 回调配置
 yxx:
   pay:
-    order-notify-url: http://yxx7318.com/dev-api/pay/notify/order # 支付渠道的【支付】回调地址
-    refund-notify-url: http://yxx7318.com/dev-api/pay/notify/refund # 支付渠道的【退款】回调地址
-    transfer-notify-url: https://yxx7318.com/dev-api/pay/notify/transfer # 支付渠道的【转账】回调地址
+    order-notify-url: http://your-domain.com/pay/notify/order/
+    refund-notify-url: http://your-domain.com/pay/notify/refund/
+    order-no-prefix: P
+    refund-no-prefix: R
+    wechat:
+      enabled: false
+      app-id: ${WECHAT_APP_ID:}
+      mch-id: ${WECHAT_MCH_ID:}
+      api-v3-key: ${WECHAT_API_V3_KEY:}
+      private-key-content: ${WECHAT_PRIVATE_KEY:}
+      cert-serial-no: ${WECHAT_CERT_SERIAL_NO:}
+      public-key-content: ${WECHAT_PUBLIC_KEY:}
+      public-key-id: ${WECHAT_PUBLIC_KEY_ID:}
+    alipay:
+      enabled: false
+      server-url: https://openapi.alipay.com/gateway.do
+      app-id: ${ALIPAY_APP_ID:}
+      sign-type: RSA2
+      mode: 1
+      private-key: ${ALIPAY_PRIVATE_KEY:}
+      alipay-public-key: ${ALIPAY_PUBLIC_KEY:}
+      app-cert-content: ${ALIPAY_APP_CERT:}
+      alipay-public-cert-content: ${ALIPAY_ALIPAY_CERT:}
+      root-cert-content: ${ALIPAY_ROOT_CERT:}
+      encrypt-type: AES
+      encrypt-key: ${ALIPAY_ENCRYPT_KEY:}

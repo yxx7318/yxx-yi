@@ -1,19 +1,14 @@
 package com.yxx.pay.enums;
 
-import cn.hutool.core.util.ArrayUtil;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * 支付渠道的编码的枚举
- *
- * @author yxx
- */
 @Getter
 @AllArgsConstructor
 public enum PayChannelEnum {
@@ -31,27 +26,25 @@ public enum PayChannelEnum {
     ALIPAY_QR("alipay_qr", "支付宝扫码支付"),
     ALIPAY_BAR("alipay_bar", "支付宝条码支付"),
 
-    MOCK("mock", "模拟支付"),
-
-    WALLET("wallet", "钱包支付");
+    MOCK("mock", "模拟支付");
 
     public static final Map<String, PayChannelEnum> ENUM_MAP = Arrays.stream(PayChannelEnum.values())
             .collect(Collectors.toMap(PayChannelEnum::getCode, entry -> entry));
 
+    public static final List<PayChannelEnum> WECHAT_CHANNELS = Arrays.asList(
+            WX_PUB, WX_LITE, WX_APP, WX_NATIVE, WX_WAP, WX_BAR
+    );
+
+    public static final List<PayChannelEnum> ALIPAY_CHANNELS = Arrays.asList(
+            ALIPAY_PC, ALIPAY_WAP, ALIPAY_APP, ALIPAY_QR, ALIPAY_BAR
+    );
+
+    private final String code;
+    private final String name;
+
     public static PayChannelEnum getByCode(String code) {
         return ENUM_MAP.get(code);
     }
-
-    /**
-     * 编码
-     * <p>
-     * 参考 <a href="https://www.pingxx.com/api/支付渠道属性值.html">支付渠道属性值</a>
-     */
-    private final String code;
-    /**
-     * 名字
-     */
-    private final String name;
 
     public static boolean isAlipay(String channelCode) {
         return StringUtils.startsWith(channelCode, "alipay_");
@@ -59,6 +52,14 @@ public enum PayChannelEnum {
 
     public static boolean isWeixin(String channelCode) {
         return StringUtils.startsWith(channelCode, "wx_");
+    }
+
+    public static List<PayChannelEnum> getWechatChannels() {
+        return WECHAT_CHANNELS;
+    }
+
+    public static List<PayChannelEnum> getAlipayChannels() {
+        return ALIPAY_CHANNELS;
     }
 
 }
