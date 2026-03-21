@@ -1,5 +1,6 @@
 package com.yxx.pay.service.channel;
 
+import com.yxx.common.core.service.IServicePlus;
 import com.yxx.common.exception.ServiceException;
 import com.yxx.pay.client.PayClient;
 import com.yxx.pay.core.domain.channel.PayChannelDO;
@@ -9,7 +10,7 @@ import jakarta.validation.Valid;
 
 import java.util.List;
 
-public interface PayChannelService {
+public interface PayChannelService extends IServicePlus<PayChannelDO> {
 
     Long createChannel(@Valid PayChannelCreateReqVO createReqVO);
 

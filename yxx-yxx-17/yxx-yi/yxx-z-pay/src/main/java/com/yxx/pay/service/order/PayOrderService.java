@@ -1,6 +1,7 @@
 package com.yxx.pay.service.order;
 
 import com.yxx.common.core.domain.PageResult;
+import com.yxx.common.core.service.IServicePlus;
 import com.yxx.pay.client.dto.order.PayOrderRespDTO;
 import com.yxx.pay.core.domain.order.PayOrderDO;
 import com.yxx.pay.core.domain.order.PayOrderExtensionDO;
@@ -9,12 +10,11 @@ import com.yxx.pay.core.entity.vo.order.PayOrderPageReqVO;
 import com.yxx.pay.core.entity.vo.order.PayOrderSubmitReqVO;
 import com.yxx.pay.core.entity.vo.order.PayOrderSubmitRespVO;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotEmpty;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-public interface PayOrderService {
+public interface PayOrderService extends IServicePlus<PayOrderDO> {
 
     PayOrderDO getOrder(Long orderId);
 
