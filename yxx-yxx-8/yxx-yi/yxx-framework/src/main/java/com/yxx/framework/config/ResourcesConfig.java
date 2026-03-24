@@ -52,34 +52,14 @@ public class ResourcesConfig implements WebMvcConfigurer
 
         if (resourceProperties.getEnabled())
         {
-            /** 静态资源配置 */
+            /** yxx-ui静态资源配置 */
+            registry.addResourceHandler(String.format("/%s/**", resourceProperties.getVueResource()))
+                    .addResourceLocations(String.format("classpath:/%s/", resourceProperties.getVueResource()));
+
+            /** 额外映射的静态资源配置 */
             resourceProperties.getResources().forEach(resource ->
                     registry.addResourceHandler(String.format("/%s/**", resource))
                             .addResourceLocations(String.format("classpath:/%s/", resource)));
-
-            /** yxx-ui资源配置 */
-            registry.addResourceHandler(String.format("/%s/**", resourceProperties.getPublicPath()))
-                    .addResourceLocations(String.format("classpath:/%s/", resourceProperties.getUiResource()));
-        }
-    }
-
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry)
-    {
-        if (resourceProperties.getEnabled())
-        {
-            // 配置视图
-            String publicPath = resourceProperties.getPublicPath();
-            registry.addViewController("/favicon.ico")
-                    .setViewName(String.format("forward:/%s/favicon.ico", publicPath));
-
-            // 根目录匹配文件
-            registry.addViewController(String.format("/%s", publicPath))
-                    .setViewName(String.format("forward:/%s/index.html", publicPath));
-
-            // 处理以 publicPath 开头的多级路径（且不包含文件扩展名）
-            registry.addViewController(String.format("/%s/**/{path:^(?!.*\\..*$).*}", publicPath))
-                    .setViewName(String.format("forward:/%s", publicPath));
         }
     }
 
