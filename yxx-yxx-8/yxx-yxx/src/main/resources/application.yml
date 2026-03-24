@@ -111,14 +111,14 @@ monitor:
   appNames: [ "mysql", "nginx", "java", "php-fpm", "python", "node", "redis" ]
 
 # 前端资源代理
-resource:
+vue-resource:
   # 是否开启
   enabled: false
-  # 静态资源目录，与请求前缀一致
-  resources: [ "static" ]
-  # 前端公共路径(请求资源前缀、路由前缀)
+  # 前端公共路径(请求资源前缀、路由前缀)(遵循"/%s“格式填写)
   public-path: "/yxx-yi"
-  # 前端打包后的目录
-  ui-resource: "dist"
+  # 前端打包后的目录名称(resource根目录)
+  vue-resource: "dist"
   # 需要重写的请求
   api-prefix: [ "/dev-api", "/test-api", "/prod-api" ]
+  # 需要额外映射的静态资源目录
+  resources: [ "static" ]

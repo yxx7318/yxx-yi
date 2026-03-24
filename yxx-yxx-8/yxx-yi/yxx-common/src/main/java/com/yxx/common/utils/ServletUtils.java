@@ -115,6 +115,22 @@ public class ServletUtils
     }
 
     /**
+     * 获取RequestURI(请求路径/xxx)
+     */
+    public static String getRequestURI()
+    {
+        return getRequestAttributes().getRequest().getRequestURI();
+    }
+
+    /**
+     * 获取RequestURL(完整网址http://domian/xxx)
+     */
+    public static String getRequestURL()
+    {
+        return getRequestAttributes().getRequest().getRequestURL().toString();
+    }
+
+    /**
      * 获取session
      */
     public static HttpSession getSession()

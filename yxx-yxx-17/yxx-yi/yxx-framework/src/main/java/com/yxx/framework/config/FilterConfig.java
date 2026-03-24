@@ -53,7 +53,7 @@ public class FilterConfig
 
     @SuppressWarnings({ "rawtypes", "unchecked" })
     @Bean
-    @ConditionalOnProperty(value = "resource.enabled", havingValue = "true")
+    @ConditionalOnProperty(value = "vue-resource.enabled", havingValue = "true")
     public FilterRegistrationBean pathRewriteFilter()
     {
         FilterRegistrationBean registration = new FilterRegistrationBean<>();
