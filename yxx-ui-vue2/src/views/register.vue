@@ -1,13 +1,13 @@
 <template>
   <div style="height: 100vh">
     <el-row>
-      <el-col :span="isMobile ? 0 : 12" v-show="!isMobile">
+      <el-col :span="widthFlag ? 0 : 12" v-show="!widthFlag">
         <system-background></system-background>
       </el-col>
-      <el-col :span="isMobile ? 24 : 12">
+      <el-col :span="widthFlag ? 24 : 12">
         <div>
-          <logo v-show="isMobile && heightTooLow"></logo>
-          <div :class="['register', isMobile ? 'mobileLogin' : 'noMobileLogin']">
+          <logo v-show="widthFlag && !heightFlag"></logo>
+          <div :class="['register', widthFlag ? 'mobileLogin' : 'noMobileLogin']">
             <el-form ref="registerRef" :model="registerForm" :rules="registerRules" class="register-form">
               <h2 class="title">注 册</h2>
               <el-form-item prop="username">
@@ -86,12 +86,12 @@
 import SystemBackground from '@/components/SystemBackground'
 import Logo from "@/components/Logo"
 import { getCodeImg, register } from "@/api/login"
-import mobileDetectorMixin from "@/utils/mobileDetector"
+import { useLayoutDetector } from "@/utils/layoutDetector"
 import settings from "@/config/settings"
 
 export default {
   name: 'Register',
-  mixins: [ mobileDetectorMixin ],
+  mixins: [ useLayoutDetector() ],
   components: { SystemBackground, Logo },
   data() {
     const equalToPassword = (rule, value, callback) => {
@@ -103,7 +103,6 @@ export default {
     }
 
     return {
-      heightTooLow: false,
       codeUrl: "",
       registerForm: {
         username: "",

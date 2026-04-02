@@ -16,7 +16,7 @@
 
 <script setup>
 import { scrollTo } from '@/utils/scroll-to'
-import { mobileFlag } from '@/utils/mobileDetector'
+import { mobileFlag } from '@/utils/layoutDetector'
 
 const props = defineProps({
   total: {

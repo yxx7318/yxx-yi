@@ -1,13 +1,13 @@
 <template>
   <div style="height: 100vh">
     <el-row>
-      <el-col :span="isMobile ? 0 : 12" v-show="!isMobile">
+      <el-col :span="widthFlag ? 0 : 12" v-show="!widthFlag">
         <system-background />
       </el-col>
-      <el-col :span="isMobile ? 24 : 12">
+      <el-col :span="widthFlag ? 24 : 12">
         <div>
-          <logo v-show="isMobile && !heightTooLow" />
-          <div :class="['login', isMobile ? 'mobileLogin' : 'noMobileLogin']">
+          <logo v-show="widthFlag && !heightFlag" />
+          <div :class="['login', widthFlag ? 'mobileLogin' : 'noMobileLogin']">
             <el-form ref="loginRef" :model="loginForm" :rules="loginRules" class="login-form">
               <h2 class="title">登 录</h2>
               <el-form-item prop="username">
@@ -82,7 +82,7 @@ import { getCodeImg, registerEnabled } from "@/api/login"
 import Cookies from "js-cookie"
 import { encrypt, decrypt } from "@/utils/jsencrypt"
 import settings from "@/config/settings.js"
-import { useMobileDetector } from "@/utils/mobileDetector"
+import { useLayoutDetector } from "@/utils/layoutDetector"
 import useUserStore from '@/store/modules/user'
 
 
@@ -105,10 +105,7 @@ const loginRules = {
   code: [{ required: true, trigger: "change", message: "请输入验证码" }]
 }
 
-const heightTooLow = ref(false)
-const isMobile = useMobileDetector((innerHeight) => {
-  heightTooLow.value = innerHeight <= 660
-})
+const { widthFlag, heightFlag } = useLayoutDetector()
 const codeUrl = ref("")
 const loading = ref(false)
 // 验证码开关

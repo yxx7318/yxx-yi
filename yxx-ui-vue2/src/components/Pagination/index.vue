@@ -17,7 +17,7 @@
 
 <script>
 import { scrollTo } from '@/utils/scroll-to'
-import { mobileFlag } from "@/utils/mobileDetector"
+import { mobileFlag } from "@/utils/layoutDetector"
 
 export default {
   name: 'Pagination',

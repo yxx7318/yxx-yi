@@ -1,13 +1,13 @@
 <template>
   <div style="height: 100vh">
     <el-row>
-      <el-col :span="isMobile ? 0 : 12" v-show="!isMobile">
+      <el-col :span="widthFlag ? 0 : 12" v-show="!widthFlag">
         <system-background />
       </el-col>
-      <el-col :span="isMobile ? 24 : 12">
+      <el-col :span="widthFlag ? 24 : 12">
         <div>
-          <logo v-show="isMobile && !heightTooLow" />
-          <div :class="['login', isMobile ? 'mobileLogin' : 'noMobileLogin']">
+          <logo v-show="widthFlag && !heightFlag" />
+          <div :class="['login', widthFlag ? 'mobileLogin' : 'noMobileLogin']">
             <el-form ref="loginRef" :model="loginForm" :rules="loginRules" class="login-form">
               <h2 class="title">登 录</h2>
               <el-form-item prop="username">
@@ -79,15 +79,14 @@ import { getCodeImg, registerEnabled } from "@/api/login"
 import Cookies from "js-cookie"
 import { encrypt, decrypt } from '@/utils/jsencrypt'
 import settings from '@/config/settings'
-import mobileDetectorMixin from "@/utils/mobileDetector"
+import { useLayoutDetector } from "@/utils/layoutDetector"
 
 export default {
   name: 'Login',
-  mixins: [ mobileDetectorMixin ],
+  mixins: [ useLayoutDetector() ],
   components: { SystemBackground, Logo },
   data() {
     return {
-      heightTooLow: false,
       codeUrl: "",
       loginForm: {
         username: "admin",
@@ -119,11 +118,6 @@ export default {
       },
       immediate: true
     }
-  },
-  beforeMount() {
-    this.checkScreenSize((innerHeight) => {
-      this.heightTooLow = innerHeight <= 660
-    })
   },
   mounted() {
     this.getCode()

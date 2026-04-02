@@ -1,13 +1,13 @@
 <template>
   <div style="height: 100vh">
     <el-row>
-      <el-col :span="isMobile ? 0 : 12" v-show="!isMobile">
-        <SystemBackground />
+      <el-col :span="widthFlag ? 0 : 12" v-show="!widthFlag">
+        <system-background></system-background>
       </el-col>
-      <el-col :span="isMobile ? 24 : 12">
+      <el-col :span="widthFlag ? 24 : 12">
         <div>
-          <Logo v-show="isMobile && !heightTooLow" />
-          <div :class="['register', isMobile ? 'mobileLogin' : 'noMobileLogin']">
+          <logo v-show="widthFlag && !heightFlag"></logo>
+          <div :class="['register', widthFlag ? 'mobileLogin' : 'noMobileLogin']">
             <el-form ref="registerRef" :model="registerForm" :rules="registerRules" class="register-form">
               <h2 class="title">注 册</h2>
               <el-form-item prop="username">
@@ -91,7 +91,7 @@ import Logo from "@/components/Logo"
 import { ElMessageBox } from "element-plus"
 import { getCodeImg, register } from "@/api/login"
 import settings from "@/config/settings.js"
-import { useMobileDetector } from "@/utils/mobileDetector"
+import { useLayoutDetector } from "@/utils/layoutDetector"
 
 const router = useRouter()
 const { proxy } = getCurrentInstance()
@@ -131,10 +131,7 @@ const registerRules = {
   code: [{ required: true, trigger: "change", message: "请输入验证码" }]
 }
 
-const heightTooLow = ref(false)
-const isMobile = useMobileDetector((innerHeight) => {
-  heightTooLow.value = innerHeight <= 660
-})
+const { widthFlag, heightFlag } = useLayoutDetector()
 const codeUrl = ref("")
 const loading = ref(false)
 const captchaEnabled = ref(true)
