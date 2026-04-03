@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-container dialog-page-container">
     <div style="height: 90vh; margin: 5px" @dragenter="isFilesUpload = true" @dragleave="handleDragLeave($event, () => isFilesUpload = false)">
       <!-- 文件上传 -->
       <div style="height: 100%; display: flex; align-items: center; justify-content: center" v-show="isFilesUpload">
@@ -18,6 +18,8 @@
         v-model="drawer"
         title="会话历史"
         direction="ltr"
+        modal-class="dialog-drawer-modal"
+        :modal="true"
       >
         <!-- 侧边栏内容 -->
         <el-container
@@ -430,7 +432,7 @@ function getFakeItem(key, role, content) {
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .justifyContentSpaceBetween {
   flex-direction: column;
   justify-content: space-between;
@@ -460,5 +462,23 @@ function getFakeItem(key, role, content) {
   border-radius: 15px;
   padding: 3px 12px;
   font-weight: 700;
+}
+
+/* 页面容器设置为相对定位，让抽屉相对于它定位 */
+.dialog-page-container {
+  position: relative;
+  height: 100%;
+}
+
+/* 限制抽屉遮罩层只在当前页面容器内显示 */
+:deep(.dialog-drawer-modal) {
+  position: absolute !important;
+  inset: 0;
+}
+
+/* 限制抽屉本身只在当前页面容器内显示 */
+:deep(.el-drawer) {
+  position: absolute !important;
+  inset: 0 auto 0 0;
 }
 </style>
