@@ -12,6 +12,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.memory.ChatMemory;
 import org.springframework.ai.content.Media;
+import org.springframework.ai.document.Document;
+import org.springframework.ai.vectorstore.SearchRequest;
+import org.springframework.ai.vectorstore.VectorStore;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.core.io.Resource;
@@ -41,6 +44,8 @@ public class ChatController {
     private final VectorDocumentManager vectorDocumentManager;
 
     private final ChatClient chatClient;
+
+    private final VectorStore vectorStore;
 
     @PostMapping(value = "/chatStream", produces = "text/html;charset=utf-8")
     public Flux<String> chatStream(@RequestBody ChatDTO chatDTO) {
@@ -95,11 +100,25 @@ public class ChatController {
         // 写入向量库
         List<DocumentInfoDTO> documentInfoDTOS =
                 resources.stream().map(vectorDocumentManager::writeToVectorStore).collect(Collectors.toList());
+
+        // 从向量库检索相关文档（新增步骤）
+        List<Document> relevantDocs = vectorStore.similaritySearch(SearchRequest.builder().query(prompt).topK(5).build());
+
+        String context = relevantDocs.stream()
+                .map(Document::getFormattedContent)
+                .collect(Collectors.joining("\n"));
+
+        // 构建增强后的 Prompt（将检索到的文本作为上下文）
+        String enhancedPrompt = String.format("""
+            如果有上下文信息，请你根据以下上下文回答用户问题：
+            上下文：%s
+            """, context);
+
         // 请求模型
         return chatClient.prompt()
                 .user(prompt)
+                .system(enhancedPrompt)
                 .user(p -> p.metadata(CONVERSATION_INFO_DATA, conversationInfoDTO))
-                .user(p -> resources.forEach(r -> p.media(MimeType.valueOf("application/pdf"), r)))
                 .advisors(a -> a.param(ChatMemory.CONVERSATION_ID, conversationInfoDTO.getConversationId()))
                 .advisors(a -> resources.forEach(r -> a.param(FILTER_EXPRESSION, String.format("file_name == '%s'", r.getFilename()))))
                 .stream()
